@@ -1,0 +1,1483 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "4.4.3",
+  "FileName": "CIR_174_3.pdf",
+  "Title": "Amended Safety Assessment of Octoxynols as Used in Cosmetics",
+  "PublicationDate": "2025-08-15",
+  "ReferenceName": "CIR-Amended-Octoxynols-2025",
+  "ReportMetadata": {
+    "reportId": "CIR_Octoxynols_2025_Amended",
+    "reportTitle": {
+      "cn": "Octoxynols 作为化妆品原料的修订安全评估",
+      "en": "Amended Safety Assessment of Octoxynols as Used in Cosmetics"
+    },
+    "status": "amended",
+    "documentType": "re-review",
+    "releaseDate": "2025-08-15",
+    "panelMeetingDate": "2025-09-08",
+    "ingredientCount": 25,
+    "pdfLink": null,
+    "reportType": "group",
+    "version": "2025",
+    "safetyTags": [
+      {
+        "type": "non-irritating",
+        "verified": true,
+        "conditions": {
+          "cn": "当配方为无刺激性时",
+          "en": "When formulated to be non-irritating"
+        }
+      }
+    ],
+    "functionTags": [
+      {
+        "functionType": "surfactant",
+        "label": {
+          "cn": "表面活性剂",
+          "en": "Surfactant"
+        },
+        "isPrimary": true
+      }
+    ],
+    "complianceTags": {},
+    "customTags": [
+      {
+        "id": "re-review-2025",
+        "label": {
+          "cn": "2025年重新审查",
+          "en": "2025 Re-Review"
+        },
+        "icon": "refresh-cw",
+        "color": "blue",
+        "priority": 5
+      }
+    ]
+  },
+  "Summary": {
+    "ENG": [
+      {
+        "text": "The 25 octoxynol ingredients being reviewed in this report are reported to function in cosmetics as surfactants. The Panel first reviewed these octoxynol ingredients in a safety assessment that was published in 2004.",
+        "style": "normal"
+      },
+      {
+        "text": "At its June 2023 meeting, the Panel determined that this safety assessment should be reopened to explore the irritation potential of these ingredients in products which come in contact with mucous membranes and due to the newly reported use of Octoxynol-9 at 0.1% in baby products.",
+        "style": "highlight"
+      },
+      {
+        "text": "According to 2024 RLD, Octoxynol-9 is reported to have the greatest number of uses (38 total formulations). Results from a 2022/2025 concentration of use survey indicate that Octoxynol-9 has the highest reported maximum concentration of use, at 2% in skin cleansing preparations (rinse-off). The highest concentration in leave-on products was 1.5% for Octoxynol-12.",
+        "style": "key-finding"
+      }
+    ],
+    "CHS": [
+      {
+        "text": "本报告审查的25种octoxynol（辛基酚）成分在化妆品中据报道用作表面活性剂。专家小组于2004年首次审查了这些成分的安全评估。",
+        "style": "normal"
+      },
+      {
+        "text": "在2023年6月的会议上，专家小组决定重新开放此安全评估，以探讨这些成分在可能接触粘膜的产品中的刺激可能性，以及新报告的Octoxynol-9在婴儿产品中0.1%的使用情况。",
+        "style": "highlight"
+      },
+      {
+        "text": "根据2024年RLD数据，Octoxynol-9被报告有最多的用途（共38种配方）。2022/2025年的使用浓度调查结果显示，Octoxynol-9的最高报告使用浓度为2%，用于皮肤清洁制剂（冲洗型）。驻留型产品中的最高浓度为Octoxynol-12的1.5%。",
+        "style": "key-finding"
+      }
+    ]
+  },
+  "Abstract": {
+    "ENG": [
+      {
+        "text": "The Expert Panel for Cosmetic Ingredient Safety (Panel) reassessed the safety of 25 octoxynol ingredients, which are reported to function as surfactants in cosmetics. The Panel reviewed the available data to determine the safety of these ingredients.",
+        "style": "normal"
+      },
+      {
+        "text": "Industry should minimize impurities that could be present in cosmetic formulations, such as heavy metals and ethylene oxide impurities, according to limits set by the US Food and Drug Administration (FDA) and the US Environmental Protection Agency (EPA).",
+        "style": "highlight"
+      },
+      {
+        "text": "The Panel issued an amended report with a revised conclusion stating the octoxynols reviewed in this report are safe in cosmetics in the present practices of use and concentration described in this safety assessment when formulated to be non-irritating.",
+        "style": "key-finding"
+      }
+    ],
+    "CHS": [
+      {
+        "text": "化妆品成分安全专家小组（Panel）重新评估了25种octoxynol（辛基酚）成分的安全性，据报道这些成分在化妆品中用作表面活性剂。专家小组审查了现有数据以确定这些成分的安全性。",
+        "style": "normal"
+      },
+      {
+        "text": "工业界应根据美国食品药品监督管理局（FDA）和美国环境保护局（EPA）设定的限值，最大限度地减少化妆品配方中可能存在的杂质，例如重金属和环氧乙烷杂质。",
+        "style": "highlight"
+      },
+      {
+        "text": "专家小组发布了一份修订报告，并修订了结论，指出本安全评估中所述的octoxynols成分，在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+        "style": "key-finding"
+      }
+    ]
+  },
+  "Conclusion": {
+    "ENG": [
+      {
+        "text": "The Expert Panel for Cosmetic Ingredient Safety concluded that the following octoxynols are safe in cosmetics in the present practices of use and concentration described in this safety assessment when formulated to be non-irritating:",
+        "style": "normal"
+      },
+      {
+        "text": "Octoxynol-1, Octoxynol-3, Octoxynol-5, Octoxynol-6*, Octoxynol-7*, Octoxynol-8*, Octoxynol-9, Octoxynol-10, Octoxynol-11, Octoxynol-12, Octoxynol-13*, Octoxynol-16*, Octoxynol-20*, Octoxynol-25*, Octoxynol-30, Octoxynol-33*, Octoxynol-40, Octoxynol-70, Octoxynol-9 Carboxylic Acid*, Octoxynol-20 Carboxylic Acid*, Potassium Octoxynol-12 Phosphate*, Sodium Octoxynol-2 Ethane Sulfonate, Sodium Octoxynol-2 Sulfate*, Sodium Octoxynol-6 Sulfate*, and Sodium Octoxynol-9 Sulfate*.",
+        "style": "normal"
+      },
+      {
+        "text": "*Not reported to be in current use. Were ingredients in this group not in current use to be used in the future, the expectation is that they would be used in product categories and at concentrations comparable to others in this group.",
+        "style": "normal"
+      }
+    ],
+    "CHS": [
+      {
+        "text": "化妆品成分安全专家小组（Expert Panel for Cosmetic Ingredient Safety）得出结论，以下octoxynols成分在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品：",
+        "style": "normal"
+      },
+      {
+        "text": "Octoxynol-1, Octoxynol-3, Octoxynol-5, Octoxynol-6*, Octoxynol-7*, Octoxynol-8*, Octoxynol-9, Octoxynol-10, Octoxynol-11, Octoxynol-12, Octoxynol-13*, Octoxynol-16*, Octoxynol-20*, Octoxynol-25*, Octoxynol-30, Octoxynol-33*, Octoxynol-40, Octoxynol-70, Octoxynol-9 羧酸*, Octoxynol-20 羧酸*, 辛基酚聚氧乙烯(12)磷酸钾*, 辛基酚聚氧乙烯(2)乙烷磺酸钠, 辛基酚聚氧乙烯(2)硫酸钠*, 辛基酚聚氧乙烯(6)硫酸钠*, 和 辛基酚聚氧乙烯(9)硫酸钠*。",
+        "style": "normal"
+      },
+      {
+        "text": "*表示目前未报告使用。如果该组中目前未使用的成分将来被使用，预期它们将被用于与该组中其他成分相当的产品类别和浓度。",
+        "style": "normal"
+      }
+    ]
+  },
+  "KeyConcernsAndPrecautions": [
+    {
+      "theme": "precaution",
+      "title": {
+        "cn": "潜在刺激性",
+        "en": "Irritation Potential"
+      },
+      "content": {
+        "ENG": [
+          {
+            "text": "The Panel was concerned that the potential exists for irritation due to evidence of dermal and ocular irritation in assays. The final conclusion states these ingredients are safe only when formulated to be non-irritating.",
+            "style": "normal"
+          }
+        ],
+        "CHS": [
+          {
+            "text": "专家小组关注到，检测中存在皮肤和眼部刺激的证据，因此存在潜在刺激性。最终结论指出，这些成分仅在配方为无刺激性时才是安全的。",
+            "style": "normal"
+          }
+        ]
+      },
+      "displayMode": "compact"
+    },
+    {
+      "theme": "warning",
+      "title": {
+        "cn": "杂质：1,4-二噁烷和环氧乙烷",
+        "en": "Impurities: 1,4-Dioxane and Ethylene Oxide"
+      },
+      "content": {
+        "ENG": [
+          {
+            "text": "Because some of these ingredients are ethoxylated, the Panel was concerned about the possible presence of 1,4-dioxane and ethylene oxide impurities. The cosmetics industry should continue to use the necessary procedures to limit these impurities.",
+            "style": "normal"
+          }
+        ],
+        "CHS": [
+          {
+            "text": "由于其中一些成分是乙氧基化的，专家小组关注可能存在的1,4-二噁烷和环氧乙烷杂质。化妆品行业应继续使用必要的程序来限制这些杂质。",
+            "style": "normal"
+          }
+        ]
+      },
+      "displayMode": "compact"
+    },
+    {
+      "theme": "warning",
+      "title": {
+        "cn": "杂质：重金属",
+        "en": "Impurities: Heavy Metals"
+      },
+      "content": {
+        "ENG": [
+          {
+            "text": "The Panel expressed concern regarding heavy metals that may be present in these ingredients. Industry should minimize impurities according to limits set by the US FDA and EPA.",
+            "style": "normal"
+          }
+        ],
+        "CHS": [
+          {
+            "text": "专家小组对这些成分中可能存在的重金属表示关注。工业界应根据美国FDA和EPA设定的限值将杂质最小化。",
+            "style": "normal"
+          }
+        ]
+      },
+      "displayMode": "compact"
+    }
+  ],
+  "QuickNavigation": null,
+  "Ingredients": [
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-1",
+        "casNumber": "2315-67-5",
+        "chemicalName": "Ethanol, 2-[p-(1,1,3,3-Tetramethylbutyl) Phenoxy]-",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants- emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "有潜在致敏性",
+          "en": "Potential sensitizer"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-3",
+        "casNumber": "27176-94-9",
+        "chemicalName": "Ethanol, 2-[2-[2-[p-(1,1,3,3-Tetramethylbutyl) Phenoxy] Ethoxy]Ethoxy]-",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants- emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-5",
+        "casNumber": "2315-64-2",
+        "chemicalName": "14-[4-(1,1,3,3, Tetramethylbutyl) Phenoxy]-3,6,9, 12- Tetraoxatetradecan-1-ol",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants- emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-6",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Polyoxyethylene (6) Octyl Phenyl Ether",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants- emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-7",
+        "casNumber": "27177-02-2",
+        "chemicalName": "20-(Octylphenoxy)- 3,6,9,12,15,18-Hexaoxaeicosan- 1-ol",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants- emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-8",
+        "casNumber": "3520-90-9",
+        "chemicalName": "23-(4-Octylphenoxy-3,6,9,12,15,18, 21-Heptaoxatri- cosan-1-ol",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants-emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-9",
+        "casNumber": "42173-90-0",
+        "chemicalName": "26-(Octylphenoxy)- 3,6,9,12,15,18,21,24-Octaoxahexacosan-1-ol",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants-emulsifying agents"
+          }
+        ],
+        "maxConcentration": "2%",
+        "leaveOnMaxConcentration": "0.36%",
+        "rinseOffMaxConcentration": "2%",
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": 0.1,
+            "max": 2,
+            "unit": "%",
+            "description": {
+              "cn": "0.1% 至 2%",
+              "en": "0.1% to 2%"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-10",
+        "casNumber": "2315-66-4",
+        "chemicalName": "29-(Octylphenoxy)-3,6,9,12,15,18,21,24, 27-Non- aoxanonacosan-1-ol",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-11",
+        "casNumber": "108437-62-3",
+        "chemicalName": "32-[4-(1,1,3,3-Tetramethylbutyl) Phenoxy]-3,6,9,12,15, 18,21,24,27,30-Decaoxadotriacontan-1-ol",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-12",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Polyoxyethylene (12) Octyl Phenyl Ether",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants emulsifying agents"
+          }
+        ],
+        "maxConcentration": "1.5%",
+        "leaveOnMaxConcentration": "1.5%",
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": 1.5,
+            "max": 1.5,
+            "unit": "%",
+            "description": {
+              "cn": "1.5%",
+              "en": "1.5%"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-13",
+        "casNumber": "9002-93-1",
+        "chemicalName": "38-[4-(1,1,3,3-Tetramethylbutyl) Phenoxy]-3,6,9,12, 15,18,21,24,27,30,33,36-Dodecaoxaoctatriacontan- 1-ol",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-16",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Polyoxyethylene (16) Octyl Phenyl Ether",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants cleansing agents"
+          },
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-20",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Polyoxyethylene (20) Octyl Phenyl Ether",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants- emulsifying agents"
+          },
+          {
+            "cn": "表面活性剂-增溶剂",
+            "en": "Surfactants- solubilizing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-25",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Polyoxyethylene (25) Octyl Phenyl Ether",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants- cleansing agents"
+          },
+          {
+            "cn": "表面活性剂-增溶剂",
+            "en": "Surfactants- solubilizing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-30",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Polyoxyethylene (30) Octyl Phenyl Ether",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants- cleansing agents"
+          },
+          {
+            "cn": "表面活性剂-增溶剂",
+            "en": "Surfactants- solubilizing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-33",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Polyoxyethylene (33) Octyl Phenyl Ether",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants- cleansing agents"
+          },
+          {
+            "cn": "表面活性剂-增溶剂",
+            "en": "Surfactants- solubilizing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-40",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Polyoxyethylene (40) Octyl Phenyl Ether",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants- cleansing agents"
+          },
+          {
+            "cn": "表面活性剂-增溶剂",
+            "en": "Surfactants- solubilizing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-70",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Polyoxyethylene (70) Octyl Phenyl Ether",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants cleansing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-9 Carboxylic Acid",
+        "casNumber": "25338-58-3",
+        "chemicalName": "26-(Octylphenoxy)-3,6,9,12,15,18,21,24-Octaoxa- hexacosanoic Acid",
+        "functions": [
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants emulsifying agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Octoxynol-20 Carboxylic Acid",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Polyoxyethylene (20) Octyl Phenyl Ether Carboxylic Acid",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants- cleansing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Potassium Octoxynol-12 Phosphate",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Potassium salt of esters of phosphoric acid and Octoxynol-12",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants cleansing agents"
+          },
+          {
+            "cn": "表面活性剂-乳化剂",
+            "en": "Surfactants emulsifying agents"
+          },
+          {
+            "cn": "表面活性剂-水溶助长剂",
+            "en": "Surfactants-hydrotropes"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Sodium Octoxynol-2 Ethane Sulfonate",
+        "casNumber": "2917-94-4",
+        "chemicalName": "2-[2-[2-(Octylphenoxy) Ethoxy] Ethoxy] Ethanesulfonic Acid, Sodium Salt",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants- cleansing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Sodium Octoxynol-2 Sulfate",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Sodium salt of the sulfuric acid ester of Octoxynol-2",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants cleansing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Sodium Octoxynol-6 Sulfate",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Sodium salt of the sulfuric acid ester of Octoxynol-6",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants cleansing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    },
+    {
+      "ingredient": {
+        "inciName": "Sodium Octoxynol-9 Sulfate",
+        "casNumber": "9002-93-1",
+        "chemicalName": "Sodium salt of the sulfuric acid ester of Octoxynol-9",
+        "functions": [
+          {
+            "cn": "表面活性剂-清洁剂",
+            "en": "Surfactants cleansing agents"
+          }
+        ],
+        "maxConcentration": null,
+        "leaveOnMaxConcentration": null,
+        "rinseOffMaxConcentration": null,
+        "irritation": {
+          "cn": "有潜在刺激性",
+          "en": "Potential irritant"
+        },
+        "sensitization": {
+          "cn": "未见致敏性",
+          "en": "Not sensitizing"
+        },
+        "restrictions": "Formulate to be non-irritating",
+        "safetyStatus": {
+          "level": "safe_with_restrictions",
+          "conclusion": {
+            "cn": "在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+            "en": "Safe in cosmetics in the present practices of use and concentration when formulated to be non-irritating."
+          },
+          "conclusionDate": "2025-09-09",
+          "reportVersion": "2025"
+        }
+      },
+      "modules": {
+        "Usage": {
+          "concentrationRange": {
+            "min": null,
+            "max": null,
+            "unit": "%",
+            "description": {
+              "cn": "2022/2025年调查未报告使用",
+              "en": "Not reported in 2022/2025 survey"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "ComparisonTable": null,
+  "UsageChart": {
+    "title": {
+      "cn": "报告的使用频率 (RLD 2024)",
+      "en": "Reported Frequency of Use (RLD 2024)"
+    },
+    "datasetLabel": {
+      "cn": "配方数量",
+      "en": "Number of Formulations"
+    },
+    "labels": {
+      "cn": [
+        "Octoxynol-9",
+        "Octoxynol-12",
+        "Octoxynol-10",
+        "Octoxynol-5",
+        "Octoxynol-40",
+        "Octoxynol-1",
+        "Octoxynol-3",
+        "Octoxynol-11",
+        "Octoxynol-70"
+      ],
+      "en": [
+        "Octoxynol-9",
+        "Octoxynol-12",
+        "Octoxynol-10",
+        "Octoxynol-5",
+        "Octoxynol-40",
+        "Octoxynol-1",
+        "Octoxynol-3",
+        "Octoxynol-11",
+        "Octoxynol-70"
+      ]
+    },
+    "dataValues": [
+      38,
+      7,
+      5,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1
+    ],
+    "chartType": "bar",
+    "indexAxis": "y"
+  },
+  "UILabels": null,
+  "FooterInfo": {
+    "dataSource": {
+      "cn": "数据来源：CIR 2025年9月专家小组会议",
+      "en": "Data Source: CIR Expert Panel Meeting, September 2025"
+    },
+    "version": {
+      "cn": "Schema v4.4.3",
+      "en": "Schema v4.4.3"
+    }
+  }
+}

@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图形化审批架构UI</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- 引入 Inter 字体 (与发票页面一致) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 应用 Inter 字体 */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        /* 拖拽时的占位符样式 - 使用橙色主题 */
+        .drag-placeholder {
+            background-color: #fff7ed; /* orange-50 */
+            border: 2px dashed #f97316; /* orange-500 */
+            border-radius: 0.5rem;
+            margin: 0.5rem 0;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f97316;
+            font-weight: 500;
+        }
+        
+        /* 正在被拖拽的元素 */
+        .dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+        
+        /* 选中的角色节点 - 使用橙色主题 */
+        .selected-role-node {
+            background-color: #fff7ed; /* orange-50 */
+            border: 2px solid #f97316; /* orange-500 */
+            box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.1), 0 2px 4px -2px rgba(249, 115, 22, 0.1);
+        }
+        
+        /* 选中的员工节点 - 使用橙色主题 */
+        .selected-employee-node {
+            background-color: #fff7ed; /* orange-50 */
+            color: #ea580c; /* orange-600 */
+            font-weight: 600;
+            border-color: #f97316;
+        }
+        
+        /* 简单的滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #9ca3af;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e5e7eb;
+        }
+
+        /* 审批流容器 */
+        #workflow-editor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            min-height: 100%;
+        }
+
+        /* 节点行容器 */
+        .node-row-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            width: auto;
+            max-width: 800px;
+        }
+        
+        /* 角色节点样式 - 统一圆角和阴影 */
+        .workflow-node {
+            width: 250px; 
+            min-height: 80px; 
+            position: relative;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .workflow-node:hover {
+            box-shadow: 0 -3px 8px -1px rgba(249, 115, 22, 0.1);
+            border-color: #fed7aa; /* orange-200 */
+        }
+
+        /* 开始/结束节点 - 使用橙色主题 */
+        .workflow-node.start-node, .workflow-node.end-node {
+            background-color: #fff7ed; /* orange-50 */
+            border-color: #f97316; /* orange-500 */
+            color: #ea580c; /* orange-600 */
+            font-weight: 600;
+            width: 150px;
+            min-height: 50px;
+            padding: 0.5rem;
+            margin-bottom: 20px;
+            cursor: default;
+        }
+
+        .workflow-node.end-node {
+            margin-bottom: 0; 
+        }
+
+        /* 箭头样式 - 使用更柔和的灰色 */
+        .node-row-container::after {
+            content: '';
+            position: absolute;
+            bottom: -25px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 15px solid #d1d5db;
+            z-index: 1;
+        }
+        .node-row-container::before {
+            content: '';
+            position: absolute;
+            bottom: -30px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px; 
+            background-color: #d1d5db;
+            z-index: 0;
+        }
+        
+        /* 开始节点的箭头 */
+        .start-node::after {
+            content: '';
+            position: absolute;
+            bottom: -25px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 15px solid #d1d5db;
+            z-index: 1;
+        }
+        .start-node::before {
+            content: '';
+            position: absolute;
+            bottom: -30px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px; 
+            background-color: #d1d5db;
+            z-index: 0;
+        }
+        .end-node::after, .end-node::before {
+            display: none;
+        }
+        .add-node-btn + .end-node {
+             margin-top: 30px;
+        }
+        .node-row-container:last-of-type::after, .node-row-container:last-of-type::before {
+             display: none;
+        }
+
+        /* 拖拽把手 */
+        .node-grip {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            cursor: grab;
+            color: #a0aec0;
+        }
+        .node-grip:hover {
+            color: #f97316; /* orange-500 */
+        }
+
+        /* 删除按钮 */
+        .node-delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            color: #a0aec0;
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 0.9em;
+            z-index: 12;
+        }
+        .node-delete-btn:hover {
+            color: #ef4444;
+        }
+
+        /* 展开/折叠按钮 - 内嵌在节点内部 */
+        .node-expand-btn-inline {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border: 1px solid #fed7aa; /* orange-200 */
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            color: #f97316;
+            font-size: 0.7rem;
+            transition: all 0.2s ease;
+        }
+        .node-expand-btn-inline:hover {
+            background-color: #f97316;
+            border-color: #f97316;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* 员工卡片容器 - 显示在节点右侧 */
+        .employee-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-left: 12px;
+            padding-left: 20px;
+            border-left: 2px solid #fed7aa; /* orange-200 */
+            position: relative;
+        }
+        
+        .employee-cards-container::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #fed7aa, #fdba74);
+        }
+        
+        /* 员工卡片包装器 */
+        .employee-card-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        /* 员工卡片样式 */
+        .employee-card {
+            min-width: 180px;
+            padding: 10px 12px;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .employee-card:hover {
+            border-color: #fed7aa;
+            background-color: #fffbf5;
+            box-shadow: 0 2px 4px rgba(249, 115, 22, 0.1);
+            transform: translateX(2px);
+        }
+        
+        .employee-card-content {
+            flex: 1;
+        }
+        
+        /* 员工卡片删除按钮 */
+        .employee-card-delete {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            border: none;
+            background-color: #fee2e2;
+            color: #dc2626;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            transition: all 0.15s;
+        }
+        
+        .employee-card:hover .employee-card-delete {
+            display: flex;
+        }
+        
+        .employee-card-delete:hover {
+            background-color: #fecaca;
+            transform: scale(1.1);
+        }
+        
+        /* 员工展开按钮 */
+        .employee-expand-btn {
+            width: 20px;
+            height: 20px;
+            background-color: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f97316;
+            font-size: 0.65rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .employee-expand-btn:hover {
+            background-color: #f97316;
+            border-color: #f97316;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* 分公司列表 */
+        .branch-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-left: 28px;
+            padding-left: 16px;
+            border-left: 1px dashed #fed7aa;
+        }
+        
+        /* 分公司项 */
+        .branch-item {
+            padding: 6px 10px;
+            background-color: #fffbf5;
+            border: 1px solid #fed7aa;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .branch-item:hover {
+            background-color: #fff7ed;
+            border-color: #fdba74;
+        }
+        
+        /* 分公司删除按钮 */
+        .branch-delete {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: none;
+            background-color: #fee2e2;
+            color: #dc2626;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            transition: all 0.15s;
+        }
+        
+        .branch-item:hover .branch-delete {
+            display: flex;
+        }
+        
+        .branch-delete:hover {
+            background-color: #fecaca;
+            transform: scale(1.1);
+        }
+
+        /* 添加节点按钮 - 使用橙色主题 */
+        .add-node-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #fff7ed; /* orange-50 */
+            border: 2px dashed #f97316; /* orange-500 */
+            color: #f97316;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto;
+            transition: all 0.2s ease-in-out;
+            z-index: 10;
+        }
+        .add-node-btn:hover {
+            background-color: #f97316;
+            color: white;
+            border-color: #f97316;
+            transform: scale(1.1);
+        }
+
+        /* Toast提示样式 */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1f2937;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 9999;
+            font-size: 0.875rem;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* 侧边栏面板按钮样式 - 使用橙色主题 */
+        .panel-btn {
+            transition: all 0.2s ease;
+        }
+        .panel-btn:hover {
+            background-color: #fff7ed; /* orange-50 */
+            color: #f97316;
+        }
+        
+        /* 流程选择按钮 - 使用橙色主题 */
+        .process-item {
+            transition: all 0.2s ease;
+        }
+        .process-item:hover {
+            background-color: #fafafa;
+        }
+        .process-item.active {
+            background-color: #fff7ed; /* orange-50 */
+            border-color: #f97316; /* orange-500 */
+            color: #ea580c; /* orange-600 */
+            font-weight: 600;
+        }
+
+        /* 角色卡片样式 - 使用橙色主题 */
+        .draggable-role {
+            transition: all 0.2s ease;
+        }
+        .draggable-role:hover {
+            border-color: #fed7aa; /* orange-200 */
+            background-color: #fffbf5;
+            box-shadow: 0 2px 4px rgba(249, 115, 22, 0.1);
+        }
+        .draggable-role:active {
+            transform: scale(0.98);
+        }
+
+        /* 搜索框焦点样式 - 使用橙色 */
+        input[type="text"]:focus,
+        input[type="search"]:focus {
+            outline: none;
+            ring: 2px;
+            ring-color: #f97316; /* orange-500 */
+            border-color: #f97316;
+        }
+
+        /* 按钮主色调 - 橙色 */
+        .btn-primary {
+            background-color: #f97316; /* orange-500 */
+            color: white;
+            transition: all 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #ea580c; /* orange-600 */
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(249, 115, 22, 0.2);
+        }
+
+        /* 模态框样式优化 */
+        .modal-content {
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* ===== Tag版本：员工标签样式 ===== */
+        .workflow-node-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .employee-tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-width: 700px;
+            padding: 12px;
+            background-color: #fafafa;
+            border-radius: 8px;
+            border: 1px solid #fed7aa;
+        }
+
+        .employee-tag-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .employee-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            min-width: 140px;
+        }
+
+        .employee-tag:hover {
+            border-color: #fed7aa;
+            background-color: #fffbf5;
+            box-shadow: 0 2px 4px rgba(249, 115, 22, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .employee-tag.expanded {
+            border-color: #fdba74;
+            background-color: #fff7ed;
+        }
+
+        .employee-tag-delete {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: none;
+            background-color: #fee2e2;
+            color: #dc2626;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            transition: all 0.15s;
+            z-index: 10;
+        }
+
+        .employee-tag:hover .employee-tag-delete {
+            display: flex;
+        }
+
+        .employee-tag-delete:hover {
+            background-color: #fecaca;
+            transform: scale(1.1);
+        }
+
+        .employee-tag-content {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .employee-tag-avatar {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #fdba74, #f97316);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .employee-tag-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-width: 0;
+        }
+
+        .employee-tag-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1f2937;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 60px;
+        }
+
+        .employee-tag-role {
+            font-size: 0.65rem;
+            color: #6b7280;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 70px;
+        }
+
+        .employee-tag-expand {
+            width: 18px;
+            height: 18px;
+            background-color: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f97316;
+            font-size: 0.6rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .employee-tag-expand:hover {
+            background-color: #f97316;
+            border-color: #f97316;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .branch-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-left: 12px;
+            padding: 6px;
+            background-color: #fffbf5;
+            border-radius: 6px;
+            border: 1px dashed #fed7aa;
+        }
+
+        .branch-tag {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            background-color: white;
+            border: 1px solid #fed7aa;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: #374151;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .branch-tag:hover {
+            background-color: #fff7ed;
+            border-color: #fdba74;
+        }
+
+        .branch-tag i {
+            color: #f97316;
+            font-size: 0.65rem;
+        }
+
+        .branch-tag-delete {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            background-color: #fee2e2;
+            color: #dc2626;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            transition: all 0.15s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .branch-tag:hover .branch-tag-delete {
+            display: flex;
+        }
+
+        .branch-tag-delete:hover {
+            background-color: #fecaca;
+            transform: scale(1.15);
+        }
+
+        .add-employee-tag {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            background-color: #fff7ed;
+            border: 1px dashed #fdba74;
+            border-radius: 6px;
+            color: #f97316;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .add-employee-tag:hover {
+            background-color: #f97316;
+            border-color: #f97316;
+            color: white;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Toast提示 -->
+    <div id="toast" class="toast"></div>
+
+    <div class="flex h-screen">
+        <!-- 左侧流程列表 -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+            <div class="p-5 border-b border-gray-200">
+                <h2 class="text-lg font-bold text-gray-800">审批流程</h2>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4" id="process-list">
+                <!-- 流程项将由JS动态生成 -->
+            </div>
+            <div class="p-4 border-t border-gray-200">
+                <button onclick="showProcessEditModal()" class="w-full btn-primary py-2.5 px-4 rounded-lg font-medium text-sm">
+                    <i class="fas fa-plus mr-2"></i>新建流程
+                </button>
+            </div>
+        </aside>
+
+        <!-- 中间编辑区域 -->
+        <main class="flex-1 flex flex-col bg-gray-50">
+            <header class="bg-white border-b border-gray-200 p-5">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800" id="process-title">选择一个流程</h1>
+                        <p class="text-sm text-gray-500 mt-1">拖拽左侧角色到此处构建审批流程</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="saveWorkflow()" class="btn-primary py-2 px-5 rounded-lg font-medium text-sm">
+                            <i class="fas fa-save mr-2"></i>保存流程
+                        </button>
+                        <button onclick="exportWorkflow()" class="bg-white border border-gray-300 text-gray-700 py-2 px-5 rounded-lg font-medium text-sm hover:bg-gray-50 transition">
+                            <i class="fas fa-download mr-2"></i>导出
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="flex-1 overflow-y-auto p-6"
+                 id="workflow-editor"
+                 ondragenter="handleEditorDragEnter(event)"
+                 ondragover="handleEditorDragOver(event)"
+                 ondrop="handleEditorDrop(event)"
+                 ondragleave="handleEditorDragLeave(event)">
+                <!-- 流程节点将由JS动态生成 -->
+            </div>
+        </main>
+
+        <!-- 右侧角色面板 -->
+        <aside class="w-80 bg-white border-l border-gray-200 flex flex-col">
+            <!-- 可用角色视图 -->
+            <div id="available-roles-view" class="flex-1 flex flex-col">
+                <div class="p-5 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-800 mb-3">可用角色</h2>
+                    <div class="relative">
+                        <input type="search" id="role-search" placeholder="搜索角色..." 
+                               class="w-full px-4 py-2 pl-10 border border-gray-200 rounded-lg bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="flex-1 overflow-y-auto p-4" id="available-roles">
+                    <!-- 角色列表将由JS动态生成 -->
+                </div>
+            </div>
+
+            <!-- 角色详情视图 -->
+            <div id="role-details-view" class="hidden flex-1 flex flex-col">
+                <div class="p-5 border-b border-gray-200">
+                    <button id="back-to-roles" class="mb-4 text-orange-600 hover:text-orange-700 font-medium text-sm transition">
+                        <i class="fas fa-arrow-left mr-2"></i>返回角色列表
+                    </button>
+                    <h2 class="text-lg font-bold text-gray-800 mb-1" id="role-detail-name">角色名称</h2>
+                    <p class="text-sm text-gray-500">配置此审批节点</p>
+                </div>
+                <div class="flex-1 overflow-y-auto p-5">
+                    <div class="space-y-5">
+                        <!-- 节点名称编辑 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">节点名称</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="node-name-input" 
+                                       class="flex-1 px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                       placeholder="输入节点名称">
+                                <button id="save-node-name" class="btn-primary px-4 py-2 rounded-lg text-sm">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 该角色对应的所有员工列表 (新增) -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                该角色的所有员工
+                                <span class="text-xs text-gray-500 font-normal ml-1">(点击添加到审批流程)</span>
+                            </label>
+                            <div id="role-employee-list" class="space-y-2 max-h-60 overflow-y-auto">
+                                <!-- 角色员工列表将由JS动态生成 -->
+                            </div>
+                        </div>
+
+                        <!-- 已添加的审批人员 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">已添加的审批人员</label>
+                            <div id="employee-list" class="space-y-2">
+                                <!-- 员工列表将由JS动态生成 -->
+                            </div>
+                            <button onclick="showEmployeeModal()" class="w-full mt-3 py-2 border border-dashed border-orange-300 text-orange-600 rounded-lg text-sm font-medium hover:bg-orange-50 transition">
+                                <i class="fas fa-user-plus mr-2"></i>添加其他审批人
+                            </button>
+                        </div>
+
+                        <!-- 审批规则 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">审批规则</label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                                <option>或签（任意一人审批通过）</option>
+                                <option>会签（所有人审批通过）</option>
+                                <option>顺序审批</option>
+                            </select>
+                        </div>
+
+                        <!-- 删除节点 -->
+                        <div class="pt-4 border-t border-gray-200">
+                            <button onclick="deleteCurrentNode()" class="w-full py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100 transition">
+                                <i class="fas fa-trash mr-2"></i>删除此节点
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    
+    <!-- 流程编辑模态框 -->
+    <div id="process-edit-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onclick="hideProcessEditModal(event)">
+        <div class="modal-content bg-white rounded-xl p-6 w-[800px] max-h-[90vh] flex flex-col" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800">审批流程定义</h3>
+                <button onclick="hideProcessEditModal()" class="text-gray-400 hover:text-gray-600 text-xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto">
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- 左列 -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <span class="text-red-500">*</span> 审批编号:
+                            </label>
+                            <input type="text" id="process-code" 
+                                   class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                   placeholder="HR-干细胞优惠存储申请">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <span class="text-red-500">*</span> 审批等级:
+                            </label>
+                            <input type="number" id="process-level" 
+                                   class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                   placeholder="2" value="2">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                独立页URL:
+                            </label>
+                            <input type="text" id="process-url" 
+                                   class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                   placeholder="LPREQ730P">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                抄送邮箱:
+                            </label>
+                            <textarea id="process-cc-email" 
+                                      rows="4"
+                                      class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none"
+                                      placeholder="请输入"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- 右列 -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <span class="text-red-500">*</span> 审批描述:
+                            </label>
+                            <input type="text" id="process-desc" 
+                                   class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                   placeholder="HR-干细胞优惠存储申请">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                审批金额上限:
+                            </label>
+                            <input type="number" id="process-amount-limit" 
+                                   class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                   placeholder="0" value="0">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                <span class="text-red-500">*</span> 会签标记:
+                            </label>
+                            <select id="process-cosign" 
+                                    class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                                <option value="否">否</option>
+                                <option value="是">是</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                邮件发送接口:
+                            </label>
+                            <input type="text" id="process-email-api" 
+                                   class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                   placeholder="请输入">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                审批完成后邮箱:
+                            </label>
+                            <select id="process-complete-email" 
+                                    class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                                <option value="全部发送">全部发送</option>
+                                <option value="仅发送申请人">仅发送申请人</option>
+                                <option value="不发送">不发送</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-200">
+                <button onclick="hideProcessEditModal()" class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium text-sm hover:bg-gray-50 transition">
+                    取消
+                </button>
+                <button onclick="saveProcessEdit()" class="btn-primary px-6 py-2.5 rounded-lg font-medium text-sm">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 添加员工模态框 -->
+    <div id="employee-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onclick="hideEmployeeModal(event)">
+        <div class="modal-content bg-white rounded-xl p-6 w-96 max-h-[80vh] flex flex-col" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-800">选择审批人</h3>
+                <button onclick="hideEmployeeModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="mb-4">
+                <input type="search" id="employee-search" placeholder="搜索员工..." 
+                       class="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+            </div>
+            <div class="flex-1 overflow-y-auto space-y-2" id="employee-modal-list">
+                <!-- 员工列表将由JS动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟数据库
+        const db = {
+            processes: [
+                {
+                    SERIALCOLUMN: 1,
+                    code: "LPREQ001",
+                    NMID: "报销审批流程",
+                    level: 2,
+                    amountLimit: 5000,
+                    cosign: "否",
+                    url: "LPREQ001P",
+                    emailApi: "",
+                    ccEmail: "finance@company.com",
+                    completeEmail: "全部发送",
+                    data1: [
+                        { SERIALCOLUMN: 101, RLNAME: "部门经理审批", LLGINX: 10 },
+                        { SERIALCOLUMN: 102, RLNAME: "财务审核", LLGINX: 20 },
+                        { SERIALCOLUMN: 103, RLNAME: "总经理审批", LLGINX: 30 }
+                    ]
+                },
+                {
+                    SERIALCOLUMN: 2,
+                    code: "LPREQ002",
+                    NMID: "请假审批流程",
+                    level: 1,
+                    amountLimit: 0,
+                    cosign: "否",
+                    url: "LPREQ002P",
+                    emailApi: "",
+                    ccEmail: "hr@company.com",
+                    completeEmail: "全部发送",
+                    data1: [
+                        { SERIALCOLUMN: 201, RLNAME: "直属主管", LLGINX: 10 },
+                        { SERIALCOLUMN: 202, RLNAME: "人事审批", LLGINX: 20 }
+                    ]
+                },
+                {
+                    SERIALCOLUMN: 3,
+                    code: "LPREQ003",
+                    NMID: "采购审批流程",
+                    level: 3,
+                    amountLimit: 10000,
+                    cosign: "是",
+                    url: "LPREQ003P",
+                    emailApi: "",
+                    ccEmail: "purchase@company.com",
+                    completeEmail: "全部发送",
+                    data1: [
+                        { SERIALCOLUMN: 301, RLNAME: "采购部门", LLGINX: 10 },
+                        { SERIALCOLUMN: 302, RLNAME: "财务复核", LLGINX: 20 },
+                        { SERIALCOLUMN: 303, RLNAME: "总监审批", LLGINX: 30 }
+                    ]
+                }
+            ],
+            roles: [
+                "部门经理", "财务经理", "总经理", "人事经理", "直属主管",
+                "采购经理", "销售经理", "技术总监", "项目经理", "行政主管"
+            ],
+            employees: [
+                { id: 1, name: "张三", role: "部门经理" },
+                { id: 2, name: "李四", role: "财务经理" },
+                { id: 3, name: "王五", role: "人事经理" },
+                { id: 4, name: "赵六", role: "总经理" },
+                { id: 5, name: "钱七", role: "技术总监" },
+                { id: 6, name: "孙八", role: "项目经理" },
+                { id: 7, name: "周九", role: "行政主管" },
+                { id: 8, name: "吴十", role: "销售经理" }
+            ]
+        };
+
+        // 全局变量
+        let selectedProcessId = null;
+        let selectedNodeId = null;
+        let selectedNodeElement = null;
+        let draggedItem = null;
+        let dragSource = null; // 'palette' 或 'editor'
+        let nodeEmployees = {}; // 存储每个节点的员工列表，格式：{ nodeId: [employeeId1, employeeId2, ...] }
+        let expandedNodes = {}; // 存储展开状态，格式：{ nodeId: true/false }
+        let expandedEmployees = {}; // 存储员工展开状态，格式：{ 'nodeId-empId': true/false }
+        let employeeBranches = {}; // 存储员工的分公司列表，格式：{ 'nodeId-empId': ['分公司A', '分公司B'] }
+
+        // 分公司数据（模拟数据）
+        const availableBranches = [
+            "北京分公司", "上海分公司", "广州分公司", "深圳分公司",
+            "成都分公司", "杭州分公司", "武汉分公司", "西安分公司"
+        ];
+
+        // 初始化测试数据 - 为第一个流程添加一些员工和分公司
+        nodeEmployees = {
+            101: [1, 2],  // 部门经理审批节点有张三和李四
+            102: [2, 3],  // 财务审核节点有李四和王五
+            103: [4]      // 总经理审批节点有赵六
+        };
+        
+        employeeBranches = {
+            '101-1': ['北京分公司', '上海分公司'],  // 张三负责北京和上海
+            '102-2': ['广州分公司']                  // 李四负责广州
+        };
+        
+        expandedNodes = {
+            101: true,  // 默认展开第一个节点
+            102: true,
+            103: true
+        };
+
+        // DOM元素 - 将在DOMContentLoaded时初始化
+        let processList, workflowEditor, processTitle, availableRoles, roleSearch;
+        let availableRolesView, roleDetailsView, roleDetailName, backToRolesBtn;
+        let employeeList, roleEmployeeList, nodeNameInput, saveNodeNameBtn;
+        let employeeModal, employeeModalList, employeeSearch;
+
+        // --- 渲染函数 ---
+        
+        /**
+         * 渲染流程列表
+         */
+        function renderProcessList() {
+            processList.innerHTML = db.processes.map(process => `
+                <div class="process-item mb-2 p-3 border border-gray-200 rounded-lg ${selectedProcessId === process.SERIALCOLUMN ? 'active' : ''}"
+                     onclick="selectProcess(${process.SERIALCOLUMN})">
+                    <div class="flex items-center justify-between">
+                        <span class="font-medium text-sm">${process.NMID}</span>
+                        <div class="flex items-center gap-2">
+                            <button onclick="event.stopPropagation(); editProcess(${process.SERIALCOLUMN})" 
+                                    class="text-gray-400 hover:text-orange-500 transition">
+                                <i class="fas fa-edit text-xs"></i>
+                            </button>
+                            <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1">${process.data1.length} 个节点</div>
+                </div>
+            `).join('');
+        }
+
+        /**
+         * 选择流程
+         */
+        window.selectProcess = function(processId) {
+            selectedProcessId = processId;
+            const process = db.processes.find(p => p.SERIALCOLUMN === processId);
+            if (process) {
+                processTitle.textContent = process.NMID;
+                renderWorkflowEditor();
+                renderProcessList();
+                showAvailableRolesView();
+            }
+        }
+
+        /**
+         * 渲染工作流编辑器
+         */
+        function renderWorkflowEditor() {
+            if (!selectedProcessId) {
+                workflowEditor.innerHTML = '<div class="text-center text-gray-500 py-20">请选择一个流程开始编辑</div>';
+                return;
+            }
+
+            const process = db.processes.find(p => p.SERIALCOLUMN === selectedProcessId);
+            if (!process) return;
+
+            let html = '<div class="workflow-node start-node">开始</div>';
+            
+            process.data1.forEach((node, index) => {
+                const isExpanded = expandedNodes[node.SERIALCOLUMN] !== false; // 默认展开
+                const employees = nodeEmployees[node.SERIALCOLUMN] || [];
+                
+                html += `
+                    <div class="node-row-container draggable-node-row" 
+                         data-node-id="${node.SERIALCOLUMN}"
+                         draggable="true"
+                         ondragstart="handleNodeDragStart(event, '${node.SERIALCOLUMN}', 'editor')"
+                         ondragend="handleDragEnd(event)">
+                        
+                        <div class="workflow-node-wrapper">
+                            <div class="workflow-node" onclick="showRoleDetails('${node.RLNAME}', '${node.SERIALCOLUMN}', this)">
+                            <span class="node-grip">
+                                <i class="fas fa-grip-vertical"></i>
+                            </span>
+                            <button class="node-delete-btn" onclick="event.stopPropagation(); deleteNode('${node.SERIALCOLUMN}')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <div class="text-base font-semibold text-gray-800">${node.RLNAME}</div>
+                            <div class="text-xs text-gray-500 mt-1">审批节点 ${index + 1}</div>
+                            ${employees.length > 0 ? `
+                                <button class="node-expand-btn-inline" onclick="event.stopPropagation(); toggleNodeExpand('${node.SERIALCOLUMN}')">
+                                    <i class="fas fa-${isExpanded ? 'minus' : 'plus'}"></i>
+                                </button>
+                            ` : `
+                                <button class="node-expand-btn-inline" onclick="event.stopPropagation(); currentNodeForEmployee='${node.SERIALCOLUMN}'; showEmployeeModal()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            `}
+                            </div>
+                            
+                            ${employees.length > 0 && isExpanded ? `
+                            <div class="employee-tags-container">
+                                ${employees.map(empId => {
+                                    const emp = db.employees.find(e => e.id === empId);
+                                    if (!emp) return '';
+                                    
+                                    const empExpanded = expandedEmployees[\`\${node.SERIALCOLUMN}-\${empId}\`];
+                                    const branches = employeeBranches[\`\${node.SERIALCOLUMN}-\${empId}\`] || [];
+                                    
+                                    return \`
+                                        <div class="employee-tag-wrapper">
+                                            <div class="employee-tag \${empExpanded ? 'expanded' : ''}" 
+                                                 onclick="selectEmployee(\${empId}, '\${node.SERIALCOLUMN}', this)"
+                                                 title="\${emp.name} - \${emp.role}">
+                                                <button class="employee-tag-delete" onclick="event.stopPropagation(); removeEmployee('\${node.SERIALCOLUMN}', \${empId})">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                                <div class="employee-tag-content">
+                                                    <div class="employee-tag-avatar">\${emp.name.charAt(0)}</div>
+                                                    <div class="employee-tag-info">
+                                                        <div class="employee-tag-name">\${emp.name}</div>
+                                                        <div class="employee-tag-role">\${emp.role}</div>
+                                                    </div>
+                                                </div>
+                                                \${branches.length > 0 || empExpanded ? \`
+                                                    <button class="employee-tag-expand" onclick="event.stopPropagation(); toggleEmployeeExpand('\${node.SERIALCOLUMN}', \${empId})">
+                                                        <i class="fas fa-chevron-\${empExpanded ? 'up' : 'down'}"></i>
+                                                    </button>
+                                                \` : \`
+                                                    <button class="employee-tag-expand" onclick="event.stopPropagation(); showBranchModal('\${node.SERIALCOLUMN}', \${empId})">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                \`}
+                                            </div>
+                                            \${empExpanded && branches.length > 0 ? \`
+                                                <div class="branch-tags">
+                                                    \${branches.map(branch => \`
+                                                        <div class="branch-tag">
+                                                            <button class="branch-tag-delete" onclick="event.stopPropagation(); removeBranch('\${node.SERIALCOLUMN}', \${empId}, '\${branch}')">
+                                                                <i class="fas fa-times"></i>
+                                                            </button>
+                                                            <i class="fas fa-building"></i>
+                                                            <span>\${branch}</span>
+                                                        </div>
+                                                    \`).join('')}
+                                                </div>
+                                            \` : ''}
+                                        </div>
+                                    \`;
+                                }).join('')}
+                                <button class="add-employee-tag" onclick="event.stopPropagation(); currentNodeForEmployee='\${node.SERIALCOLUMN}'; showEmployeeModal()">
+                                    <i class="fas fa-plus mr-1"></i>添加
+                                </button>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                html += `
+                    <button class="add-node-btn" onclick="addPlaceholderNode(${index + 1})" title="在此处插入新节点">
+                        +
+                    </button>
+                `;
+            });
+            
+            html += '<div class="workflow-node end-node">结束</div>';
+            workflowEditor.innerHTML = html;
+        }
+
+        /**
+         * 渲染可用角色列表
+         */
+        window.renderAvailableRoles = function(searchTerm = '') {
+            const filteredRoles = db.roles.filter(role => 
+                role.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            availableRoles.innerHTML = filteredRoles.map(role => `
+                <div class="draggable-role bg-white p-4 border border-gray-200 rounded-lg cursor-move mb-3 shadow-sm"
+                     draggable="true"
+                     ondragstart="handleRoleDragStart(event, '${role}', 'palette')"
+                     ondragend="handleDragEnd(event)">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-800">${role}</div>
+                            <div class="text-xs text-gray-500 mt-0.5">拖拽到流程中</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /**
+         * 显示角色详情
+         */
+        window.showRoleDetails = function(roleName, nodeId, nodeElement) {
+            // 移除之前的选中状态
+            document.querySelectorAll('.workflow-node').forEach(el => {
+                el.classList.remove('selected-role-node');
+            });
+            
+            // 添加选中状态
+            if (nodeElement) {
+                nodeElement.classList.add('selected-role-node');
+            }
+            
+            selectedNodeId = nodeId;
+            selectedNodeElement = nodeElement;
+            
+            roleDetailName.textContent = roleName;
+            nodeNameInput.value = roleName;
+            nodeNameInput.dataset.nodeId = nodeId;
+            
+            availableRolesView.classList.add('hidden');
+            roleDetailsView.classList.remove('hidden');
+            
+            // 显示该角色对应的所有员工
+            renderRoleEmployeeList(roleName, nodeId);
+            // 显示已添加的审批人员
+            renderEmployeeList(nodeId);
+        }
+
+        /**
+         * 渲染该角色对应的所有员工列表
+         */
+        function renderRoleEmployeeList(roleName, nodeId) {
+            // 找到该角色的所有员工
+            const roleEmployees = db.employees.filter(emp => emp.role === roleName);
+            const currentEmployees = nodeEmployees[nodeId] || [];
+            
+            if (roleEmployees.length === 0) {
+                roleEmployeeList.innerHTML = '<div class="text-sm text-gray-500 text-center py-4">该角色暂无员工</div>';
+                return;
+            }
+            
+            roleEmployeeList.innerHTML = roleEmployees.map(emp => {
+                const isAdded = currentEmployees.includes(emp.id);
+                return `
+                    <div class="flex items-center justify-between p-3 border rounded-lg transition ${
+                        isAdded 
+                            ? 'bg-orange-50 border-orange-200' 
+                            : 'bg-white border-gray-200 hover:border-orange-200 hover:bg-orange-50 cursor-pointer'
+                    }" ${isAdded ? '' : `onclick="quickAddEmployee(${emp.id})"`}>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 ${isAdded ? 'bg-orange-200 text-orange-700' : 'bg-gray-100 text-gray-600'} rounded-full flex items-center justify-center text-sm font-medium mr-3">
+                                ${emp.name.charAt(0)}
+                            </div>
+                            <div>
+                                <div class="font-medium text-sm">${emp.name}</div>
+                                <div class="text-xs text-gray-500">${emp.role}</div>
+                            </div>
+                        </div>
+                        ${isAdded 
+                            ? '<span class="text-xs text-orange-600 font-medium"><i class="fas fa-check mr-1"></i>已添加</span>' 
+                            : '<i class="fas fa-plus text-orange-600"></i>'
+                        }
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /**
+         * 快速添加员工到当前节点
+         */
+        function quickAddEmployee(employeeId) {
+            if (!selectedNodeId) return;
+            
+            if (!nodeEmployees[selectedNodeId]) {
+                nodeEmployees[selectedNodeId] = [];
+            }
+            
+            if (!nodeEmployees[selectedNodeId].includes(employeeId)) {
+                nodeEmployees[selectedNodeId].push(employeeId);
+                // 默认展开节点
+                expandedNodes[selectedNodeId] = true;
+                
+                const emp = db.employees.find(e => e.id === employeeId);
+                showToast(`已添加 ${emp.name} 为审批人`);
+                
+                renderWorkflowEditor();
+                renderEmployeeList(selectedNodeId);
+                
+                // 重新渲染角色员工列表以更新状态
+                const process = db.processes.find(p => p.SERIALCOLUMN === selectedProcessId);
+                const node = process.data1.find(n => n.SERIALCOLUMN.toString() === selectedNodeId.toString());
+                if (node) {
+                    renderRoleEmployeeList(node.RLNAME, selectedNodeId);
+                }
+            }
+        }
+
+        /**
+         * 显示可用角色视图
+         */
+        window.showAvailableRolesView = function() {
+            availableRolesView.classList.remove('hidden');
+            roleDetailsView.classList.add('hidden');
+            
+            // 移除所有选中状态
+            document.querySelectorAll('.workflow-node').forEach(el => {
+                el.classList.remove('selected-role-node');
+            });
+            document.querySelectorAll('.employee-node').forEach(el => {
+                el.classList.remove('selected-employee-node');
+            });
+            
+            selectedNodeId = null;
+            selectedNodeElement = null;
+        }
+
+        /**
+         * 渲染员工列表
+         */
+        function renderEmployeeList(nodeId) {
+            const employees = nodeEmployees[nodeId] || [];
+            
+            if (employees.length === 0) {
+                employeeList.innerHTML = '<div class="text-sm text-gray-500 text-center py-4">暂无审批人</div>';
+                return;
+            }
+            
+            employeeList.innerHTML = employees.map(empId => {
+                const emp = db.employees.find(e => e.id === empId);
+                return emp ? `
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-sm font-medium mr-3">
+                                ${emp.name.charAt(0)}
+                            </div>
+                            <div>
+                                <div class="font-medium text-sm">${emp.name}</div>
+                                <div class="text-xs text-gray-500">${emp.role}</div>
+                            </div>
+                        </div>
+                        <button onclick="removeEmployee('${nodeId}', ${empId})" class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                ` : '';
+            }).join('');
+        }
+
+        /**
+         * 员工模态框相关
+         */
+        let currentNodeForEmployee = null;
+
+        window.showEmployeeModal = function() {
+            if (!currentNodeForEmployee && selectedNodeId) {
+                currentNodeForEmployee = selectedNodeId;
+            }
+            
+            if (!currentNodeForEmployee) {
+                showToast('请先选择一个节点');
+                return;
+            }
+            
+            employeeModal.classList.remove('hidden');
+            renderEmployeeModal();
+        }
+
+        window.hideEmployeeModal = function(event) {
+            if (!event || event.target === employeeModal) {
+                employeeModal.classList.add('hidden');
+                currentNodeForEmployee = null;
+            }
+        }
+
+        window.renderEmployeeModal = function(searchTerm = '') {
+            const currentEmployees = nodeEmployees[currentNodeForEmployee] || [];
+            const filteredEmployees = db.employees.filter(emp => 
+                !currentEmployees.includes(emp.id) &&
+                (emp.name.includes(searchTerm) || emp.role.includes(searchTerm))
+            );
+
+            employeeModalList.innerHTML = filteredEmployees.map(emp => `
+                <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-orange-50 hover:border-orange-200 cursor-pointer transition"
+                     onclick="addEmployeeToNode(${emp.id})">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center font-medium mr-3">
+                            ${emp.name.charAt(0)}
+                        </div>
+                        <div>
+                            <div class="font-medium">${emp.name}</div>
+                            <div class="text-xs text-gray-500">${emp.role}</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-plus text-orange-600"></i>
+                </div>
+            `).join('');
+        }
+
+        window.addEmployeeToNode = function(employeeId) {
+            if (!currentNodeForEmployee) return;
+            
+            if (!nodeEmployees[currentNodeForEmployee]) {
+                nodeEmployees[currentNodeForEmployee] = [];
+            }
+            
+            if (!nodeEmployees[currentNodeForEmployee].includes(employeeId)) {
+                nodeEmployees[currentNodeForEmployee].push(employeeId);
+                // 默认展开节点
+                expandedNodes[currentNodeForEmployee] = true;
+                renderWorkflowEditor();
+                
+                if (selectedNodeId === currentNodeForEmployee) {
+                    renderEmployeeList(currentNodeForEmployee);
+                    // 同时更新角色员工列表
+                    const process = db.processes.find(p => p.SERIALCOLUMN === selectedProcessId);
+                    const node = process.data1.find(n => n.SERIALCOLUMN.toString() === currentNodeForEmployee.toString());
+                    if (node) {
+                        renderRoleEmployeeList(node.RLNAME, currentNodeForEmployee);
+                    }
+                }
+                
+                showToast('已添加审批人');
+                renderEmployeeModal();
+            }
+        }
+
+        window.removeEmployee = function(nodeId, employeeId) {
+            if (nodeEmployees[nodeId]) {
+                nodeEmployees[nodeId] = nodeEmployees[nodeId].filter(id => id !== employeeId);
+                renderWorkflowEditor();
+                
+                if (selectedNodeId === nodeId) {
+                    renderEmployeeList(nodeId);
+                    // 同时更新角色员工列表
+                    const process = db.processes.find(p => p.SERIALCOLUMN === selectedProcessId);
+                    const node = process.data1.find(n => n.SERIALCOLUMN.toString() === nodeId.toString());
+                    if (node) {
+                        renderRoleEmployeeList(node.RLNAME, nodeId);
+                    }
+                }
+                
+                showToast('已移除审批人');
+            }
+        }
+
+        window.selectEmployee = function(empId, nodeId, element) {
+            // 移除其他员工的选中状态
+            document.querySelectorAll('.employee-node').forEach(el => {
+                el.classList.remove('selected-employee-node');
+            });
+            
+            // 添加选中状态
+            element.classList.add('selected-employee-node');
+            
+            const emp = db.employees.find(e => e.id === empId);
+            if (emp) {
+                showToast(`已选中：${emp.name}`);
+            }
+        }
+
+        window.toggleNodeExpand = function(nodeId) {
+            expandedNodes[nodeId] = !expandedNodes[nodeId];
+            renderWorkflowEditor();
+        }
+
+        /**
+         * 切换员工展开状态
+         */
+        window.toggleEmployeeExpand = function(nodeId, empId) {
+            const key = `${nodeId}-${empId}`;
+            expandedEmployees[key] = !expandedEmployees[key];
+            renderWorkflowEditor();
+        }
+
+        /**
+         * 显示分公司选择模态框
+         */
+        let currentNodeForBranch = null;
+        let currentEmployeeForBranch = null;
+
+        window.showBranchModal = function(nodeId, empId) {
+            currentNodeForBranch = nodeId;
+            currentEmployeeForBranch = empId;
+            
+            const key = `${nodeId}-${empId}`;
+            const existingBranches = employeeBranches[key] || [];
+            
+            const modalContent = `
+                <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" id="branch-modal" onclick="hideBranchModal(event)">
+                    <div class="modal-content bg-white rounded-xl p-6 w-96 max-h-[80vh] flex flex-col" onclick="event.stopPropagation()">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-gray-800">选择审批分公司</h3>
+                            <button onclick="hideBranchModal()" class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="flex-1 overflow-y-auto space-y-2">
+                            ${availableBranches.map(branch => `
+                                <div class="flex items-center justify-between p-3 border ${existingBranches.includes(branch) ? 'bg-orange-50 border-orange-200' : 'border-gray-200 hover:border-orange-200 hover:bg-orange-50'} rounded-lg cursor-pointer transition"
+                                     onclick="${existingBranches.includes(branch) ? '' : `addBranchToEmployee('${branch}')`}">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-building ${existingBranches.includes(branch) ? 'text-orange-600' : 'text-gray-600'} mr-3"></i>
+                                        <span class="font-medium">${branch}</span>
+                                    </div>
+                                    ${existingBranches.includes(branch) 
+                                        ? '<span class="text-xs text-orange-600 font-medium"><i class="fas fa-check mr-1"></i>已添加</span>' 
+                                        : '<i class="fas fa-plus text-orange-600"></i>'
+                                    }
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalContent);
+        }
+
+        window.hideBranchModal = function(event) {
+            if (!event || event.target.id === 'branch-modal') {
+                const modal = document.getElementById('branch-modal');
+                if (modal) {
+                    modal.remove();
+                }
+                currentNodeForBranch = null;
+                currentEmployeeForBranch = null;
+            }
+        }
+
+        window.addBranchToEmployee = function(branch) {
+            if (!currentNodeForBranch || !currentEmployeeForBranch) return;
+            
+            const key = `${currentNodeForBranch}-${currentEmployeeForBranch}`;
+            
+            if (!employeeBranches[key]) {
+                employeeBranches[key] = [];
+            }
+            
+            if (!employeeBranches[key].includes(branch)) {
+                employeeBranches[key].push(branch);
+                // 默认展开员工
+                expandedEmployees[key] = true;
+                
+                showToast(`已添加分公司：${branch}`);
+                renderWorkflowEditor();
+                
+                // 重新显示模态框以更新状态
+                hideBranchModal();
+                setTimeout(() => {
+                    showBranchModal(currentNodeForBranch, currentEmployeeForBranch);
+                }, 100);
+            }
+        }
+
+        window.removeBranch = function(nodeId, empId, branch) {
+            const key = `${nodeId}-${empId}`;
+            
+            if (employeeBranches[key]) {
+                employeeBranches[key] = employeeBranches[key].filter(b => b !== branch);
+                renderWorkflowEditor();
+                showToast('已移除分公司');
+            }
+        }
+
+        /**
+         * 删除节点
+         */
+        window.deleteNode = function(nodeId) {
+            if (!confirm('确定要删除此节点吗？')) return;
+            
+            const process = db.processes.find(p => p.SERIALCOLUMN === selectedProcessId);
+            if (process) {
+                process.data1 = process.data1.filter(node => node.SERIALCOLUMN.toString() !== nodeId.toString());
+                delete nodeEmployees[nodeId];
+                delete expandedNodes[nodeId];
+                reorderNodes(process.data1);
+                renderWorkflowEditor();
+                showAvailableRolesView();
+                showToast('节点已删除');
+            }
+        }
+
+        window.deleteCurrentNode = function() {
+            if (selectedNodeId) {
+                deleteNode(selectedNodeId);
+            }
+        }
+
+        /**
+         * 创建新流程
+         */
+        function createNewProcess() {
+            const processName = prompt('请输入新流程名称:');
+            if (!processName) return;
+            
+            const newProcess = {
+                SERIALCOLUMN: db.processes.length + 1,
+                NMID: processName,
+                data1: []
+            };
+            
+            db.processes.push(newProcess);
+            renderProcessList();
+            selectProcess(newProcess.SERIALCOLUMN);
+            showToast('流程创建成功');
+        }
+
+        /**
+         * 保存和导出
+         */
+        window.saveWorkflow = function() {
+            showToast('✅ 流程已保存');
+            console.log('当前流程数据:', db.processes.find(p => p.SERIALCOLUMN === selectedProcessId));
+            console.log('员工配置:', nodeEmployees);
+        }
+
+        window.exportWorkflow = function() {
+            const process = db.processes.find(p => p.SERIALCOLUMN === selectedProcessId);
+            if (!process) return;
+            
+            const exportData = {
+                process: process,
+                employees: nodeEmployees
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${process.NMID}.json`;
+            link.click();
+            
+            showToast('流程已导出');
+        }
+
+        // --- 拖拽事件处理 ---
+
+        /**
+         * 从角色面板开始拖拽
+         */
+        function handleRoleDragStart(e, roleName, source) {
+            draggedItem = { name: roleName, id: null };
+            dragSource = source;
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', JSON.stringify({ name: roleName, source: source }));
+            
+            setTimeout(() => {
+                e.target.classList.add('dragging');
+            }, 0);
+        }
+
+        /**
+         * 从编辑器开始拖拽节点
+         */
+        function handleNodeDragStart(e, nodeId, source) {
+            draggedItem = { id: nodeId };
+            dragSource = source;
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', JSON.stringify({ id: nodeId, source: source }));
+            
+            setTimeout(() => {
+                e.currentTarget.classList.add('dragging');
+            }, 0);
+        }
+
+        /**
+         * 拖拽结束
+         */
+        function handleDragEnd(e) {
+            const el = e.currentTarget.classList.contains('draggable-node-row') ? e.currentTarget : e.target;
+            el.classList.remove('dragging');
+            
+            draggedItem = null;
+            dragSource = null;
+            removePlaceholder();
+        }
+
+        // --- 编辑器拖放区域事件 ---
+        window.handleEditorDragEnter = (e) => {
+            e.preventDefault();
+            workflowEditor.classList.add('border-orange-300', 'border-2', 'border-dashed');
+        };
+
+        window.handleEditorDragOver = (e) => {
+            e.preventDefault(); 
+            e.dataTransfer.dropEffect = 'move';
+
+            const placeholder = getOrCreatePlaceholder();
+            const afterElement = getDragAfterElement(workflowEditor, e.clientY);
+            
+            if (afterElement == null) {
+                const endNode = workflowEditor.querySelector('.end-node');
+                if (endNode) {
+                    workflowEditor.insertBefore(placeholder, endNode);
+                } else {
+                    workflowEditor.appendChild(placeholder);
+                }
+            } else {
+                workflowEditor.insertBefore(placeholder, afterElement);
+            }
+        };
+
+        window.handleEditorDrop = (e) => {
+            e.preventDefault();
+            workflowEditor.classList.remove('border-orange-300', 'border-2', 'border-dashed');
+            
+            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+            const process = db.processes.find(p => p.SERIALCOLUMN === selectedProcessId);
+            if (!process) return;
+            
+            const placeholder = document.querySelector('.drag-placeholder');
+            if (!placeholder) return;
+
+            let newIndex = 0;
+            let realNodesBeforePlaceholder = 0;
+            const children = Array.from(workflowEditor.children);
+            
+            for (const child of children) {
+                if (child === placeholder) break;
+                if (child.classList.contains('draggable-node-row')) {
+                    realNodesBeforePlaceholder++;
+                }
+            }
+            newIndex = realNodesBeforePlaceholder;
+            
+            let newNodeData;
+            
+            if (data.source === 'editor') {
+                const movedNode = process.data1.find(n => n.SERIALCOLUMN.toString() === data.id.toString());
+                if (movedNode) {
+                    process.data1 = process.data1.filter(n => n.SERIALCOLUMN.toString() !== data.id.toString());
+                    process.data1.splice(newIndex, 0, movedNode);
+                    newNodeData = movedNode;
+                }
+            } else if (data.source === 'palette') {
+                const newNode = {
+                    SERIALCOLUMN: `new-${Date.now()}`,
+                    RLNAME: data.name,
+                    LLGINX: 0 
+                };
+                process.data1.splice(newIndex, 0, newNode);
+                newNodeData = newNode;
+            }
+            
+            removePlaceholder();
+            reorderNodes(process.data1);
+            renderWorkflowEditor();
+
+            if (newNodeData) {
+                const newNodeElement = workflowEditor.querySelector(`[data-node-id="${newNodeData.SERIALCOLUMN}"]`);
+                if(newNodeElement) {
+                    const nodeVisual = newNodeElement.querySelector('.workflow-node');
+                    if(nodeVisual) {
+                        showRoleDetails(newNodeData.RLNAME, newNodeData.SERIALCOLUMN, nodeVisual);
+                    }
+                }
+            }
+        };
+
+        window.handleEditorDragLeave = (e) => {
+            if (e.relatedTarget && workflowEditor.contains(e.relatedTarget)) {
+                return;
+            }
+            workflowEditor.classList.remove('border-orange-300', 'border-2', 'border-dashed');
+            removePlaceholder();
+        };
+
+        // --- 辅助函数 ---
+
+        function reorderNodes(nodes) {
+            nodes.forEach((node, index) => {
+                node.LLGINX = (index + 1) * 10;
+            });
+        }
+
+        function getOrCreatePlaceholder() {
+            let placeholder = document.querySelector('.drag-placeholder');
+            if (!placeholder) {
+                placeholder = document.createElement('div');
+                placeholder.className = 'drag-placeholder';
+                placeholder.textContent = '拖放到此处';
+            }
+            return placeholder;
+        }
+
+        function removePlaceholder() {
+            const placeholder = document.querySelector('.drag-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+        }
+
+        function getDragAfterElement(container, y) {
+            const interactiveElements = [...container.querySelectorAll('.draggable-node-row:not(.dragging), .add-node-btn, .end-node')];
+
+            return interactiveElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        window.addPlaceholderNode = function(insertIndex) {
+            if (!selectedProcessId) return;
+
+            const process = db.processes.find(p => p.SERIALCOLUMN === selectedProcessId);
+            const newNode = {
+                SERIALCOLUMN: `empty-${Date.now()}`,
+                RLNAME: '新审批节点',
+                LLGINX: 0 
+            };
+            process.data1.splice(insertIndex, 0, newNode);
+            reorderNodes(process.data1);
+            renderWorkflowEditor();
+            
+            const newNodeElement = workflowEditor.querySelector(`[data-node-id="${newNode.SERIALCOLUMN}"] .workflow-node`);
+            if (newNodeElement) {
+                showRoleDetails(newNode.RLNAME, newNode.SERIALCOLUMN, newNodeElement);
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+
+        // 流程编辑相关变量
+        let editingProcessId = null;
+
+        /**
+         * 显示流程编辑模态框 (新建)
+         */
+        window.showProcessEditModal = function() {
+            editingProcessId = null;
+            // 清空表单
+            document.getElementById('process-code').value = '';
+            document.getElementById('process-desc').value = '';
+            document.getElementById('process-level').value = '2';
+            document.getElementById('process-amount-limit').value = '0';
+            document.getElementById('process-cosign').value = '否';
+            document.getElementById('process-url').value = '';
+            document.getElementById('process-email-api').value = '';
+            document.getElementById('process-cc-email').value = '';
+            document.getElementById('process-complete-email').value = '全部发送';
+            
+            document.getElementById('process-edit-modal').classList.remove('hidden');
+        }
+
+        /**
+         * 编辑流程
+         */
+        window.editProcess = function(processId) {
+            editingProcessId = processId;
+            const process = db.processes.find(p => p.SERIALCOLUMN === processId);
+            if (!process) return;
+            
+            // 填充表单数据
+            document.getElementById('process-code').value = process.code || process.NMID;
+            document.getElementById('process-desc').value = process.NMID;
+            document.getElementById('process-level').value = process.level || 2;
+            document.getElementById('process-amount-limit').value = process.amountLimit || 0;
+            document.getElementById('process-cosign').value = process.cosign || '否';
+            document.getElementById('process-url').value = process.url || '';
+            document.getElementById('process-email-api').value = process.emailApi || '';
+            document.getElementById('process-cc-email').value = process.ccEmail || '';
+            document.getElementById('process-complete-email').value = process.completeEmail || '全部发送';
+            
+            document.getElementById('process-edit-modal').classList.remove('hidden');
+        }
+
+        /**
+         * 隐藏流程编辑模态框
+         */
+        window.hideProcessEditModal = function(event) {
+            if (!event || event.target.id === 'process-edit-modal') {
+                document.getElementById('process-edit-modal').classList.add('hidden');
+                editingProcessId = null;
+            }
+        }
+
+        /**
+         * 保存流程编辑
+         */
+        window.saveProcessEdit = function() {
+            const code = document.getElementById('process-code').value.trim();
+            const desc = document.getElementById('process-desc').value.trim();
+            const level = document.getElementById('process-level').value;
+            const amountLimit = document.getElementById('process-amount-limit').value;
+            const cosign = document.getElementById('process-cosign').value;
+            const url = document.getElementById('process-url').value.trim();
+            const emailApi = document.getElementById('process-email-api').value.trim();
+            const ccEmail = document.getElementById('process-cc-email').value.trim();
+            const completeEmail = document.getElementById('process-complete-email').value;
+            
+            // 验证必填项
+            if (!code || !desc) {
+                showToast('请填写必填项');
+                return;
+            }
+            
+            if (editingProcessId) {
+                // 编辑模式
+                const process = db.processes.find(p => p.SERIALCOLUMN === editingProcessId);
+                if (process) {
+                    process.code = code;
+                    process.NMID = desc;
+                    process.level = parseInt(level);
+                    process.amountLimit = parseFloat(amountLimit);
+                    process.cosign = cosign;
+                    process.url = url;
+                    process.emailApi = emailApi;
+                    process.ccEmail = ccEmail;
+                    process.completeEmail = completeEmail;
+                    
+                    showToast('✅ 流程已更新');
+                    renderProcessList();
+                    if (selectedProcessId === editingProcessId) {
+                        processTitle.textContent = desc;
+                    }
+                }
+            } else {
+                // 新建模式
+                const newProcess = {
+                    SERIALCOLUMN: db.processes.length + 1,
+                    code: code,
+                    NMID: desc,
+                    level: parseInt(level),
+                    amountLimit: parseFloat(amountLimit),
+                    cosign: cosign,
+                    url: url,
+                    emailApi: emailApi,
+                    ccEmail: ccEmail,
+                    completeEmail: completeEmail,
+                    data1: []
+                };
+                
+                db.processes.push(newProcess);
+                renderProcessList();
+                selectProcess(newProcess.SERIALCOLUMN);
+                showToast('✅ 流程创建成功');
+            }
+            
+            hideProcessEditModal();
+        }
+
+        // 保留原有的createNewProcess函数以兼容
+        function createNewProcess() {
+            showProcessEditModal();
+        }
+
+
+        // --- 初始化 ---
+        function initializeApp() {
+            // 初始化DOM元素引用
+            processList = document.getElementById('process-list');
+            workflowEditor = document.getElementById('workflow-editor');
+            processTitle = document.getElementById('process-title');
+            availableRoles = document.getElementById('available-roles');
+            roleSearch = document.getElementById('role-search');
+            availableRolesView = document.getElementById('available-roles-view');
+            roleDetailsView = document.getElementById('role-details-view');
+            roleDetailName = document.getElementById('role-detail-name');
+            backToRolesBtn = document.getElementById('back-to-roles');
+            employeeList = document.getElementById('employee-list');
+            roleEmployeeList = document.getElementById('role-employee-list');
+            nodeNameInput = document.getElementById('node-name-input');
+            saveNodeNameBtn = document.getElementById('save-node-name');
+            employeeModal = document.getElementById('employee-modal');
+            employeeModalList = document.getElementById('employee-modal-list');
+            employeeSearch = document.getElementById('employee-search');
+            
+            // 绑定事件监听器
+            roleSearch.addEventListener('input', (e) => {
+                renderAvailableRoles(e.target.value);
+            });
+
+            employeeSearch.addEventListener('input', (e) => {
+                renderEmployeeModal(e.target.value);
+            });
+
+            backToRolesBtn.addEventListener('click', showAvailableRolesView);
+
+            saveNodeNameBtn.addEventListener('click', () => {
+                const nodeIdToUpdate = nodeNameInput.dataset.nodeId;
+                const newName = nodeNameInput.value.trim();
+
+                if (!nodeIdToUpdate || !newName) return;
+
+                const process = db.processes.find(p => p.SERIALCOLUMN === selectedProcessId);
+                if (process) {
+                    const nodeToUpdate = process.data1.find(node => node.SERIALCOLUMN.toString() === nodeIdToUpdate.toString()); 
+                    if (nodeToUpdate) {
+                        nodeToUpdate.RLNAME = newName;
+                        renderWorkflowEditor();
+                        const newNodeElement = workflowEditor.querySelector(`[data-node-id="${nodeIdToUpdate}"] .workflow-node`);
+                        showRoleDetails(newName, nodeIdToUpdate, newNodeElement);
+                        showToast('节点名称已更新');
+                    }
+                }
+            });
+            
+            // 渲染初始数据
+            renderProcessList();
+            renderAvailableRoles();
+            
+            if (db.processes.length > 0) {
+                selectProcess(db.processes[0].SERIALCOLUMN);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>

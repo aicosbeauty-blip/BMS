@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "FileName": "CIR_174_3.pdf",
+  "Title": "Amended Safety Assessment of Octoxynols as Used in Cosmetics",
+  "PublicationDate": "2025-08-15",
+  "ReferenceName": "CIR-Amended-Octoxynols-2025",
+  "Summary": {
+    "ENG": [
+      {
+        "text": "The 25 octoxynol ingredients being reviewed in this report are reported to function in cosmetics as surfactants. The Panel first reviewed these octoxynol ingredients in a safety assessment that was published in 2004. At that time, the Panel issued a final report with a split conclusion for two groups of ingredients.",
+        "style": "normal"
+      },
+      {
+        "text": "At its June 2023 meeting, the Panel determined that this safety assessment should be reopened to explore the irritation potential... and due to the newly reported use of Octoxynol-9 at 0.1% in baby products.",
+        "style": "highlight"
+      },
+      {
+        "text": "According to RLD submitted to CIR in 2024, Octoxynol-9 is reported to have the greatest number of uses (38 total formulations). Results from a 2022/2025 concentration of use survey... indicate that Octoxynol-9 has the highest reported maximum concentration of use, at 2% in skin cleansing preparations.",
+        "style": "key-finding"
+      },
+      {
+        "text": "A SED (Systemic Exposure Dose) of 0.0017 mg/kg bw/d was determined in an exposure assessment based on the use of Octoxynol-9 at 2% in skin cleansing preparations (e.g., makeup remover).",
+        "style": "normal"
+      }
+    ],
+    "CHS": [
+      {
+        "text": "本报告审查的25种octoxynol（辛基酚）成分在化妆品中据报道用作表面活性剂。专家小组于2004年首次审查了这些成分的安全评估，当时发布了一份最终报告，对两组成分给出了不同的结论。",
+        "style": "normal"
+      },
+      {
+        "text": "在2023年6月的会议上，专家小组决定重新开放此安全评估，以探讨这些成分的潜在刺激性...以及新报告的Octoxynol-9在婴儿产品中0.1%的使用情况。",
+        "style": "highlight"
+      },
+      {
+        "text": "根据2024年提交给CIR的RLD数据，Octoxynol-9被报告有最多的用途（共38种配方）。2022/2025年的使用浓度调查结果显示...Octoxynol-9的最高报告使用浓度为2%，用于皮肤清洁制剂。",
+        "style": "key-finding"
+      },
+      {
+        "text": "基于Octoxynol-9在皮肤清洁制剂（例如卸妆产品）中2%的使用浓度，暴露评估确定的SED（全身暴露剂量）为0.0017 mg/kg bw/d。",
+        "style": "normal"
+      }
+    ]
+  },
+  "Abstract": {
+    "ENG": [
+      {
+        "text": "The Expert Panel for Cosmetic Ingredient Safety (Panel) reassessed the safety of 25 octoxynol ingredients, which are reported to function as surfactants in cosmetics. The Panel reviewed the available data to determine the safety of these ingredients.",
+        "style": "normal"
+      },
+      {
+        "text": "Industry should minimize impurities that could be present in cosmetic formulations, such as heavy metals and ethylene oxide impurities, according to limits set by the US Food and Drug Administration (FDA) and the US Environmental Protection Agency (EPA).",
+        "style": "highlight"
+      },
+      {
+        "text": "The Panel issued an amended report with a revised conclusion stating the octoxynols reviewed in this report are safe in cosmetics in the present practices of use and concentration described in this safety assessment when formulated to be non-irritating.",
+        "style": "key-finding"
+      }
+    ],
+    "CHS": [
+      {
+        "text": "化妆品成分安全专家小组（Panel）重新评估了25种octoxynol（辛基酚）成分的安全性，据报道这些成分在化妆品中用作表面活性剂。专家小组审查了现有数据以确定这些成分的安全性。",
+        "style": "normal"
+      },
+      {
+        "text": "工业界应根据美国食品药品监督管理局（FDA）和美国环境保护局（EPA）设定的限值，最大限度地减少化妆品配方中可能存在的杂质，例如重金属和环氧乙烷杂质。",
+        "style": "highlight"
+      },
+      {
+        "text": "专家小组发布了一份修订报告，并修订了结论，指出本安全评估中所述的octoxynols成分，在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品。",
+        "style": "key-finding"
+      }
+    ]
+  },
+  "Conclusion": {
+    "ENG": [
+      {
+        "text": "The Expert Panel for Cosmetic Ingredient Safety concluded that the following octoxynols are safe in cosmetics in the present practices of use and concentration described in this safety assessment when formulated to be non-irritating:",
+        "style": "normal"
+      },
+      {
+        "text": "(List of 25 ingredients follows, including Octoxynol-1, Octoxynol-3, Octoxynol-5, Octoxynol-6, Octoxynol-7, Octoxynol-8, Octoxynol-9, Octoxynol-10, Octoxynol-11, Octoxynol-12, Octoxynol-13, Octoxynol-16, Octoxynol-20, Octoxynol-25, Octoxynol-30, Octoxynol-33, Octoxynol-40, Octoxynol-70, Octoxynol-9 Carboxylic Acid, Octoxynol-20 Carboxylic Acid, Potassium Octoxynol-12 Phosphate, Sodium Octoxynol-2 Ethane Sulfonate, Sodium Octoxynol-2 Sulfate, Sodium Octoxynol-6 Sulfate, and Sodium Octoxynol-9 Sulfate).",
+        "style": "normal"
+      },
+      {
+        "text": "*Not reported to be in current use. Were ingredients in this group not in current use to be used in the future, the expectation is that they would be used in product categories and at concentrations comparable to others in this group.",
+        "style": "normal"
+      }
+    ],
+    "CHS": [
+      {
+        "text": "化妆品成分安全专家小组（Expert Panel for Cosmetic Ingredient Safety）得出结论，以下octoxynols成分在当前的使用实践和浓度下，当配方为无刺激性时，可安全用于化妆品：",
+        "style": "normal"
+      },
+      {
+        "text": "（随后列出了25种成分，包括 Octoxynol-1, Octoxynol-3, Octoxynol-5, Octoxynol-6, Octoxynol-7, Octoxynol-8, Octoxynol-9, Octoxynol-10, Octoxynol-11, Octoxynol-12, Octoxynol-13, Octoxynol-16, Octoxynol-20, Octoxynol-25, Octoxynol-30, Octoxynol-33, Octoxynol-40, Octoxynol-70, Octoxynol-9 羧酸, Octoxynol-20 羧酸, 辛基酚聚氧乙烯(12)磷酸钾, 辛基酚聚氧乙烯(2)乙烷磺酸钠, 辛基酚聚氧乙烯(2)硫酸钠, 辛基酚聚氧乙烯(6)硫酸钠, 和 辛基酚聚氧乙烯(9)硫酸钠）。",
+        "style": "normal"
+      },
+      {
+        "text": "*表示目前未报告使用。如果该组中目前未使用的成分将来被使用，预期它们将被用于与该组中其他成分相当的产品类别和浓度。",
+        "style": "normal"
+      }
+    ]
+  }
+}
+

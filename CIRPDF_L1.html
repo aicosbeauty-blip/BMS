@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIR 成分安全评估系统</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Inter 和 Noto Sans SC 字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入 Lucide 图标库 -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        /* 背景装饰 */
+        .bg-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+        }
+        
+        /* 玻璃态效果 */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* 卡片悬停效果 */
+        .info-card {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        /* 标题装饰线 */
+        .section-title-deco {
+            position: relative;
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .section-title-deco::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 70%;
+            width: 4px;
+            border-radius: 2px;
+        }
+        
+        .section-title-deco-purple::before { background: linear-gradient(180deg, #a855f7, #7c3aed); }
+        .section-title-deco-blue::before { background: linear-gradient(180deg, #3b82f6, #2563eb); }
+        .section-title-deco-green::before { background: linear-gradient(180deg, #22c55e, #16a34a); }
+        .section-title-deco-red::before { background: linear-gradient(180deg, #ef4444, #dc2626); }
+        .section-title-deco-orange::before { background: linear-gradient(180deg, #f97316, #ea580c); }
+        .section-title-deco-indigo::before { background: linear-gradient(180deg, #6366f1, #4f46e5); }
+        
+        /* 标签样式 */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .tag:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        .animate-slide-left {
+            animation: slideInLeft 0.6s ease-out;
+        }
+        .animate-slide-right {
+            animation: slideInRight 0.6s ease-out;
+        }
+        
+        /* 语言切换按钮 */
+        .lang-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #e5e7eb;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .lang-toggle.active {
+            background: #7c3aed;
+        }
+        .lang-toggle-switch {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 12px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .lang-toggle.active .lang-toggle-switch {
+            transform: translateX(30px);
+        }
+        
+        /* 成分选择器样式 */
+        #ingredientSelector {
+            min-width: 200px;
+            max-width: 300px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237c3aed' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 12px;
+            padding-right: 32px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+        
+        #ingredientSelector::-ms-expand {
+            display: none;
+        }
+        
+        #ingredientSelector option {
+            padding: 8px;
+        }
+        
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #a855f7, #7c3aed);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #9333ea, #6d28d9);
+        }
+        
+        /* 快速跳转按钮 */
+        .quick-link {
+            transition: all 0.2s ease;
+        }
+        .quick-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .quick-link.active {
+            ring: 2px;
+            ring-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+        }
+        
+        /* 雷达图卡片特殊样式 */
+        .radar-card {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border: 2px solid rgba(124, 58, 237, 0.2);
+        }
+        
+        /* 滚动到视图高亮 */
+        .section-highlight {
+            scroll-margin-top: 100px;
+        }
+        
+        /* 浮动导航按钮 */
+        .floating-nav-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            box-shadow: 0 8px 16px rgba(124, 58, 237, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(124, 58, 237, 0.5);
+        }
+        
+        .floating-nav-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* 浮动导航菜单 */
+        .floating-nav-menu {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 999;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            padding: 12px;
+            min-width: 200px;
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .floating-nav-menu.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        
+        .floating-nav-menu a {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .floating-nav-menu a:last-child {
+            margin-bottom: 0;
+        }
+        
+        .floating-nav-menu a:hover {
+            transform: translateX(-4px);
+        }
+        
+        .floating-nav-menu a .flag {
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+        
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            z-index: 998;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 对比表格样式 */
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .comparison-table th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+        
+        .comparison-table th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+            vertical-align: top; /* 保证单元格顶部对齐 */
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #f9fafb;
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 768px) {
+            .floating-nav-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 56px;
+                height: 56px;
+            }
+            
+            .floating-nav-menu {
+                bottom: 86px;
+                right: 20px;
+                max-width: calc(100vw - 40px);
+            }
+            
+            .back-to-top {
+                bottom: 96px;
+                right: 20px;
+                width: 44px;
+                height: 44px;
+            }
+            
+            /* 成分选择器在移动端的样式 */
+            #ingredientSelector {
+                min-width: 150px;
+                max-width: 200px;
+                font-size: 0.75rem;
+                padding-left: 8px;
+                padding-right: 28px;
+            }
+            
+            /* 顶部导航栏在移动端可以换行 */
+            nav .flex.justify-between {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            nav .flex.items-center.space-x-4 {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-pattern">
+
+    <!-- 主容器 -->
+    <div class="min-h-screen p-4 md:p-6 lg:p-8">
+        
+        <!-- 顶部导航栏 -->
+        <nav class="glass-effect rounded-2xl shadow-2xl mb-6 animate-fade-in sticky top-4 z-50">
+            <div class="px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-4">
+                        <div class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-lg">
+                            <i data-lucide="shield-check" class="h-8 w-8 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">
+                                <span class="cn-content">CIR 成分安全评估系统</span>
+                                <span class="en-content hidden">CIR Safety Assessment System</span>
+                            </h1>
+                            <p class="text-sm text-gray-600">
+                                <span class="cn-content">化妆品成分审查</span>
+                                <span class="en-content hidden">Cosmetic Ingredient Review</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <!-- 成分选择器 -->
+                        <div class="flex items-center space-x-2">
+                            <label for="ingredientSelector" class="text-sm text-gray-600 font-medium">
+                                <span class="cn-content">成分:</span>
+                                <span class="en-content hidden">Ingredient:</span>
+                            </label>
+                            <select id="ingredientSelector" class="px-3 py-1.5 bg-white border-2 border-purple-300 rounded-lg text-sm font-medium text-gray-700 hover:border-purple-500 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 transition-all cursor-pointer">
+                                <!-- 动态填充 -->
+                            </select>
+                        </div>
+                        <!-- 语言切换 -->
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-600 font-medium">中文</span>
+                            <div class="lang-toggle" id="langToggle">
+                                <div class="lang-toggle-switch"></div>
+                            </div>
+                            <span class="text-sm text-gray-600 font-medium">EN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 成分标题卡片 -->
+        <div class="glass-effect rounded-2xl shadow-2xl mb-6 overflow-hidden animate-slide-left">
+            <div class="h-2 bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500" data-id="safety-bar"></div>
+            <div class="p-6 md:p-8">
+                <div class="flex flex-wrap justify-between items-start gap-4">
+                    <div class="flex-1 min-w-[300px]">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                                    <span class="cn-content" data-id="chemical-name-chs">...</span>
+                                    <span class="en-content hidden" data-id="chemical-name-eng">...</span>
+                                </h2>
+                                <p class="text-lg text-gray-600">
+                                    <span class="cn-content" data-id="report-title-chs">...</span>
+                                    <span class="en-content hidden" data-id="report-title-eng">...</span>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- 标签区 -->
+                        <div class="flex flex-wrap gap-2 mb-6" data-id="tags-container">
+                            <!-- JS will populate this -->
+                        </div>
+                        
+                        <!-- 基本信息网格 -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-3 border border-purple-200">
+                                <p class="text-xs text-purple-600 font-semibold mb-1">CAS Number</p>
+                                <p class="text-sm font-bold text-gray-900" data-id="cas-number">...</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-3 border border-blue-200">
+                                <p class="text-xs text-blue-600 font-semibold mb-1">
+                                    <span class="cn-content">主要功能</span>
+                                    <span class="en-content hidden">Main Function</span>
+                                </p>
+                                <p class="text-sm font-bold text-gray-900">
+                                    <span class="cn-content" data-id="main-function-chs">...</span>
+                                    <span class="en-content hidden" data-id="main-function-eng">...</span>
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-3 border border-green-200">
+                                <p class="text-xs text-green-600 font-semibold mb-1">
+                                    <span class="cn-content">安全浓度</span>
+                                    <span class="en-content hidden">Safe Conc.</span>
+                                </p>
+                                <p class="text-sm font-bold text-gray-900" data-id="safe-concentration">...</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-3 border border-orange-200">
+                                <p class="text-xs text-orange-600 font-semibold mb-1">
+                                    <span class="cn-content">报告范围</span>
+                                    <span class="en-content hidden">Use Range</span>
+                                </p>
+                                <p class="text-sm font-bold text-gray-900" data-id="usage-range">...</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 成分简介 (CIR 结论) -->
+                        <div class="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                <span class="cn-content"><strong class="text-blue-700">成分简介：</strong><span data-id="introduction-chs">...</span></span>
+                                <span class="en-content hidden"><strong class="text-blue-700">Introduction:</strong> <span data-id="introduction-eng">...</span></span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 快速跳转导航 -->
+                    <div class="w-full lg:w-auto lg:min-w-[300px]">
+                        <h3 class="text-sm font-semibold text-gray-600 mb-3 flex items-center">
+                            <i data-lucide="compass" class="w-4 h-4 mr-2"></i>
+                            <span class="cn-content">快速跳转</span>
+                            <span class="en-content hidden">Quick Navigation</span>
+                        </h3>
+                        <div class="grid grid-cols-2 lg:grid-cols-1 gap-2">
+                            <a href="#overview" class="quick-link scroll-link px-4 py-2.5 bg-purple-100 text-purple-700 font-medium rounded-lg text-sm hover:bg-purple-200 transition-all text-left flex items-center">
+                                <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
+                                <span class="cn-content">成分概述</span>
+                                <span class="en-content hidden">Overview</span>
+                            </a>
+                            <a href="#toxicology" class="quick-link scroll-link px-4 py-2.5 bg-red-100 text-red-700 font-medium rounded-lg text-sm hover:bg-red-200 transition-all text-left flex items-center">
+                                <i data-lucide="flask-conical" class="w-4 h-4 mr-2"></i>
+                                <span class="cn-content">毒理学数据</span>
+                                <span class="en-content hidden">Toxicology</span>
+                            </a>
+                            <a href="#concentration" class="quick-link scroll-link px-4 py-2.5 bg-orange-100 text-orange-700 font-medium rounded-lg text-sm hover:bg-orange-200 transition-all text-left flex items-center">
+                                <i data-lucide="percent" class="w-4 h-4 mr-2"></i>
+                                <span class="cn-content">详细浓度</span>
+                                <span class="en-content hidden">Concentration</span>
+                            </a>
+                            <a href="#regulations" class="quick-link scroll-link px-4 py-2.5 bg-blue-100 text-blue-700 font-medium rounded-lg text-sm hover:bg-blue-200 transition-all text-left flex items-center">
+                                <i data-lucide="globe" class="w-4 h-4 mr-2"></i>
+                                <span class="cn-content">国际法规</span>
+                                <span class="en-content hidden">Regulations</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主内容区 - 分栏布局 -->
+        <div class="flex flex-col lg:flex-row gap-6">
+            
+            <!-- 左侧：平铺内容区（滚动查看） -->
+            <div class="flex-1 space-y-6 animate-slide-left" style="animation-delay: 0.2s;">
+                
+                <!-- 1. 成分概述 -->
+                <section id="overview" class="info-card glass-effect rounded-2xl shadow-2xl overflow-hidden p-6 md:p-8 section-highlight">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 section-title-deco section-title-deco-purple">
+                        <i data-lucide="info" class="w-6 h-6 mr-2"></i>
+                        <span class="cn-content">成分概述</span>
+                        <span class="en-content hidden">Ingredient Overview</span>
+                    </h3>
+                    
+                    <!-- Synonyms / 同义名 -->
+                    <div class="mb-6 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-200" data-id="synonyms-container">
+                        <h4 class="text-base font-semibold text-gray-800 flex items-center mb-3">
+                            <i data-lucide="git-branch" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                            <span class="cn-content">同义名 / 别名</span>
+                            <span class="en-content hidden">Synonyms / Aliases</span>
+                        </h4>
+                        <div class="flex flex-wrap gap-2" data-id="synonyms-list">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 主要用途 -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                                <i data-lucide="target" class="w-5 h-5 mr-2 text-purple-600"></i>
+                                <span class="cn-content">主要用途</span>
+                                <span class="en-content hidden">Main Uses</span>
+                            </h4>
+                            <div class="space-y-3" data-id="main-uses-container">
+                                <!-- JS will populate this -->
+                            </div>
+                        </div>
+                        
+                        <!-- 产品分布 -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                                <i data-lucide="pie-chart" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <span class="cn-content">产品分布 (报告)</span>
+                                <span class="en-content hidden">Product Distribution (Reported)</span>
+                            </h4>
+                            <div class="space-y-3" data-id="product-distribution-container">
+                                <!-- JS will populate this -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CIR 结论 -->
+                    <div class="mt-8 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-2 border-green-200 shadow-lg" data-id="conclusion-card">
+                        <div class="flex items-start space-x-4">
+                            <div class="p-3 bg-green-200 rounded-xl" data-id="conclusion-icon-bg">
+                                <i data-lucide="check-circle-2" class="h-7 w-7 text-green-700" data-id="conclusion-icon"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                                    <span class="cn-content">CIR 专家小组结论</span>
+                                    <span class="en-content hidden">CIR Expert Panel Conclusion</span>
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    <span class="cn-content" data-id="conclusion-text-chs">...</span>
+                                    <span class="en-content hidden" data-id="conclusion-text-eng">...</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 2. 毒理学数据 -->
+                <section id="toxicology" class="info-card glass-effect rounded-2xl shadow-2xl overflow-hidden p-6 md:p-8 section-highlight">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 section-title-deco section-title-deco-red">
+                            <i data-lucide="flask-conical" class="w-6 h-6 mr-2"></i>
+                            <span class="cn-content">毒理学信息</span>
+                            <span class="en-content hidden">Toxicology Information</span>
+                        </h3>
+                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                            <span class="cn-content">查看详细信息</span>
+                            <span class="en-content hidden">View Details</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- 主要关注点 和 毒理学总结 -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <!-- 主要关注点 (Concern Blocks) -->
+                        <div class="bg-orange-50 rounded-xl p-6 border-l-4 border-orange-500" data-id="concern-blocks-container">
+                            <!-- JS will populate this -->
+                        </div>
+                        
+                        <!-- 毒理学总结 -->
+                        <div class="bg-indigo-50 rounded-xl p-6 border-l-4 border-indigo-500">
+                            <h4 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                                <i data-lucide="file-text" class="h-5 w-5 mr-2 text-indigo-600"></i>
+                                <span class="cn-content">毒理学总结</span>
+                                <span class="en-content hidden">Toxicology Summary</span>
+                            </h4>
+                            <div class="bg-white p-4 rounded-lg text-sm text-gray-700 leading-relaxed space-y-2">
+                                <p class="cn-content" data-id="tox-summary-chs">...</p>
+                                <p class="en-content hidden" data-id="tox-summary-eng">...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 毒理学详情表格 -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i data-lucide="list-checks" class="w-5 h-5 mr-2 text-red-600"></i>
+                            <span class="cn-content">毒理学详情</span>
+                            <span class="en-content hidden">Toxicology Details</span>
+                        </h4>
+                        <div class="overflow-x-auto glass-effect rounded-lg shadow-md border">
+                            <table class="comparison-table w-full">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span class="cn-content">评估项目</span>
+                                            <span class="en-content hidden">Endpoint</span>
+                                        </th>
+                                        <th>
+                                            <span class="cn-content">风险等级</span>
+                                            <span class="en-content hidden">Risk Level</span>
+                                        </th>
+                                        <th>
+                                            <span class="cn-content">评估内容</span>
+                                            <span class="en-content hidden">Evaluation Content</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody data-id="tox-table-body">
+                                    <!-- JS will populate this -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 3. 详细浓度数据 -->
+                <section id="concentration" class="info-card glass-effect rounded-2xl shadow-2xl overflow-hidden p-6 md:p-8 section-highlight">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 section-title-deco section-title-deco-orange">
+                            <i data-lucide="percent" class="w-6 h-6 mr-2"></i>
+                            <span class="cn-content">详细浓度数据 (报告)</span>
+                            <span class="en-content hidden">Detailed Concentration Data (Reported)</span>
+                        </h3>
+                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                            <span class="cn-content">查看详细浓度数据</span>
+                            <span class="en-content hidden">View Detailed Data</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </a>
+                    </div>
+
+                    <!-- 1. 使用部位/用途限制区域 (Application Site Limits) -->
+                    <div class="mb-8">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <i data-lucide="map-pin" class="w-5 h-5 mr-2 text-orange-600"></i>
+                            <span class="cn-content">使用部位/用途限制区域</span>
+                            <span class="en-content hidden">Application Site Limits</span>
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-id="application-site-container">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+
+                    <!-- 2. 产品分类区域 (Product Category Limits) -->
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <i data-lucide="package" class="w-5 h-5 mr-2 text-orange-600"></i>
+                            <span class="cn-content">产品分类区域 (报告)</span>
+                            <span class="en-content hidden">Product Category Limits (Reported)</span>
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-id="product-category-container">
+                           <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 4. 国际法规 -->
+                <section id="regulations" class="info-card glass-effect rounded-2xl shadow-2xl p-6 md:p-8 section-highlight">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6 section-title-deco section-title-deco-blue">
+                        <i data-lucide="globe" class="w-6 h-6 mr-3 text-blue-600"></i>
+                        <span class="cn-content">国际法规浓度对比</span>
+                        <span class="en-content hidden">International Regulatory Comparison</span>
+                    </h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="cn-content">地区/国家</span>
+                                        <span class="en-content hidden">Region/Country</span>
+                                    </th>
+                                    <th>
+                                        <span class="cn-content">最高浓度</span>
+                                        <span class="en-content hidden">Max Concentration</span>
+                                    </th>
+                                    <th>
+                                        <span class="cn-content">产品类型</span>
+                                        <span class="en-content hidden">Product Type</span>
+                                    </th>
+                                    <th>
+                                        <span class="cn-content">特殊要求</span>
+                                        <span class="en-content hidden">Special Requirements</span>
+                                    </th>
+                                    <th>
+                                        <span class="cn-content">详情</span>
+                                        <span class="en-content hidden">Details</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody data-id="regulations-table-body">
+                                <!-- JS will populate this -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-sm text-blue-800 flex items-start">
+                            <i data-lucide="info" class="w-5 h-5 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>
+                                <span class="cn-content"><strong>注意：</strong>不同国家和地区对该成分的浓度限制存在差异。出口产品时请务必遵守目标市场的法规要求。</span>
+                                <span class="en-content hidden"><strong>Note:</strong> Concentration limits vary by country/region. Always comply with target market regulations.</span>
+                            </span>
+                        </p>
+                    </div>
+                </section>
+                
+            </div>
+            
+            <!-- 右侧：固定内容区 -->
+            <div class="w-full lg:w-[380px] space-y-6 animate-slide-right sticky top-24 self-start" style="animation-delay: 0.3s;">
+                
+                <!-- 浓度速览卡片 -->
+                <div class="glass-effect rounded-2xl shadow-2xl p-6 bg-gradient-to-br from-purple-50 to-pink-50">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                        <i data-lucide="zap" class="w-5 h-5 mr-2 text-purple-600"></i>
+                        <span class="cn-content">浓度速览</span>
+                        <span class="en-content hidden">Concentration Quick-View</span>
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 gap-4" data-id="concentration-quickview-container">
+                        <!-- JS will populate this -->
+                    </div>
+                </div>
+
+                <!-- 雷达图卡片 -->
+                <div class="radar-card glass-effect rounded-2xl shadow-2xl p-6 overflow-hidden">
+                    <h3 class="flex items-center space-x-2 text-lg font-bold text-gray-800 mb-4">
+                        <i data-lucide="radar" class="w-5 h-5 text-purple-600"></i>
+                        <span class="cn-content">毒理学概览</span>
+                        <span class="en-content hidden">Toxicology Overview</span>
+                    </h3>
+                    <div class="relative w-full h-[280px]">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-xs text-gray-600 text-center">
+                        <span class="cn-content">数据来源：毒理学分析报告</span>
+                        <span class="en-content hidden">Source: Toxicology Report</span>
+                    </div>
+                </div>
+                
+                <!-- 产品分布图卡片 -->
+                <div class="glass-effect rounded-2xl shadow-2xl p-6 overflow-hidden">
+                    <h3 class="flex items-center space-x-2 text-lg font-bold text-gray-800 mb-4">
+                        <i data-lucide="pie-chart" class="w-5 h-5 text-blue-600"></i>
+                        <span class="cn-content">产品分布图 (报告)</span>
+                        <span class="en-content hidden">Product Distribution Chart (Reported)</span>
+                    </h3>
+                    <div class="relative w-full h-[280px]">
+                        <canvas id="productDoughnutChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-xs text-gray-600 text-center">
+                        <span class="cn-content">数据来源：VCRP 报告</span>
+                        <span class="en-content hidden">Source: VCRP Report</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部信息栏 -->
+        <div class="glass-effect rounded-2xl shadow-xl mt-6 p-4 animate-fade-in" style="animation-delay: 0.4s;">
+            <div class="flex flex-wrap justify-between items-center text-sm text-gray-600 gap-4">
+                <div class="flex items-center flex-wrap gap-4">
+                    <span class="flex items-center">
+                        <i data-lucide="database" class="w-4 h-4 mr-1"></i>
+                        <span class="cn-content">数据来源：<span data-id="report-source-chs">...</span></span>
+                        <span class="en-content hidden">Source: <span data-id="report-source-eng">...</span></span>
+                    </span>
+                    <span>•</span>
+                    <span class="flex items-center">
+                        <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
+                        <span class="cn-content">最后更新：<span data-id="last-updated-chs">...</span></span>
+                        <span class="en-content hidden">Last Updated: <span data-id="last-updated-eng">...</span></span>
+                    </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-xs text-gray-500">
+                        <span class="cn-content">版本: <span data-id="report-version-chs">...</span></span>
+                        <span class="en-content hidden">Version: <span data-id="report-version-eng">...</span></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 浮动导航按钮 -->
+        <div class="floating-nav-btn" id="floatingNavBtn" title="快速导航">
+            <i data-lucide="menu" class="w-6 h-6 text-white"></i>
+        </div>
+        
+        <!-- 浮动导航菜单 -->
+        <div class="floating-nav-menu" id="floatingNavMenu">
+            <a href="#overview" class="nav-menu-link bg-purple-50 hover:bg-purple-100 text-purple-700">
+                <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
+                <span class="cn-content">成分概述</span>
+                <span class="en-content hidden">Overview</span>
+            </a>
+            <a href="#toxicology" class="nav-menu-link bg-red-50 hover:bg-red-100 text-red-700">
+                <i data-lucide="flask-conical" class="w-4 h-4 mr-2"></i>
+                <span class="cn-content">毒理学数据</span>
+                <span class="en-content hidden">Toxicology</span>
+            </a>
+            <a href="#concentration" class="nav-menu-link bg-orange-50 hover:bg-orange-100 text-orange-700">
+                <i data-lucide="percent" class="w-4 h-4 mr-2"></i>
+                <span class="cn-content">详细浓度</span>
+                <span class="en-content hidden">Concentration</span>
+            </a>
+            <a href="#regulations" class="nav-menu-link bg-blue-50 hover:bg-blue-100 text-blue-700">
+                <i data-lucide="globe" class="w-4 h-4 mr-2"></i>
+                <span class="cn-content">国际法规</span>
+                <span class="en-content hidden">Regulations</span>
+            </a>
+        </div>
+        
+        <!-- 返回顶部按钮 -->
+        <div class="back-to-top" id="backToTop" title="返回顶部">
+            <i data-lucide="arrow-up" class="w-5 h-5 text-gray-700"></i>
+        </div>
+    </div>
+
+    <!-- JavaScript 交互功能 -->
+    <script>
+        // --- 全局状态 ---
+        let appData = null; // 将保存已加载的 JSON 数据
+        let currentLang = 'CHS'; // 默认中文
+        let currentIngredientIndex = 0; // 当前选中的成分索引
+        let radarChartInstance = null;
+        let doughnutChartInstance = null;
+
+        // --- 辅助函数 ---
+
+        /**
+         * querySelector 缩写
+         * @param {string} selector 
+         * @returns {HTMLElement | null}
+         */
+        function qS(selector) {
+            return document.querySelector(selector);
+        }
+
+        /**
+         * querySelectorAll 缩写
+         * @param {string} selector 
+         * @returns {NodeListOf<HTMLElement>}
+         */
+        function qSA(selector) {
+            return document.querySelectorAll(selector);
+        }
+
+        /**
+         * 安全地获取双语文本
+         * @param {object | null | undefined} bilingualObj - 格式 { CHS: '...', ENG: '...' }
+         * @param {string} lang - 'CHS' 或 'ENG'
+         * @param {string} [defaultText='N/A'] - 备用文本
+         * @returns {string}
+         */
+        function getText(bilingualObj, lang, defaultText = 'N/A') {
+            return bilingualObj?.[lang] || defaultText;
+        }
+
+        /**
+         * 渲染富文本 (bilingualTextBlock)
+         * @param {Array<object> | null | undefined} segments - 文本片段数组
+         * @param {string} [defaultText='N/A'] - 备用文本
+         * @returns {string} - HTML 字符串
+         */
+        function renderRichText(segments, defaultText = 'N/A') {
+            if (!segments || segments.length === 0) {
+                return `<p>${defaultText}</p>`;
+            }
+            return segments.map(seg => {
+                let text = seg.text.replace(/\n/g, '<br>'); // 保留换行
+                switch (seg.style) {
+                    case 'bold':
+                        return `<strong>${text}</strong>`;
+                    case 'highlight':
+                        return `<strong class="text-purple-600">${text}</strong>`;
+                    case 'warning':
+                        return `<strong class="text-red-600">${text}</strong>`;
+                    default:
+                        return `<span>${text}</span>`;
+                }
+            }).join(' '); // 段落间用空格连接
+        }
+
+        /**
+         * 格式化浓度范围
+         * @param {object | null | undefined} rangeObj - 浓度范围对象
+         * @param {string} lang - 'CHS' 或 'ENG'
+         * @param {string} [defaultText='N/A'] - 备用文本
+         * @returns {string}
+         */
+        function formatConcentrationRange(rangeObj, lang, defaultText = 'N/A') {
+            if (!rangeObj) return defaultText;
+            
+            // 优先使用 description
+            if (rangeObj.description && rangeObj.description[lang] && rangeObj.description[lang].trim() !== '') {
+                return rangeObj.description[lang];
+            }
+            
+            const unit = rangeObj.unit || '%';
+            if (rangeObj.min != null && rangeObj.max != null) {
+                if (rangeObj.min === rangeObj.max) {
+                    return `${rangeObj.max}${unit}`;
+                }
+                return `${rangeObj.min}${unit} - ${rangeObj.max}${unit}`;
+            }
+            if (rangeObj.max != null) {
+                const prefix = lang === 'CHS' ? '最高 ' : 'Max ';
+                return `${prefix}${rangeObj.max}${unit}`;
+            }
+            if (rangeObj.min != null) {
+                const prefix = lang === 'CHS' ? '最低 ' : 'Min ';
+                return `${prefix}${rangeObj.min}${unit}`;
+            }
+            return defaultText;
+        }
+
+        /**
+         * 动态设置文本内容
+         * @param {string} dataId - 'data-id' 属性值
+         * @param {string} content - 要设置的文本
+         * @param {boolean} [isHtml=false] - 是否为 HTML
+         */
+        function setContent(dataId, content, isHtml = false) {
+            const el = qS(`[data-id="${dataId}"]`);
+            if (el) {
+                if (isHtml) {
+                    el.innerHTML = content;
+                } else {
+                    el.textContent = content;
+                }
+            }
+        }
+
+        // --- 渲染函数 ---
+
+        /**
+         * 渲染顶部卡片
+         */
+        function renderHeader(data, lang) {
+            // 标题
+            setContent('chemical-name-chs', data.ingredients[currentIngredientIndex].chemicalName.CHS);
+            setContent('chemical-name-eng', data.ingredients[currentIngredientIndex].chemicalName.ENG);
+            
+            // 报告标题 (副标题)
+            const reportTitle = data.reportContext.reportTitle || (lang === 'CHS' ? 'N/A' : 'N/A');
+            setContent('report-title-chs', reportTitle);
+            setContent('report-title-eng', reportTitle); // 假设中英文报告标题相同
+            
+            // CAS 号
+            setContent('cas-number', data.ingredients[currentIngredientIndex].casNumber || 'N/A');
+            
+            // 主要功能 - 优先使用 module2Identity.classification，回退到 module1Dashboard.cosmetics
+            let mainFunction = null;
+            const ingredient = data.ingredients[currentIngredientIndex];
+            
+            if (ingredient.modules.module2Identity?.classification?.cosmeticFunction?.[0]) {
+                mainFunction = ingredient.modules.module2Identity.classification.cosmeticFunction[0];
+            } else if (ingredient.modules.module1Dashboard?.cosmetics?.cosmeticFunction?.[0]) {
+                mainFunction = ingredient.modules.module1Dashboard.cosmetics.cosmeticFunction[0];
+            }
+            
+            setContent('main-function-chs', getText(mainFunction, 'CHS', 'N/A'));
+            setContent('main-function-eng', getText(mainFunction, 'ENG', 'N/A'));
+            
+            // 安全浓度
+            const safeConc = data.ingredients[currentIngredientIndex].modules.module1Dashboard.keyParameters.maxSafeConcentration;
+            setContent('safe-concentration', formatConcentrationRange(safeConc, lang));
+            
+            // 报告范围 (取 module6 的最大范围)
+            const usageRanges = data.ingredients[currentIngredientIndex].modules.module6Usage?.productTypeFrequencies || [];
+            let min = null;
+            let max = null;
+            usageRanges.forEach(item => {
+                const r = item.concentrationRange;
+                if (r) {
+                    if (r.min != null && (min == null || r.min < min)) min = r.min;
+                    if (r.max != null && (max == null || r.max > max)) max = r.max;
+                }
+            });
+            const overallRange = { min, max, unit: '%' };
+            setContent('usage-range', formatConcentrationRange(overallRange, lang, 'N/A'));
+
+            // 简介 (使用 CIR 结论)
+            const conclusion = data.ingredients[currentIngredientIndex].modules.module1Dashboard.safetyStatus.conclusion;
+            setContent('introduction-chs', renderRichText(conclusion.CHS, '无'), true);
+            setContent('introduction-eng', renderRichText(conclusion.ENG, 'None'), true);
+
+            // 安全状态条
+            const safetyBar = qS('[data-id="safety-bar"]');
+            const level = data.ingredients[currentIngredientIndex].modules.module1Dashboard.safetyStatus.level;
+            if (safetyBar) {
+                safetyBar.className = 'h-2'; // Reset
+                switch (level) {
+                    case 'safe':
+                        safetyBar.classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-500');
+                        break;
+                    case 'safe_with_restrictions':
+                        safetyBar.classList.add('bg-gradient-to-r', 'from-yellow-500', 'to-orange-500');
+                        break;
+                    case 'unsafe':
+                        safetyBar.classList.add('bg-gradient-to-r', 'from-red-500', 'to-pink-500');
+                        break;
+                    default: // insufficient_data
+                        safetyBar.classList.add('bg-gradient-to-r', 'from-gray-500', 'to-blue-gray-500');
+                }
+            }
+        }
+
+        /**
+         * 渲染标签
+         */
+        function renderTags(data, lang) {
+            const container = qS('[data-id="tags-container"]');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            // 安全获取dynamicTags，如果不存在则使用空对象
+            const ingredient = data.ingredients[currentIngredientIndex];
+            const dynamicTags = ingredient.dynamicTags || {};
+            
+            const tags = [
+                ...(dynamicTags.safetyTags || []),
+                ...(dynamicTags.functionTags || []),
+                ...(dynamicTags.complianceTags || []),
+                ...(dynamicTags.customTags || [])
+            ].sort((a, b) => (a.priority || 50) - (b.priority || 50)); // 排序
+
+            // 如果没有标签，直接返回（不显示任何内容）
+            if (tags.length === 0) {
+                return;
+            }
+
+            const tagColorClasses = {
+                green: 'bg-green-100 text-green-700',
+                blue: 'bg-blue-100 text-blue-700',
+                purple: 'bg-purple-100 text-purple-700',
+                orange: 'bg-orange-100 text-orange-700',
+                red: 'bg-red-100 text-red-700',
+                yellow: 'bg-yellow-100 text-yellow-700',
+                gray: 'bg-gray-100 text-gray-700'
+            };
+
+            tags.forEach(tag => {
+                const colorClass = tagColorClasses[tag.color] || tagColorClasses.gray;
+                const iconHtml = tag.icon ? `<i data-lucide="${tag.icon}" class="h-4 w-4 mr-1"></i>` : '';
+                const label = getText(tag.label, lang, tag.id);
+                
+                container.innerHTML += `
+                    <span class="tag ${colorClass}">
+                        ${iconHtml}
+                        ${label}
+                    </span>
+                `;
+            });
+        }
+
+        /**
+         * 渲染概述 (用途 和 分布)
+         */
+        function renderOverview(data, lang) {
+            const ingredient = data.ingredients[currentIngredientIndex];
+            const usesContainer = qS('[data-id="main-uses-container"]');
+            const distContainer = qS('[data-id="product-distribution-container"]');
+            const synonymsContainer = qS('[data-id="synonyms-container"]');
+            const synonymsList = qS('[data-id="synonyms-list"]');
+            
+            // 0. 渲染 Synonyms (同义名)
+            if (synonymsContainer && synonymsList) {
+                const synonyms = ingredient.synonyms || [];
+                
+                if (synonyms.length === 0) {
+                    // 如果没有同义名，隐藏整个容器
+                    synonymsContainer.style.display = 'none';
+                } else {
+                    synonymsContainer.style.display = 'block';
+                    synonymsList.innerHTML = '';
+                    
+                    synonyms.forEach((synonym) => {
+                        const displayText = getText(synonym, lang, '');
+                        if (displayText) {
+                            synonymsList.innerHTML += `
+                                <span class="inline-flex items-center px-3 py-1.5 bg-white border border-indigo-300 rounded-full text-sm text-gray-700 shadow-sm">
+                                    <i data-lucide="tag" class="w-3 h-3 mr-1.5 text-indigo-500"></i>
+                                    ${displayText}
+                                </span>
+                            `;
+                        }
+                    });
+                }
+            }
+            
+            // 1. 主要用途 - 优先使用 module2Identity.classification，回退到 module1Dashboard.cosmetics
+            if (usesContainer) {
+                usesContainer.innerHTML = '';
+                
+                let functions = [];
+                let functionDesc = null;
+                
+                // 优先使用 module2Identity.classification
+                if (ingredient.modules.module2Identity?.classification) {
+                    const classification = ingredient.modules.module2Identity.classification;
+                    functions = classification.cosmeticFunction || [];
+                    functionDesc = classification.functionDescription;
+                } 
+                // 回退到 module1Dashboard.cosmetics（兼容旧数据）
+                else if (ingredient.modules.module1Dashboard?.cosmetics) {
+                    const cosmetics = ingredient.modules.module1Dashboard.cosmetics;
+                    functions = cosmetics.cosmeticFunction || [];
+                    functionDesc = cosmetics.functionDescription;
+                }
+                
+                if (functions.length > 0) {
+                    const iconClasses = ['purple', 'blue', 'green'];
+                    
+                    functions.forEach((func, index) => {
+                        const color = iconClasses[index % iconClasses.length];
+                        
+                        // functionDescription: 在第一个功能下显示
+                        let description = 'N/A';
+                        if (index === 0 && functionDesc && functionDesc[lang]) {
+                            description = renderRichText(functionDesc[lang], 'N/A');
+                        }
+
+                        usesContainer.innerHTML += `
+                            <div class="flex items-start space-x-3 p-3 bg-${color}-50 rounded-lg border border-${color}-200">
+                                <div class="p-2 bg-${color}-200 rounded-lg">
+                                    <i data-lucide="target" class="h-5 w-5 text-${color}-700"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h5 class="font-semibold text-gray-900">${getText(func, lang)}</h5>
+                                    ${description !== 'N/A' ? `<p class="text-sm text-gray-600 mt-1">${description}</p>` : ''}
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    usesContainer.innerHTML = `
+                        <div class="p-3 bg-gray-50 rounded-lg text-sm text-gray-600">
+                            <span class="cn-content">未报告用途信息</span>
+                            <span class="en-content hidden">No usage information reported</span>
+                        </div>
+                    `;
+                }
+            }
+            
+            // 2. 产品分布
+            if (distContainer && ingredient.modules.module6Usage?.productTypeFrequencies) {
+                distContainer.innerHTML = '';
+                const frequencies = ingredient.modules.module6Usage.productTypeFrequencies;
+                let totalFormulations = frequencies.reduce((sum, item) => sum + item.numberOfFormulations, 0);
+                
+                if (totalFormulations === 0) {
+                     distContainer.innerHTML = `<div class="p-3 bg-gray-50 rounded-lg text-sm text-gray-600">${lang === 'CHS' ? '未报告产品分布' : 'Product distribution not reported'}</div>`;
+                     return;
+                }
+                
+                frequencies
+                    .sort((a, b) => b.numberOfFormulations - a.numberOfFormulations)
+                    .slice(0, 3) // 最多显示3个
+                    .forEach((item, index) => {
+                        const percentage = ((item.numberOfFormulations / totalFormulations) * 100).toFixed(0);
+                        const color = ['purple', 'blue', 'indigo'][index % 3];
+                        distContainer.innerHTML += `
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                <span class="text-sm text-gray-600">${getText(item.productType, lang)}</span>
+                                <span class="text-lg font-bold text-${color}-600">${percentage}%</span>
+                            </div>
+                        `;
+                    });
+                
+                if (frequencies.length > 0) {
+                    distContainer.innerHTML += `
+                        <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                            <p class="text-xs text-indigo-700">
+                                <span class="cn-content">报告用于 ${frequencies.length} 种产品类型，共 ${totalFormulations} 种配方。</span>
+                                <span class="en-content hidden">Reported in ${frequencies.length} product types across ${totalFormulations} formulations.</span>
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+
+            // 3. CIR 结论
+            const conclusionCard = qS('[data-id="conclusion-card"]');
+            if (conclusionCard && ingredient.modules.module1Dashboard?.safetyStatus) {
+                const status = ingredient.modules.module1Dashboard.safetyStatus;
+                const conclusionTextChs = renderRichText(status.conclusion.CHS);
+                const conclusionTextEng = renderRichText(status.conclusion.ENG);
+                
+                setContent('conclusion-text-chs', conclusionTextChs, true);
+                setContent('conclusion-text-eng', conclusionTextEng, true);
+
+                const icon = qS('[data-id="conclusion-icon"]');
+                const iconBg = qS('[data-id="conclusion-icon-bg"]');
+                
+                // Reset classes
+                conclusionCard.className = 'mt-8 p-6 rounded-xl border-2 shadow-lg';
+                iconBg.className = 'p-3 rounded-xl';
+                icon.className = 'h-7 w-7';
+                
+                switch (status.level) {
+                    case 'safe':
+                        conclusionCard.classList.add('bg-gradient-to-r', 'from-green-50', 'to-emerald-50', 'border-green-200');
+                        iconBg.classList.add('bg-green-200');
+                        icon.classList.add('text-green-700');
+                        icon.setAttribute('data-lucide', 'check-circle-2');
+                        break;
+                    case 'safe_with_restrictions':
+                        conclusionCard.classList.add('bg-gradient-to-r', 'from-yellow-50', 'to-orange-50', 'border-yellow-200');
+                        iconBg.classList.add('bg-yellow-200');
+                        icon.classList.add('text-yellow-700');
+                        icon.setAttribute('data-lucide', 'alert-triangle');
+                        break;
+                    case 'unsafe':
+                        conclusionCard.classList.add('bg-gradient-to-r', 'from-red-50', 'to-pink-50', 'border-red-200');
+                        iconBg.classList.add('bg-red-200');
+                        icon.classList.add('text-red-700');
+                        icon.setAttribute('data-lucide', 'x-octagon');
+                        break;
+                    default: // insufficient_data
+                        conclusionCard.classList.add('bg-gradient-to-r', 'from-gray-50', 'to-blue-gray-50', 'border-gray-200');
+                        iconBg.classList.add('bg-gray-200');
+                        icon.classList.add('text-gray-700');
+                        icon.setAttribute('data-lucide', 'help-circle');
+                        break;
+                }
+            }
+        }
+
+        /**
+         * 渲染毒理学 (雷达图, 总结, 关注点, 表格)
+         */
+        function renderToxicology(data, lang) {
+            const toxData = data.ingredients[currentIngredientIndex].modules.module5Toxicology;
+            const concernBlocks = data.ingredients[currentIngredientIndex].modules.module1Dashboard.concernBlocks;
+            
+            // 1. 渲染雷达图
+            if (toxData && toxData.toxicologicalEndpoints) {
+                renderRadarChart(toxData.toxicologicalEndpoints, lang); // 传入 lang
+                renderToxTable(toxData, concernBlocks, lang); 
+            }
+            
+            // 2. 渲染主要关注点 (来自 concernBlocks)
+            const concernContainer = qS('[data-id="concern-blocks-container"]');
+            if (concernContainer) {
+                concernContainer.innerHTML = ''; // 清空
+                if (concernBlocks && concernBlocks.length > 0) {
+                    concernBlocks.forEach(block => {
+                        const icon = block.theme === 'warning' ? 'alert-triangle' : 'shield-alert';
+                        const color = block.theme === 'warning' ? 'orange' : 'yellow';
+                        
+                        concernContainer.innerHTML += `
+                            <div class="mb-4">
+                                <h4 class="text-lg font-bold text-gray-800 mb-2 flex items-center">
+                                    <i data-lucide="${icon}" class="h-5 w-5 mr-2 text-${color}-600"></i>
+                                    <span class="cn-content">${getText(block.title, 'CHS')}</span>
+                                    <span class="en-content hidden">${getText(block.title, 'ENG')}</span>
+                                </h4>
+                                <div class="bg-white p-4 rounded-lg text-sm text-gray-700 leading-relaxed">
+                                    <span class="cn-content">${renderRichText(block.content['CHS'])}</span>
+                                    <span class="en-content hidden">${renderRichText(block.content['ENG'])}</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                     concernContainer.innerHTML = `
+                        <h4 class="text-lg font-bold text-gray-800 mb-2 flex items-center">
+                            <i data-lucide="check-shield" class="h-5 w-5 mr-2 text-green-600"></i>
+                            <span class="cn-content">无主要关注点</span>
+                            <span class="en-content hidden">No Major Concerns</span>
+                        </h4>
+                        <div class="bg-white p-4 rounded-lg text-sm text-gray-700 leading-relaxed">
+                            <span class="cn-content">未报告需要特别关注的毒理学问题。</span>
+                            <span class="en-content hidden">No specific toxicological issues reported for special concern.</span>
+                        </div>
+                    `;
+                }
+            }
+            
+            // 3. 渲染毒理学总结 (来自 genotoxicity.summary)
+            let toxSummaryChs = 'N/A';
+            let toxSummaryEng = 'N/A';
+            if (toxData?.genotoxicity?.summary) {
+                toxSummaryChs = renderRichText(toxData.genotoxicity.summary.CHS);
+                toxSummaryEng = renderRichText(toxData.genotoxicity.summary.ENG);
+            }
+            setContent('tox-summary-chs', toxSummaryChs, true);
+            setContent('tox-summary-eng', toxSummaryEng, true);
+        }
+
+        /**
+         * 渲染毒理学端点表格
+         */
+        function renderToxTable(toxData, concernBlocks, lang) {
+            const tableBody = qS('[data-id="tox-table-body"]');
+            if (!tableBody) return;
+            tableBody.innerHTML = '';
+            
+            const endpoints = toxData.toxicologicalEndpoints;
+            if (!endpoints) return; // Guard clause
+
+            const labels = {
+                dermalAbsorption: { CHS: '经皮渗透', ENG: 'Dermal Absorption' },
+                oralToxicity: { CHS: '口服毒性', ENG: 'Oral Toxicity' },
+                genotoxicity: { CHS: '遗传毒性', ENG: 'Genotoxicity' },
+                carcinogenicity: { CHS: '致癌性', ENG: 'Carcinogenicity' },
+                developmentalToxicity: { CHS: '发育毒性', ENG: 'Developmental Toxicity' },
+                skinIrritation: { CHS: '皮肤刺激性', ENG: 'Skin Irritation' }
+            };
+            
+            const valueMapping = { low: 'Low Risk', medium: 'Medium Risk', high: 'High Risk', unknown: 'N/A' };
+            const valueMappingCHS = { low: '低风险', medium: '中等风险', high: '高风险', unknown: 'N/A' };
+            
+            const keys = [
+                'dermalAbsorption', 
+                'oralToxicity', 
+                'genotoxicity', 
+                'carcinogenicity', 
+                'developmentalToxicity', 
+                'skinIrritation'
+            ];
+
+            keys.forEach(key => {
+                const endpointName = labels[key] ? labels[key][lang] : key;
+                const rawValue = endpoints[key] || 'unknown'; // e.g., "medium"
+                const displayValue = (lang === 'CHS') ? valueMappingCHS[rawValue] : valueMapping[rawValue];
+                
+                let valueClass = 'text-gray-700';
+                if (rawValue === 'medium') valueClass = 'text-orange-600';
+                if (rawValue === 'high') valueClass = 'text-red-700';
+
+                // 评估内容
+                let evaluationContent = lang === 'CHS' ? '无详细评估' : 'No detailed evaluation';
+                
+                if (key === 'genotoxicity' && toxData.genotoxicity && toxData.genotoxicity.summary) {
+                    const segments = toxData.genotoxicity.summary[lang];
+                    if (segments && segments.length > 0) {
+                        evaluationContent = segments.map(seg => seg.text).join(' ');
+                    }
+                }
+                
+                if (key === 'skinIrritation' && concernBlocks && concernBlocks.length > 0) {
+                    const skinConcern = concernBlocks.find(b => 
+                        b.title.ENG.toLowerCase().includes('sensitization') || 
+                        b.title.CHS.includes('致敏')
+                    );
+                    if (skinConcern) {
+                        const segments = skinConcern.content[lang];
+                         if (segments && segments.length > 0) {
+                            evaluationContent = segments.map(seg => seg.text).join(' ');
+                        }
+                    }
+                }
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <span class="font-medium text-gray-800">${endpointName}</span>
+                    </td>
+                    <td>
+                        <span class="font-bold ${valueClass}">${displayValue}</span>
+                    </td>
+                    <td class="text-xs text-gray-600">
+                        ${evaluationContent}
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        /**
+         * 渲染详细浓度
+         */
+        function renderConcentration(data, lang) {
+            const siteContainer = qS('[data-id="application-site-container"]');
+            const categoryContainer = qS('[data-id="product-category-container"]');
+            const quickviewContainer = qS('[data-id="concentration-quickview-container"]');
+            
+            const frequencies = data.ingredients[currentIngredientIndex].modules.module6Usage?.productTypeFrequencies || [];
+            const safeConc = data.ingredients[currentIngredientIndex].modules.module1Dashboard.keyParameters.maxSafeConcentration;
+            
+            // 1. 使用部位/用途限制区域
+            if (siteContainer) {
+                siteContainer.innerHTML = ''; // 清空
+                // 示例：基于数据动态生成
+                // (此处使用模拟数据，因为 schema 中没有此块的直接对应)
+                const sites = [
+                    { 
+                        title: { CHS: '皮肤接触 (化妆品)', ENG: 'Skin Contact (Cosmetics)' }, 
+                        range: formatConcentrationRange(safeConc, lang),
+                        source: { CHS: `CIR (${data.ingredients[currentIngredientIndex].modules.module1Dashboard.safetyStatus.reportVersion})`, ENG: `CIR (${data.ingredients[currentIngredientIndex].modules.module1Dashboard.safetyStatus.reportVersion})` }
+                    },
+                    { 
+                        title: { CHS: '眼部区域', ENG: 'Eye Area' }, 
+                        range: formatConcentrationRange(frequencies.find(f => f.productType.ENG.includes('Eye'))?.concentrationRange, lang),
+                        source: { CHS: 'VCRP 报告', ENG: 'VCRP Report' }
+                    },
+                    { 
+                        title: { CHS: '意外吸入', ENG: 'Incidental Inhalation' }, 
+                        range: lang === 'CHS' ? '未报告' : 'Not Reported',
+                        source: { CHS: 'N/A', ENG: 'N/A' }
+                    },
+                    { 
+                        title: { CHS: '粘膜区域', ENG: 'Mucous Membrane' }, 
+                        range: lang === 'CHS' ? '未报告' : 'Not Reported',
+                        source: { CHS: 'N/A', ENG: 'N/A' }
+                    }
+                ];
+                
+                sites.forEach(site => {
+                    const isRestricted = site.range === 'N/A' || site.range === '未报告' || site.range === 'Not Reported';
+                    const rangeColor = isRestricted ? 'text-gray-500' : 'text-red-600';
+                    
+                    siteContainer.innerHTML += `
+                        <div class="p-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl transition-all hover:shadow-lg">
+                            <p class="text-lg font-bold text-gray-900 mb-2">
+                                <span class="cn-content">${getText(site.title, 'CHS')}</span>
+                                <span class="en-content hidden">${getText(site.title, 'ENG')}</span>
+                                - <span class="${rangeColor}">${site.range}</span>
+                            </p>
+                            <p class="text-xs text-gray-500">
+                                <span class="cn-content">数据来源: ${site.source.CHS}</span>
+                                <span class="en-content hidden">Source: ${site.source.ENG}</span>
+                            </p>
+                        </div>
+                    `;
+                });
+            }
+
+            // 2. 产品分类区域
+            if (categoryContainer) {
+                categoryContainer.innerHTML = ''; // 清空
+                const colors = ['purple', 'green', 'blue', 'orange', 'red'];
+                
+                if (frequencies.length === 0) {
+                    categoryContainer.innerHTML = `<p>${lang === 'CHS' ? '无详细分类数据' : 'No detailed category data'}</p>`;
+                }
+
+                frequencies.forEach((item, index) => {
+                    const color = colors[index % colors.length];
+                    categoryContainer.innerHTML += `
+                        <div class="p-6 bg-${color}-50/70 backdrop-blur-sm rounded-xl border border-${color}-200 shadow-md">
+                            <p class="text-lg font-bold text-${color}-700 mb-3">
+                                <span class="cn-content">${getText(item.productType, 'CHS')}</span>
+                                <span class="en-content hidden">${getText(item.productType, 'ENG')}</span>
+                            </p>
+                            <div class="text-sm text-gray-800 space-y-4">
+                                <div class="border-b border-${color}-200 pb-3">
+                                    <p class="font-medium text-base mb-1">
+                                        <span class="cn-content">报告配方数</span>
+                                        <span class="en-content hidden">Formulations</span>
+                                    </p>
+                                    <p>
+                                        <span class="font-bold text-${color}-700">${item.numberOfFormulations}</span>
+                                    </p>
+                                </div>
+                                <div class="pb-3">
+                                    <p class="font-medium text-base mb-1">
+                                        <span class="cn-content">报告浓度</span>
+                                        <span class="en-content hidden">Reported Conc.</span>
+                                    </p>
+                                    <p>
+                                        <span class="font-bold text-red-600">${formatConcentrationRange(item.concentrationRange, lang)}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            // 3. 浓度速览
+            if (quickviewContainer) {
+                quickviewContainer.innerHTML = ''; // 清空
+                
+                // 绝对最高 (安全浓度)
+                quickviewContainer.innerHTML += `
+                    <div class="info-card bg-white p-5 border-t-4 border-red-500 rounded-lg shadow-lg">
+                        <p class="text-sm text-red-600 font-bold uppercase mb-1">
+                            <span class="cn-content">CIR 安全浓度</span>
+                            <span class="en-content hidden">CIR Safe Concentration</span>
+                        </p>
+                        <p class="text-4xl font-extrabold text-red-600">${formatConcentrationRange(safeConc, lang)}</p>
+                        <p class="text-xs text-gray-600 mt-2">
+                            <span class="cn-content">${getText(safeConc.description, 'CHS', 'N/A')}</span>
+                            <span class="en-content hidden">${getText(safeConc.description, 'ENG', 'N/A')}</span>
+                        </p>
+                    </div>
+                `;
+                
+                // 限制条件
+                const restrictions = data.ingredients[currentIngredientIndex].modules.module1Dashboard.keyParameters.restrictions;
+                if (restrictions) {
+                     quickviewContainer.innerHTML += `
+                        <div class="info-card bg-white p-5 border-t-4 border-orange-500 rounded-lg shadow-lg">
+                            <p class="text-sm text-orange-600 font-bold uppercase mb-1">
+                                <span class="cn-content">使用限制</span>
+                                <span class="en-content hidden">Restrictions</span>
+                            </p>
+                            <p class="text-sm font-medium text-gray-800">
+                                <span class="cn-content">${renderRichText(restrictions.CHS)}</span>
+                                <span class="en-content hidden">${renderRichText(restrictions.ENG)}</span>
+                            </p>
+                        </div>
+                    `;
+                }
+                
+                // [新增] 淋洗类 (报告范围)
+                const usageRanges = data.ingredients[currentIngredientIndex].modules.module6Usage?.productTypeFrequencies || [];
+                let min = null;
+                let max = null;
+                usageRanges.forEach(item => {
+                    const r = item.concentrationRange;
+                    if (r) {
+                        if (r.min != null && (min == null || r.min < min)) min = r.min;
+                        if (r.max != null && (max == null || r.max > max)) max = r.max;
+                    }
+                });
+                const overallRange = { min, max, unit: '%' };
+                const rinseOffRangeText = formatConcentrationRange(overallRange, lang, 'N/A');
+
+                quickviewContainer.innerHTML += `
+                    <div class="info-card bg-white p-5 border-t-4 border-green-500 rounded-lg shadow-lg">
+                        <p class="text-sm text-green-600 font-bold uppercase mb-1">
+                            <span class="cn-content">淋洗类产品 (报告范围)</span>
+                            <span class="en-content hidden">Rinse-off (Reported Range)</span>
+                        </p>
+                        <p class="text-3xl font-extrabold text-green-600">${rinseOffRangeText}</p>
+                        <p class="text-xs text-gray-600 mt-2">
+                            <span class="cn-content">来自 VCRP 报告</span>
+                            <span class="en-content hidden">From VCRP Report</span>
+                        </p>
+                    </div>
+                `;
+                
+                // 驻留型 (假设 N/A)
+                quickviewContainer.innerHTML += `
+                    <div class="info-card bg-white p-5 border-t-4 border-gray-400 rounded-lg shadow-lg">
+                        <p class="text-sm text-gray-500 font-bold uppercase mb-1">
+                            <span class="cn-content">驻留型产品</span>
+                            <span class="en-content hidden">Leave-on Products</span>
+                        </p>
+                        <p class="text-4xl font-extrabold text-gray-500">
+                            ${formatConcentrationRange(null, lang, 'N/A')}
+                        </p>
+                        <p class="text-xs text-gray-600 mt-2">
+                            <span class="cn-content">未报告用于驻留型产品</span>
+                            <span class="en-content hidden">Not reported for leave-on use</span>
+                        </p>
+                    </div>
+                `;
+            }
+        }
+        
+        /**
+         * 渲染国际法规
+         */
+        function renderRegulations(data, lang) {
+            const tableBody = qS('[data-id="regulations-table-body"]');
+            if (!tableBody) return;
+            tableBody.innerHTML = ''; // 清空
+            
+            const regulations = data.ingredients[currentIngredientIndex].modules.module8Regulatory?.globalStatus || [];
+            
+            const regionMap = {
+                'EU': { CHS: '欧盟', ENG: 'EU', flag: '🇪🇺' },
+                'China': { CHS: '中国', ENG: 'China', flag: '🇨🇳' },
+                'USA': { CHS: '美国 (CIR)', ENG: 'USA (CIR)', flag: '🇺🇸' },
+                'Japan': { CHS: '日本', ENG: 'Japan', flag: '🇯🇵' },
+            };
+            
+            if (regulations.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="text-center text-gray-500">${lang === 'CHS' ? '无国际法规数据' : 'No international regulatory data'}</td></tr>`;
+                return;
+            }
+
+            regulations.forEach(reg => {
+                const regionInfo = regionMap[reg.region] || { CHS: reg.region, ENG: reg.region, flag: '🌍' };
+                
+                // 查找浓度限制
+                const concLimit = reg.restrictions?.find(r => r.type === 'concentration');
+                const concText = concLimit ? getText(concLimit.description, lang, 'N/A') : 'N/A';
+                
+                // 查找其他要求
+                const requirements = reg.restrictions?.filter(r => r.type !== 'concentration')
+                                        .map(r => getText(r.description, lang))
+                                        .join(', ');
+
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-2">${regionInfo.flag}</span>
+                                <span class="font-semibold">${getText(regionInfo, lang)}</span>
+                            </div>
+                        </td>
+                        <td><span class="font-bold text-purple-600">${concText}</span></td>
+                        <td>
+                            <span class="cn-content">N/A</span>
+                            <span class="en-content hidden">N/A</span>
+                        </td>
+                        <td>
+                            ${requirements || 'N/A'}
+                        </td>
+                        <td>
+                            <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                                <span class="cn-content">查看详情</span>
+                                <span class="en-content hidden">View</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                            </a>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+        
+        /**
+         * 渲染底部信息栏
+         */
+        function renderFooter(data, lang) {
+            const reportTitle = data.reportContext.reportTitle || 'N/A';
+            setContent('report-source-chs', reportTitle);
+            setContent('report-source-eng', reportTitle);
+            
+            const conclusionDate = data.ingredients[currentIngredientIndex].modules.module1Dashboard.safetyStatus.conclusionDate || 'N/A';
+            setContent('last-updated-chs', conclusionDate);
+            setContent('last-updated-eng', conclusionDate);
+
+            const reportVersion = data.ingredients[currentIngredientIndex].modules.module1Dashboard.safetyStatus.reportVersion || 'N/A';
+            setContent('report-version-chs', reportVersion);
+            setContent('report-version-eng', reportVersion);
+        }
+
+        /**
+         * 渲染雷达图
+         */
+        function renderRadarChart(endpoints, lang) { // 接收 lang
+            const ctx = document.getElementById('radarChart')?.getContext('2d');
+            if (!ctx) return;
+            
+            if (radarChartInstance) {
+                radarChartInstance.destroy(); // 销毁旧实例
+            }
+            
+            const valueMapping = { low: 1, medium: 2, high: 3, unknown: 0 };
+            
+            const chartData = [
+                valueMapping[endpoints.dermalAbsorption] || 0,
+                valueMapping[endpoints.oralToxicity] || 0,
+                valueMapping[endpoints.genotoxicity] || 0,
+                valueMapping[endpoints.carcinogenicity] || 0,
+                valueMapping[endpoints.developmentalToxicity] || 0,
+                valueMapping[endpoints.skinIrritation] || 0,
+            ];
+
+            // 根据语言动态设置标签
+            const chartLabels = lang === 'CHS' ? [
+                '经皮渗透\nDermal', 
+                '口服毒性\nOral', 
+                '遗传毒性\nGeno', 
+                '致癌性\nCarcino', 
+                '发育毒性\nDevel', 
+                '刺激性\nIrrit'
+            ] : [
+                'Dermal Absorption', 
+                'Oral Toxicity', 
+                'Genotoxicity', 
+                'Carcinogenicity', 
+                'Developmental Toxicity', 
+                'Skin Irritation'
+            ];
+
+            const data = {
+                labels: chartLabels, // 使用动态标签
+                datasets: [{
+                    label: lang === 'CHS' ? '毒性等级 (1=低, 2=中, 3=高)' : 'Toxicity Level (1=Low, 2=Mid, 3=High)', // 动态图例
+                    data: chartData,
+                    backgroundColor: 'rgba(124, 58, 237, 0.2)',
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: 'rgba(124, 58, 237, 1)',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(124, 58, 237, 1)',
+                    pointHoverRadius: 7
+                }]
+            };
+
+            radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 3,
+                            ticks: {
+                                stepSize: 1,
+                                backdropColor: 'transparent',
+                                color: '#6b7280',
+                                font: { size: 11, weight: 'bold' },
+                                callback: function(value) {
+                                    if (value === 0) return 'N/A';
+                                    if (value === 1) return 'Low';
+                                    if (value === 2) return 'Mid';
+                                    if (value === 3) return 'High';
+                                }
+                            },
+                            pointLabels: {
+                                font: { 
+                                    size: lang === 'ENG' ? 10 : 11, // 动态字体大小
+                                    family: 'Inter', 
+                                    weight: '600' 
+                                },
+                                color: '#374151'
+                            },
+                            grid: { color: '#e5e7eb', lineWidth: 2 },
+                            angleLines: { color: '#d1d5db', lineWidth: 2 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            titleFont: { size: 13, weight: 'bold' },
+                            bodyFont: { size: 12 },
+                            callbacks: {
+                                label: function(context) {
+                                    const labels = ['N/A', '低风险 (Low)', '中等风险 (Medium)', '高风险 (High)'];
+                                    return labels[context.parsed.r] || '';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        /**
+         * 渲染产品分布环形图
+         */
+        function renderProductDoughnutChart(frequencies, lang) {
+            const ctx = document.getElementById('productDoughnutChart')?.getContext('2d');
+            if (!ctx) return;
+            
+            if (doughnutChartInstance) {
+                doughnutChartInstance.destroy();
+            }
+
+            if (!frequencies || frequencies.length === 0) {
+                 if (ctx.canvas.parentElement) {
+                    ctx.canvas.parentElement.innerHTML = `<div class="flex items-center justify-center h-full text-gray-500">${lang === 'CHS' ? '无分布数据' : 'No Distribution Data'}</div>`;
+                }
+                return;
+            }
+
+            const labels = frequencies.map(item => getText(item.productType, lang));
+            const dataValues = frequencies.map(item => item.numberOfFormulations);
+            
+            const backgroundColors = [
+                '#8b5cf6', // purple-500
+                '#3b82f6', // blue-500
+                '#10b981', // emerald-500
+                '#f97316', // orange-500
+                '#ec4899', // pink-500
+                '#6b7280', // gray-500
+            ];
+            
+            const hoverBackgroundColors = [
+                '#7c3aed', // purple-600
+                '#2563eb', // blue-600
+                '#059669', // emerald-600
+                '#ea580c', // orange-600
+                '#db2777', // pink-600
+                '#4b5563', // gray-600
+            ];
+
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: lang === 'CHS' ? '配方数量' : 'Formulations',
+                    data: dataValues,
+                    backgroundColor: backgroundColors.slice(0, dataValues.length),
+                    hoverBackgroundColor: hoverBackgroundColors.slice(0, dataValues.length),
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            };
+
+            doughnutChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                color: '#374151',
+                                font: {
+                                    size: 11,
+                                    weight: '500'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            titleFont: { size: 13, weight: 'bold' },
+                            bodyFont: { size: 12 }
+                        }
+                    }
+                }
+            });
+        }
+
+
+        /**
+         * 主渲染函数
+         * @param {string} lang - 'CHS' 或 'ENG'
+         */
+        function renderData(lang) {
+            if (!appData) { // 保护措施：如果数据未加载，不执行渲染
+                console.warn("renderData called before data was loaded.");
+                return;
+            }
+            const data = appData; // 使用已加载的数据
+            
+            renderHeader(data, lang);
+            renderTags(data, lang);
+            renderOverview(data, lang);
+            renderToxicology(data, lang);
+            renderConcentration(data, lang);
+            renderRegulations(data, lang);
+            renderFooter(data, lang);
+            
+            // 渲染图表
+            const frequencies = data.ingredients[currentIngredientIndex].modules.module6Usage?.productTypeFrequencies || [];
+            renderProductDoughnutChart(frequencies, lang);
+
+            // 确保图标被渲染
+            lucide.createIcons();
+        }
+
+        /**
+         * 切换语言
+         */
+        function toggleLanguage(lang) {
+            currentLang = lang;
+            
+            // 1. 重新渲染所有动态数据
+            renderData(lang);
+
+            // 2. 切换 .cn-content 和 .en-content 的显隐
+            qSA('.cn-content').forEach(el => el.classList.toggle('hidden', lang === 'ENG'));
+            qSA('.en-content').forEach(el => el.classList.toggle('hidden', lang === 'CHS'));
+            
+            // 3. 重置活动类
+            qS('#langToggle')?.classList.toggle('active', lang === 'ENG');
+            
+            // 4. 更新成分选择器的显示文本
+            initializeIngredientSelector();
+        }
+
+        // --- 初始化和事件监听 ---
+        
+        /**
+         * 封装事件监听器设置
+         */
+        function setupEventListeners() {
+            // 成分选择器切换功能
+            const ingredientSelector = document.getElementById('ingredientSelector');
+            ingredientSelector?.addEventListener('change', (e) => {
+                currentIngredientIndex = parseInt(e.target.value);
+                renderData(currentLang);
+            });
+
+            // 语言切换功能
+            const langToggle = document.getElementById('langToggle');
+            langToggle?.addEventListener('click', () => {
+                const newLang = currentLang === 'CHS' ? 'ENG' : 'CHS';
+                toggleLanguage(newLang);
+            });
+
+            // 平滑滚动和高亮显示
+            const scrollLinks = qSA('.scroll-link');
+            const sections = qSA('.section-highlight');
+
+            scrollLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        scrollLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 滚动监听 - 自动高亮当前章节
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        scrollLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { root: null, rootMargin: '-100px 0px -80% 0px', threshold: 0 });
+            sections.forEach(section => observer.observe(section));
+
+            // 浮动导航功能
+            const floatingNavBtn = document.getElementById('floatingNavBtn');
+            const floatingNavMenu = document.getElementById('floatingNavMenu');
+            const navMenuLinks = qSA('.nav-menu-link');
+            const backToTop = document.getElementById('backToTop');
+            let isMenuOpen = false;
+
+            floatingNavBtn?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isMenuOpen = !isMenuOpen;
+                floatingNavMenu?.classList.toggle('active', isMenuOpen);
+                const icon = floatingNavBtn.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-lucide', isMenuOpen ? 'x' : 'menu');
+                    lucide.createIcons();
+                }
+            });
+
+            navMenuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    isMenuOpen = false;
+                    floatingNavMenu?.classList.remove('active');
+                    const icon = floatingNavBtn?.querySelector('i');
+                    if (icon) {
+                        icon.setAttribute('data-lucide', 'menu');
+                        lucide.createIcons();
+                    }
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (isMenuOpen && !floatingNavMenu?.contains(e.target) && !floatingNavBtn?.contains(e.target)) {
+                    isMenuOpen = false;
+                    floatingNavMenu?.classList.remove('active');
+                    const icon = floatingNavBtn?.querySelector('i');
+                    if (icon) {
+                        icon.setAttribute('data-lucide', 'menu');
+                        lucide.createIcons();
+                    }
+                }
+            });
+
+            // 返回顶部功能
+            backToTop?.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop?.classList.add('visible');
+                } else {
+                    backToTop?.classList.remove('visible');
+                }
+            });
+        }
+        
+        /**
+         * 初始化成分选择器
+         */
+        function initializeIngredientSelector() {
+            const selector = document.getElementById('ingredientSelector');
+            if (!selector || !appData || !appData.ingredients) return;
+            
+            // 清空现有选项
+            selector.innerHTML = '';
+            
+            // 为每个成分创建选项
+            appData.ingredients.forEach((ingredient, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                
+                // 使用INCI名称或化学名称作为显示文本
+                const displayName = ingredient.inciName || 
+                                  ingredient.chemicalName?.[currentLang] || 
+                                  `Ingredient ${index + 1}`;
+                
+                option.textContent = displayName;
+                
+                // 设置当前选中的成分
+                if (index === currentIngredientIndex) {
+                    option.selected = true;
+                }
+                
+                selector.appendChild(option);
+            });
+            
+            // 如果只有一个成分，隐藏选择器
+            if (appData.ingredients.length <= 1) {
+                selector.parentElement.style.display = 'none';
+            } else {
+                selector.parentElement.style.display = 'flex';
+            }
+        }
+        
+        /**
+         * 异步加载和初始化应用
+         */
+        async function initializeApp() {
+            try {
+                // 1. 加载外部 JSON 数据
+                const response = await fetch('CIR_L.json'); // 默认加载 CIR_L.json
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                appData = await response.json(); // 将数据存储在全局变量中
+
+                // 2. 初始化 Lucide 图标
+                lucide.createIcons();
+
+                // 3. 初始化成分选择器
+                initializeIngredientSelector();
+
+                // 4. 绑定所有事件监听器
+                setupEventListeners();
+                
+                // 5. 初始渲染 (中文)
+                renderData('CHS');
+                
+                // 6. 确保语言类正确
+                qSA('.en-content').forEach(el => el.classList.add('hidden'));
+                qSA('.cn-content').forEach(el => el.classList.remove('hidden'));
+
+                // 7. 页面加载动画
+                qSA('.animate-fade-in, .animate-slide-left, .animate-slide-right').forEach((el, index) => {
+                    el.style.opacity = '0';
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                    }, index * 100);
+                });
+
+            } catch (error) {
+                console.error("Failed to load or initialize application:", error);
+                // 在页面上显示一个用户友好的错误信息
+                const container = qS('.min-h-screen.p-4') || document.body;
+                container.innerHTML = `
+                    <div class="glass-effect rounded-2xl shadow-2xl p-8 max-w-lg mx-auto mt-20 text-center">
+                        <i data-lucide="alert-triangle" class="w-16 h-16 text-red-500 mx-auto"></i>
+                        <h2 class="text-2xl font-bold text-gray-900 mt-4">数据加载失败</h2>
+                        <p class="text-gray-600 mt-2">无法加载必要的数据文件 (CIR_L.json)。</p>
+                        <p class="text-sm text-gray-500 mt-4">错误: ${error.message}</p>
+                    </div>
+                `;
+                lucide.createIcons(); // 渲染错误图标
+            }
+        }
+        
+        // --- 启动应用 ---
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
