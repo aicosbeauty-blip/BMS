@@ -1,0 +1,273 @@
+{
+    "description": "基于30条代表性数据，按部门(CDEPT)和FLAG重新分组。",
+    "品牌部": {
+        "Y": [
+            {
+                "RDEPT": "北京博雅和瑞-品牌部",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-05",
+                "CNAMEEN": "北京博雅和瑞",
+                "GROUPID": "集团板块"
+            },
+            {
+                "RDEPT": "博雅干细胞-品牌部",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-05",
+                "CNAMEEN": "博雅干细胞",
+                "GROUPID": "博雅生命"
+            },
+            {
+                "RDEPT": "瑞富达生物-品牌部",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-05",
+                "CNAMEEN": "瑞富达生物",
+                "GROUPID": "美容"
+            },
+            {
+                "RDEPT": "无锡博雅感知医疗-品牌部",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-05",
+                "CNAMEEN": "无锡博雅感知医疗",
+                "GROUPID": "博雅感知"
+            },
+            {
+                "RDEPT": "博雅生命品牌部",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-05",
+                "CNAMEEN": "",
+                "GROUPID": ""
+            },
+            {
+                "RDEPT": "海南元晨-品牌部",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-05",
+                "CNAMEEN": "",
+                "GROUPID": ""
+            }
+        ]
+    },
+    "新媒体营销部": {
+        "Y": [
+            {
+                "RDEPT": "博雅生命-新媒体营销部",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-05",
+                "CNAMEEN": "博雅生命",
+                "GROUPID": "博雅生命"
+            },
+            {
+                "RDEPT": "无锡洋百科-新媒体营销部",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-18",
+                "CNAMEEN": "无锡洋百科",
+                "GROUPID": "美容"
+            }
+        ]
+    },
+    "品牌市场部-细胞业务": {
+        "Y": [
+            {
+                "RDEPT": "博雅干细胞-品牌市场部-细胞业务",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-05",
+                "CNAMEEN": "博雅干细胞",
+                "GROUPID": "博雅生命"
+            }
+        ]
+    },
+    "品牌市场部-消费品": {
+        "Y": [
+            {
+                "RDEPT": "英科博雅集团-品牌市场部-消费品",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-05",
+                "CNAMEEN": "英科博雅集团",
+                "GROUPID": "集团板块"
+            },
+            {
+                "RDEPT": "博雅干细胞-品牌市场部-消费品-",
+                "CREATEBY": "DANCHEN",
+                "CREATEDATE": "2025-09-05",
+                "CNAMEEN": "",
+                "GROUPID": ""
+            }
+        ]
+    },
+    "行政部 -马山行政组": {
+        "N": [
+            {
+                "RDEPT": "北京博雅和瑞-行政部 -马山行政组",
+                "CNAMEEN": "北京博雅和瑞",
+                "GROUPID": "集团板块"
+            }
+        ]
+    },
+    "信息技术部": {
+        "N": [
+            {
+                "RDEPT": "北京博雅未名-信息技术部",
+                "CNAMEEN": "北京博雅未名",
+                "GROUPID": "博雅生命"
+            },
+            {
+                "RDEPT": "深圳博雅感知医疗-信息技术部",
+                "CNAMEEN": "深圳博雅感知医疗",
+                "GROUPID": "博雅感知医疗"
+            },
+            {
+                "RDEPT": "无锡北大博雅控股-信息技术部",
+                "CNAMEEN": "无锡北大博雅控股",
+                "GROUPID": "集团板块"
+            }
+        ]
+    },
+    "财务部": {
+        "N": [
+            {
+                "RDEPT": "博雅干细胞-财务部",
+                "CNAMEEN": "博雅干细胞",
+                "GROUPID": "博雅生命"
+            },
+            {
+                "RDEPT": "无锡英科博雅医疗-财务部",
+                "CNAMEEN": "无锡英科博雅医疗",
+                "GROUPID": "美容"
+            },
+            {
+                "RDEPT": "WSN-财务部",
+                "CNAMEEN": "WSN",
+                "GROUPID": "博雅生命"
+            }
+        ]
+    },
+    "采购部": {
+        "N": [
+            {
+                "RDEPT": "第五空间-采购部",
+                "CNAMEEN": "第五空间",
+                "GROUPID": "集团板块"
+            },
+            {
+                "RDEPT": "宁波尚诣-采购部",
+                "CNAMEEN": "宁波尚诣",
+                "GROUPID": "博雅感知"
+            },
+            {
+                "RDEPT": "宁波嘉士捷-采购部",
+                "CNAMEEN": "宁波嘉士捷",
+                "GROUPID": "集团板块"
+            }
+        ]
+    },
+    "法务部": {
+        "N": [
+            {
+                "RDEPT": "天津英科赛奥-法务部",
+                "CNAMEEN": "天津英科赛奥",
+                "GROUPID": "博雅基因"
+            },
+            {
+                "RDEPT": "广东博雅干-法务部",
+                "CNAMEEN": "广东博雅干",
+                "GROUPID": "博雅生命"
+            }
+        ]
+    },
+    "技术部": {
+        "N": [
+            {
+                "RDEPT": "江苏再生医学 -技术部",
+                "CNAMEEN": "江苏再生医学 ",
+                "GROUPID": "博雅生命"
+            },
+            {
+                "RDEPT": "无锡博雅生物-技术部",
+                "CNAMEEN": "无锡博雅生物",
+                "GROUPID": "集团板块"
+            }
+        ]
+    },
+    "人力资源部": {
+        "N": [
+            {
+                "RDEPT": "青海北大博雅-人力资源部",
+                "CNAMEEN": "青海北大博雅",
+                "GROUPID": "集团板块"
+            },
+            {
+                "RDEPT": "大榭博雅干-人力资源部",
+                "CNAMEEN": "大榭博雅干",
+                "GROUPID": "博雅生命"
+            }
+        ]
+    },
+    "市场部": {
+        "N": [
+            {
+                "RDEPT": "北京博雅干-新生儿事业部-市场部",
+                "CNAMEEN": "北京博雅干",
+                "GROUPID": "博雅生命"
+            },
+            {
+                "RDEPT": "上海钧诣-市场部",
+                "CNAMEEN": "上海钧诣",
+                "GROUPID": "集团板块"
+            }
+        ]
+    },
+    "研发部": {
+        "N": [
+            {
+                "RDEPT": "无锡博雅感知医疗-研发部",
+                "CNAMEEN": "无锡博雅感知医疗",
+                "GROUPID": "博雅感知"
+            },
+            {
+                "RDEPT": "重庆英科博雅干-研发部",
+                "CNAMEEN": "重庆英科博雅干",
+                "GROUPID": "博雅生命"
+            }
+        ]
+    },
+    "质管部": {
+        "N": [
+            {
+                "RDEPT": "博雅干细胞（天津）-质管部",
+                "CNAMEEN": "博雅干细胞（天津）",
+                "GROUPID": "博雅生命"
+            },
+            {
+                "RDEPT": "英科博雅集团-质管部",
+                "CNAMEEN": "英科博雅集团",
+                "GROUPID": "集团板块"
+            }
+        ]
+    },
+    "新生儿事业部": {
+        "N": [
+            {
+                "RDEPT": "无锡洋百科-新生儿事业部",
+                "CNAMEEN": "无锡洋百科",
+                "GROUPID": "美容"
+            }
+        ]
+    },
+    "成人事业部": {
+        "N": [
+            {
+                "RDEPT": "北京博瑞宏-成人事业部",
+                "CNAMEEN": "北京博瑞宏",
+                "GROUPID": "美容"
+            }
+        ]
+    },
+    "成人事业部-支持保障部": {
+        "N": [
+            {
+                "RDEPT": "无锡博雅感知医疗-成人事业部-支持保障部",
+                "CNAMEEN": "无锡博雅感知医疗",
+                "GROUPID": "博雅感知"
+            }
+        ]
+    }
+}

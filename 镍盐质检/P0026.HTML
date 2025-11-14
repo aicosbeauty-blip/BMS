@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品P0026 综合质量分析报告</title>
+    <!-- 1. 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 2. 引入ECharts图表库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        /* 自定义字体和背景 */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+        /* 定义Cpk等级颜色 */
+        .cpk-level-1 { background-color: #EF4444; color: white; } /* 经验级 < 1 */
+        .cpk-level-2 { background-color: #F59E0B; color: white; } /* 检验级 1 - 1.33 */
+        .cpk-level-3 { background-color: #10B981; color: white; } /* 保证级 1.33 - 1.67 */
+        .cpk-level-4 { background-color: #059669; color: white; } /* 预防级 1.67 - 2.00 */
+        .cpk-level-5 { background-color: #047857; color: white; } /* 卓越级 >= 2.00 */
+        .cpk-level-na { background-color: #6B7280; color: white; } /* 未评估 */
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- 报告头部 -->
+        <header class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h1 class="text-3xl font-bold text-blue-800">产品P0026 综合质量分析报告</h1>
+            <p class="text-lg text-gray-600">产品名称: 1.5万吨电镀级硫酸镍</p>
+            <p class="text-sm text-gray-500 mt-2">数据周期: 2025-10-12 至 2025-11-11</p>
+        </header>
+
+        <!-- 主网格布局 -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- 左侧：综合Cpk仪表盘 -->
+            <aside class="lg:col-span-1 space-y-6">
+                <!-- 综合Cpk卡片 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700 flex items-center">
+                        <!-- SVG Icon: Gauge -->
+                        <svg class="w-6 h-6 mr-2 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12m-10 0a10 10 0 1 0 20 0a10 10 0 1 0 -20 0"></path><path d="M12 12l0 6"></path><path d="M15.5 15.5l-3.5 -6.062"></path></svg>
+                        综合过程能力 (Cpk)
+                    </h2>
+                    
+                    <!-- ECharts 仪表盘容器 -->
+                    <div id="overall-cpk-chart" style="width: 100%; height: 250px;"></div>
+                    
+                    <div class="text-center">
+                        <p class="text-6xl font-bold text-red-600">0.41</p>
+                        <p class="text-2xl font-semibold cpk-level-1 rounded-full px-4 py-1 inline-block mt-2">
+                            经验级
+                        </p>
+                        <p class="text-gray-600 mt-4 px-2">
+                            根据《质量绩效指南》，产品综合Cpk值 (选取所有关键特性中最低值) <strong>小于 1.0</strong>，处于“经验级”。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 绩效等级说明 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                     <h3 class="text-lg font-semibold mb-3 text-gray-700">Cpk 绩效等级</h3>
+                     <ul class="space-y-2 text-sm">
+                        <li class="flex items-center justify-between p-2 rounded cpk-level-5"><span>卓越级</span> <span>≥ 2.00</span></li>
+                        <li class="flex items-center justify-between p-2 rounded cpk-level-4"><span>预防级</span> <span>1.67 - 2.00</span></li>
+                        <li class="flex items-center justify-between p-2 rounded cpk-level-3"><span>保证级</span> <span>1.33 - 1.67</span></li>
+                        <li class="flex items-center justify-between p-2 rounded cpk-level-2"><span>检验级</span> <span>1.00 - 1.33</span></li>
+                        <li class="flex items-center justify-between p-2 rounded cpk-level-1"><span>经验级</span> <span>&lt; 1.00</span></li>
+                     </ul>
+                </div>
+            </aside>
+
+            <!-- 右侧：详细分析 -->
+            <main class="lg:col-span-2 space-y-6">
+                <!-- 关键瓶颈分析 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4 text-red-700 flex items-center">
+                        <!-- SVG Icon: Alert Triangle -->
+                        <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        关键瓶颈: 镍 (Ni) 含量分析 (Cpk: 0.41)
+                    </h2>
+                    <p class="text-gray-600 mb-4">
+                        产品综合Cpk低至0.41，**唯一瓶颈**在于“镍含量”指标。下图显示了数据分布与规格下限(LSL)的危险关系。
+                    </p>
+                    
+                    <!-- ECharts 直方图容器 -->
+                    <div id="ni-histogram-chart" style="width: 100%; height: 300px;"></div>
+                    
+                    <div class="bg-red-50 border-l-4 border-red-500 text-red-800 p-4 rounded-md mt-4">
+                        <h4 class="font-bold">分析结论:</h4>
+                        <p>过程均值 (≈22.21%) 极度逼近规格下限 (LSL: 22.2%)。这导致过程能力严重不足，几乎没有安全边际。任何微小的过程波动都将直接导致产品不合格 (OOS)。</p>
+                    </div>
+                </div>
+
+                <!-- KQC 概览表 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700 flex items-center">
+                        <!-- SVG Icon: Bar Chart -->
+                        <svg class="w-6 h-6 mr-2 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+                        关键质量特性 (KQC) 概览
+                    </h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">特性 (KQC)</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cpk</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">绩效等级</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">规格要求</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">过程均值 (μ)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="bg-red-50">
+                                    <td class="px-4 py-4 whitespace-nowrap font-medium text-red-700">镍 (Ni) 含量</td>
+                                    <td class="px-4 py-4 whitespace-nowrap font-medium text-red-700">0.41</td>
+                                    <td class="px-4 py-4 whitespace-nowrap"><span class="px-3 py-1 text-xs font-semibold rounded-full cpk-level-1">经验级</span></td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">≥ 22.2</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-red-700">≈ 22.21</td>
+                                </tr>
+                                <tr class="bg-green-50">
+                                    <td class="px-4 py-4 whitespace-nowrap font-medium text-green-800">不溶物</td>
+                                    <td class="px-4 py-4 whitespace-nowrap font-medium text-green-800">2.00</td>
+                                    <td class="px-4 py-4 whitespace-nowrap"><span class="px-3 py-1 text-xs font-semibold rounded-full cpk-level-5">卓越级</span></td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">≤ 0.004</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-green-800">≈ 0.0028</td>
+                                </tr>
+                                <tr class="bg-green-50">
+                                    <td class="px-4 py-4 whitespace-nowrap font-medium text-green-800">钴 (Co) 含量</td>
+                                    <td class="px-4 py-4 whitespace-nowrap font-medium text-green-800">4.33</td>
+                                    <td class="px-4 py-4 whitespace-nowrap"><span class="px-3 py-1 text-xs font-semibold rounded-full cpk-level-5">卓越级</span></td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">≤ 0.001</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-green-800">≈ 0.00048</td>
+                                </tr>
+                                <tr class="bg-green-50">
+                                    <td class="px-4 py-4 whitespace-nowrap font-medium text-green-800">铁 (Fe) 含量</td>
+                                    <td class="px-4 py-4 whitespace-nowrap font-medium text-green-800">> 5.0</td>
+                                    <td class="px-4 py-4 whitespace-nowrap"><span class="px-3 py-1 text-xs font-semibold rounded-full cpk-level-5">卓越级</span></td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">≤ 0.0006</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-green-800">0.0001</td>
+                                </tr>
+                                <tr class="bg-yellow-50">
+                                    <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-700">pH</td>
+                                    <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-700">N/A</td>
+                                    <td class="px-4 py-4 whitespace-nowrap"><span class="px-3 py-1 text-xs font-semibold rounded-full cpk-level-na">未评估</span></td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">未定义</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">≈ 5.7</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 改进建议 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700 flex items-center">
+                        <!-- SVG Icon: Lightbulb -->
+                        <svg class="w-6 h-6 mr-2 text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path></svg>
+                        结论与改进建议
+                    </h2>
+                    <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                        <li>
+                            <strong class="text-red-600">[最高优先级] 提升 Ni 含量过程均值:</strong>
+                            立即组织工艺、生产和质量团队，分析导致Ni含量均值(22.21%)过低的原因。
+                            <strong>目标应是将过程均值至少提升至 22.25% 或更高</strong>，以建立足够的安全边际，使Cpk提升至1.33（保证级）以上。
+                        </li>
+                        <li>
+                            <strong class="text-yellow-600">[数据管理] 完善 pH 规格:</strong>
+                            在质量系统中为 `DPH` 补充规格上下限（USL/LSL）。缺少此数据导致关键指标无法监控过程能力。
+                        </li>
+                        <li>
+                            <strong class="text-green-700">[成本优化] 评估过度控制 (可选):</strong>
+                            杂质Co (Cpk=4.33) 和 Fe (Cpk>5.0) 的控制能力远超“卓越级”。可评估是否存在过度控制，在不影响客户满意度的前提下，适当优化管理成本。
+                        </li>
+                        <li>
+                            <strong class="text-blue-600">[持续监控] 保持过程稳定:</strong>
+                            在对Ni含量过程进行调整后，必须使用控制图重新验证过程的稳定性，并重新计算Cpk，确保改进有效。
+                        </li>
+                    </ol>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- 3. 嵌入JSON数据和ECharts初始化脚本 -->
+    <script>
+        // 页面加载完成后初始化图表
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 模拟从JSON文件加载数据
+            // 在实际应用中，您会通过fetch来获取这个JSON
+            const jsonData = {
+                "code": 0,
+                "message": "success",
+                "data": [{"ID": "4347CF6D09BD1288E063D10710AC3FB0", "DNI": 22.2, "DINSOLUBLE": 0.0026, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0004}, {"ID": "4347CF6D09C01288E063D10710AC3FB0", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0004}, {"ID": "4333DCE5F2FD251FE063D10710ACDFAF", "DNI": 22.22, "DINSOLUBLE": 0.003, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4333DCE5F2FA251FE063D10710ACDFAF", "DNI": 22.22, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "431F75F127C6F227E063D10710ACC6D6", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "431F75F127C3F227E063D10710ACC6D6", "DNI": 22.22, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "430C4FFCDD6DC266E063D10710ACB93C", "DNI": 22.22, "DINSOLUBLE": 0.0026, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "430C4FFCDD70C266E063D10710ACB93C", "DNI": 22.22, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42F76F4482694E3FE063D10710ACEB48", "DNI": 22.23, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42F76F44826C4E3FE063D10710ACEB48", "DNI": 22.22, "DINSOLUBLE": 0.0026, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42E344E9A04D94A6E063D10710ACF27C", "DNI": 22.22, "DINSOLUBLE": 0.003, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42E344E9A04A94A6E063D10710ACF27C", "DNI": 22.22, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42CF1D0434D7F972E063D10710AC1F4E", "DNI": 22.2, "DINSOLUBLE": 0.003, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42CF1D0434DAF972E063D10710AC1F4E", "DNI": 22.22, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42BAF4DE6DEACB46E063D10710AC19ED", "DNI": 22.2, "DINSOLUBLE": 0.0032, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42BAF4DE6DEDCB46E063D10710AC19ED", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42A6E3383B97F126E063D10710ACF288", "DNI": 22.22, "DINSOLUBLE": 0.0026, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42A6E3383B9AF126E063D10710ACF288", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4293A9C1F4BF9A45E063D10710AC85EC", "DNI": 22.2, "DINSOLUBLE": 0.003, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4293A9C1F4C29A45E063D10710AC85EC", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "427F184A1A77575FE063D10710ACF31D", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "427F184A1A71575FE063D10710ACF31D", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "426B18CFC2560FD6E063D10710AC0AAC", "DNI": 22.2, "DINSOLUBLE": 0.003, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "426B18CFC2530FD6E063D10710AC0AAC", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "42572D28CC2ACB04E063D10710ACFF6E", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "424289987A0E3EC8E063D10710AC5BDA", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.9, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "424289987A113EC8E063D10710AC5BDA", "DNI": 22.2, "DINSOLUBLE": 0.003, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "422E959D7CA8B89BE063D10710AC58B8", "DNI": 22.23, "DINSOLUBLE": 0.0028, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "422E959D7CA5B89BE063D10710AC58B8", "DNI": 22.22, "DINSOLUBLE": 0.0028, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "421B9D1B618A2BD8E063D10710AC7EA0", "DNI": 22.2, "DINSOLUBLE": 0.003, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "421B9D1B61872BD8E063D10710AC7EA0", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4206DB9131C5B0D4E063D10710AC9574", "DNI": 22.22, "DINSOLUBLE": 0.0028, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4206DB9131C8B0D4E063D10710AC9574", "DNI": 22.23, "DINSOLUBLE": 0.003, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41F2B236A8C7D037E063D10710AC90F8", "DNI": 22.22, "DINSOLUBLE": 0.0028, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41F2B236A8C4D037E063D10710AC90F8", "DNI": 22.22, "DINSOLUBLE": 0.0032, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41DE78D900A2BDE9E063D10710ACC5CB", "DNI": 22.23, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41DE78D900A5BDE9E063D10710ACC5CB", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41CAA51607F75AB1E063D10710ACBBF7", "DNI": 22.2, "DINSOLUBLE": 0.0028, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41CAA51607F45AB1E063D10710ACBBF7", "DNI": 22.2, "DINSOLUBLE": 0.003, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41B6AAD6BF4FD9BCE063D10710AC107D", "DNI": 22.23, "DINSOLUBLE": 0.0028, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41B6AAD6BF55D9BCE063D10710AC107D", "DNI": 22.23, "DINSOLUBLE": 0.0028, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41A26C3D93AD2705E063D10710AC8B3C", "DNI": 22.21, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41A26C3D93A72705E063D10710AC8B3C", "DNI": 22.21, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "418DE4FA8B99DE89E063D10710AC3C78", "DNI": 22.21, "DINSOLUBLE": 0.003, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "418DE4FA8B96DE89E063D10710AC3C78", "DNI": 22.21, "DINSOLUBLE": 0.0032, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "417A544EBCD98A20E063D10710ACE24D", "DNI": 22.2, "DINSOLUBLE": 0.0024, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "417A544EBCD68A20E063D10710ACE24D", "DNI": 22.21, "DINSOLUBLE": 0.0028, "DPH": 5.5, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "41650773324A3DD3E063D10710AC7F28", "DNI": 22.21, "DINSOLUBLE": 0.003, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4165077332473DD3E063D10710AC7F28", "DNI": 22.21, "DINSOLUBLE": 0.003, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "415222A67A21E870E063D10710AC68E1", "DNI": 22.2, "DINSOLUBLE": 0.003, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "415222A67A1EE870E063D10710AC68E1", "DNI": 22.2, "DINSOLUBLE": 0.003, "DPH": 5.5, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "413E9C74978B2BA5E063D10710AC75EA", "DNI": 22.21, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "413E9C7497C02BA5E063D10710AC75EA", "DNI": 22.2, "DINSOLUBLE": 0.0026, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4128ED31D4B613B8E063D10710ACB297", "DNI": 22.21, "DINSOLUBLE": 0.0026, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4128ED31D4B313B8E063D10710ACB297", "DNI": 22.21, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4115C36A60B93F00E063D10710AC501C", "DNI": 22.21, "DINSOLUBLE": 0.003, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4115C36A60B03F00E063D10710AC501C", "DNI": 22.22, "DINSOLUBLE": 0.0028, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4100A44CCD5714BEE063D10710ACD568", "DNI": 22.21, "DINSOLUBLE": 0.0026, "DPH": 5.6, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "4100A44CCD5414BEE063D10710ACD568", "DNI": 22.21, "DINSOLUBLE": 0.0026, "DPH": 5.7, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "40EC65C0896CB3DEE063D10710ACB1D8", "DNI": 22.2, "DINSOLUBLE": 0.003, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}, {"ID": "40EC65C0896FB3DEE063D10710ACB1D8", "DNI": 22.21, "DINSOLUBLE": 0.0028, "DPH": 5.8, "DFE": 0.0001, "DCO": 0.0005}]
+            };
+            const analysisData = jsonData.data;
+            
+            // 分析值 (来自上一轮分析)
+            const overallCpkValue = 0.41;
+            const niLSL = 22.2;
+            
+            // 为Ni含量直方图准备数据
+            const niFrequencies = analysisData.reduce((acc, item) => {
+                const val = item.DNI.toFixed(2); // 按小数点后两位分组
+                acc[val] = (acc[val] || 0) + 1;
+                return acc;
+            }, {});
+            
+            const niChartCategories = Object.keys(niFrequencies).sort();
+            const niChartData = niChartCategories.map(cat => niFrequencies[cat]);
+
+
+            // 1. 初始化 Cpk 仪表盘
+            try {
+                const cpkChartDom = document.getElementById('overall-cpk-chart');
+                if (cpkChartDom) {
+                    const cpkChart = echarts.init(cpkChartDom);
+                    const option = {
+                        series: [
+                            {
+                                type: 'gauge',
+                                center: ['50%', '60%'],
+                                startAngle: 200,
+                                endAngle: -20,
+                                min: 0,
+                                max: 2, // Cpk的理想范围顶部
+                                splitNumber: 5,
+                                itemStyle: {
+                                    color: '#EF4444' // 指针颜色
+                                },
+                                progress: {
+                                    show: true,
+                                    width: 18,
+                                    itemStyle: {
+                                        color: '#EF4444' // 进度条颜色
+                                    }
+                                },
+                                pointer: {
+                                    length: '75%',
+                                    width: 6,
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        width: 18,
+                                        // 颜色分段，对应PDF的绩效等级
+                                        color: [
+                                            [0.5, '#EF4444'], // 0-1.0 (经验级)
+                                            [0.665, '#F59E0B'], // 1.0-1.33 (检验级)
+                                            [0.835, '#10B981'], // 1.33-1.67 (保证级)
+                                            [1, '#059669']      // 1.67-2.0 (预防/卓越)
+                                        ]
+                                    }
+                                },
+                                axisTick: {
+                                    distance: -25,
+                                    length: 5,
+                                    lineStyle: { color: '#999' }
+                                },
+                                splitLine: {
+                                    distance: -30,
+                                    length: 10,
+                                    lineStyle: { color: '#999' }
+                                },
+                                axisLabel: {
+                                    distance: 5,
+                                    color: '#666',
+                                    fontSize: 12,
+                                    formatter: function (value) {
+                                        if (value === 0) return '0';
+                                        if (value === 0.5) return 'Cpk 1.0'; // 0.5 * 2
+                                        if (value === 0.665) return '1.33';
+                                        if (value === 0.835) return '1.67';
+                                        if (value === 1) return 'Cpk 2.0'; // 1 * 2
+                                        return '';
+                                    }
+                                },
+                                anchor: {
+                                    show: true,
+                                    showAbove: true,
+                                    size: 20,
+                                    itemStyle: {
+                                        borderColor: '#EF4444',
+                                        borderWidth: 10
+                                    }
+                                },
+                                title: {
+                                    show: false
+                                },
+                                detail: {
+                                    show: false, // 隐藏仪表盘上的默认数字
+                                },
+                                data: [
+                                    {
+                                        value: overallCpkValue, // 我们的Cpk值
+                                    }
+                                ]
+                            }
+                        ]
+                    };
+                    cpkChart.setOption(option);
+                }
+            } catch (e) {
+                console.error("Cpk Chart Error:", e);
+            }
+
+            // 2. 初始化 Ni 含量直方图
+            try {
+                const histogramDom = document.getElementById('ni-histogram-chart');
+                if (histogramDom) {
+                    const histogramChart = echarts.init(histogramDom);
+                    const option = {
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: { type: 'shadow' }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                name: 'Ni 含量 (%)',
+                                data: niChartCategories,
+                                axisTick: { alignWithLabel: true }
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                name: '批次数 (Frequency)'
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '批次数',
+                                type: 'bar',
+                                barWidth: '60%',
+                                data: niChartData,
+                                itemStyle: {
+                                    color: '#60A5FA' // 蓝色
+                                },
+                                // 关键标记线
+                                markLine: {
+                                    symbol: 'none',
+                                    data: [
+                                        {
+                                            name: '规格下限 (LSL)',
+                                            xAxis: niLSL.toFixed(2), // 定位在 '22.20'
+                                            lineStyle: {
+                                                color: '#EF4444', // 红色
+                                                type: 'dashed',
+                                                width: 2
+                                            },
+                                            label: {
+                                                formatter: 'LSL\n22.20',
+                                                position: 'insideStartTop',
+                                                color: '#EF4444',
+                                                fontSize: 14
+                                            }
+                                        },
+                                        {
+                                            name: '过程均值 (μ)',
+                                            type: 'average',
+                                            lineStyle: {
+                                                color: '#F59E0B', // 橙色
+                                                type: 'solid',
+                                                width: 2
+                                            },
+                                            label: {
+                                                formatter: '均值\n≈22.21',
+                                                position: 'insideEndTop',
+                                                color: '#F59E0B',
+                                                fontSize: 14
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    };
+                    histogramChart.setOption(option);
+                }
+            } catch (e) {
+                console.error("Histogram Chart Error:", e);
+            }
+            
+            // 确保图表在窗口大小改变时自适应
+            window.addEventListener('resize', function() {
+                const cpkChart = echarts.getInstanceByDom(document.getElementById('overall-cpk-chart'));
+                const histogramChart = echarts.getInstanceByDom(document.getElementById('ni-histogram-chart'));
+                if (cpkChart) cpkChart.resize();
+                if (histogramChart) histogramChart.resize();
+            });
+        });
+    </script>
+
+</body>
+</html>

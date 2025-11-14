@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cosmetic Ingredient Safety Assessment (Rich Text Version)",
+  "type": "object",
+  "definitions": {
+    "textSegment": {
+      "type": "object",
+      "description": "一个单独的文本片段，可带高亮标记。",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "文本内容。"
+        },
+        "highlight": {
+          "type": "boolean",
+          "default": false,
+          "description": "是否应高亮显示此片段 (例如加粗或标记)。"
+        },
+        "style": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "bold",
+            "highlight",
+            "key-finding"
+          ],
+          "default": "normal",
+          "description": "用于HTML渲染的特定样式提示。"
+        }
+      },
+      "required": [
+        "text"
+      ]
+    },
+    "richTextArray": {
+      "type": "array",
+      "description": "一个富文本片段的数组。",
+      "items": {
+        "$ref": "#/definitions/textSegment"
+      }
+    },
+    "bilingualTextBlock": {
+      "type": "object",
+      "description": "支持富文本（分段高亮）的双语块。",
+      "properties": {
+        "ENG": {
+          "$ref": "#/definitions/richTextArray",
+          "description": "English content, as rich text segments."
+        },
+        "CHS": {
+          "$ref": "#/definitions/richTextArray",
+          "description": "Chinese (CHS) content, as rich text segments."
+        }
+      },
+      "required": [
+        "ENG",
+        "CHS"
+      ]
+    }
+  },
+  "properties": {
+    "FileName": {
+      "type": "string",
+      "description": "The name of the file associated with the document."
+    },
+    "Title": {
+      "type": "string",
+      "description": "The title of the document."
+    },
+    "PublicationDate": {
+      "type": "string",
+      "format": "date",
+      "description": "The publication date in YYYY-MM-DD format."
+    },
+    "ReferenceName": {
+      "type": "string",
+      "description": "The reference name of the document."
+    },
+    "Summary": {
+      "$ref": "#/definitions/bilingualTextBlock",
+      "description": "The detailed summary."
+    },
+    "Abstract": {
+      "$ref": "#/definitions/bilingualTextBlock",
+      "description": "The abstract or short summary."
+    },
+    "Conclusion": {
+      "$ref": "#/definitions/bilingualTextBlock",
+      "description": "The conclusion of the assessment."
+    }
+  },
+  "required": [
+    "FileName",
+    "Title",
+    "PublicationDate",
+    "ReferenceName",
+    "Summary",
+    "Abstract",
+    "Conclusion"
+  ]
+}

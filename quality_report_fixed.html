@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>各工序质量运行周通报</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Chart.js 用于渲染图表 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        th, td {
+            padding: 0.75rem;
+            vertical-align: top;
+        }
+        .preserve-whitespace {
+            white-space: pre-line;
+        }
+        .anomaly {
+            color: #E53E3E;
+            font-weight: 600;
+        }
+        .anomaly-bg {
+            background-color: #FFF5F5;
+        }
+        .missing-data {
+            color: #9CA3AF;
+            font-style: italic;
+        }
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        table {
+            min-width: 640px;
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: #6B7280;
+        }
+        .error {
+            background-color: #FEE2E2;
+            color: #DC2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto max-w-7xl p-4 md:p-8">
+        <!-- 报告头部 -->
+        <header class="mb-8 p-6 bg-white rounded-lg shadow-md">
+            <h1 class="text-3xl md:text-4xl font-bold text-center text-blue-800">各工序质量运行周通报</h1>
+            <p id="dateRange" class="text-center text-lg text-gray-600 mt-2">加载中...</p>
+            <p class="text-center text-sm text-gray-500 mt-1">（数据源: data.json）</p>
+        </header>
+
+        <!-- 加载提示 -->
+        <div id="loadingIndicator" class="loading">
+            正在加载数据，请稍候...
+        </div>
+
+        <!-- 错误提示 -->
+        <div id="errorMessage" class="error" style="display: none;"></div>
+
+        <!-- 报告内容区域 -->
+        <div id="reportContent" style="display: none;" class="space-y-8">
+
+            <!-- 一、产品关键指标质量情况 -->
+            <section class="bg-white rounded-lg shadow-md overflow-hidden">
+                <h2 class="text-2xl font-semibold p-6 bg-blue-50 border-b border-gray-200 text-blue-700">一、产品关键指标质量情况</h2>
+                <div class="table-container p-6">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-50 text-gray-600 uppercase tracking-wider">
+                            <tr>
+                                <th class="w-1/4">产品类别</th>
+                                <th class="w-1/4">批次/控制情况</th>
+                                <th class="w-1/2">关键指标及内控范围</th>
+                                <th class="w-1/12">是否异常</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cpTableBody" class="divide-y divide-gray-200">
+                            <!-- 动态生成内容 -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 二、过程控制关键指标 -->
+            <section class="bg-white rounded-lg shadow-md overflow-hidden">
+                <h2 class="text-2xl font-semibold p-6 bg-blue-50 border-b border-gray-200 text-blue-700">二、过程控制关键指标</h2>
+                <div class="table-container p-6">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-50 text-gray-600 uppercase tracking-wider">
+                            <tr>
+                                <th>分厂</th>
+                                <th>过程</th>
+                                <th>控制情况</th>
+                                <th>关键指标及内控范围</th>
+                                <th>是否异常</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gcTableBody" class="divide-y divide-gray-200">
+                            <!-- 动态生成内容 -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 三、排萃残及浸出渣情况 -->
+            <section class="bg-white rounded-lg shadow-md overflow-hidden">
+                <h2 class="text-2xl font-semibold p-6 bg-blue-50 border-b border-gray-200 text-blue-700">三、排萃残及浸出渣情况</h2>
+                <div class="table-container p-6">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-50 text-gray-600 uppercase tracking-wider">
+                            <tr>
+                                <th>序号</th>
+                                <th>项目名称</th>
+                                <th>镍含量(%)</th>
+                                <th>备注</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wpTableBody" class="divide-y divide-gray-200">
+                            <!-- 动态生成内容 -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 四、主要原料指标情况 -->
+            <section class="bg-white rounded-lg shadow-md overflow-hidden">
+                <h2 class="text-2xl font-semibold p-6 bg-blue-50 border-b border-gray-200 text-blue-700">四、主要原料指标情况</h2>
+                <div class="table-container p-6">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-50 text-gray-600 uppercase tracking-wider">
+                            <tr>
+                                <th>序号</th>
+                                <th>名称</th>
+                                <th>状态</th>
+                                <th>关键指标</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ylTableBody" class="divide-y divide-gray-200">
+                            <!-- 动态生成内容 -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 五、备注 -->
+            <section class="bg-white rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold p-6 bg-blue-50 border-b border-gray-200 text-blue-700">五、备注</h2>
+                <div id="remarksContent" class="p-6">
+                    <!-- 动态生成内容 -->
+                </div>
+            </section>
+
+            <!-- 六、数据图表 -->
+            <section class="bg-white rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold p-6 bg-blue-50 border-b border-gray-200 text-blue-700">六、数据图表</h2>
+                <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- 图表 1: 除硅溶液A、B系列 -->
+                    <div class="border rounded-lg p-4 shadow-inner bg-gray-50">
+                        <h3 class="text-center font-medium text-gray-700 mb-4">图1 10万吨A、B系列除硅溶液Si</h3>
+                        <canvas id="chart1"></canvas>
+                    </div>
+                    <!-- 图表 2: 除硅溶液C、D系列 -->
+                    <div class="border rounded-lg p-4 shadow-inner bg-gray-50">
+                        <h3 class="text-center font-medium text-gray-700 mb-4">图2 10万吨C、D系列除硅溶液Si</h3>
+                        <canvas id="chart2"></canvas>
+                    </div>
+                    <!-- 图表 3: 电积镍溶液砷含量 -->
+                    <div class="border rounded-lg p-4 shadow-inner bg-gray-50">
+                        <h3 class="text-center font-medium text-gray-700 mb-4">图3 电积镍溶液砷含量</h3>
+                        <canvas id="chart3"></canvas>
+                    </div>
+                    <!-- 图表 4: 原料液镍含量 -->
+                    <div class="border rounded-lg p-4 shadow-inner bg-gray-50">
+                        <h3 class="text-center font-medium text-gray-700 mb-4">图4 镍厂付10万吨加压液镍含量(g/L)</h3>
+                        <canvas id="chart4"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // 全局变量存储数据
+        let reportData = null;
+        let chartInstances = {};
+
+        // 加载JSON数据
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                reportData = await response.json();
+                renderReport();
+            } catch (error) {
+                showError(`无法加载数据文件: ${error.message}`);
+            }
+        }
+
+        // 显示错误信息
+        function showError(message) {
+            document.getElementById('loadingIndicator').style.display = 'none';
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        // 格式化日期 YYYYMMDD -> YYYY.MM.DD
+        function formatDate(dateNum) {
+            const str = String(dateNum);
+            return `${str.substring(0, 4)}.${str.substring(4, 6)}.${str.substring(6, 8)}`;
+        }
+
+        // 判断是否异常
+        function checkAnomaly(value, standard) {
+            if (!standard || value === null || value === undefined) return false;
+            
+            // 解析内控标准，例如 "≤0.015" 或 "≥106"
+            const match = standard.match(/([≤≥<>]=?)(\d+\.?\d*)/);
+            if (!match) return false;
+            
+            const operator = match[1];
+            const threshold = parseFloat(match[2]);
+            
+            if (operator.includes('≤') || operator.includes('<')) {
+                return value > threshold;
+            } else if (operator.includes('≥') || operator.includes('>')) {
+                return value < threshold;
+            }
+            return false;
+        }
+
+        // 渲染报告
+        function renderReport() {
+            if (!reportData) return;
+
+            // 隐藏加载提示，显示报告内容
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('reportContent').style.display = 'block';
+
+            // 渲染日期范围
+            if (reportData.metadata) {
+                const startDate = formatDate(reportData.metadata.week_start);
+                const endDate = formatDate(reportData.metadata.week_end);
+                document.getElementById('dateRange').textContent = `${startDate} - ${endDate}`;
+            }
+
+            // 渲染各个部分
+            renderCpSection();
+            renderGcSection();
+            renderWpSection();
+            renderYlSection();
+            renderRemarks();
+            renderCharts();
+        }
+
+        // 渲染产品关键指标质量情况
+        function renderCpSection() {
+            const tbody = document.getElementById('cpTableBody');
+            tbody.innerHTML = '';
+
+            if (!reportData.cpdata || reportData.cpdata.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center missing-data">暂无数据</td></tr>';
+                return;
+            }
+
+            // 按物料编码分组
+            const groupedData = {};
+            reportData.cpdata.forEach(item => {
+                if (!groupedData[item.DITEM]) {
+                    groupedData[item.DITEM] = [];
+                }
+                groupedData[item.DITEM].push(item);
+            });
+
+            // 为每个产品类别生成表格行
+            Object.keys(groupedData).forEach(itemCode => {
+                const items = groupedData[itemCode];
+                const firstItem = items[0];
+                const totalBatches = items.length;
+                const qualifiedBatches = items.filter(i => i.DOK === 'Y').length;
+                
+                // 构建关键指标文本
+                let indicators = [];
+                
+                if (firstItem.DNI !== null && firstItem.DNI !== undefined) {
+                    const niValues = items.map(i => i.DNI).filter(v => v !== null);
+                    const niMin = Math.min(...niValues);
+                    const niMax = Math.max(...niValues);
+                    indicators.push(`Ni: ${niMin.toFixed(2)}-${niMax.toFixed(2)} g/L`);
+                    if (firstItem.FCT_QC_STANDARD_SDNI) {
+                        indicators.push(`(内控: ${firstItem.FCT_QC_STANDARD_SDNI})`);
+                    }
+                }
+                
+                if (firstItem.DTI !== null && firstItem.DTI !== undefined) {
+                    const tiValues = items.map(i => i.DTI).filter(v => v !== null);
+                    const tiMin = Math.min(...tiValues);
+                    const tiMax = Math.max(...tiValues);
+                    indicators.push(`TI: ${tiMin.toFixed(4)}-${tiMax.toFixed(4)} ppm`);
+                    if (firstItem.FCT_QC_STANDARD_SDTI) {
+                        indicators.push(`(内控: ${firstItem.FCT_QC_STANDARD_SDTI})`);
+                    }
+                }
+                
+                if (firstItem.DNA !== null && firstItem.DNA !== undefined) {
+                    const naValues = items.map(i => i.DNA).filter(v => v !== null);
+                    const naMin = Math.min(...naValues);
+                    const naMax = Math.max(...naValues);
+                    indicators.push(`Na: ${naMin.toFixed(4)}-${naMax.toFixed(4)}`);
+                    if (firstItem.FCT_QC_STANDARD_SDNA) {
+                        indicators.push(`(内控: ${firstItem.FCT_QC_STANDARD_SDNA})`);
+                    }
+                }
+                
+                if (firstItem.DCL !== null && firstItem.DCL !== undefined) {
+                    indicators.push(`Cl: ${firstItem.DCL.toFixed(3)}`);
+                    if (firstItem.FCT_QC_STANDARD_SDCL) {
+                        indicators.push(`(内控: ${firstItem.FCT_QC_STANDARD_SDCL})`);
+                    }
+                }
+                
+                if (firstItem.DCIY !== null && firstItem.DCIY !== undefined) {
+                    indicators.push(`磁异物: ${firstItem.DCIY} ppb`);
+                    if (firstItem.FCT_QC_STANDARD_SDCIY) {
+                        indicators.push(`(内控: ${firstItem.FCT_QC_STANDARD_SDCIY})`);
+                    }
+                }
+                
+                if (firstItem.DYOUFEN !== null && firstItem.DYOUFEN !== undefined) {
+                    indicators.push(`油分: ${firstItem.DYOUFEN} ppm`);
+                    if (firstItem.FCT_QC_STANDARD_SDYOUFEN) {
+                        indicators.push(`(内控: ${firstItem.FCT_QC_STANDARD_SDYOUFEN})`);
+                    }
+                }
+                
+                if (firstItem.DYJW !== null && firstItem.DYJW !== undefined) {
+                    const yjwValues = items.map(i => i.DYJW).filter(v => v !== null);
+                    const yjwMin = Math.min(...yjwValues);
+                    const yjwMax = Math.max(...yjwValues);
+                    indicators.push(`有机物: ${yjwMin.toFixed(2)}-${yjwMax.toFixed(2)} ppm`);
+                    if (firstItem.FCT_QC_STANDARD_SDYJW) {
+                        indicators.push(`(内控: ${firstItem.FCT_QC_STANDARD_SDYJW})`);
+                    }
+                }
+                
+                if (firstItem.DAS !== null && firstItem.DAS !== undefined) {
+                    indicators.push(`As: ${firstItem.DAS.toFixed(4)}`);
+                    if (firstItem.FCT_QC_STANDARD_SDAS) {
+                        indicators.push(`(内控: ${firstItem.FCT_QC_STANDARD_SDAS})`);
+                    }
+                }
+                
+                // 检查是否有异常
+                const hasAnomaly = qualifiedBatches < totalBatches;
+                
+                const row = document.createElement('tr');
+                if (hasAnomaly) {
+                    row.className = 'anomaly-bg';
+                }
+                
+                row.innerHTML = `
+                    <td>${firstItem.DPRODDESC || itemCode}<br><span class="text-xs text-gray-500">(${itemCode})</span></td>
+                    <td>共 ${totalBatches} 批${qualifiedBatches < totalBatches ? `<br><span class="anomaly">合格 ${qualifiedBatches} 批</span>` : ''}</td>
+                    <td class="preserve-whitespace">${indicators.join('\n')}</td>
+                    <td class="${hasAnomaly ? 'anomaly' : ''}">${hasAnomaly ? '是' : '否'}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // 渲染过程控制关键指标
+        function renderGcSection() {
+            const tbody = document.getElementById('gcTableBody');
+            tbody.innerHTML = '';
+
+            if (!reportData.gcdata || reportData.gcdata.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center missing-data">暂无数据</td></tr>';
+                return;
+            }
+
+            // 按物料编码分组
+            const groupedData = {};
+            reportData.gcdata.forEach(item => {
+                if (!groupedData[item.DITEM]) {
+                    groupedData[item.DITEM] = [];
+                }
+                groupedData[item.DITEM].push(item);
+            });
+
+            Object.keys(groupedData).forEach(itemCode => {
+                const items = groupedData[itemCode];
+                const firstItem = items[0];
+                const totalBatches = items.length;
+                const qualifiedBatches = items.filter(i => i.DOK === 'Y').length;
+                
+                let indicators = [];
+                
+                if (firstItem.DNA !== null && firstItem.DNA !== undefined) {
+                    const naValues = items.map(i => i.DNA).filter(v => v !== null);
+                    const naMin = Math.min(...naValues);
+                    const naMax = Math.max(...naValues);
+                    indicators.push(`Na: ${naMin.toFixed(2)}-${naMax.toFixed(2)}`);
+                }
+                
+                if (firstItem.DMG !== null && firstItem.DMG !== undefined) {
+                    const mgValues = items.map(i => i.DMG).filter(v => v !== null);
+                    const mgMin = Math.min(...mgValues);
+                    const mgMax = Math.max(...mgValues);
+                    indicators.push(`Mg: ${mgMin.toFixed(4)}-${mgMax.toFixed(4)}`);
+                }
+                
+                if (firstItem.DYOUFEN !== null && firstItem.DYOUFEN !== undefined) {
+                    indicators.push(`油分: ${firstItem.DYOUFEN} ppm`);
+                }
+                
+                // 添加内控标准
+                let standards = [];
+                if (firstItem.FCT_QC_STANDARD_SDNA) standards.push(`Na${firstItem.FCT_QC_STANDARD_SDNA}`);
+                if (firstItem.FCT_QC_STANDARD_SDMG) standards.push(`Mg${firstItem.FCT_QC_STANDARD_SDMG}`);
+                if (firstItem.FCT_QC_STANDARD_SDYOUFEN) standards.push(`油分${firstItem.FCT_QC_STANDARD_SDYOUFEN}`);
+                if (standards.length > 0) {
+                    indicators.push(`(内控: ${standards.join('; ')})`);
+                }
+                
+                const hasAnomaly = qualifiedBatches < totalBatches;
+                
+                const row = document.createElement('tr');
+                if (hasAnomaly) {
+                    row.className = 'anomaly-bg';
+                }
+                
+                row.innerHTML = `
+                    <td>${firstItem.DFACTORY || '-'}</td>
+                    <td>${firstItem.DPRODDESC || itemCode}</td>
+                    <td>共 ${totalBatches} 批${qualifiedBatches < totalBatches ? `<br><span class="anomaly">合格 ${qualifiedBatches} 批</span>` : ''}</td>
+                    <td class="preserve-whitespace">${indicators.join('\n')}</td>
+                    <td class="${hasAnomaly ? 'anomaly' : ''}">${hasAnomaly ? '是' : '否'}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // 渲染排萃残及浸出渣情况
+        function renderWpSection() {
+            const tbody = document.getElementById('wpTableBody');
+            tbody.innerHTML = '';
+
+            if (!reportData.wpdata || reportData.wpdata.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center missing-data">暂无数据</td></tr>';
+                return;
+            }
+
+            reportData.wpdata.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${item.DPRODDESC || item.DITEM}</td>
+                    <td>${item.DNI !== null && item.DNI !== undefined ? item.DNI.toFixed(2) + '%' : '-'}</td>
+                    <td>${item.DSTATUS || '-'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 渲染主要原料指标情况
+        function renderYlSection() {
+            const tbody = document.getElementById('ylTableBody');
+            tbody.innerHTML = '';
+
+            if (!reportData.yldata || reportData.yldata.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center missing-data">暂无数据</td></tr>';
+                return;
+            }
+
+            reportData.yldata.forEach((item, index) => {
+                let status = '';
+                if (item.DNI !== null && item.DNI !== undefined) {
+                    status = `镍含量: ${item.DNI.toFixed(2)} g/L`;
+                }
+                
+                let indicators = [];
+                if (item.DFE !== null && item.DFE !== undefined) {
+                    indicators.push(`Fe: ${item.DFE.toFixed(4)}`);
+                }
+                if (item.DCU !== null && item.DCU !== undefined) {
+                    indicators.push(`Cu: ${item.DCU.toFixed(4)}`);
+                }
+                
+                const row = document.createElement('tr');
+                const qualifiedClass = item.DOK === 'N' ? 'anomaly-bg' : '';
+                if (qualifiedClass) {
+                    row.className = qualifiedClass;
+                }
+                
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${item.DPRODDESC || item.DITEM}</td>
+                    <td>${status}</td>
+                    <td class="preserve-whitespace">${indicators.join('\n') || '-'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 渲染备注
+        function renderRemarks() {
+            const remarksDiv = document.getElementById('remarksContent');
+            
+            let remarks = ['<ul class="list-disc list-inside space-y-2 text-gray-700">'];
+            
+            if (reportData.metadata) {
+                const startDate = formatDate(reportData.metadata.week_start);
+                const endDate = formatDate(reportData.metadata.week_end);
+                remarks.push(`<li>本报告数据时间范围: ${startDate} 至 ${endDate}</li>`);
+                
+                if (reportData.metadata.total_batches) {
+                    remarks.push(`<li>总批次数: ${reportData.metadata.total_batches}，合格批次数: ${reportData.metadata.qualified_batches || 0}</li>`);
+                }
+                
+                if (reportData.metadata.generate_date) {
+                    remarks.push(`<li>报告生成时间: ${reportData.metadata.generate_date}</li>`);
+                }
+            }
+            
+            remarks.push('<li>数据来源: data.json</li>');
+            remarks.push('<li>所有数据均从质检系统提取，确保准确性和及时性</li>');
+            remarks.push('</ul>');
+            
+            remarksDiv.innerHTML = remarks.join('');
+        }
+
+        // 渲染图表
+        function renderCharts() {
+            if (!reportData.cpdata || reportData.cpdata.length === 0) return;
+
+            // 获取日期标签
+            const dates = [...new Set(reportData.cpdata.map(item => item.DDATE))].sort();
+            const dateLabels = dates.map(d => formatDate(d));
+
+            // 图表1: P0003, P0004 除硅溶液Si
+            renderSiliconChart('chart1', ['P0003', 'P0004'], ['A系列Si', 'B系列Si'], dateLabels, dates);
+
+            // 图表2: P0005, P0006 除硅溶液Si
+            renderSiliconChart('chart2', ['P0005', 'P0006'], ['C系列Si', 'D系列Si'], dateLabels, dates);
+
+            // 图表3: 电积镍溶液砷含量 (如果有数据)
+            renderArsenicChart('chart3', dateLabels, dates);
+
+            // 图表4: P0001 原料液镍含量
+            renderNickelChart('chart4', 'P0001', dateLabels, dates);
+        }
+
+        // 渲染除硅溶液图表
+        function renderSiliconChart(chartId, itemCodes, labels, dateLabels, dates) {
+            const datasets = itemCodes.map((code, index) => {
+                const data = dates.map(date => {
+                    const items = reportData.cpdata.filter(item => 
+                        item.DITEM === code && item.DDATE === date && item.DSI !== null
+                    );
+                    if (items.length === 0) return null;
+                    const avg = items.reduce((sum, item) => sum + item.DSI, 0) / items.length;
+                    return avg;
+                });
+                
+                const colors = ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6'];
+                
+                return {
+                    label: labels[index],
+                    data: data,
+                    borderColor: colors[index],
+                    backgroundColor: colors[index] + '40',
+                    tension: 0.1,
+                    pointRadius: 5,
+                    fill: false
+                };
+            });
+
+            // 添加内控线
+            const firstItem = reportData.cpdata.find(item => itemCodes.includes(item.DITEM) && item.FCT_QC_STANDARD_SDSI);
+            if (firstItem && firstItem.FCT_QC_STANDARD_SDSI) {
+                const match = firstItem.FCT_QC_STANDARD_SDSI.match(/(\d+\.?\d*)/);
+                if (match) {
+                    const controlValue = parseFloat(match[1]);
+                    datasets.push({
+                        label: `内控(${controlValue})`,
+                        data: Array(dates.length).fill(controlValue),
+                        borderColor: '#E53E3E',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        fill: false
+                    });
+                }
+            }
+
+            const ctx = document.getElementById(chartId);
+            if (chartInstances[chartId]) {
+                chartInstances[chartId].destroy();
+            }
+            chartInstances[chartId] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dateLabels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // 渲染砷含量图表
+        function renderArsenicChart(chartId, dateLabels, dates) {
+            // 查找含有砷含量的数据 (P0024)
+            const data = dates.map(date => {
+                const items = reportData.cpdata.filter(item => 
+                    item.DITEM === 'P0024' && item.DDATE === date && item.DAS !== null
+                );
+                if (items.length === 0) return null;
+                const avg = items.reduce((sum, item) => sum + item.DAS, 0) / items.length;
+                return avg;
+            });
+
+            const ctx = document.getElementById(chartId);
+            if (chartInstances[chartId]) {
+                chartInstances[chartId].destroy();
+            }
+            chartInstances[chartId] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dateLabels,
+                    datasets: [{
+                        label: 'As含量',
+                        data: data,
+                        borderColor: '#EF4444',
+                        backgroundColor: '#EF444440',
+                        tension: 0.1,
+                        pointRadius: 5,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+
+        // 渲染镍含量图表
+        function renderNickelChart(chartId, itemCode, dateLabels, dates) {
+            const data = dates.map(date => {
+                const items = reportData.cpdata.filter(item => 
+                    item.DITEM === itemCode && item.DDATE === date && item.DNI !== null
+                );
+                if (items.length === 0) return null;
+                const avg = items.reduce((sum, item) => sum + item.DNI, 0) / items.length;
+                return avg;
+            });
+
+            const ctx = document.getElementById(chartId);
+            if (chartInstances[chartId]) {
+                chartInstances[chartId].destroy();
+            }
+            chartInstances[chartId] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dateLabels,
+                    datasets: [{
+                        label: '镍含量 (g/L)',
+                        data: data,
+                        borderColor: '#10B981',
+                        backgroundColor: '#10B98140',
+                        tension: 0.1,
+                        pointRadius: 5,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+
+        // 页面加载时自动加载数据
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>质检小程序主页</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 简单的自定义字体，使界面更柔和 */
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+        /* 模拟小程序或App的背景色 */
+        html, body {
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center p-8">
+
+    <!-- 模拟手机屏幕容器 -->
+    <div class="w-full max-w-md bg-white shadow-xl rounded-2xl overflow-hidden" style="min-height: 800px;">
+        <div class="flex flex-col h-full">
+            
+            <!-- 1. 顶部导航栏 -->
+            <header class="bg-white p-4 shadow-sm z-10">
+                <div class="flex justify-center items-center"> <!-- 修改：移除了 justify-between 并添加了 justify-center -->
+                    <h1 class="text-xl font-bold text-gray-800">金川镍盐业务管理系统</h1>
+                    <!-- 扫一扫 图标 (已移除) -->
+                </div>
+            </header>
+
+            <!-- 页面内容主体 (可滚动) -->
+            <main class="flex-1 overflow-y-auto bg-gray-50 p-4">
+                
+                <!-- 2. KPI 数据速览 -->
+                <section class="mb-5">
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <h2 class="text-base font-semibold text-gray-700 mb-4">关键指标 (KPI)</h2>
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- 待办任务 -->
+                            <div class="text-center p-3 rounded-lg bg-blue-50">
+                                <div class="text-sm text-gray-600">待办任务</div>
+                                <div class="text-3xl font-bold text-blue-600">12</div>
+                            </div>
+                            <!-- 待审批 -->
+                            <div class="text-center p-3 rounded-lg bg-indigo-50">
+                                <div class="text-sm text-gray-600">待审批</div>
+                                <div class="text-3xl font-bold text-indigo-600">3</div>
+                            </div>
+                            <!-- 超标项目 -->
+                            <div class="text-center p-3 rounded-lg bg-red-50">
+                                <div class="text-sm text-gray-600">超标项目</div>
+                                <div class="text-3xl font-bold text-red-600">1</div>
+                            </div>
+                            <!-- 未读消息 -->
+                            <div class="text-center p-3 rounded-lg bg-green-50">
+                                <div class="text-sm text-gray-600">未读消息</div>
+                                <div class="text-3xl font-bold text-green-600">5</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. 核心功能入口 -->
+                <section class="mb-5">
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <h2 class="text-base font-semibold text-gray-700 mb-4">快捷操作</h2>
+                        <div class="grid grid-cols-4 gap-3">
+                            <!-- 工作流审批 -->
+                            <div class="flex flex-col items-center p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+                                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
+                                    <!-- 图标: File-Text -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                                </div>
+                                <span class="text-xs text-gray-700 mt-2 text-center">工作流审批</span>
+                            </div>
+                            <!-- 临时样品采集 -->
+                            <div class="flex flex-col items-center p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+                                <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center">
+                                    <!-- 图标: Beaker -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 3h15"/><path d="M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3"/><path d="M6 14h12"/></svg>
+                                </div>
+                                <span class="text-xs text-gray-700 mt-2 text-center">临时采集</span>
+                            </div>
+                            <!-- 产品质检处置 -->
+                            <div class="flex flex-col items-center p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+                                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center">
+                                    <!-- 图标: Package-Check -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16.5l-3 3-1.5-1.5"/><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="M16.5 9.4 7.55 4.24"/><path d="M3.29 7 12 12l8.71-5"/><path d="M12 22V12"/></svg>
+                                </div>
+                                <span class="text-xs text-gray-700 mt-2 text-center">质检处置</span>
+                            </div>
+                            <!-- 样品采样 -->
+                            <div class="flex flex-col items-center p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+                                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center">
+                                    <!-- 图标: Clipboard-List -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+                                </div>
+                                <span class="text-xs text-gray-700 mt-2 text-center">样品采样</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. 动态任务中心 (Tab) -->
+                <section>
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <!-- Tab 导航 -->
+                        <nav class="flex border-b">
+                            <button id="tasksTab" onclick="showTab('tasks')" class="flex-1 py-3 px-2 text-center text-sm font-medium text-blue-600 border-b-2 border-blue-600">
+                                待办任务 (12)
+                            </button>
+                            <button id="notificationsTab" onclick="showTab('notifications')" class="flex-1 py-3 px-2 text-center text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700">
+                                消息通知 (5)
+                            </button>
+                        </nav>
+                        
+                        <!-- Tab 内容 -->
+                        <div class="p-4 space-y-4">
+                            <!-- 待办任务列表 -->
+                            <div id="tasksContent">
+                                <!-- 任务项 1 (紧急) -->
+                                <div class="flex items-start space-x-3 pb-3 border-b border-gray-100">
+                                    <div class="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 14 9-11 9 11h-18Z"/><path d="M12 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">
+                                            <span class="text-red-500">[处置]</span> 原料 C-批号 20251109 超标处置
+                                        </h4>
+                                        <p class="text-sm text-gray-500">状态: <span class="font-medium text-red-500">待处置</span> | 2小时前</p>
+                                    </div>
+                                </div>
+                                <!-- 任务项 2 (审批) -->
+                                <div class="flex items-start space-x-3 pb-3 border-b border-gray-100">
+                                    <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">
+                                            <span class="text-indigo-500">[审批]</span> 原料 A-批号 20251111 检验报告
+                                        </h4>
+                                        <p class="text-sm text-gray-500">提交人: 张三 | 10分钟前</p>
+                                    </div>
+                                </div>
+                                <!-- 任务项 3 (采样) -->
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">
+                                            <span class="text-purple-500">[采样]</span> 成品 B-批号 20251110 留样任务
+                                        </h4>
+                                        <p class="text-sm text-gray-500">状态: 待执行 | 1小时前</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 消息通知列表 (默认隐藏) -->
+                            <div id="notificationsContent" class="hidden space-y-4">
+                                <!-- 消息项 1 -->
+                                <div class="flex items-start space-x-3 pb-3 border-b border-gray-100">
+                                    <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">
+                                            [系统] 你的审批已通过
+                                        </h4>
+                                        <p class="text-sm text-gray-500">你提交的 "原料 A-批号 20251108" 已通过。</p>
+                                        <p class="text-xs text-gray-400 mt-1">15分钟前</p>
+                                    </div>
+                                </div>
+                                <!-- 消息项 2 -->
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">
+                                            [系统] 你的审批被驳回
+                                        </h4>
+                                        <p class="text-sm text-gray-500">你提交的 "临时采样 Z-001" 已被驳回。</p>
+                                        <p class="text-xs text-gray-400 mt-1">1小时前</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 查看全部 -->
+                            <div class="pt-2 text-center">
+                                <a href="#" class="text-sm text-blue-600 hover:underline">查看全部</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Tab 切换逻辑
+        const tasksTab = document.getElementById('tasksTab');
+        const notificationsTab = document.getElementById('notificationsTab');
+        const tasksContent = document.getElementById('tasksContent');
+        const notificationsContent = document.getElementById('notificationsContent');
+
+        // 定义激活和非激活状态的样式
+        const activeClasses = 'text-blue-600 border-b-2 border-blue-600';
+        const inactiveClasses = 'text-gray-500 border-b-2 border-transparent hover:text-gray-700';
+
+        function showTab(tabName) {
+            if (tabName === 'tasks') {
+                // 显示任务
+                tasksContent.classList.remove('hidden');
+                notificationsContent.classList.add('hidden');
+                
+                // 设置 Tab 样式
+                tasksTab.className = tasksTab.className.replace(inactiveClasses, activeClasses);
+                notificationsTab.className = notificationsTab.className.replace(activeClasses, inactiveClasses);
+            } else if (tabName === 'notifications') {
+                // 显示通知
+                tasksContent.classList.add('hidden');
+                notificationsContent.classList.remove('hidden');
+
+                // 设置 Tab 样式
+                tasksTab.className = tasksTab.className.replace(activeClasses, inactiveClasses);
+                notificationsTab.className = notificationsTab.className.replace(inactiveClasses, activeClasses);
+            }
+        }
+    </script>
+
+</body>
+</html>

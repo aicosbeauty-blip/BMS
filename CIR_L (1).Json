@@ -1,0 +1,826 @@
+{
+  "reportContext": {
+    "reportId": "LAB-00034.pdf",
+    "reportTitle": "Safety Assessment of 2-Amino-4-Hydroxyethylaminoanisole and 2-Amino-4-Hydroxyethylaminoanisole Sulfate as Used in Cosmetics",
+    "documentType": "republish"
+  },
+  "ingredients": [
+    {
+      "inciName": "2-Amino-4-hydroxyethylaminoanisole sulfate",
+      "casNumber": "83763-48-8",
+      "chemicalName": {
+        "CHS": "2-氨基-4-羟乙基氨基苯甲醚硫酸盐",
+        "ENG": "2-Amino-4-hydroxyethylaminoanisole sulfate"
+      },
+      "synonyms": [
+        {
+          "CHS": "1-甲氧基-2-氨基-4-羟乙基氨基苯硫酸盐 (1-Methoxy-2-amino-4-β-hydroxyethylaminobenzene sulfate)",
+          "ENG": "1-methoxy-2-amino-4-(β-hydroxyethylaminobenzene)-sulphate"
+        },
+        {
+          "CHS": "WR 23081 (WR 23081)",
+          "ENG": "WR 23081"
+        },
+        {
+          "CHS": "Lehmannblausulfat (Lehmannblausulfat)",
+          "ENG": "Lehmannblausulfat"
+        }
+      ],
+      "dynamicTags": {
+        "safetyTags": [
+          {
+            "id": "safe_with_restrictions",
+            "label": {
+              "CHS": "安全有限制条件",
+              "ENG": "Safe with Restrictions"
+            },
+            "icon": "alert-circle",
+            "color": "orange",
+            "priority": 15
+          },
+          {
+            "id": "may_sensitize",
+            "label": {
+              "CHS": "可能致敏",
+              "ENG": "May Sensitize"
+            },
+            "icon": "alert-circle",
+            "color": "yellow",
+            "priority": 45
+          },
+          {
+            "id": "low_irritation",
+            "label": {
+              "CHS": "低刺激性",
+              "ENG": "Low Irritation"
+            },
+            "icon": "check",
+            "color": "green",
+            "priority": 30
+          },
+          {
+            "id": "non_genotoxic_in_vivo",
+            "label": {
+              "CHS": "体内无遗传毒性",
+              "ENG": "Non-genotoxic (in vivo)"
+            },
+            "icon": "shield",
+            "color": "green",
+            "priority": 50
+          }
+        ],
+        "functionTags": [
+          {
+            "id": "oxidative_hair_dye",
+            "label": {
+              "CHS": "氧化型染发剂",
+              "ENG": "Oxidative Hair Dye"
+            },
+            "icon": "droplet",
+            "color": "purple",
+            "priority": 60
+          },
+          {
+            "id": "colorant",
+            "label": {
+              "CHS": "着色剂",
+              "ENG": "Colorant"
+            },
+            "icon": "palette",
+            "color": "purple",
+            "priority": 65
+          }
+        ],
+        "complianceTags": [
+          {
+            "id": "eu_restricted",
+            "label": {
+              "CHS": "欧盟限用",
+              "ENG": "EU Restricted"
+            },
+            "icon": "alert-triangle",
+            "color": "orange",
+            "priority": 22
+          }
+        ],
+        "customTags": []
+      },
+      "modules": {
+        "module1Dashboard": {
+          "safetyStatus": {
+            "level": "safe_with_restrictions",
+            "conclusion": {
+              "ENG": [
+                {
+                  "text": "The CIR Expert Panel concluded that 2-amino-4-hydroxyethylaminoanisole and 2-amino-4-hydroxyethylaminoanisole sulfate are ",
+                  "style": "normal"
+                },
+                {
+                  "text": "safe for use in oxidative hair dye formulations",
+                  "style": "bold"
+                },
+                {
+                  "text": ". The Expert Panel cautioned that these ingredients should ",
+                  "style": "normal"
+                },
+                {
+                  "text": "not be used in hair dye products in which N-nitroso compounds may be formed",
+                  "style": "warning"
+                },
+                {
+                  "text": ".",
+                  "style": "normal"
+                }
+              ],
+              "CHS": [
+                {
+                  "text": "CIR专家小组的结论是，2-氨基-4-羟乙基氨基苯甲醚和2-氨基-4-羟乙基氨基苯甲醚硫酸盐可",
+                  "style": "normal"
+                },
+                {
+                  "text": "安全用于氧化型染发剂配方中",
+                  "style": "bold"
+                },
+                {
+                  "text": "。专家小组警告，这些成分",
+                  "style": "normal"
+                },
+                {
+                  "text": "不应在可能形成N-亚硝基化合物的染发产品中使用",
+                  "style": "warning"
+                },
+                {
+                  "text": "。",
+                  "style": "normal"
+                }
+              ]
+            }
+          },
+          "keyParameters": {
+            "maxSafeConcentration": {
+              "min": 0.008,
+              "max": 1.5,
+              "unit": "%",
+              "description": {
+                "CHS": "染发产品中最大预期使用浓度（“上头”浓度）的报告范围。",
+                "ENG": "Reported range of maximum intended use concentration (\"on-head\") in hair coloring products."
+              }
+            },
+            "restrictions": {
+              "ENG": [
+                {
+                  "text": "Should not be used in hair dye products in which N-nitroso compounds may be formed. The SCCS determined that nitrosamine content in the ingredient should be <50 ppb. As a coal tar hair dye, regulations require caution statements and patch test instructions.",
+                  "style": "warning"
+                }
+              ],
+              "CHS": [
+                {
+                  "text": "不应在可能形成N-亚硝基化合物的染发产品中使用。根据SCCS，成分中的亚硝胺含量应低于50 ppb。",
+                  "style": "warning"
+                },
+                {
+                  "text": "作为煤焦油染发剂，法规要求标签上附带警告声明和斑贴试验说明。",
+                  "style": "normal"
+                }
+              ]
+            },
+            "specialPopulationWarnings": [],
+            "restrictedApplicationAreas": []
+          },
+          "concernBlocks": [
+            {
+              "theme": "warning",
+              "title": {
+                "CHS": "N-亚硝胺形成风险",
+                "ENG": "N-Nitrosamine Formation Potential"
+              },
+              "content": {
+                "ENG": [
+                  {
+                    "text": "2-amino-4-hydroxyethylamino-anisole is a secondary amine and potentially can be nitrosated. Of concern in cosmetics is the conversion (nitrosation) of secondary amines into N-nitrosamines that may be carcinogenic. Accordingly, the ingredient should be formulated to avoid the formation of nitrosamines.",
+                    "style": "normal"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "2-氨基-4-羟乙基氨基苯甲醚是仲胺，可能发生亚硝化。化妆品中令人关注的是仲胺转化为可能致癌的N-亚硝胺。因此，应将该成分配制以避免亚硝胺的形成。",
+                    "style": "normal"
+                  }
+                ]
+              }
+            },
+            {
+              "theme": "precaution",
+              "title": {
+                "CHS": "致敏可能性及所需的斑贴试验",
+                "ENG": "Potential for Sensitization and Required Patch Test"
+              },
+              "content": {
+                "ENG": [
+                  {
+                    "text": "The SCCS could not exclude the possibility that this ingredient may be sensitizing. The CIR Expert Panel recommends an open patch test be applied and evaluated by the beautician and/or consumer for sensitization 48 hours after application.",
+                    "style": "normal"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "欧洲委员会消费者安全科学委员会 (SCCS) 无法排除该成分可能致敏的可能性。CIR专家小组建议，在使用染发剂配方之前，进行开放式斑贴试验，并在使用测试材料后48小时评估致敏情况。",
+                    "style": "normal"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "module2Identity": {
+          "chemicalStructure": {
+            "molecularFormula": "C9H14N2O2 · H2SO4",
+            "molecularWeight": {
+              "value": 280.3,
+              "unit": "g/mol"
+            },
+            "structuralFormula": "Refer to Figure 1 and Figure 2 in the source document for the chemical structure of the sulfate salt."
+          },
+          "classification": {
+            "CHS": "偶联剂",
+            "ENG": "Coupling Agent"
+          },
+          "functionDescription": {
+            "CHS": [
+              {
+                "text": "该成分作为偶联剂（Coupling Agent）用于氧化型染发剂配方中，与显色剂（Primary Intermediate，如对苯二胺）结合，通过氧化反应形成最终的染料化合物，从而为头发着色。",
+                "style": "normal"
+              }
+            ],
+            "ENG": [
+              {
+                "text": "This ingredient functions as a coupling agent in oxidative hair dye formulations, reacting with a primary intermediate (e.g., p-phenylenediamine) in the presence of an oxidant to form a new compound (the purported dye) that colors the hair.",
+                "style": "normal"
+              }
+            ]
+          },
+          "cosmeticUses": [
+            {
+              "category": {
+                "CHS": "染发剂",
+                "ENG": "Hair Dye"
+              },
+              "count": 94,
+              "details": [
+                {
+                  "productType": {
+                    "CHS": "染发剂配方",
+                    "ENG": "Hair Coloring Formulations"
+                  },
+                  "concentration": {
+                    "min": 0.008,
+                    "max": 1.5,
+                    "unit": "%",
+                    "description": {
+                      "CHS": "上头浓度范围 (0.008% - 1.5%)。稀释前最大浓度为 3%。",
+                      "ENG": "On-head concentration range (0.008% - 1.5%). Maximum concentration before dilution is 3%."
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "module3Toxicology": {
+          "summary": {
+            "ENG": [
+              {
+                "text": "In vivo studies showed low systemic exposure via dermal absorption (0.211% of the applied dose, calculated based on the free base equivalent). Acute oral toxicity (LD50) was around 475 - 588 mg/kg in rats. While in vitro genotoxicity studies were mixed (positive in mouse lymphoma and human lymphocytes), in vivo studies (mouse micronucleus test and rat UDS assay) were negative, suggesting no genotoxic risk in vivo. Repeated dose oral toxicity had a NOAEL of 15 mg/kg body weight, with effects observed at higher doses on the thyroid, kidneys, and pituitary gland. It was found to be a mild transient skin and eye irritant at 3% concentration, but a Local Lymph Node Assay (LLNA) up to 2% did not indicate skin sensitization.",
+                "style": "normal"
+              }
+            ],
+            "CHS": [
+              {
+                "text": "体内研究显示经皮吸收的全身暴露量较低 (应用剂量约 0.211%)。急性经口毒性 (LD50) 在大鼠中约为 475 - 588 mg/kg。虽然体外遗传毒性研究结果不一 (小鼠淋巴瘤和人淋巴细胞中呈阳性)，但体内研究 (小鼠微核试验和大鼠 UDS 试验) 均呈阴性，表明体内无遗传毒性风险。重复剂量经口毒性的 NOAEL 为 15 mg/kg 体重，在更高剂量下观察到对甲状腺、肾脏和垂体的影响。在 3% 浓度下，它被发现是轻微的短暂皮肤和眼睛刺激物，但局部淋巴结试验 (LLNA) 在高达 2% 浓度下未显示皮肤致敏性。",
+                "style": "normal"
+              }
+            ]
+          },
+          "endpointData": [
+            {
+              "endpoint": {
+                "CHS": "经皮吸收",
+                "ENG": "Dermal Absorption"
+              },
+              "riskLevel": "low",
+              "evaluation": {
+                "ENG": [
+                  {
+                    "text": "In vitro pig skin: 0.211% (mean ± SD: 3.064 ± 0.88 µg/cm²) of 1.5% applied dose was biologically available. SCCS worst-case calculation yielded 4.82 µg/cm².",
+                    "style": "normal"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "体外猪皮试验：1.5%应用剂量中，0.211% (平均值 ± 标准差：3.064 ± 0.88 µg/cm²) 具有生物利用度。SCCS最坏情况计算得出 4.82 µg/cm²。",
+                    "style": "normal"
+                  }
+                ]
+              }
+            },
+            {
+              "endpoint": {
+                "CHS": "急性经口毒性",
+                "ENG": "Acute Oral Toxicity"
+              },
+              "riskLevel": "moderate",
+              "evaluation": {
+                "ENG": [
+                  {
+                    "text": "LD50: 475 mg/kg (male Wistar rat); 588 mg/kg (female Wistar rat); 538 mg/kg (female CF-1 mice).",
+                    "style": "normal"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "LD50：475 mg/kg (雄性 Wistar 大鼠)；588 mg/kg (雌性 Wistar 大鼠)；538 mg/kg (雌性 CF-1 小鼠)。",
+                    "style": "normal"
+                  }
+                ]
+              }
+            },
+            {
+              "endpoint": {
+                "CHS": "重复剂量毒性 (口服)",
+                "ENG": "Repeated Dose Toxicity (Oral)"
+              },
+              "riskLevel": "low",
+              "evaluation": {
+                "ENG": [
+                  {
+                    "text": "15-week rat study NOAEL: 15 mg/kg body weight. Higher doses caused slight anemia and morphological changes in the thyroid gland, kidneys, and pituitary gland.",
+                    "style": "normal"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "15周大鼠研究 NOAEL：15 mg/kg 体重。更高剂量导致轻微贫血以及甲状腺、肾脏和垂体形态学变化。",
+                    "style": "normal"
+                  }
+                ]
+              }
+            },
+            {
+              "endpoint": {
+                "CHS": "遗传毒性 (体外)",
+                "ENG": "Genotoxicity (in vitro)"
+              },
+              "riskLevel": "moderate",
+              "evaluation": {
+                "ENG": [
+                  {
+                    "text": "Negative in Ames assay. Positive in in vitro mouse lymphoma assay and human peripheral blood lymphocytes micronucleus test.",
+                    "style": "warning"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "Ames 试验呈阴性。体外小鼠淋巴瘤试验和人外周血淋巴细胞微核试验呈阳性。",
+                    "style": "warning"
+                  }
+                ]
+              }
+            },
+            {
+              "endpoint": {
+                "CHS": "遗传毒性 (体内)",
+                "ENG": "Genotoxicity (in vivo)"
+              },
+              "riskLevel": "low",
+              "evaluation": {
+                "ENG": [
+                  {
+                    "text": "Negative in mouse micronucleus test (up to 200 mg/kg) and rat UDS assay.",
+                    "style": "normal"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "小鼠微核试验 (最高 200 mg/kg) 和大鼠 UDS 试验均呈阴性。",
+                    "style": "normal"
+                  }
+                ]
+              }
+            },
+            {
+              "endpoint": {
+                "CHS": "发育毒性",
+                "ENG": "Developmental Toxicity"
+              },
+              "riskLevel": "low",
+              "evaluation": {
+                "ENG": [
+                  {
+                    "text": "Prenatal developmental toxicity study in rats: Fetal NOAEL was 150 mg/kg body weight (highest dose tested).",
+                    "style": "normal"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "大鼠产前发育毒性研究：胎儿 NOAEL 为 150 mg/kg 体重 (最高测试剂量)。",
+                    "style": "normal"
+                  }
+                ]
+              }
+            },
+            {
+              "endpoint": {
+                "CHS": "皮肤刺激性",
+                "ENG": "Skin Irritation"
+              },
+              "riskLevel": "low",
+              "evaluation": {
+                "ENG": [
+                  {
+                    "text": "Essentially nonirritating at 1% in guinea pigs. Mild transient skin irritation observed at 3% in rabbits.",
+                    "style": "normal"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "在豚鼠上 1% 浓度下基本无刺激性。在兔子 3% 浓度下观察到轻微短暂皮肤刺激。",
+                    "style": "normal"
+                  }
+                ]
+              }
+            },
+            {
+              "endpoint": {
+                "CHS": "致敏性",
+                "ENG": "Sensitization"
+              },
+              "riskLevel": "low",
+              "evaluation": {
+                "ENG": [
+                  {
+                    "text": "Local Lymph Node Assay (LLNA) up to 2% in DMSO was not a skin sensitizer. QSAR model predicted the free base to be a weak sensitizer, and SCCS could not exclude the possibility of sensitization.",
+                    "style": "normal"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "局部淋巴结试验 (LLNA) 在高达 2% 的 DMSO 浓度下未显示皮肤致敏性。QSAR 模型预测游离碱是弱致敏剂，SCCS 无法排除致敏的可能性。",
+                    "style": "normal"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "module4ConcentrationData": {
+          "concentrationsByProductType": [
+            {
+              "productType": {
+                "CHS": "染发剂配方",
+                "ENG": "Hair Coloring Formulations"
+              },
+              "count": 94,
+              "concentration": {
+                "min": 0.008,
+                "max": 1.5,
+                "unit": "%",
+                "description": {
+                  "CHS": "上头浓度范围 (0.008% - 1.5%)。稀释前最大浓度为 3%。",
+                  "ENG": "On-head concentration range (0.008% - 1.5%). Maximum concentration before dilution is 3%."
+                }
+              }
+            }
+          ]
+        },
+        "module5Regulations": {
+          "regions": [
+            {
+              "regionName": {
+                "CHS": "欧洲联盟 (EU)",
+                "ENG": "European Union (EU)"
+              },
+              "status": "restricted",
+              "details": {
+                "CHS": [
+                  {
+                    "text": "SCCS 认为，当在氧化型染发剂配方中以最大 1.5% 浓度使用时，不会对消费者健康构成风险。",
+                    "style": "normal"
+                  }
+                ],
+                "ENG": [
+                  {
+                    "text": "SCCS concluded that it would not pose a health risk to the consumer when used as an ingredient in oxidative hair dye formulations at a maximum concentration of 1.5%.",
+                    "style": "normal"
+                  }
+                ]
+              },
+              "restrictions": [
+                {
+                  "type": "Maximum Concentration",
+                  "value": "1.5%",
+                  "description": {
+                    "CHS": "在氧化型染发剂配方中的最大浓度为1.5%。",
+                    "ENG": "Maximum concentration of 1.5% in oxidative hair dye formulations."
+                  }
+                },
+                {
+                  "type": "Nitrosamine/Co-use Restriction",
+                  "value": "<50 ppb",
+                  "description": {
+                    "CHS": "不得与亚硝化物质一起使用，且成分中的亚硝胺含量应低于50 ppb。",
+                    "ENG": "Must not be used with nitrosating substances, and nitrosamine content in the ingredient should be <50 ppb."
+                  }
+                }
+              ]
+            },
+            {
+              "regionName": {
+                "CHS": "美国 (US)",
+                "ENG": "United States (US)"
+              },
+              "status": "allowed",
+              "details": {
+                "CHS": [
+                  {
+                    "text": "作为煤焦油染发剂，根据联邦食品、药品和化妆品法案，要求标签上必须有警告声明和斑贴试验说明，方可豁免某些掺假和着色剂条款。",
+                    "style": "normal"
+                  }
+                ],
+                "ENG": [
+                  {
+                    "text": "As a coal tar hair dye, regulations require caution statements and patch test instructions on the label to be exempt from certain adulteration and color additive provisions of the Federal Food, Drug, and Cosmetic Act.",
+                    "style": "normal"
+                  }
+                ]
+              },
+              "restrictions": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "inciName": "2-Amino-4-hydroxyethylaminoanisole",
+      "casNumber": "83763-47-7",
+      "chemicalName": {
+        "CHS": "2-氨基-4-羟乙基氨基苯甲醚",
+        "ENG": "2-Amino-4-hydroxyethylaminoanisole"
+      },
+      "synonyms": [
+        {
+          "CHS": "2-氨基-4-(β-羟乙基氨基)苯甲醚 (2-amino-4-(β-hydroxyethylamino)anisole)",
+          "ENG": "2-amino-4-(β-hydroxyethylamino)anisole"
+        },
+        {
+          "CHS": "1-甲氧基-2-氨基-4-(β-羟乙基氨基)苯 (1-methoxy-2-amino-4-(β-hydroxyethylamino)benzene)",
+          "ENG": "1-methoxy-2-amino-4-(β-hydroxyethylamino)benzene"
+        }
+      ],
+      "dynamicTags": {
+        "safetyTags": [
+          {
+            "id": "safe_with_restrictions",
+            "label": {
+              "CHS": "安全有限制条件",
+              "ENG": "Safe with Restrictions"
+            },
+            "icon": "alert-circle",
+            "color": "orange",
+            "priority": 15
+          },
+          {
+            "id": "toxicological_data_extended",
+            "label": {
+              "CHS": "毒理学数据延伸",
+              "ENG": "Toxicological Data Extended"
+            },
+            "icon": "info",
+            "color": "blue",
+            "priority": 70
+          }
+        ],
+        "functionTags": [
+          {
+            "id": "oxidative_hair_dye",
+            "label": {
+              "CHS": "氧化型染发剂",
+              "ENG": "Oxidative Hair Dye"
+            },
+            "icon": "droplet",
+            "color": "purple",
+            "priority": 60
+          },
+          {
+            "id": "colorant",
+            "label": {
+              "CHS": "着色剂",
+              "ENG": "Colorant"
+            },
+            "icon": "palette",
+            "color": "purple",
+            "priority": 65
+          }
+        ],
+        "complianceTags": [],
+        "customTags": []
+      },
+      "modules": {
+        "module1Dashboard": {
+          "safetyStatus": {
+            "level": "safe_with_restrictions",
+            "conclusion": {
+              "ENG": [
+                {
+                  "text": "The CIR Expert Panel concluded that 2-amino-4-hydroxyethylaminoanisole and 2-amino-4-hydroxyethylaminoanisole sulfate are ",
+                  "style": "normal"
+                },
+                {
+                  "text": "safe for use in oxidative hair dye formulations",
+                  "style": "bold"
+                },
+                {
+                  "text": ". The toxicological profile for the sulfate salt may be extended to the free base. The Expert Panel cautions that these ingredients should ",
+                  "style": "normal"
+                },
+                {
+                  "text": "not be used in hair dye products in which N-nitroso compounds may be formed",
+                  "style": "warning"
+                },
+                {
+                  "text": ".",
+                  "style": "normal"
+                }
+              ],
+              "CHS": [
+                {
+                  "text": "CIR专家小组的结论是，2-氨基-4-羟乙基氨基苯甲醚及其硫酸盐可",
+                  "style": "normal"
+                },
+                {
+                  "text": "安全用于氧化型染发剂配方中",
+                  "style": "bold"
+                },
+                {
+                  "text": "。硫酸盐的毒理学概况可延伸至游离碱。专家小组警告，这些成分",
+                  "style": "normal"
+                },
+                {
+                  "text": "不应在可能形成N-亚硝基化合物的染发产品中使用",
+                  "style": "warning"
+                },
+                {
+                  "text": "。",
+                  "style": "normal"
+                }
+              ]
+            }
+          },
+          "keyParameters": {
+            "maxSafeConcentration": {
+              "min": null,
+              "max": 1.5,
+              "unit": "%",
+              "description": {
+                "CHS": "游离碱目前无报告使用浓度。专家小组预计其未来使用浓度将与硫酸盐类似（最高1.5%）。",
+                "ENG": "No current use concentration reported. The Expert Panel expects its future use concentration to be similar to the sulfate salt (max 1.5%)."
+              }
+            },
+            "restrictions": {
+              "ENG": [
+                {
+                  "text": "Should not be used in hair dye products in which N-nitroso compounds may be formed. Data for the sulfate salt applies to the free base.",
+                  "style": "warning"
+                }
+              ],
+              "CHS": [
+                {
+                  "text": "不应在可能形成N-亚硝基化合物的染发产品中使用。硫酸盐的数据适用于游离碱。",
+                  "style": "warning"
+                }
+              ]
+            },
+            "specialPopulationWarnings": [],
+            "restrictedApplicationAreas": []
+          },
+          "concernBlocks": [
+            {
+              "theme": "warning",
+              "title": {
+                "CHS": "N-亚硝胺形成风险",
+                "ENG": "N-Nitrosamine Formation Potential"
+              },
+              "content": {
+                "ENG": [
+                  {
+                    "text": "2-amino-4-hydroxyethylamino-anisole is a secondary amine and potentially can be nitrosated. Of concern in cosmetics is the conversion (nitrosation) of secondary amines into N-nitrosamines that may be carcinogenic. Accordingly, the ingredient should be formulated to avoid the formation of nitrosamines.",
+                    "style": "normal"
+                  }
+                ],
+                "CHS": [
+                  {
+                    "text": "2-氨基-4-羟乙基氨基苯甲醚是仲胺，可能发生亚硝化。化妆品中令人关注的是仲胺转化为可能致癌的N-亚硝胺。因此，应将该成分配制以避免亚硝胺的形成。",
+                    "style": "normal"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "module2Identity": {
+          "chemicalStructure": {
+            "molecularFormula": "C9H14N2O2",
+            "molecularWeight": {
+              "value": 182.22,
+              "unit": "g/mol"
+            },
+            "structuralFormula": "Refer to Figure 1 and Table 1 in the source document for the chemical structure of the free base."
+          },
+          "classification": {
+            "CHS": "偶联剂",
+            "ENG": "Coupling Agent"
+          },
+          "functionDescription": {
+            "CHS": [
+              {
+                "text": "游离碱预计将作为偶联剂（Coupling Agent）用于氧化型染发剂配方中，与显色剂（Primary Intermediate）结合形成最终染料，以达到所需的颜色。其功能与硫酸盐相同。",
+                "style": "normal"
+              }
+            ],
+            "ENG": [
+              {
+                "text": "The free base is expected to function as a coupling agent in oxidative hair dye formulations, combining with primary intermediates to form the final dye color, similar to the sulfate salt. The toxicological data is extended from the sulfate salt.",
+                "style": "normal"
+              }
+            ]
+          },
+          "cosmeticUses": [
+            {
+              "category": {
+                "CHS": "所有产品类型",
+                "ENG": "All product types"
+              },
+              "count": 0,
+              "details": [
+                {
+                  "productType": {
+                    "CHS": "所有产品类型",
+                    "ENG": "All product types"
+                  },
+                  "concentration": {
+                    "min": null,
+                    "max": null,
+                    "unit": "%",
+                    "description": {
+                      "CHS": "在报告发布时，FDA或化妆品行业均未报告其使用情况。",
+                      "ENG": "No uses or use concentrations were reported by the FDA or the cosmetics industry at the time of the report."
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "module3Toxicology": {
+          "summary": {
+            "ENG": [
+              {
+                "text": "The toxicological profile for the free base is generally considered the same as the sulfate salt, and the CIR Expert Panel extended the data from the sulfate salt to support the safety of the free base.",
+                "style": "normal"
+              }
+            ],
+            "CHS": [
+              {
+                "text": "游离碱的毒理学概况通常被认为与硫酸盐相同，CIR 专家小组延伸了硫酸盐的数据来支持游离碱的安全性。",
+                "style": "normal"
+              }
+            ]
+          },
+          "endpointData": []
+        },
+        "module4ConcentrationData": {
+          "concentrationsByProductType": [
+            {
+              "productType": {
+                "CHS": "所有产品类型",
+                "ENG": "All product types"
+              },
+              "count": 0,
+              "concentration": {
+                "min": null,
+                "max": null,
+                "unit": "%",
+                "description": {
+                  "CHS": "在报告发布时，FDA或化妆品行业均未报告其使用情况。",
+                  "ENG": "No uses or use concentrations were reported by the FDA or the cosmetics industry at the time of the report."
+                }
+              }
+            }
+          ]
+        },
+        "module5Regulations": {
+          "regions": []
+        }
+      }
+    }
+  ]
+}

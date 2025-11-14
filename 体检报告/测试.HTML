@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人体器官阳性数据可视化</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 使用 Inter 字体 */
+        :root {
+            font-family: 'Inter', sans-serif;
+        }
+        /* 隐藏滚动条 */
+        body {
+            overflow: hidden;
+            background-color: #f7f9fc;
+        }
+        .body-container {
+            position: relative;
+            width: 300px; /* 轮廓图宽度 */
+            height: 700px; /* 轮廓图高度 */
+        }
+        .marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease-in-out;
+            border: 2px solid white;
+        }
+        .marker:hover {
+            transform: scale(1.3);
+            z-index: 10;
+        }
+        /* Tooltip 样式 */
+        .tooltip {
+            position: absolute;
+            background-color: rgba(43, 43, 43, 0.95);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+            max-width: 300px;
+            pointer-events: none; /* 确保不影响鼠标事件到 marker */
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .tooltip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tooltip-title {
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body class="p-8 flex flex-col lg:flex-row items-start justify-center min-h-screen">
+
+    <div class="w-full lg:w-1/3 p-6 bg-white rounded-xl shadow-lg mb-8 lg:mb-0 lg:mr-8">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">体检报告阳性发现概览</h1>
+        <p class="text-sm text-gray-600 mb-6">点击或悬停在右侧人体图上的标记点（彩色圆圈），可查看该器官系统的详细异常结果。</p>
+        
+        <div id="findings-list" class="space-y-4">
+            <!-- JS will populate a legend here -->
+        </div>
+
+    </div>
+
+    <!-- 人体轮廓图容器 -->
+    <div class="w-full lg:w-1/2 flex justify-center">
+        <div id="body-visualization" class="body-container border border-gray-300 rounded-xl shadow-2xl bg-white">
+            <!-- 简化的女性人体轮廓 SVG -->
+            <svg viewBox="0 0 100 200" class="w-full h-full">
+                <!-- 身体轮廓 - 头部 -->
+                <path d="M50,10 C55,10 60,15 60,20 L60,30 C60,40 55,45 50,45 C45,45 40,40 40,30 L40,20 C40,15 45,10 50,10 Z" fill="#FFDBAC"/>
+                <!-- 身体轮廓 - 躯干 -->
+                <path d="M45,45 L40,120 C35,140 65,140 60,120 L55,45 Z" fill="#FFDBAC" stroke="#D7B79D" stroke-width="0.5"/>
+                <!-- 腹部和骨盆 -->
+                <path d="M40,120 C38,130 38,140 40,150 L60,150 C62,140 62,130 60,120 Z" fill="#FFDBAC"/>
+                <!-- 腿部 (简化) -->
+                <rect x="40" y="150" width="10" height="50" fill="#FFDBAC"/>
+                <rect x="50" y="150" width="10" height="50" fill="#FFDBAC"/>
+
+                <!-- 标记点将由 JS 动态添加 -->
+            </svg>
+            
+            <!-- Tooltip Div -->
+            <div id="marker-tooltip" class="tooltip hidden">
+                <div id="tooltip-title" class="tooltip-title"></div>
+                <ul id="tooltip-findings" class="list-disc list-inside text-sm space-y-1"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 步骤 1: 提取和简化 JSON 中的阳性发现
+        // 注意: 原始 JSON 文件内容已被fetcher获取。在这里我们定义一个简化的数据结构。
+        
+        // 原始 JSON 数据中的阳性发现 (Positive Findings) 提取：
+        const rawFindings = {
+            "心血管系统": [
+                "心超提示：二尖瓣轻度反流；三尖瓣轻度反流。",
+                "血清脂蛋白a测定值偏高。",
+                "总胆固醇偏高。",
+                "载脂蛋白A1偏高。"
+            ],
+            "呼吸系统": [
+                "右肺上叶微小结节。"
+            ],
+            "泌尿系统": [
+                "尿蛋白(++)。",
+                "血尿酸偏高。",
+                "尿液酸碱度偏高。"
+            ],
+            "生殖系统": [
+                "双侧乳腺小叶增生。",
+                "双侧乳腺结节。",
+                "子宫肌层回声欠均匀。",
+                "TCT结果显示炎症反应性细胞改变。"
+            ],
+            "血液系统": [
+                "单项补体测定(C3)值偏高。",
+                "单项补体测定(C4)值偏高。"
+            ]
+        };
+
+        // 步骤 2: 将发现映射到人体轮廓上的坐标 (x, y 为 SVG viewBox 0-100 的百分比坐标)
+        // 颜色用于标记和列表区分。
+        const visualizationData = [
+            { system: "心血管系统", organ: "心脏/血管", findings: rawFindings["心血管系统"], x: 50, y: 40, color: "bg-red-500", detail: "瓣膜反流, 血脂异常" },
+            { system: "呼吸系统", organ: "肺部", findings: rawFindings["呼吸系统"], x: 38, y: 30, color: "bg-orange-500", detail: "右肺微小结节" }, // 右肺
+            { system: "泌尿系统", organ: "肾脏/代谢", findings: rawFindings["泌尿系统"], x: 40, y: 55, color: "bg-blue-500", detail: "尿蛋白, 血尿酸异常" }, // 肾脏大致位置
+            { system: "生殖系统 (乳腺)", organ: "乳腺", findings: [rawFindings["生殖系统"][0], rawFindings["生殖系统"][1]], x: 55, y: 25, color: "bg-purple-500", detail: "小叶增生, 结节" }, // 右乳
+            { system: "生殖系统 (妇科)", organ: "子宫/宫颈", findings: [rawFindings["生殖系统"][2], rawFindings["生殖系统"][3]], x: 50, y: 70, color: "bg-pink-500", detail: "子宫回声不均, TCT炎症" }, // 盆腔位置
+            { system: "血液系统", organ: "免疫/全身炎症", findings: rawFindings["血液系统"], x: 62, y: 48, color: "bg-yellow-500", detail: "补体C3/C4偏高" } // 腹部/全身
+        ];
+
+        const bodyViz = document.getElementById('body-visualization');
+        const svg = bodyViz.querySelector('svg');
+        const tooltip = document.getElementById('marker-tooltip');
+        const tooltipTitle = document.getElementById('tooltip-title');
+        const tooltipFindings = document.getElementById('tooltip-findings');
+        const findingsList = document.getElementById('findings-list');
+
+
+        function initializeVisualization() {
+            visualizationData.forEach((data, index) => {
+                // 1. 创建标记点 (Marker Div)
+                const marker = document.createElement('div');
+                marker.className = `marker ${data.color}`;
+                // 坐标转换：将 0-100 的 viewBox 坐标映射到实际 div 的百分比
+                marker.style.top = `${data.y}%`;
+                marker.style.left = `${data.x}%`;
+                // 稍微偏移，让圆心落在坐标点上
+                marker.style.transform = 'translate(-50%, -50%)';
+
+                // 2. 将数据附加到 Marker 上
+                marker.dataset.system = data.system;
+                marker.dataset.organ = data.organ;
+                marker.dataset.findings = JSON.stringify(data.findings);
+
+                // 3. 添加事件监听器 (Mouseover/Mouseout for Tooltip)
+                marker.addEventListener('mouseover', (e) => showTooltip(e, data));
+                marker.addEventListener('mouseout', hideTooltip);
+
+                // 4. 将 Marker 添加到容器
+                bodyViz.appendChild(marker);
+                
+                // 5. 填充左侧的发现列表 (Legend)
+                const listItem = document.createElement('div');
+                listItem.className = 'flex items-start p-3 rounded-lg hover:bg-gray-50 transition duration-150 ease-in-out cursor-default';
+                listItem.innerHTML = `
+                    <div class="w-4 h-4 rounded-full ${data.color} flex-shrink-0 mr-3 mt-1"></div>
+                    <div>
+                        <p class="text-base font-medium text-gray-900">${data.organ} (${data.system})</p>
+                        <p class="text-sm text-gray-500">${data.detail}</p>
+                    </div>
+                `;
+                findingsList.appendChild(listItem);
+            });
+        }
+
+        function showTooltip(e, data) {
+            // 准备 Tooltip 内容
+            tooltipTitle.textContent = `${data.organ} (${data.system})`;
+            tooltipFindings.innerHTML = ''; // 清空旧内容
+            data.findings.forEach(finding => {
+                const li = document.createElement('li');
+                li.textContent = finding.replace(/\"/g, ''); // 移除可能的引号
+                tooltipFindings.appendChild(li);
+            });
+
+            // 定位 Tooltip
+            const rect = e.target.getBoundingClientRect();
+            const containerRect = bodyViz.getBoundingClientRect();
+            
+            // 确保 Tooltip 靠左显示，避免超出屏幕右侧
+            let x = rect.left - containerRect.left + rect.width / 2;
+            let y = rect.top - containerRect.top + rect.height / 2;
+            
+            // 调整位置，让 Tooltip 在 Marker 右侧或左侧
+            // 尝试放在右侧，并在 Marker 下方一点
+            tooltip.style.left = `${x + 20}px`;
+            tooltip.style.top = `${y}px`;
+
+            // 如果 Tooltip 跑到容器右侧边缘，则调整到左侧
+            // (需要延迟计算以获取 tooltip 的宽度)
+            requestAnimationFrame(() => {
+                const tooltipWidth = tooltip.offsetWidth;
+                const bodyContainerWidth = containerRect.width;
+
+                // 如果右侧空间不够 (x + 20 + tooltipWidth > bodyContainerWidth)
+                if (x + 20 + tooltipWidth > bodyContainerWidth) {
+                    // 移到左侧
+                    tooltip.style.left = `${x - tooltipWidth - 20}px`;
+                }
+
+                tooltip.classList.add('visible');
+                tooltip.classList.remove('hidden');
+            });
+        }
+
+        function hideTooltip() {
+            tooltip.classList.remove('visible');
+            tooltip.classList.add('hidden');
+        }
+
+        // 初始化
+        window.onload = initializeVisualization;
+
+    </script>
+</body>
+</html>

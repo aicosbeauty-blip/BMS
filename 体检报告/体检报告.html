@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康评估报告|客户隐私文件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "SimSun", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+        
+        @media print {
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px;
+            margin: -20mm -20mm 20px -20mm;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-subtitle {
+            font-size: 14px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .title-main {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: white;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .qr-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .info-section {
+            margin: 20px 0;
+        }
+        
+        .info-row {
+            display: flex;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .info-label {
+            width: 120px;
+            font-weight: bold;
+        }
+        
+        .info-value {
+            flex: 1;
+        }
+        
+        .section-title {
+            background: #1e3a8a;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px 0;
+            text-align: center;
+        }
+        
+        .subsection-title {
+            background: #f3f4f6;
+            padding: 10px 15px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            border-left: 4px solid #1e3a8a;
+        }
+        
+        .content-box {
+            background: #f9fafb;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .recommendation-box {
+            background: #e8f5e9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+        
+        table th {
+            background: #1e3a8a;
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+        
+        .highlight {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .page-number {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .body-diagram {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .body-diagram-placeholder {
+            width: 200px;
+            height: 400px;
+            margin: 0 auto;
+            background: #f3f4f6;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 第1页 - 封面 -->
+    <div class="page">
+        <div class="header">
+            <div class="logo">INCOSC</div>
+            <div class="logo-subtitle">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            <div class="title-main">会员健康<br>档案</div>
+            <div class="subtitle">慢病康养，肿瘤预防，综合抗衰</div>
+        </div>
+        
+        <div class="qr-code">
+            <div class="qr-placeholder">扫码关注<br>INCOSC公众号</div>
+        </div>
+        
+        <div class="info-section">
+            <div class="info-row">
+                <div class="info-label">姓名：</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">性别：</div>
+                <div class="info-value">女</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">年龄：</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">身高：</div>
+                <div class="info-value">——</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">体重：</div>
+                <div class="info-value">——</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">BMI：</div>
+                <div class="info-value">——</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">血压：</div>
+                <div class="info-value">——</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">过敏：</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">诉求：</div>
+                <div class="info-value">抗衰，维持身体健康状态</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">体检单位</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">检查日期</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">建档日期：</div>
+                <div class="info-value"></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            深耕细胞科技<br>守护国民健康
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 1</div>
+    </div>
+
+    <!-- 第2页 - 体检结果 -->
+    <div class="page">
+        <div class="section-title">体检结果</div>
+        
+        <div class="subsection-title">病史情况</div>
+        <div class="content-box">
+            <p><strong>病史：</strong>不详。</p>
+            <p><strong>服药情况：</strong>不详。</p>
+            <p><strong>营养品与保健品：</strong>不详。</p>
+            <p><strong>生活方式：</strong>不详。</p>
+        </div>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、推荐首选线下面诊，必要时可以线上面诊。</p>
+        </div>
+        
+        <div class="subsection-title">专科检查</div>
+        <div class="content-box">
+            <p>内科：肠息肉术后</p>
+            <p>外科：未检查</p>
+            <p>眼科：未见异常</p>
+            <p>耳鼻喉科：<span class="highlight">扁桃体 II 度肿大。左侧上颌窦、右侧蝶窦黏膜下囊肿可能。</span></p>
+            <p>口腔科：未检查</p>
+        </div>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、咽炎分急性、慢性两种类型，对因干预，常见原因细菌、病毒感染，胃食管反流、过敏；如有喉咙剧痛，无法吞咽口水或进食，呼吸困难或吞咽困难，持续高烧（体温超过 38.5℃），症状持续一周以上没有任何改善或反而加重，请及时到医院耳鼻喉科就诊。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 2</div>
+    </div>
+
+    <!-- 第3页 - 尿常规 -->
+    <div class="page">
+        <table>
+            <thead>
+                <tr>
+                    <th>尿常规</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>尿比重</td><td></td><td></td><td></td><td>1.003-1.025</td></tr>
+                <tr><td>白细胞</td><td></td><td></td><td></td><td>阴性</td></tr>
+                <tr><td>红细胞计数</td><td></td><td></td><td></td><td>0-25 个/μl</td></tr>
+                <tr><td>鳞状上皮细胞</td><td></td><td></td><td></td><td>0-28 个/μl</td></tr>
+                <tr><td>透明管型</td><td></td><td></td><td></td><td>0-1 个/LP</td></tr>
+                <tr><td>细菌</td><td></td><td></td><td></td><td>0-386</td></tr>
+                <tr><td>霉菌</td><td></td><td></td><td></td><td>阴性</td></tr>
+                <tr><td>粘液丝</td><td></td><td></td><td></td><td>阴性</td></tr>
+                <tr><td>非鳞状上皮细胞</td><td></td><td></td><td></td><td>0-28 个/μl</td></tr>
+                <tr><td>病理管型</td><td></td><td></td><td></td><td>0-1 个/LP</td></tr>
+                <tr><td>白细胞计数</td><td></td><td></td><td></td><td>0-25 个/μl</td></tr>
+                <tr><td>颜色</td><td></td><td></td><td>黄色</td><td></td></tr>
+                <tr><td>尿潜血</td><td></td><td></td><td></td><td>阴性</td></tr>
+                <tr><td>胆红素</td><td></td><td></td><td></td><td>阴性</td></tr>
+                <tr><td>尿胆原</td><td></td><td></td><td></td><td>弱阳性</td></tr>
+                <tr><td>尿酮体</td><td></td><td></td><td></td><td>阴性</td></tr>
+                <tr><td>尿蛋白</td><td></td><td></td><td></td><td>阴性</td></tr>
+                <tr><td>葡萄糖</td><td></td><td></td><td></td><td>阴性</td></tr>
+                <tr><td>酸碱度（PH）</td><td></td><td></td><td></td><td>5.5-7</td></tr>
+            </tbody>
+        </table>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>尿生化</th>
+                    <th></th>
+                    <th></th>
+                    <th>2025-09-18</th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>尿微量白蛋白</td><td></td><td></td><td>13.08</td><td>0.00-20.00 mg/l</td></tr>
+                <tr><td>尿肌酐</td><td></td><td></td><td>17203.0</td><td>3540-24600</td></tr>
+                <tr><td>尿微量白蛋白/尿肌酐</td><td></td><td></td><td>6.72</td><td>0.0-35.0mg/l</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>尿常规评估与建议：</strong></p>
+            <p>1、尿常规化验结果正常，不需要干预，定期复查。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 3</div>
+    </div>
+
+    <!-- 第4页 - 血常规与血糖 -->
+    <div class="page">
+        <table>
+            <thead>
+                <tr>
+                    <th>血常规</th>
+                    <th></th>
+                    <th></th>
+                    <th>2025-09-18</th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>白细胞计数</td><td></td><td></td><td>6.82</td><td>3.5-9.5 x109/L</td></tr>
+                <tr><td>中性粒细胞比值</td><td></td><td></td><td>43.8</td><td>40.0-75.0 %</td></tr>
+                <tr><td>淋巴细胞比值</td><td></td><td></td><td>45.6</td><td>20.0-50.0 %</td></tr>
+                <tr><td>单核细胞比值</td><td></td><td></td><td>7.5</td><td>3.0-10.0 %</td></tr>
+                <tr><td>中性粒细胞绝对值</td><td></td><td></td><td>2.99</td><td>1.8-6.3×109/L</td></tr>
+                <tr><td>淋巴细胞绝对值</td><td></td><td></td><td>3.11</td><td>1.1-3.2×109/L</td></tr>
+                <tr><td>单核细胞绝对值</td><td></td><td></td><td>0.51</td><td>0.10-0.6×109/L</td></tr>
+                <tr><td>红细胞计数</td><td></td><td></td><td>4.07</td><td>3.80-5.1×1012/L</td></tr>
+                <tr><td>血红蛋白</td><td></td><td></td><td class="highlight">101</td><td>115-150 g/L</td></tr>
+                <tr><td>红细胞压积</td><td></td><td></td><td>——</td><td>40.0-50.0 %</td></tr>
+                <tr><td>平均血红蛋白含量</td><td></td><td></td><td>——</td><td>27.0-34.0 pg</td></tr>
+                <tr><td>平均血红蛋白浓度</td><td></td><td></td><td>——</td><td>320-350 g/L</td></tr>
+                <tr><td>血小板计数</td><td></td><td></td><td>——</td><td>125-350×109/L</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、血常规检查结果未发现异常。动态观察。</p>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>血糖</th>
+                    <th></th>
+                    <th></th>
+                    <th>2025-09-18</th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>空腹葡萄糖</td><td></td><td></td><td>4.69</td><td>3.9-5.6 mmol/L</td></tr>
+                <tr><td>餐后 2 小时血糖</td><td></td><td></td><td>——</td><td>< 7.8 mmol/L</td></tr>
+                <tr><td>糖化血红蛋白</td><td></td><td></td><td>5.3</td><td>4-6 %</td></tr>
+                <tr><td>空腹胰岛素</td><td></td><td></td><td>4.55</td><td>2.6-24.9 uU/mL</td></tr>
+                <tr><td>空腹 C 肽</td><td></td><td></td><td>0.96</td><td>0.62-2.74 ng/mL</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、糖化血红蛋白 6.2%，警惕发生糖尿病早期风险。</p>
+            <p>2、合理生活饮食、有氧运动是控制血糖的基石。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 4</div>
+    </div>
+
+    <!-- 第5页 - 肝功能与血脂 -->
+    <div class="page">
+        <table>
+            <thead>
+                <tr>
+                    <th>肝功能</th>
+                    <th></th>
+                    <th></th>
+                    <th>2025-09-18</th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>谷丙转移酶</td><td></td><td></td><td>15</td><td>9-50 U/L</td></tr>
+                <tr><td>谷草转移酶</td><td></td><td></td><td>26</td><td>13-35 U/L</td></tr>
+                <tr><td>r-GGT</td><td></td><td></td><td>——</td><td>10-60 U/L</td></tr>
+                <tr><td>总胆红素</td><td></td><td></td><td>——</td><td>0-21umol/L</td></tr>
+                <tr><td>直接胆红素</td><td></td><td></td><td>2.4</td><td>0-17.1umol/L</td></tr>
+                <tr><td>间接胆红素</td><td></td><td></td><td>5.3</td><td>1.7-10.2umol/L</td></tr>
+                <tr><td>碱性磷酸酶</td><td></td><td></td><td>64</td><td>45-125 U/L</td></tr>
+                <tr><td>血清总蛋白</td><td></td><td></td><td>73.9</td><td>65.0-85.0 g/L</td></tr>
+                <tr><td>血清白蛋白</td><td></td><td></td><td>40.3</td><td>40.0-55.0 g/L</td></tr>
+                <tr><td>血清球蛋白</td><td></td><td></td><td>33.6</td><td>20.0-40.0 g/L</td></tr>
+                <tr><td>血清白球比</td><td></td><td></td><td>1.2</td><td>(1.2-2.4):1</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、肝功能检查结果正常，不需要药物治疗</p>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>血脂</th>
+                    <th></th>
+                    <th></th>
+                    <th>2025-09-18</th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>总胆固醇</td><td></td><td></td><td>4.80</td><td>< 5.20mmol/L</td></tr>
+                <tr><td>LDL-胆固醇</td><td></td><td></td><td>2.85</td><td>2.10-3.34mmol/L</td></tr>
+                <tr><td>HDL-胆固醇</td><td></td><td></td><td>1.21</td><td>＞1.04 mmol/L</td></tr>
+                <tr><td>甘油三酯</td><td></td><td></td><td>0.73</td><td>0.00-1.69mmol/L</td></tr>
+                <tr><td>载脂蛋白 A1</td><td></td><td></td><td>1.061</td><td>1-1.6 g/L</td></tr>
+                <tr><td>载脂蛋白 B</td><td></td><td></td><td>0.736</td><td>0.6-1.1g/L</td></tr>
+                <tr><td>脂蛋白 a</td><td></td><td></td><td>91</td><td>0-300 mmol/L</td></tr>
+                <tr><td>同型半氨胱酸</td><td></td><td></td><td>6.55</td><td>6.0-16.0umol/L</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、血脂化验结果提示血脂异常，高胆固醇血症。推荐先饮食方式+运动方式调理。</p>
+            <p>2、饮食方式：减少饱和脂肪和反式脂肪（去皮禽肉、鱼类，限制红肉猪牛羊），尤其避免肥肉和加工肉制品（香肠、腊肉、培根）。用低脂或脱脂奶制品代替全脂奶制品。适量摄入富含单不饱和脂肪（橄榄油、牛油果、坚果）和多不饱和脂肪（富含 Omega-3 的深海鱼如三文鱼、鲭鱼、沙丁鱼；亚麻籽、奇亚籽、核桃；大豆油、玉米油、葵花籽油）。</p>
+            <p>3、运动方式：适量低等强度有氧运动（如快走、慢跑）。有助于升高 HDL-C（"好"胆固醇），帮助控制体重，改善胰岛素敏感性。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 5</div>
+    </div>
+
+    <!-- 第6页 - 肾功能与肿瘤标志物 -->
+    <div class="page">
+        <table>
+            <thead>
+                <tr>
+                    <th>肾功能</th>
+                    <th></th>
+                    <th></th>
+                    <th>2025-09-18</th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>尿素</td><td></td><td></td><td>3.38</td><td>2.86-8.20mmol/L</td></tr>
+                <tr><td>肌酐</td><td></td><td></td><td>42</td><td>57-130umol/L</td></tr>
+                <tr><td>血尿酸</td><td></td><td></td><td class="highlight">418</td><td>155-375umol/L</td></tr>
+                <tr><td>eGFR</td><td></td><td></td><td>——</td><td>100-120ml/min</td></tr>
+                <tr><td>血清胱抑素 C</td><td></td><td></td><td>——</td><td>0.51-1.09 mg/L</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、高尿酸血症。</p>
+            <p>2、血尿酸水平 ≥ 540 μmol/L（9 mg/dL）或 血尿酸 ≥ 480 μmol/L（8 mg/dL）且伴有以下任一合并症：高血压、糖尿病、血脂异常、肥胖、脑卒中、冠心病、心功能不全、尿酸性肾石病、肾功能损害（CKD ≥ 2 期）。需要启动药物干预，严重心脏病者不推荐非布司他。</p>
+            <p>3、尿酸目标：长期控制血尿酸 < 420 μmol/L（7 mg/dL）。</p>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>肿瘤标志物</th>
+                    <th></th>
+                    <th></th>
+                    <th>2025-09-18</th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>AFP</td><td></td><td></td><td>2.52</td><td>＜9.0 ng/mL</td></tr>
+                <tr><td>CEA</td><td></td><td></td><td>0.98</td><td>＜5.0 ng/mL</td></tr>
+                <tr><td>CA125</td><td></td><td></td><td>5.93</td><td>＜24.00U/ml</td></tr>
+                <tr><td>CA15-3</td><td></td><td></td><td>< 3.50</td><td>＜26.40U/ml</td></tr>
+                <tr><td>CA19-9</td><td></td><td></td><td>16.82</td><td>＜27.00U/ml</td></tr>
+                <tr><td>CA72-4</td><td></td><td></td><td>0.6</td><td>＜6.9 U/ml</td></tr>
+                <tr><td>CA24-2</td><td></td><td></td><td>2.54</td><td>＜20.00U/ml</td></tr>
+                <tr><td>CYFRA21-1</td><td></td><td></td><td>< 1.0</td><td>＜3.30 ng/ml</td></tr>
+                <tr><td>NSE</td><td></td><td></td><td>1.78</td><td>＜16.30ng/ml</td></tr>
+                <tr><td>SCC</td><td></td><td></td><td>1.05</td><td>＜2.50 U/ml</td></tr>
+                <tr><td>TPSA</td><td></td><td></td><td>女性不做</td><td>＜4.00 ng/ml</td></tr>
+                <tr><td>FPSA</td><td></td><td></td><td>女性不做</td><td>＞0.930</td></tr>
+                <tr><td>FPSA/TPSA</td><td></td><td></td><td>女性不做</td><td>0.25-1.00</td></tr>
+                <tr><td>铁蛋白</td><td></td><td></td><td>< 5.00</td><td>23.90-336.20ng/mL</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、已经化验的肿瘤标志物项目结果正常。2、未发现明显风险，定期复查。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 6</div>
+    </div>
+
+    <!-- 第7页 - 甲状腺功能、凝血与传染病 -->
+    <div class="page">
+        <table>
+            <thead>
+                <tr>
+                    <th>甲状腺功能</th>
+                    <th></th>
+                    <th></th>
+                    <th>2025-09-18</th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>TSH</td><td></td><td></td><td>1.378</td><td>0.35-4.94 uIU/mL</td></tr>
+                <tr><td>T3</td><td></td><td></td><td>0.87</td><td>0.84-2.02ng/ml</td></tr>
+                <tr><td>T4</td><td></td><td></td><td>8.4</td><td>66.0-181.0nmol/L</td></tr>
+                <tr><td>FT4</td><td></td><td></td><td>15.50</td><td>0.7-1.48 ng/dL</td></tr>
+                <tr><td>FT3</td><td></td><td></td><td>3.71</td><td>3.53-7.37pmol/L</td></tr>
+                <tr><td>TPO-Ab</td><td></td><td></td><td>11.5</td><td>＜34 U/ml</td></tr>
+                <tr><td>TG-Ab</td><td></td><td></td><td>18.70</td><td>≤115 U/ml</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、甲状腺功能检查未见异常，还是有必要每年定期检查。</p>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>凝血常规</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>凝血酶原时间PT</td><td></td><td></td><td></td><td>11.5-14.5 s</td></tr>
+                <tr><td>国际标准化比值 INR</td><td></td><td></td><td></td><td>0.90-1.10</td></tr>
+                <tr><td>部分凝血活酶时间 APTT</td><td></td><td></td><td></td><td>29.2-41.2 s</td></tr>
+                <tr><td>凝血酶时间 TT</td><td></td><td></td><td></td><td>14.5-18.5 s</td></tr>
+                <tr><td>纤维蛋白原 FIB</td><td></td><td></td><td></td><td>2.00-4.00 g/L</td></tr>
+                <tr><td>D-二聚体</td><td></td><td></td><td></td><td>0.00-0.50 ug/mL</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、应用细胞前请提供凝血功能+D-二聚体。</p>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>传染病八项</th>
+                    <th></th>
+                    <th></th>
+                    <th>2025-09-18</th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>乙肝表面抗原</td><td></td><td></td><td>阴性</td><td>阴性</td></tr>
+                <tr><td>乙肝表面抗体</td><td></td><td></td><td>阳性</td><td>阴性</td></tr>
+                <tr><td>丙肝抗体</td><td></td><td></td><td>阴性</td><td>阴性</td></tr>
+                <tr><td>梅毒+HIV 抗体</td><td></td><td></td><td>——</td><td>阴性</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、应用细胞前请提供传染病八项检查结果。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 7</div>
+    </div>
+
+    <!-- 第8页 - 其他检查 -->
+    <div class="page">
+        <table>
+            <thead>
+                <tr>
+                    <th>其他检查</th>
+                    <th></th>
+                    <th></th>
+                    <th>2025-09-18</th>
+                    <th>参考值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>肌钙蛋白 T</td><td></td><td></td><td>——</td><td>< 0.06ng/mL</td></tr>
+                <tr><td>肌酸激酶</td><td></td><td></td><td class="highlight">955</td><td>40-200 U/L</td></tr>
+                <tr><td>肌红蛋白</td><td></td><td></td><td>——</td><td>28-72 ng/mL</td></tr>
+                <tr><td>C-反应蛋白</td><td></td><td></td><td>0.83</td><td>0-10 mg/L</td></tr>
+                <tr><td>PGI</td><td></td><td></td><td>35.52</td><td>> 70 ng/mL</td></tr>
+                <tr><td>PGII</td><td></td><td></td><td>3.61</td><td>< 11 ng/mL</td></tr>
+                <tr><td>PG1/PG2</td><td></td><td></td><td>9.84</td><td>> 7</td></tr>
+                <tr><td>胃泌素 17</td><td></td><td></td><td>1.39</td><td>< 5.7 pmol/l</td></tr>
+                <tr><td>25-羟基维生素 D</td><td></td><td></td><td>19.10</td><td>6.6-49.9 ng/ml</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、未见胃部存在炎症及活动性症状。</p>
+            <p>2、必要时可进一步行胃镜检查，详细了解胃部情况。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 8</div>
+    </div>
+
+    <!-- 第9页 - 影像检查 -->
+    <div class="page">
+        <div class="subsection-title">十二道导联心电图</div>
+        <div class="content-box">
+            <p><strong>2025-09-18</strong> 窦性心律不齐</p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、推荐每年定期检查，早发现、早干预。</p>
+        </div>
+        
+        <div class="subsection-title">超声（甲状腺、肝胆胰脾、泌尿系统）</div>
+        <div class="content-box">
+            <p><strong>2025-09-18</strong></p>
+            <p>1、<span class="highlight">甲状腺回声欠均。</span>2、<span class="highlight">肝囊肿</span>，3、<span class="highlight">甲状腺多发结节 TIRADS 3 类（左叶 0.5*0.2cm，右叶 0.3*0.2cm）</span></p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、甲状腺小结节 98%属于良性，12 个月定期复查，动态持续观察 2 年。如结节没有变化，后期改为 12 个月复查 1 次。</p>
+            <p>2、肝囊肿属于良性，不需要干预。</p>
+        </div>
+        
+        <div class="subsection-title">超声（心脏、血管）</div>
+        <div class="content-box">
+            <p><strong>2025-09-18</strong> 1、<span class="highlight">右侧锁骨下动脉内膜增厚。</span></p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、血管内膜增厚是动脉粥样硬化的早期表现，是一个重要的预警信号。临床常见主要由高血压、高血脂、糖尿病、吸烟等危险因素引起。</p>
+            <p>2、通过积极、健康的生活方式和必要的药物治疗，完全可以有效控制其进展，甚至实现一定程度的逆转，从而预防心脑血管严重事件的发生。</p>
+        </div>
+        
+        <div class="subsection-title">颈、胸、腹部（X 线或 CT）</div>
+        <div class="content-box">
+            <p><strong>2025-09-18</strong> 1、<span class="highlight">双肺多发小结节。</span>2、<span class="highlight">颈部、纵膈、双侧腋窝多发小淋巴结。</span></p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、肺结节良性可能大，推荐 12 个月复查 1 次胸部 CT（低剂量）。</p>
+            <p>2、避免过度焦虑，戒烟、避免吸入油烟和污染空气，提升免疫力是关键。</p>
+            <p>3、小淋巴结绝大多数都是良性，常常是机体对抗炎症的正常反应。</p>
+        </div>
+        
+        <div class="subsection-title">冠状动脉 CTA</div>
+        <div class="content-box">
+            <p><strong>2025-09-18</strong> 未检查</p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 9</div>
+    </div>
+
+    <!-- 第10页 - 其他检查项目 -->
+    <div class="page">
+        <div class="subsection-title">颅脑（CT 或 MRI）</div>
+        <div class="content-box">
+            <p><strong>2025-09-18</strong></p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、避免长期精神压抑、生气、焦虑。情绪波动会影响内分泌水平。避免熬夜，保证充足睡眠。多吃蔬菜水果，适量摄入优质蛋白。对于蜂王浆、雪蛤等可能含有雌激素的保健品，要谨慎食用。加强锻炼，控制体重，提高免疫力。避免外力挤压：选择支撑性好、舒适的内衣。</p>
+        </div>
+        
+        <div class="subsection-title">C13 或 C14 呼气试验</div>
+        <div class="content-box">
+            <p><strong>2025-09-18</strong></p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、</p>
+        </div>
+        
+        <div class="subsection-title">胃镜</div>
+        <div class="content-box">
+            <p><strong>2025-09-18</strong></p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、</p>
+        </div>
+        
+        <div class="subsection-title">肠镜</div>
+        <div class="content-box">
+            <p><strong>2025-09-18</strong></p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 10</div>
+    </div>
+
+    <!-- 第11页 - 健康专家意见封面 -->
+    <div class="page">
+        <div style="text-align: center; margin-top: 100px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 50px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            
+            <h1 style="font-size: 36px; margin: 80px 0; color: #1e3a8a;">健康专家意见</h1>
+            
+            <div class="body-diagram">
+                <div class="body-diagram-placeholder">人体示意图</div>
+            </div>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 11</div>
+    </div>
+
+    <!-- 第12页 - 健康系统(1) -->
+    <div class="page">
+        <div class="section-title">健康系统（1）</div>
+        
+        <div class="subsection-title">一、血液系统</div>
+        <div class="content-box">
+            <p><strong>体检阳性发现：</strong>血红蛋白 101 g/L ↓。</p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>医疗组评估及建议：</strong></p>
+            <p>1、原因分析：营养不均匀可能性大。</p>
+            <p>2、生活方式：加强身体锻炼，增强体质，增加肌肉含量，饮食规律、平衡，适量摄入优质蛋白质（纯牛奶、鸡蛋、鱼虾等）。</p>
+            <p>3、复查时间：3-6 个月复查血常规。</p>
+        </div>
+        
+        <div class="subsection-title">二、泌尿系统</div>
+        <div class="content-box">
+            <p><strong>体检阳性发现：</strong>血尿酸 418 umol/L ↑。</p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>医疗组评估及建议：</strong></p>
+            <p>1、原因分析:平时喝水量少、常吃含尿酸高食物、代谢能力下降。</p>
+            <p>2、干预方案：严格控制。</p>
+            <p>3、复查方式：每 6-12 个月定期复查肾功能。</p>
+        </div>
+        
+        <div class="subsection-title">三、内分泌系统</div>
+        <div class="content-box">
+            <p><strong>体检阳性发现：</strong>空腹 C 肽 0.96 ng/mL。甲状腺左侧叶小结节。</p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>医疗组评估及建议：</strong></p>
+            <p>1、风险分析:化验结果接近正常下限值，存在胰岛β细胞功能下降的潜在风险。</p>
+            <p>2、干预方案：良好饮食方式及适量有氧运动是控制血糖的基石，推荐每餐先吃 1/2 蔬菜、1/4 蛋白质（鸡蛋、鱼虾、鸡鸭鹅、猪牛羊肉）、1/4 碳水化合物（米面类）。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 12</div>
+    </div>
+
+    <!-- 第13页 - 健康系统(1)续 -->
+    <div class="page">
+        <div class="recommendation-box">
+            <p>3、复查方式：每 3-6 个月定期复查血糖、糖化血红蛋白、空腹 C 肽值。</p>
+            <p>4、原因分析：碘摄入异常，辐射暴露，遗传因素，吸烟，饮酒，压力等。</p>
+            <p>5、甲状腺结节：2 类结节 98%属于良性，6-12 个月定期复查，动态持续观察 2 年。如结节没有变化，后期改为 12 个月复查 1 次。</p>
+        </div>
+        
+        <div class="subsection-title">四、呼吸系统</div>
+        <div class="content-box">
+            <p><strong>体检阳性发现：</strong>双肺多发小结节。</p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>医疗组评估及建议：</strong></p>
+            <p>1、原因分析：炎症治愈后遗留瘢痕可能性大。</p>
+            <p>2、干预方案：提升免疫力是关键，推荐应用外秘体雾化和/或免疫细胞。</p>
+            <p>3、生活方式：加强身体锻炼，增强体质，增加肌肉含量，饮食规律、平衡，适量摄入优质蛋白质（纯牛奶、鸡蛋、鱼虾等）。</p>
+            <p>4、复查方式：12 个月定期复查胸部低剂量 CT。避免过度焦虑，戒烟、避免吸入油烟和污染空气，提升免疫力是关键。</p>
+        </div>
+        
+        <div class="subsection-title">五、心血管系统</div>
+        <div class="content-box">
+            <p><strong>体检阳性发现：</strong>右侧锁骨下动脉内膜增厚。</p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>医疗组评估及建议：</strong></p>
+            <p>1、原因分析:内膜内皮细胞损伤。</p>
+            <p>2、干预方案：严格控制血压、血糖、血脂、HCY 目标值在正常范围之内。</p>
+            <p>3、健方案：外秘体和/或间充质干细胞血管保健、康养。</p>
+        </div>
+        
+        <div class="subsection-title">六、生殖系统</div>
+        <div class="content-box">
+            <p><strong>体检阳性发现：</strong>双侧乳腺结节性病灶。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 13</div>
+    </div>
+
+    <!-- 第14页 - 健康系统(1)续 -->
+    <div class="page">
+        <div class="recommendation-box">
+            <p><strong>医疗组评估及建议：</strong></p>
+            <p>1、原因分析:与激素水平有关。</p>
+            <p>2、风险分析：乳腺结节 3 类，98%属于良性，风险极低，不必过于焦虑。</p>
+            <p>3、复查方式：6-12 个月定期复查乳腺超声，动态观察。</p>
+            <p>4、干预方案：避免长期精神压抑、生气、焦虑。情绪波动会影响内分泌水平。避免熬夜，保证充足睡眠。多吃蔬菜水果，适量摄入优质蛋白。对于蜂王浆、雪蛤等可能含有雌激素的保健品，要谨慎食用。加强锻炼，控制体重，提高免疫力。避免外力挤压：选择支撑性好、舒适的内衣。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 14</div>
+    </div>
+
+    <!-- 第15页 - 康养安全意见封面 -->
+    <div class="page">
+        <div style="text-align: center; margin-top: 100px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 50px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            
+            <h1 style="font-size: 36px; margin: 80px 0; color: #1e3a8a;">康养安全意见</h1>
+            
+            <div class="body-diagram">
+                <div class="body-diagram-placeholder">人体示意图</div>
+            </div>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 15</div>
+    </div>
+
+    <!-- 第16页 - 康养安全评估 -->
+    <div class="page">
+        <div class="section-title">康养安全评估</div>
+        
+        <div class="subsection-title">一、适用性评估</div>
+        
+        <div class="content-box">
+            <p><strong>1、您适合应用 NK 细胞。</strong></p>
+            <p><strong>原理：</strong>NK 细胞能提升免疫力，增强体质，改善细胞内环境，缓解慢性炎症，提升抗病毒功能，清除机体内坏死、衰竭、凋亡细胞，有助于防癌抗癌。</p>
+        </div>
+        
+        <div class="content-box">
+            <p><strong>2、您有尿酸、代谢性、心血管风险，适合应用间充质干细胞。</strong></p>
+            <p><strong>原理：</strong>间充质干细胞具有修复损伤细胞的功能，延缓组织、器官、神经功能退化，维持机体活力与年轻态，综合性抗衰。还可以改善机体细胞内微环境，调理内分泌系统，促进细胞新陈代谢，改善亚健康状态。改善胰岛细胞储备功能，延缓或降低糖尿病发生远期并发症风险。</p>
+        </div>
+        
+        <div class="subsection-title">二、安全性评估</div>
+        
+        <div class="content-box">
+            <p><strong>（1）不宜安排细胞应用的情况：</strong>重要器官功能衰竭，脑出血、脑梗死与心肌梗死急性期，急性传染病，急性感染，发热≥38℃，严重出血倾向，严重过敏状态，备孕、孕期和哺乳期，严重精神疾病，持续性癫痫。</p>
+            <p>此外，恶性肿瘤患者不宜应用间充质干细胞，系统性自身免疫病患者，不宜应用 NK 细胞。</p>
+        </div>
+        
+        <div class="content-box">
+            <p><strong>（2）评估结果：</strong>目前提供的体检资料中没有发现应用免疫细胞和间充质干细胞的潜在安全风险。</p>
+        </div>
+        
+        <div class="content-box">
+            <p><strong>（3）特别提示：</strong>本次安全性评估仅根据 2025 年 09 月份的检查资料，不过这次常规检查对少数隐匿性和一些潜在性风险未必能发现且作出精准性预判。</p>
+        </div>
+        
+        <div class="subsection-title">三、补充检查（应用细胞前）</div>
+        
+        <div class="content-box">
+            <p><strong>（1）抽血项目：</strong></p>
+            <p><strong>梅毒抗体、HIV 抗体</strong>（常规传染病筛查项目）【采集免疫细胞时实验室检测】；</p>
+            <p><strong>（2）影像学检查：</strong>双上肢动静脉超声及双下肢动静脉超声（排除外周血管斑块、狭窄风险，提高细胞应用时安全）。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 16</div>
+    </div>
+
+    <!-- 第17页 - 康养计划(1) -->
+    <div class="page">
+        <div class="section-title">康养计划（1）</div>
+        
+        <div class="subsection-title">一、主要健康问题</div>
+        
+        <div class="content-box">
+            <p><strong>（1）血液系统：</strong>血红蛋白 101 g/L ↑。</p>
+            <p><strong>健康风险：</strong>属于轻度贫血。</p>
+        </div>
+        
+        <div class="content-box">
+            <p><strong>（2）泌尿系统：</strong>尿酸 418 umol/L ↑。</p>
+            <p><strong>健康风险：</strong>存在发生痛风、尿酸结晶/结石的风险。</p>
+        </div>
+        
+        <div class="content-box">
+            <p><strong>（3）心血管系统：</strong>右侧锁骨下动脉内膜增厚。</p>
+            <p><strong>健康风险：</strong>存在发生动脉粥样硬化的风险。</p>
+        </div>
+        
+        <div class="subsection-title">二、次要健康问题</div>
+        
+        <div class="content-box">
+            <p><strong>（1）内分泌系统：</strong>空腹 C 肽 0.96 ng/mL。</p>
+            <p><strong>健康风险：</strong>存在发生胰岛β细胞功能下降的潜在风险。</p>
+        </div>
+        
+        <div class="content-box">
+            <p><strong>（2）消化系统：</strong>胆囊胆固醇结晶。</p>
+            <p><strong>健康风险：</strong>存在发生胆石症的风险。</p>
+        </div>
+        
+        <div class="content-box">
+            <p><strong>（3）呼吸系统：</strong>胆囊胆固醇结晶。</p>
+            <p><strong>健康风险：</strong>存在发生胆石症的风险。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 17</div>
+    </div>
+
+    <!-- 第18页 - 康养计划(2)封面 -->
+    <div class="page">
+        <div style="height: 600px;"></div>
+        <div class="section-title">康养计划（2）</div>
+        <div class="page-number">健康评估报告|客户隐私文件 18</div>
+    </div>
+
+    <!-- 第19页 - 康养计划详情 -->
+    <div class="page">
+        <div class="subsection-title">一、康养计划</div>
+        
+        <div class="content-box">
+            <p>您存在上述健康风险问题，请保持临床药物治疗及生活方式调理的基础上，推荐增加以下保健项目：</p>
+            <p><strong>【抗衰调理】、【肺部结节调理】、【免疫力调理】、【心血管调理】</strong></p>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4" style="text-align: center; font-size: 16px;">康养保健方案</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>细胞类型</th>
+                    <th>应用方案</th>
+                    <th>预期效果</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>第一次</td>
+                    <td>免疫细胞（NK）</td>
+                    <td>细胞量 50 亿，分两天应用</td>
+                    <td>改善免疫功能，改善细胞内环境，缓解慢性炎症，提升抗病毒能力。</td>
+                </tr>
+                <tr>
+                    <td>第二次</td>
+                    <td>间充质干细胞（MSCs）</td>
+                    <td>细胞量 8000-1 亿，分两天应用</td>
+                    <td>延缓组织、器官、神经功能退化。促进细胞新陈代谢，改善亚健康状态。</td>
+                </tr>
+                <tr>
+                    <td>第三次</td>
+                    <td>间充质干细胞（MSCs）</td>
+                    <td>细胞量 8000-1 亿，分两天应用</td>
+                    <td>延缓组织、器官、神经功能退化。促进细胞新陈代谢，改善亚健康状态。</td>
+                </tr>
+                <tr>
+                    <td>细胞保健期间调理</td>
+                    <td>外秘体保健康养</td>
+                    <td>❤心血管调理<br>❤肺泡细胞调理<br>❤免疫力调理<br><br>每阶段常规应用 4 次</td>
+                    <td>延缓组织、器官、神经功能退化，促进细胞新陈代谢，改善亚健康状态。</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 19</div>
+    </div>
+
+    <!-- 第20页 - 预防计划 -->
+    <div class="page">
+        <div class="subsection-title">二、预防计划</div>
+        
+        <div class="content-box">
+            <p>1、应用细胞前，需服用抗血小板药物（例如阿司匹林肠溶片或者硫酸氯吡格雷片），有利于细胞发挥最佳的作用。如果以前有胃溃疡、糜烂性胃炎、凝血功能障碍、出血性体质、血小板减少症、过敏性哮喘等之一禁用阿司匹林肠溶片。</p>
+            <p>2、请保持愉快心情，缓解生活压力，适当运动，作息要有规律，不要熬夜，提高睡眠质量，清淡饮食，匀衡营养，尽量避免应酬，禁烟，限制饮酒量。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 20</div>
+    </div>
+
+    <!-- 第21页 - 结束页 -->
+    <div class="page">
+        <div style="text-align: center; margin-top: 150px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 30px; font-size: 60px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666; font-size: 16px; margin-bottom: 50px;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            
+            <div class="qr-code" style="margin: 50px auto;">
+                <div class="qr-placeholder">二维码<br>扫码关注</div>
+            </div>
+            
+            <p style="font-size: 18px; color: #1e3a8a; margin: 20px 0;">扫码关注</p>
+            <p style="font-size: 20px; font-weight: bold; color: #1e3a8a; margin: 20px 0;">INCOSC 公众号</p>
+            
+            <div style="margin-top: 80px; padding: 30px; background: #f3f4f6; border-radius: 10px;">
+                <p style="font-size: 14px; color: #666; line-height: 2;">如果您在阅读本报告时有问题，请及时向您的健康管理专家或<br>医生进行咨询。</p>
+            </div>
+            
+            <div style="margin-top: 50px; font-size: 16px; color: #1e3a8a;">
+                <p>慢病康养，肿瘤预防，综合抗衰</p>
+            </div>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 21</div>
+    </div>
+
+</body>
+</html>

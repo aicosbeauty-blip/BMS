@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">CIR 成分安全评估</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Noto+Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .bg-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .info-card {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        
+        .section-title-deco {
+            position: relative;
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .section-title-deco::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 70%;
+            width: 4px;
+            border-radius: 2px;
+        }
+        
+        .section-title-deco-purple::before { background: linear-gradient(180deg, #a855f7, #7c3aed); }
+        .section-title-deco-blue::before { background: linear-gradient(180deg, #3b82f6, #2563eb); }
+        .section-title-deco-green::before { background: linear-gradient(180deg, #22c55e, #16a34a); }
+        .section-title-deco-red::before { background: linear-gradient(180deg, #ef4444, #dc2626); }
+        .section-title-deco-orange::before { background: linear-gradient(180deg, #f97316, #ea580c); }
+        
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .lang-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #e5e7eb;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .lang-toggle.active {
+            background: #7c3aed;
+        }
+        .lang-toggle-switch {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 12px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .lang-toggle.active .lang-toggle-switch {
+            transform: translateX(30px);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #a855f7, #7c3aed);
+            border-radius: 10px;
+        }
+        
+        .section-highlight {
+            scroll-margin-top: 100px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .comparison-table th {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .comparison-table td {
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .comparison-table tr:hover {
+            background: rgba(124, 58, 237, 0.05);
+        }
+        
+        .quick-link {
+            transition: all 0.2s ease;
+        }
+        .quick-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .quick-link.active {
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+        }
+
+        /* 高亮显示关键发现 */
+        .key-finding {
+            background: linear-gradient(to right, rgba(168, 85, 247, 0.1), rgba(168, 85, 247, 0.05));
+            border-left: 4px solid #a855f7;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        /* 警告卡片样式 */
+        .warning-card {
+            border-left-width: 4px;
+            transition: all 0.3s ease;
+        }
+        .warning-card:hover {
+            transform: translateX(4px);
+        }
+        .warning-theme-warning {
+            border-color: #ef4444;
+            background: linear-gradient(to right, rgba(239, 68, 68, 0.05), transparent);
+        }
+        .warning-theme-precaution {
+            border-color: #f59e0b;
+            background: linear-gradient(to right, rgba(245, 158, 11, 0.05), transparent);
+        }
+        .warning-theme-info {
+            border-color: #3b82f6;
+            background: linear-gradient(to right, rgba(59, 130, 246, 0.05), transparent);
+        }
+        
+        /* v4 data.json highlight style */
+        .highlight {
+            background-color: rgba(245, 158, 11, 0.1);
+            font-weight: 600;
+            padding: 0.1rem 0.2rem;
+            border-radius: 0.2rem;
+        }
+    </style>
+</head>
+<body class="bg-pattern">
+    <div class="min-h-screen p-4 md:p-6 lg:p-8">
+        
+        <!-- 顶部导航栏 -->
+        <nav class="glass-effect rounded-2xl shadow-2xl mb-6 animate-fade-in sticky top-4 z-50">
+            <div class="px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-4">
+                        <div class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-lg">
+                            <i data-lucide="shield-check" class="h-8 w-8 text-white"></i>
+                        </div>
+                        <div>
+                            <!-- 动态标题 - 从JSON获取 -->
+                            <h1 class="text-2xl font-bold text-gray-900" id="reportTitle">
+                                <span class="cn-content"></span>
+                                <span class="en-content hidden"></span>
+                            </h1>
+                            <!-- 动态副标题 - 从JSON获取 -->
+                            <p class="text-sm text-gray-600" id="reportSubtitle">
+                                <span class="cn-content"></span>
+                                <span class="en-content hidden"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-600 font-medium">中文</span>
+                            <div class="lang-toggle" id="langToggle">
+                                <div class="lang-toggle-switch"></div>
+                            </div>
+                            <span class="text-sm text-gray-600 font-medium">EN</span>
+                        </div>
+                        <!-- 动态PDF下载链接 -->
+                        <a href="#" id="pdfDownloadBtn" class="p-2 hover:bg-gray-100 rounded-lg transition-colors" title="下载报告">
+                            <i data-lucide="download" class="h-5 w-5 text-gray-700"></i>
+                        </a>
+                        <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors" title="打印">
+                            <i data-lucide="printer" class="h-5 w-5 text-gray-700"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 报告头部信息区域 - 从ReportMetadata填充 -->
+        <section id="overview" class="info-card glass-effect rounded-2xl shadow-2xl mb-6 overflow-hidden animate-fade-in" style="animation-delay: 0.1s;">
+            <div class="h-2 bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500"></div>
+            <div class="p-6 md:p-8">
+                <div class="flex flex-col lg:flex-row justify-between gap-6">
+                    
+                    <!-- 左侧：基本信息 -->
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2" id="overviewTitle">
+                            <span class="cn-content"></span>
+                            <span class="en-content hidden"></span>
+                        </h2>
+                        <p class="text-lg text-gray-600 mb-4">
+                            <span class="cn-content">化妆品成分审查 (CIR) 专家小组报告</span>
+                            <span class="en-content hidden">Cosmetic Ingredient Review (CIR) Expert Panel Report</span>
+                        </p>
+                        
+                        <!-- 动态标签 -->
+                        <div class="flex flex-wrap gap-2 mb-6" id="statusTags"></div>
+                        
+                        <!-- 动态元数据网格 -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6" id="metadataGrid"></div>
+
+                        <!-- 动态结论框 -->
+                        <div class="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border-2 border-green-200" id="conclusionBox">
+                            <h4 class="text-lg font-bold text-gray-900 mb-2">
+                                <span class="cn-content">🎯 专家小组裁定</span>
+                                <span class="en-content hidden">🎯 Expert Panel Determination</span>
+                            </h4>
+                            <div id="conclusionText" class="text-base font-bold text-green-700"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 右侧：快速导航 - 从QuickNavigation或动态生成 -->
+                    <div class="w-full lg:w-auto lg:min-w-[300px] lg:pl-6 lg:border-l lg:border-gray-200">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">
+                            <span class="cn-content">📑 快速跳转</span>
+                            <span class="en-content hidden">📑 Quick Navigation</span>
+                        </h3>
+                        <div class="space-y-2" id="quickNavLinks"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关键关注点和注意事项 - 从KeyConcernsAndPrecautions填充 -->
+        <section id="key-concerns" class="info-card glass-effect rounded-2xl shadow-2xl overflow-hidden p-6 md:p-8 section-highlight animate-fade-in mb-6" style="animation-delay: 0.15s;">
+            <h3 class="text-2xl font-bold text-gray-900 mb-6 section-title-deco section-title-deco-red">
+                <i data-lucide="alert-triangle" class="w-6 h-6 mr-2"></i>
+                <span class="cn-content">专家组重要注意事项与建议</span>
+                <span class="en-content hidden">Expert Panel Key Precautions and Recommendations</span>
+            </h3>
+            <div class="space-y-4" id="concernsContainer"></div>
+        </section>
+
+        <!-- 摘要/总结 - 从Summary填充 -->
+        <section id="summary" class="info-card glass-effect rounded-2xl shadow-2xl p-6 md:p-8 mb-6 section-highlight animate-fade-in" style="animation-delay: 0.2s;">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 section-title-deco section-title-deco-blue">
+                <i data-lucide="file-text" class="w-6 h-6 mr-2"></i>
+                <span class="cn-content">评估汇总</span>
+                <span class="en-content hidden">Assessment Summary</span>
+            </h2>
+            <div id="summaryContent" class="space-y-3 text-gray-700 leading-relaxed"></div>
+        </section>
+
+        <!-- 研究摘要 - 从Abstract填充 -->
+        <section id="abstract" class="info-card glass-effect rounded-2xl shadow-2xl p-6 md:p-8 mb-6 section-highlight animate-fade-in" style="animation-delay: 0.3s;">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 section-title-deco section-title-deco-purple">
+                <i data-lucide="book-open" class="w-6 h-6 mr-2"></i>
+                <span class="cn-content">评估摘要</span>
+                <span class="en-content hidden">Abstract</span>
+            </h2>
+            <div id="abstractContent" class="text-gray-700 leading-relaxed"></div>
+        </section>
+
+        <!-- 使用频率图表 - 从UsageChart填充 -->
+        <section id="usage-chart" class="info-card glass-effect rounded-2xl shadow-2xl p-6 md:p-8 section-highlight animate-fade-in mb-6" style="animation-delay: 0.5s;">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 section-title-deco section-title-deco-green">
+                <i data-lucide="bar-chart-3" class="w-6 h-6 mr-2"></i>
+                <span class="cn-content" id="chartTitleCN">成分使用频率</span>
+                <span class="en-content hidden" id="chartTitleEN">Ingredient Usage Frequency</span>
+            </h2>
+            <div class="h-80 w-full">
+                <canvas id="usageChart"></canvas>
+            </div>
+        </section>
+
+        <!-- 成分对比表 - 从ComparisonTable填充 -->
+        <section id="comparison-table" class="info-card glass-effect rounded-2xl shadow-2xl overflow-hidden p-6 md:p-8 section-highlight animate-fade-in mb-6" style="animation-delay: 0.6s;">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 section-title-deco section-title-deco-orange">
+                <i data-lucide="bar-chart-2" class="w-6 h-6 mr-2"></i>
+                <span class="cn-content">成分对比分析</span>
+                <span class="en-content hidden">Ingredient Comparison</span>
+            </h2>
+            <div class="overflow-x-auto" id="comparisonTableContainer">
+                <!-- 动态生成对比表格 -->
+            </div>
+        </section>
+
+        <!-- 成分详情卡片 - 从Ingredients数组动态生成 -->
+        <section id="ingredients" class="section-highlight animate-fade-in mb-6" style="animation-delay: 0.7s;">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 glass-effect rounded-xl p-4 section-title-deco section-title-deco-purple">
+                <i data-lucide="flask-conical" class="w-6 h-6 mr-2"></i>
+                <span class="cn-content">成分详情</span>
+                <span class="en-content hidden">Ingredient Details</span>
+            </h2>
+            <div id="ingredientCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- 页脚 - 从FooterInfo和ReportMetadata填充 -->
+        <footer class="glass-effect rounded-2xl shadow-xl mt-6 p-4 animate-fade-in" style="animation-delay: 0.8s;">
+            <div class="flex flex-wrap justify-between items-center text-sm text-gray-600 gap-4">
+                <div class="flex items-center flex-wrap gap-4">
+                    <span class="flex items-center">
+                        <i data-lucide="database" class="w-4 h-4 mr-1"></i>
+                        <span class="cn-content" id="footerSource">数据来源：CIR 专家评估</span>
+                        <span class="en-content hidden" id="footerSourceEN">Source: CIR Expert Assessment</span>
+                    </span>
+                    <span>•</span>
+                    <span class="flex items-center">
+                        <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
+                        <span class="cn-content" id="footerReleaseDate">发布日期：2025年</span>
+                        <span class="en-content hidden" id="footerReleaseDateEN">Release Date: 2025</span>
+                    </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-xs text-gray-500" id="footerVersion">
+                        <span class="cn-content">版本: v4.3.1</span>
+                        <span class="en-content hidden">Version: v4.3.1</span>
+                    </span>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // ============================================
+        // 全局变量和配置
+        // ============================================
+        let isEnglish = false;
+        let langToggle;
+        let usageChartInstance;
+        let headerData = null; // Header数据 - 从CIR_H.json加载
+        let summaryData = null; // Summary数据 - 从CIR_S.json加载
+        
+        // ============================================
+        // 数据加载
+        // ============================================
+        
+        // ============================================
+        // 数据加载
+        // ============================================
+        
+        function loadData() {
+            console.log('🔄 开始加载数据...');
+            
+            // 优先级1: 从window对象加载（用于动态注入）
+            if (window.CIR_HEADER_DATA || window.CIR_SUMMARY_DATA) {
+                headerData = window.CIR_HEADER_DATA || null;
+                summaryData = window.CIR_SUMMARY_DATA || null;
+                console.log('✅ 数据已从 window 对象加载');
+                console.log('  - Header数据:', headerData ? '已加载' : '未提供');
+                console.log('  - Summary数据:', summaryData ? '已加载' : '未提供');
+                return;
+            }
+            
+            // 优先级2: 从URL参数或默认路径加载JSON文件
+            const urlParams = new URLSearchParams(window.location.search);
+            const headerPath = urlParams.get('header') || './CIR_H.json';
+            const summaryPath = urlParams.get('summary') || './CIR_S.json';
+            
+            console.log('📂 尝试加载文件:');
+            console.log('  - Header: ' + headerPath);
+            console.log('  - Summary: ' + summaryPath);
+            
+            // 并行加载两个JSON文件
+            Promise.all([
+                fetch(headerPath)
+                    .then(response => {
+                        console.log(`📥 Header文件响应状态: ${response.status}`);
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        headerData = data;
+                        console.log('✅ Header数据已成功加载');
+                        console.log('  - 数据字段:', Object.keys(data).join(', '));
+                        return data;
+                    })
+                    .catch(error => {
+                        console.warn('⚠️ Header数据加载失败:', error.message);
+                        console.warn('  - 文件路径:', headerPath);
+                        return null;
+                    }),
+                    
+                fetch(summaryPath)
+                    .then(response => {
+                        console.log(`📥 Summary文件响应状态: ${response.status}`);
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        summaryData = data;
+                        console.log('✅ Summary数据已成功加载');
+                        console.log('  - 数据字段:', Object.keys(data).join(', '));
+                        return data;
+                    })
+                    .catch(error => {
+                        console.warn('⚠️ Summary数据加载失败:', error.message);
+                        console.warn('  - 文件路径:', summaryPath);
+                        return null;
+                    })
+            ])
+            .then(([header, summary]) => {
+                console.log('📊 数据加载结果汇总:');
+                console.log('  - headerData:', headerData ? '✅ 已加载' : '❌ 未加载');
+                console.log('  - summaryData:', summaryData ? '✅ 已加载' : '❌ 未加载');
+                
+                // 至少需要一个数据文件
+                if (!header && !summary) {
+                    console.error('❌ 两个数据文件都加载失败');
+                    showError('未找到任何数据文件。请确保至少存在 CIR_H.json 或 CIR_S.json');
+                    return;
+                }
+                
+                // 渲染页面
+                console.log('🎨 开始渲染页面...');
+                renderPage();
+                setupScrollAnchors();
+                lucide.createIcons();
+                console.log('✅ 页面渲染完成');
+            })
+            .catch(error => {
+                console.error('❌ 数据加载过程发生错误:', error);
+                showError('数据加载失败: ' + error.message);
+            });
+        }
+        
+        // 显示错误信息
+        function showError(message) {
+            document.body.innerHTML = `
+                <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-red-100">
+                    <div class="max-w-2xl p-8 bg-white rounded-2xl shadow-xl">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full">
+                            <i data-lucide="alert-circle" class="w-8 h-8 text-red-600"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-center text-gray-900 mb-2">数据加载失败</h2>
+                        <p class="text-center text-gray-600 mb-4">${message}</p>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-sm text-gray-700 font-bold mb-3">📋 使用方法:</p>
+                            
+                            <div class="mb-4">
+                                <p class="text-xs font-semibold text-gray-700 mb-1">方法1: 默认文件（推荐）</p>
+                                <p class="text-xs text-gray-600 mb-1">在HTML文件同目录放置以下文件：</p>
+                                <ul class="text-xs text-gray-600 ml-4 space-y-1">
+                                    <li>• <code class="bg-gray-200 px-1 py-0.5 rounded">CIR_H.json</code> - Header数据（报告元数据）</li>
+                                    <li>• <code class="bg-gray-200 px-1 py-0.5 rounded">CIR_S.json</code> - Summary数据（详细内容）</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <p class="text-xs font-semibold text-gray-700 mb-1">方法2: URL参数</p>
+                                <p class="text-xs text-gray-600 mb-1">通过URL指定文件路径：</p>
+                                <code class="text-xs bg-gray-200 px-2 py-1 rounded block">?header=path/to/CIR_H.json&summary=path/to/CIR_S.json</code>
+                            </div>
+                            
+                            <div>
+                                <p class="text-xs font-semibold text-gray-700 mb-1">方法3: 动态注入</p>
+                                <p class="text-xs text-gray-600 mb-1">在HTML加载前注入数据：</p>
+                                <pre class="text-xs bg-gray-200 px-2 py-1 rounded">window.CIR_HEADER_DATA = {...}
+window.CIR_SUMMARY_DATA = {...}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+        // ============================================
+        // 页面渲染函数
+        // ============================================
+        
+        function renderPage() {
+            console.log('🎨 renderPage 开始执行');
+            console.log('  - headerData 状态:', headerData ? '✅ 存在' : '❌ 不存在');
+            console.log('  - summaryData 状态:', summaryData ? '✅ 存在' : '❌ 不存在');
+            
+            if (!headerData && !summaryData) {
+                console.error('❌ 无法渲染页面：headerData和summaryData都为空');
+                return;
+            }
+            
+            // Header部分的渲染（需要headerData）
+            if (headerData) {
+                console.log('📄 渲染 Header 相关内容...');
+                try {
+                    renderPageTitle();
+                    renderReportHeader();
+                    renderStatusTags();
+                    renderMetadata();
+                    renderQuickNavigation();
+                    renderIngredientCards();
+                    renderUsageChart();
+                    renderComparisonTable();
+                    renderFooter();
+                    console.log('✅ Header 相关内容渲染完成');
+                } catch (error) {
+                    console.error('❌ Header 渲染出错:', error);
+                }
+            } else {
+                console.warn('⚠️ 跳过 Header 相关内容（headerData 不存在）');
+                // 隐藏依赖headerData的sections
+                hideSection('ingredients');
+                hideSection('usage-chart');
+                hideSection('comparison-table');
+            }
+            
+            // Summary部分的渲染（从headerData和summaryData中都尝试获取）
+            console.log('📝 渲染 Summary 相关内容...');
+            
+            // KeyConcerns和其他Summary字段可能在headerData或summaryData中
+            // 优先使用summaryData，如果不存在则使用headerData
+            const summarySource = summaryData || headerData;
+            const keyConcernsSource = (summaryData && summaryData.KeyConcernsAndPrecautions) ? summaryData : 
+                                     (headerData && headerData.KeyConcernsAndPrecautions) ? headerData : null;
+            
+            try {
+                if (summarySource) {
+                    renderConclusion(summarySource);
+                    renderSummary(summarySource);
+                    renderAbstract(summarySource);
+                }
+                
+                // KeyConcerns单独处理，因为它可能在任一数据源中
+                if (keyConcernsSource) {
+                    console.log('  - KeyConcerns 数据源:', 
+                        keyConcernsSource === summaryData ? 'summaryData' : 'headerData');
+                    renderKeyConcerns(keyConcernsSource);
+                } else {
+                    hideSection('key-concerns');
+                }
+                
+                console.log('✅ Summary 相关内容渲染完成');
+            } catch (error) {
+                console.error('❌ Summary 渲染出错:', error);
+            }
+            
+            // 初始化语言显示
+            updateLanguageDisplay();
+            console.log('✅ renderPage 执行完成');
+        }
+        
+        // 辅助函数：隐藏section
+        function hideSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.style.display = 'none';
+                console.log(`🔒 已隐藏 section: ${sectionId}`);
+            }
+        }
+        
+        // 1. 渲染页面标题
+        function renderPageTitle() {
+            const title = headerData.Title || '';
+            document.getElementById('pageTitle').textContent = title;
+            
+            const titleEl = document.getElementById('reportTitle');
+            if (titleEl && headerData.ReportMetadata?.reportTitle) {
+                titleEl.querySelector('.cn-content').textContent = headerData.ReportMetadata.reportTitle.cn || title;
+                titleEl.querySelector('.en-content').textContent = headerData.ReportMetadata.reportTitle.en || title;
+            }
+            
+            const subtitleEl = document.getElementById('reportSubtitle');
+            if (subtitleEl && headerData.ReferenceName) {
+                const date = headerData.PublicationDate || '';
+                subtitleEl.querySelector('.cn-content').textContent = `（${headerData.ReferenceName} - ${date}）`;
+                subtitleEl.querySelector('.en-content').textContent = `(${headerData.ReferenceName} - ${date})`;
+            }
+        }
+        
+        // 2. 渲染报告头部
+        function renderReportHeader() {
+            const overviewTitle = document.getElementById('overviewTitle');
+            if (overviewTitle && headerData.ReportMetadata?.reportTitle) {
+                overviewTitle.querySelector('.cn-content').textContent = headerData.ReportMetadata.reportTitle.cn;
+                overviewTitle.querySelector('.en-content').textContent = headerData.ReportMetadata.reportTitle.en;
+            }
+            
+            // 设置PDF下载链接
+            const pdfBtn = document.getElementById('pdfDownloadBtn');
+            if (pdfBtn && headerData.ReportMetadata?.pdfLink) {
+                pdfBtn.href = headerData.ReportMetadata.pdfLink;
+            } else {
+                 // 隐藏按钮（如果模板中没有提供链接）
+                pdfBtn.style.display = 'none';
+            }
+        }
+        
+        // ============================================
+        // 3. 渲染动态标签系统 (v4.4.0)
+        // 支持：文件类型、安全性、功能、成分数量、合规性、自定义标签
+        // ============================================
+        function renderStatusTags() {
+            const container = document.getElementById('statusTags');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const metadata = headerData.ReportMetadata;
+            if (!metadata) return;
+            
+            // 收集所有标签并按优先级排序
+            const allTags = [];
+            
+            // 1. 文件类型标签 (优先级: 5)
+            if (metadata.documentType) {
+                const docTypeMap = {
+                    'final_report': { cn: '最终报告', en: 'Final Report', icon: 'file-check', color: 'green' },
+                    'addendum': { cn: '附录', en: 'Addendum', icon: 'file-plus', color: 'blue' },
+                    'draft': { cn: '草稿', en: 'Draft', icon: 'file-edit', color: 'yellow' },
+                    're-review': { cn: '重新审查', en: 'Re-review', icon: 'refresh-cw', color: 'orange' },
+                    'amendment': { cn: '修订', en: 'Amendment', icon: 'file-text', color: 'purple' },
+                    'supplement': { cn: '补充', en: 'Supplement', icon: 'file-plus-2', color: 'indigo' }
+                };
+                
+                const docInfo = docTypeMap[metadata.documentType];
+                if (docInfo) {
+                    allTags.push({
+                        priority: 5,
+                        tag: createTag(docInfo.icon, docInfo.color, docInfo.cn, docInfo.en)
+                    });
+                }
+            }
+            // 兼容旧版statusLabel
+            else if (metadata.statusLabel) {
+                allTags.push({
+                    priority: 5,
+                    tag: createTag('check-circle', 'green', metadata.statusLabel.cn, metadata.statusLabel.en)
+                });
+            }
+            
+            // 2. 报告类型标签 (优先级: 10)
+            if (metadata.reportType) {
+                const typeMap = {
+                    'single': { cn: '单一成分', en: 'Single Ingredient', icon: 'flask-conical', color: 'blue' },
+                    'group': { cn: '成分组', en: 'Ingredient Group', icon: 'boxes', color: 'blue' },
+                    'series': { cn: '系列报告', en: 'Report Series', icon: 'layers', color: 'blue' }
+                };
+                const typeInfo = typeMap[metadata.reportType] || typeMap.group;
+                allTags.push({
+                    priority: 10,
+                    tag: createTag(typeInfo.icon, typeInfo.color, typeInfo.cn, typeInfo.en)
+                });
+            }
+            
+            // 3. 成分数量标签 (优先级: 15)
+            if (metadata.ingredientCount) {
+                allTags.push({
+                    priority: 15,
+                    tag: createTag('hash', 'purple',
+                        `${metadata.ingredientCount} 种成分`,
+                        `${metadata.ingredientCount} Ingredients`
+                    )
+                });
+            }
+            
+            // 4. 安全性标签 (优先级: 20-30)
+            if (metadata.safetyTags && Array.isArray(metadata.safetyTags)) {
+                const safetyTypeMap = {
+                    'non-irritating': { cn: '非刺激性', en: 'Non-Irritating', icon: 'shield-check', color: 'green' },
+                    'non-sensitizing': { cn: '非致敏性', en: 'Non-Sensitizing', icon: 'shield-plus', color: 'green' },
+                    'non-phototoxic': { cn: '非光毒性', en: 'Non-Phototoxic', icon: 'sun', color: 'green' },
+                    'non-mutagenic': { cn: '非致突变性', en: 'Non-Mutagenic', icon: 'dna', color: 'green' },
+                    'non-carcinogenic': { cn: '非致癌性', en: 'Non-Carcinogenic', icon: 'shield', color: 'green' }
+                };
+                
+                metadata.safetyTags.forEach((safetyTag, index) => {
+                    const safetyInfo = safetyTypeMap[safetyTag.type];
+                    if (safetyInfo) {
+                        let labelCN = safetyInfo.cn;
+                        let labelEN = safetyInfo.en;
+                        
+                        // 如果有条件说明，添加到标签中
+                        if (safetyTag.conditions) {
+                            labelCN += ` (${safetyTag.conditions.cn})`;
+                            labelEN += ` (${safetyTag.conditions.en})`;
+                        }
+                        
+                        allTags.push({
+                            priority: 20 + index,
+                            tag: createTag(safetyInfo.icon, safetyInfo.color, labelCN, labelEN)
+                        });
+                    }
+                });
+            }
+            
+            // 5. 功能标签 (优先级: 40-50)
+            if (metadata.functionTags && Array.isArray(metadata.functionTags)) {
+                const functionIconMap = {
+                    'surfactant': 'droplet',
+                    'preservative': 'shield-check',
+                    'moisturizer': 'droplets',
+                    'emulsifier': 'blend',
+                    'thickener': 'layers',
+                    'antioxidant': 'shield',
+                    'fragrance': 'flower',
+                    'colorant': 'palette',
+                    'uv-filter': 'sun',
+                    'exfoliant': 'sparkles'
+                };
+                
+                metadata.functionTags.forEach((funcTag, index) => {
+                    const icon = functionIconMap[funcTag.functionType] || 'tag';
+                    const color = funcTag.isPrimary ? 'teal' : 'gray';
+                    
+                    allTags.push({
+                        priority: 40 + index,
+                        tag: createTag(icon, color, funcTag.label.cn, funcTag.label.en)
+                    });
+                });
+            }
+            
+            // 6. 合规性标签 (优先级: 60-70)
+            if (metadata.complianceTags) {
+                let compliancePriority = 60;
+                
+                // 欧盟合规性
+                if (metadata.complianceTags.eu && metadata.complianceTags.eu.compliant) {
+                    let labelCN = 'EU 合规';
+                    let labelEN = 'EU Compliant';
+                    
+                    if (metadata.complianceTags.eu.restrictions) {
+                        labelCN += ` (${metadata.complianceTags.eu.restrictions.cn})`;
+                        labelEN += ` (${metadata.complianceTags.eu.restrictions.en})`;
+                    }
+                    
+                    allTags.push({
+                        priority: compliancePriority++,
+                        tag: createTag('check-circle', 'indigo', labelCN, labelEN)
+                    });
+                }
+                
+                // FDA 合规性
+                if (metadata.complianceTags.fda && metadata.complianceTags.fda.approved) {
+                    const labelCN = metadata.complianceTags.fda.category 
+                        ? `FDA 批准 (${metadata.complianceTags.fda.category})` 
+                        : 'FDA 批准';
+                    const labelEN = metadata.complianceTags.fda.category 
+                        ? `FDA Approved (${metadata.complianceTags.fda.category})` 
+                        : 'FDA Approved';
+                    
+                    allTags.push({
+                        priority: compliancePriority++,
+                        tag: createTag('badge-check', 'blue', labelCN, labelEN)
+                    });
+                }
+                
+                // 中国合规性
+                if (metadata.complianceTags.china && metadata.complianceTags.china.compliant) {
+                    const labelCN = metadata.complianceTags.china.gbStandard 
+                        ? `符合国标 (${metadata.complianceTags.china.gbStandard})` 
+                        : '符合国标';
+                    const labelEN = metadata.complianceTags.china.gbStandard 
+                        ? `GB Compliant (${metadata.complianceTags.china.gbStandard})` 
+                        : 'GB Compliant';
+                    
+                    allTags.push({
+                        priority: compliancePriority++,
+                        tag: createTag('check-square', 'red', labelCN, labelEN)
+                    });
+                }
+            }
+            
+            // 7. 自定义标签 (优先级: 使用定义的priority或默认50)
+            if (metadata.customTags && Array.isArray(metadata.customTags)) {
+                metadata.customTags.forEach(customTag => {
+                    const icon = customTag.icon || 'tag';
+                    const priority = customTag.priority !== undefined ? customTag.priority : 50;
+                    
+                    const tag = createTag(icon, customTag.color, customTag.label.cn, customTag.label.en);
+                    
+                    // 如果有tooltip，添加title属性
+                    if (customTag.tooltip) {
+                        tag.setAttribute('title', isEnglish ? customTag.tooltip.en : customTag.tooltip.cn);
+                        tag.style.cursor = 'help';
+                    }
+                    
+                    allTags.push({
+                        priority: priority,
+                        tag: tag
+                    });
+                });
+            }
+            
+            // 按优先级排序并添加到容器
+            allTags.sort((a, b) => a.priority - b.priority);
+            allTags.forEach(item => {
+                container.appendChild(item.tag);
+            });
+        }
+        
+        // 辅助函数：创建标签
+        function createTag(icon, color, textCN, textEN) {
+            const tag = document.createElement('span');
+            tag.className = `tag bg-${color}-100 text-${color}-700`;
+            tag.innerHTML = `
+                <i data-lucide="${icon}" class="h-4 w-4 mr-1"></i>
+                <span class="cn-content">${textCN}</span>
+                <span class="en-content hidden">${textEN}</span>
+            `;
+            return tag;
+        }
+        
+        // 4. 渲染元数据网格
+        function renderMetadata() {
+            const container = document.getElementById('metadataGrid');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const metadata = headerData.ReportMetadata;
+            if (!metadata) return;
+            
+            const metadataItems = [
+                {
+                    label: { cn: '报告ID', en: 'Report ID' },
+                    value: metadata.reportId,
+                    color: 'purple'
+                },
+                {
+                    label: { cn: '发布日期', en: 'Release Date' },
+                    value: metadata.releaseDate || headerData.PublicationDate,
+                    color: 'blue'
+                },
+                {
+                    label: { cn: '专家组会议', en: 'Panel Meeting' },
+                    value: metadata.panelMeetingDate,
+                    color: 'green'
+                },
+                {
+                    label: { cn: '评估数量', en: 'Count' },
+                    value: metadata.ingredientCount,
+                    color: 'orange'
+                }
+            ];
+            
+            metadataItems.forEach(item => {
+                if (!item.value) return;
+                
+                const div = document.createElement('div');
+                div.className = `bg-gradient-to-br from-${item.color}-50 to-${item.color}-100 rounded-lg p-3 border border-${item.color}-200`;
+                div.innerHTML = `
+                    <p class="text-xs text-${item.color}-600 font-semibold mb-1">
+                        <span class="cn-content">${item.label.cn}</span>
+                        <span class="en-content hidden">${item.label.en}</span>
+                    </p>
+                    <p class="text-sm font-bold text-gray-900">${item.value}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // 5. 渲染结论
+        function renderConclusion(dataSource) {
+            const container = document.getElementById('conclusionText');
+            if (!container) return;
+            
+            if (!dataSource) {
+                container.innerHTML = '<p class="text-gray-500 italic">🔴 缺失数据源</p>';
+                return;
+            }
+            
+            const conclusion = dataSource.Conclusion;
+            if (!conclusion || !conclusion.ENG || conclusion.ENG.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 italic">🔴 缺失字段：Conclusion</p>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <span class="cn-content">${renderRichText(conclusion.CHS)}</span>
+                <span class="en-content hidden">${renderRichText(conclusion.ENG)}</span>
+            `;
+        }
+        
+        // 6. 渲染快速导航
+        function renderQuickNavigation() {
+            const container = document.getElementById('quickNavLinks');
+            if (!container) return;
+            
+            // 🔴 注意：QuickNavigation在示例H文件中为null
+            // 如果未提供，使用默认导航
+            const navItems = headerData.QuickNavigation?.sections || getDefaultNavSections();
+            
+            container.innerHTML = '';
+            navItems.forEach(item => {
+                const link = document.createElement('a');
+                link.href = `#${item.id}`;
+                link.className = 'quick-link scroll-link flex items-center p-3 rounded-lg bg-white hover:bg-purple-50 transition-colors border border-gray-200';
+                link.innerHTML = `
+                    <i data-lucide="${item.icon}" class="h-5 w-5 mr-3 text-purple-600"></i>
+                    <span class="font-medium text-gray-700">
+                        <span class="cn-content">${item.label.cn}</span>
+                        <span class="en-content hidden">${item.label.en}</span>
+                    </span>
+                `;
+                container.appendChild(link);
+            });
+        }
+        
+        function getDefaultNavSections() {
+            return [
+                { id: 'key-concerns', label: { cn: '关键关注点', en: 'Key Concerns' }, icon: 'alert-triangle' },
+                { id: 'summary', label: { cn: '评估摘要', en: 'Summary' }, icon: 'file-text' },
+                { id: 'abstract', label: { cn: '研究摘要', en: 'Abstract' }, icon: 'book-open' },
+                { id: 'ingredients', label: { cn: '成分详情', en: 'Ingredients' }, icon: 'flask-conical' },
+                { id: 'usage-chart', label: { cn: '使用频率', en: 'Usage Chart' }, icon: 'bar-chart-3' },
+                { id: 'comparison-table', label: { cn: '对比分析', en: 'Comparison' }, icon: 'bar-chart-2' }
+            ];
+        }
+        
+        // 7. 渲染关键关注点
+        function renderKeyConcerns(dataSource) {
+            const container = document.getElementById('concernsContainer');
+            if (!container) return;
+            
+            if (!dataSource) {
+                container.innerHTML = '<p class="text-gray-500 italic">🔴 缺失数据源</p>';
+                return;
+            }
+            
+            const concerns = dataSource.KeyConcernsAndPrecautions;
+            if (!concerns || concerns.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 italic">🔴 缺失字段：KeyConcernsAndPrecautions</p>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            concerns.forEach((concern, index) => {
+                const theme = concern.theme || 'warning';
+                const displayMode = concern.displayMode || 'compact'; // 默认紧凑模式
+                
+                // 根据主题设置颜色
+                const themeConfig = {
+                    'warning': {
+                        bg: 'bg-red-50',
+                        border: 'border-red-500',
+                        text: 'text-red-900'
+                    },
+                    'precaution': {
+                        bg: 'bg-yellow-50',
+                        border: 'border-yellow-500',
+                        text: 'text-yellow-900'
+                    },
+                    'info': {
+                        bg: 'bg-blue-50',
+                        border: 'border-blue-500',
+                        text: 'text-blue-900'
+                    }
+                };
+                
+                const config = themeConfig[theme] || themeConfig['warning'];
+                
+                const card = document.createElement('div');
+                card.className = `${config.bg} border-l-4 ${config.border} ${config.text} p-6 rounded-lg shadow mb-4`;
+                
+                // 根据displayMode选择渲染函数
+                const renderFunction = displayMode === 'structured' ? renderRichText : renderCompactText;
+                
+                card.innerHTML = `
+                    <h3 class="text-xl font-bold mb-3">
+                        <span class="cn-content">${concern.title?.cn || ''}</span>
+                        <span class="en-content hidden">${concern.title?.en || ''}</span>
+                    </h3>
+                    <div class="text-sm leading-relaxed">
+                        <span class="cn-content">${renderFunction(concern.content?.CHS)}</span>
+                        <span class="en-content hidden">${renderFunction(concern.content?.ENG)}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        // 辅助函数：紧凑格式渲染（用于displayMode='compact'）
+        function renderCompactText(segments) {
+            if (!segments || !Array.isArray(segments)) return '';
+            
+            return segments.map(seg => {
+                const text = seg.text || '';
+                const style = seg.style || 'normal';
+                
+                if (style === 'key-finding') {
+                    return `<div class="key-finding">${text}</div>`;
+                } else if (style === 'bold') {
+                    return `<strong>${text}</strong>`;
+                } else if (style === 'highlight') {
+                    return `<span class="highlight">${text}</span>`;
+                } else {
+                    // 对于normal样式，直接返回文本内容，用空格连接
+                    return text;
+                }
+            }).join(' ');
+        }
+        
+        // 8. 渲染摘要
+        function renderSummary(dataSource) {
+            const container = document.getElementById('summaryContent');
+            if (!container) return;
+            
+            if (!dataSource) {
+                container.innerHTML = '<p class="text-gray-500 italic">🔴 缺失数据源</p>';
+                return;
+            }
+            
+            const summary = dataSource.Summary;
+            if (!summary) {
+                container.innerHTML = '<p class="text-gray-500 italic">🔴 缺失字段：Summary</p>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="cn-content">${renderRichText(summary.CHS)}</div>
+                <div class="en-content hidden">${renderRichText(summary.ENG)}</div>
+            `;
+        }
+        
+        // 9. 渲染研究摘要
+        function renderAbstract(dataSource) {
+            const container = document.getElementById('abstractContent');
+            if (!container) return;
+            
+            if (!dataSource) {
+                container.innerHTML = '<p class="text-gray-500 italic">🔴 缺失数据源</p>';
+                return;
+            }
+            
+            const abstract = dataSource.Abstract;
+            if (!abstract) {
+                container.innerHTML = '<p class="text-gray-500 italic">🔴 缺失字段：Abstract</p>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="cn-content">${renderRichText(abstract.CHS)}</div>
+                <div class="en-content hidden">${renderRichText(abstract.ENG)}</div>
+            `;
+        }
+        
+        // 辅助函数：渲染富文本
+        function renderRichText(segments) {
+            if (!segments || !Array.isArray(segments)) return '';
+            
+            return segments.map(seg => {
+                const text = seg.text || '';
+                const style = seg.style || 'normal';
+                
+                if (style === 'key-finding') {
+                    return `<div class="key-finding">${text}</div>`;
+                } else if (style === 'bold') {
+                    return `<strong>${text}</strong>`;
+                } else if (style === 'highlight') {
+                    // [MODIFIED] 使用 v4.data.json 的 'highlight' 样式
+                    return `<span class="highlight">${text}</span>`;
+                } else {
+                    return `<p class="mb-1">${text}</p>`;
+                }
+            }).join('');
+        }
+        
+        // 10. 渲染成分卡片
+        function renderIngredientCards() {
+            const container = document.getElementById('ingredientCards');
+            if (!container) return;
+            
+            if (!headerData) {
+                console.log('⏭️ renderIngredientCards: headerData不存在，跳过渲染');
+                return;
+            }
+            
+            const ingredients = headerData.Ingredients;
+            if (!ingredients || ingredients.length === 0) {
+                console.log('⏭️ renderIngredientCards: Ingredients数组为空，跳过渲染');
+                return;
+            }
+            
+            container.innerHTML = '';
+            ingredients.forEach((item, index) => {
+                const ing = item.ingredient;
+                // [MODIFIED] v4.4.3: 'modules' 字段在 CIR_H.json 中不存在，
+                // 安全状态和浓度信息现在直接在 'ingredient' 对象中。
+                
+                const card = document.createElement('div');
+                card.className = 'info-card glass-effect rounded-xl shadow-lg overflow-hidden animate-fade-in';
+                card.style.animationDelay = `${0.1 * index}s`;
+                
+                // 安全状态颜色
+                const safetyLevel = ing.safetyStatus?.level || 'unknown';
+                const levelColors = {
+                    'safe': 'green',
+                    'safe_with_restrictions': 'yellow',
+                    'unsafe': 'red',
+                    'insufficient_data': 'gray'
+                };
+                const color = levelColors[safetyLevel] || 'gray';
+                
+                card.innerHTML = `
+                    <div class="h-2 bg-gradient-to-r from-${color}-400 to-${color}-600"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">${ing.inciName || ''}</h3>
+                                <p class="text-sm text-gray-600">${ing.casNumber || ''}</p>
+                            </div>
+                            <span class="tag bg-${color}-100 text-${color}-700">
+                                <!-- [MODIFIED] v4.4.3 'chineseName' 存在于 'ingredient' 中 -->
+                                <span class="cn-content">${ing.chineseName || ing.inciName}</span>
+                                <span class="en-content hidden">${ing.inciName || ''}</span>
+                            </span>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">
+                                    <span class="cn-content">化学名称：</span>
+                                    <span class="en-content hidden">Chemical Name:</span>
+                                </span>
+                                <span class="font-medium text-right break-all">
+                                    ${ing.chemicalName || 'N/A'}
+                                </span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">
+                                    <span class="cn-content">主要功能：</span>
+                                    <span class="en-content hidden">Main Function(s):</span>
+                                </span>
+                                <span class="font-medium text-right">
+                                    ${(ing.functions && ing.functions.length > 0) ? 
+                                        `<span class="cn-content">${ing.functions.map(f => f.cn || f).join(', ')}</span>
+                                         <span class="en-content hidden">${ing.functions.map(f => f.en || f).join(', ')}</span>` 
+                                        : 'N/A'}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        ${renderSafetyBadge(ing.safetyStatus)}
+                        ${renderConcentrationInfo(ing)}
+                    </div>
+                    <div class="bg-gray-50 px-5 py-2 text-right">
+                        <a href="#" class="text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors">
+                            <span class="cn-content">查看详情 &rarr;</span>
+                            <span class="en-content hidden">View Details &rarr;</span>
+                        </a>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // [MODIFIED] v4.4.3: 参数从 modules 改为 safetyStatus 对象
+        function renderSafetyBadge(safety) {
+            if (!safety) return '';
+            
+            const levelMap = {
+                'safe': { cn: '安全', en: 'Safe', color: 'green' },
+                'safe_with_restrictions': { cn: '有条件安全', en: 'Safe with Restrictions', color: 'yellow' },
+                'unsafe': { cn: '不安全', en: 'Unsafe', color: 'red' },
+                'insufficient_data': { cn: '数据不足', en: 'Insufficient Data', color: 'gray' }
+            };
+            
+            const info = levelMap[safety.level] || levelMap.insufficient_data;
+            
+            const conclusionTextCN = safety.conclusion?.cn || '无结论';
+            const conclusionTextEN = safety.conclusion?.en || 'No conclusion';
+
+            return `
+                <div class="mt-4 p-3 bg-${info.color}-50 rounded-lg border border-${info.color}-200">
+                    <p class="text-xs font-semibold text-${info.color}-700 mb-1">
+                        <span class="cn-content">安全状态：${info.cn}</span>
+                        <span class="en-content hidden">Safety Status: ${info.en}</span>
+                    </p>
+                    <p class="text-xs text-gray-700">
+                        <span class="cn-content">${conclusionTextCN}</span>
+                        <span class="en-content hidden">${conclusionTextEN}</span>
+                    </p>
+                </div>
+            `;
+        }
+        
+        // [MODIFIED] v4.4.3: 参数从 modules 改为 ingredient 对象
+        function renderConcentrationInfo(ing) {
+            if (!ing) return '';
+            
+            // v4.4.3: 数据在 ingredient 对象根目录
+            const max = ing.maxConcentration || 'N/A';
+            const leaveOn = ing.leaveOnMaxConcentration || 'N/A';
+            const rinseOff = ing.rinseOffMaxConcentration || 'N/A';
+
+            return `
+                <div class="mt-3 pt-3 border-t border-gray-200">
+                    <p class="text-xs text-gray-600 mb-2 font-medium">
+                        <span class="cn-content">浓度信息：</span>
+                        <span class="en-content hidden">Concentration Info:</span>
+                    </p>
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-600">
+                                <span class="cn-content">最大浓度:</span>
+                                <span class="en-content hidden">Max:</span>
+                            </span>
+                            <span class="font-bold text-purple-700">${max}</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-600">
+                                <span class="cn-content">驻留类:</span>
+                                <span class="en-content hidden">Leave-on:</span>
+                            </span>
+                            <span class="font-medium text-gray-800">${leaveOn}</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-600">
+                                <span class="cn-content">淋洗类:</span>
+                                <span class="en-content hidden">Rinse-off:</span>
+                            </span>
+                            <span class="font-medium text-gray-800">${rinseOff}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 11. 渲染使用图表
+        function renderUsageChart() {
+            const ctx = document.getElementById('usageChart');
+            if (!ctx) return;
+            
+            if (!headerData) {
+                console.log('⏭️ renderUsageChart: headerData不存在，跳过渲染');
+                hideSection('usage-chart');
+                return;
+            }
+            
+            const chartData = headerData.UsageChart;
+            if (!chartData) {
+                console.log('⏭️ renderUsageChart: UsageChart数据不存在，隐藏图表section');
+                hideSection('usage-chart');
+                return;
+            }
+            
+            // 更新图表标题
+            document.getElementById('chartTitleCN').textContent = chartData.title?.cn || '成分使用频率';
+            document.getElementById('chartTitleEN').textContent = chartData.title?.en || 'Ingredient Usage Frequency';
+            
+            // 销毁现有图表
+            if (usageChartInstance) {
+                usageChartInstance.destroy();
+            }
+            
+            // 创建图表
+            usageChartInstance = new Chart(ctx.getContext('2d'), {
+                type: chartData.chartType || 'bar',
+                data: {
+                    labels: isEnglish ? chartData.labels.en : chartData.labels.cn,
+                    datasets: [{
+                        label: isEnglish ? chartData.datasetLabel.en : chartData.datasetLabel.cn,
+                        data: chartData.dataValues,
+                        backgroundColor: [
+                            'rgba(168, 85, 247, 0.7)',
+                            'rgba(147, 51, 234, 0.7)',
+                            'rgba(124, 58, 237, 0.7)',
+                            'rgba(79, 70, 229, 0.7)',
+                            'rgba(107, 114, 128, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(168, 85, 247, 1)',
+                            'rgba(147, 51, 234, 1)',
+                            'rgba(124, 58, 237, 1)',
+                            'rgba(79, 70, 229, 1)',
+                            'rgba(107, 114, 128, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: chartData.indexAxis || 'x',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: { color: '#e5e7eb' }
+                        },
+                        y: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+        
+        
+        // 12. 渲染对比表格
+        function renderComparisonTable() {
+            const container = document.getElementById('comparisonTableContainer');
+            if (!container) return;
+            
+            if (!headerData) {
+                console.log('⏭️ renderComparisonTable: headerData不存在，跳过渲染');
+                hideSection('comparison-table');
+                return;
+            }
+            
+            // 检查是否已有ComparisonTable数据
+            let tableData = headerData.ComparisonTable;
+            
+            // 如果没有，尝试自动生成
+            if (!tableData && headerData.Ingredients && headerData.Ingredients.length > 0) {
+                console.log('🔨 自动生成 ComparisonTable...');
+                tableData = generateComparisonTable(headerData.Ingredients);
+                // 缓存生成的数据
+                headerData.ComparisonTable = tableData;
+            }
+            
+            if (!tableData) {
+                console.log('⏭️ renderComparisonTable: 无对比表格数据，隐藏对比表section');
+                hideSection('comparison-table');
+                return;
+            }
+            
+            // 渲染完整的对比表格
+            renderFullComparisonTable(tableData, container);
+        }
+        
+        // 自动生成 ComparisonTable（JavaScript版本）
+        // [MODIFIED] v4.4.3: 此函数已根据用户请求和 CIR_H.json 的 v4.4.3 结构进行修改。
+        function generateComparisonTable(ingredients) {
+            if (!ingredients || ingredients.length === 0) {
+                return null;
+            }
+            
+            // 限制只处理前5个成分
+            const maxIngredients = 5;
+            const limitedIngredients = ingredients.slice(0, maxIngredients);
+            
+            if (ingredients.length > maxIngredients) {
+                console.log(`⚠️ 成分数量超过${maxIngredients}个，只显示前${maxIngredients}个成分`);
+            }
+            
+            // [MODIFIED] v4.4.3: 定义用户请求的对比项
+            // 数据路径已更新为指向 ingredient 对象 (e.g., ['ingredient', 'casNumber'])
+            const comparisonItems = [
+                {
+                    id: 'cas_number',
+                    label: { cn: 'CAS号', en: 'CAS Number' },
+                    path: ['ingredient', 'casNumber'],
+                    valueType: 'string'
+                },
+                {
+                    id: 'chemical_name',
+                    label: { cn: '化学名称', en: 'Chemical Name' },
+                    path: ['ingredient', 'chemicalName'],
+                    valueType: 'string'
+                },
+                {
+                    id: 'main_function',
+                    label: { cn: '主要功能', en: 'Main Function(s)' },
+                    path: ['ingredient', 'functions'], // 这是一个数组
+                    valueType: 'array' // [MODIFIED] 必须改回 'array' 来正确处理数组
+                },
+                // [MODIFIED] 合并浓度到一行
+                {
+                    id: 'combined_concentration',
+                    label: { cn: '浓度 (最大/驻留/淋洗)', en: 'Conc. (Max/Leave/Rinse)' },
+                    path: ['ingredient'], // 传递整个 ingredient 对象
+                    valueType: 'custom_concentration' // 使用自定义类型
+                },
+                /* [REMOVED]
+                {
+                    id: 'max_concentration',
+                    label: { cn: '最大浓度', en: 'Max Concentration' },
+                    path: ['ingredient', 'maxConcentration'],
+                    valueType: 'string'
+                },
+                {
+                    id: 'leave_on_max_concentration',
+                    label: { cn: '驻留类最大浓度', en: 'Leave-on Max Conc.' },
+                    path: ['ingredient', 'leaveOnMaxConcentration'],
+                    valueType: 'string'
+                },
+                {
+                    id: 'rinse_off_max_concentration',
+                    label: { cn: '淋洗类最大浓度', en: 'Rinse-off Max Conc.' },
+                    path: ['ingredient', 'rinseOffMaxConcentration'],
+                    valueType: 'string'
+                },
+                */
+                {
+                    id: 'irritation',
+                    label: { cn: '刺激性', en: 'Irritation' },
+                    path: ['ingredient', 'irritation'],
+                    valueType: 'bilingual_or_string', // [MODIFIED] 从 'string' 改为 'bilingual_or_string'
+                    rowStyle: 'bg-yellow-50', // 突出显示潜在问题
+                    highlight: true
+                },
+                {
+                    id: 'sensitization',
+                    label: { cn: '致敏性', en: 'Sensitization' },
+                    path: ['ingredient', 'sensitization'],
+                    valueType: 'bilingual_or_string', // [MODIFIED] 从 'string' 改为 'bilingual_or_string'
+                    rowStyle: 'bg-red-50', // 突出显示潜在问题
+                    cellStyle: 'font-bold text-red-600',
+                    highlight: true
+                },
+                {
+                    id: 'restrictions',
+                    label: { cn: '使用限制', en: 'Restrictions' },
+                    path: ['ingredient', 'restrictions'],
+                    valueType: 'string',
+                    rowStyle: 'bg-gray-100' // 限制是重要信息
+                }
+            ];
+            
+            // 生成列标题
+            const columnHeaders = [
+                { cn: '对比项目', en: 'Comparison Item' }
+            ];
+            
+            for (const ing of limitedIngredients) {
+                // [MODIFIED] v4.4.3: 优先使用 chineseName，如果不存在则回退到 inciName
+                const inciName = getNestedValue(ing, ['ingredient', 'inciName']) || 'Unknown';
+                const chineseName = getNestedValue(ing, ['ingredient', 'chineseName']) || inciName;
+                
+                columnHeaders.push({
+                    cn: chineseName,
+                    en: inciName
+                });
+            }
+            
+            // 生成对比行
+            const rows = [];
+            
+            for (const itemConfig of comparisonItems) {
+                const row = generateComparisonRow(limitedIngredients, itemConfig);
+                if (row) {
+                    rows.push(row);
+                }
+            }
+            
+            // [MODIFIED] v4.4.3: 移除了 'restrictionsRow'，因为它现在是 'comparisonItems' 的一部分。
+
+            return {
+                title: {
+                    cn: '成分对比分析',
+                    en: 'Ingredient Comparison Analysis'
+                },
+                columnHeaders: columnHeaders,
+                rows: rows
+            };
+        }
+        
+        // 获取嵌套对象的值
+        function getNestedValue(obj, path) {
+            let current = obj;
+            for (const key of path) {
+                if (current && typeof current === 'object' && key in current) {
+                    current = current[key];
+                } else {
+                    return null;
+                }
+            }
+            return current;
+        }
+        
+        // 生成单行对比数据
+        function generateComparisonRow(ingredients, itemConfig) {
+            const row = {
+                label: itemConfig.label,
+                values: []
+            };
+            
+            let hasValue = false;
+            
+            for (const ingredient of ingredients) {
+                let value = getNestedValue(ingredient, itemConfig.path);
+                const formattedValue = formatComparisonValue(value, itemConfig);
+                
+                if (formattedValue !== 'N/A' && formattedValue !== '') {
+                    hasValue = true;
+                }
+                
+                row.values.push(formattedValue);
+            }
+            
+            // 如果所有值都是N/A或空，跳过这行
+            if (!hasValue) {
+                return null;
+            }
+            
+            // 添加行样式
+            if (itemConfig.rowStyle) {
+                row.rowStyle = itemConfig.rowStyle;
+            }
+            
+            return row;
+        }
+        
+        // 格式化对比值
+        function formatComparisonValue(value, config) {
+            // [MODIFIED] 统一返回 {cn, en, style} 对象
+            if (value === null || value === undefined) {
+                return { cn: 'N/A', en: 'N/A', style: 'text-gray-500 italic' };
+            }
+            
+            const valueType = config.valueType;
+            // [MODIFIED] 样式从 config 获取
+            const style = (config.highlight || config.cellStyle) ? (config.cellStyle || '') : '';
+
+            if (valueType === 'string') {
+                return { cn: String(value), en: String(value), style: style };
+            } else if (valueType === 'number') {
+                return { cn: String(value), en: String(value), style: style };
+            
+            } else if (valueType === 'array') {
+                // [MODIFIED] 修复 array of objects
+                let cnValues = 'N/A';
+                let enValues = 'N/A';
+                if (Array.isArray(value) && value.length > 0) {
+                    if (typeof value[0] === 'object' && value[0] !== null && value[0].cn !== undefined) {
+                        // 对象数组
+                        cnValues = value.map(item => item.cn || JSON.stringify(item)).join(', ');
+                        enValues = value.map(item => item.en || JSON.stringify(item)).join(', ');
+                    } else {
+                        // 字符串数组
+                        cnValues = value.join(', ');
+                        enValues = cnValues;
+                    }
+                } else if (Array.isArray(value) && value.length === 0) {
+                    cnValues = ""; 
+                    enValues = "";
+                }
+                return { cn: cnValues, en: enValues, style: style };
+            
+            } else if (valueType === 'custom_concentration') {
+                // [MODIFIED] 浓度行
+                if (!value) return { cn: 'N/A', en: 'N/A', style: 'text-gray-500 italic' };
+                const max = value.maxConcentration || 'N/A';
+                const leaveOn = value.leaveOnMaxConcentration || 'N/A';
+                const rinseOff = value.rinseOffMaxConcentration || 'N/A';
+                
+                const html = `
+                    <div>
+                        <span class="font-medium text-purple-700" title="最大浓度 (Max Concentration)">${max}</span>
+                        <span class="text-gray-500">/</span>
+                        <span class="text-gray-700" title="驻留类最大浓度 (Leave-on Max Conc.)">${leaveOn}</span>
+                        <span class="text-gray-500">/</span>
+                        <span class="text-gray-700" title="淋洗类最大浓度 (Rinse-off Max Conc.)">${rinseOff}</span>
+                    </div>
+                `;
+                return { html: html, style: style }; // html 标志
+            
+            } else if (valueType === 'bilingual' || valueType === 'bilingual_or_string') {
+                // [MODIFIED] 修复 bilingual object
+                if (typeof value === 'object' && value.cn !== undefined && value.en !== undefined) {
+                    return { cn: value.cn, en: value.en, style: style };
+                }
+                const strVal = String(value);
+                return { cn: strVal, en: strVal, style: style };
+            
+            } else if (valueType === 'concentration') {
+                let val = 'N/A';
+                if (typeof value === 'object' && value.value !== undefined) {
+                    val = `≤${value.value}${value.unit || '%'}`;
+                } else {
+                    val = String(value);
+                }
+                return { cn: val, en: val, style: style };
+            }
+            
+            // 备用
+            const finalVal = String(value);
+            return { cn: finalVal, en: finalVal, style: style };
+        }
+        
+        // [MODIFIED] v4.4.3: 移除 generateRestrictionsRow 函数
+        // (该功能已合并到 'comparisonItems' 数组中)
+        
+        // 渲染完整的对比表格
+        function renderFullComparisonTable(tableData, container) {
+            const isEn = isEnglish;
+            
+            // 创建表格HTML
+            let tableHTML = `
+                <div class="overflow-x-auto">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+            `;
+            
+            // 渲染列标题
+            for (const header of tableData.columnHeaders) {
+                if (typeof header === 'string') {
+                    tableHTML += `<th>${header}</th>`;
+                } else if (typeof header === 'object') {
+                    // [MODIFIED] v4.4.3: 确保中英文标题都能正确切换
+                    tableHTML += `<th>
+                                    <span class="cn-content ${isEn ? 'hidden' : ''}">${header.cn || ''}</span>
+                                    <span class="en-content ${!isEn ? 'hidden' : ''}">${header.en || ''}</span>
+                                  </th>`;
+                }
+            }
+            
+            tableHTML += `
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            // 渲染数据行
+            for (const row of tableData.rows) {
+                const rowClass = row.rowStyle || '';
+                tableHTML += `<tr class="${rowClass}">`;
+                
+                // 渲染行标签
+                if (row.label) {
+                    tableHTML += `
+                        <td class="font-semibold">
+                            <span class="cn-content ${isEn ? 'hidden' : ''}">${row.label.cn || ''}</span>
+                            <span class="en-content ${!isEn ? 'hidden' : ''}">${row.label.en || ''}</span>
+                        </td>
+                    `;
+                }
+                
+                // 渲染值
+                for (const value of row.values) {
+                    // [MODIFIED] v4.4.3: 统一渲染逻辑
+                    if (typeof value === 'object' && value !== null) {
+                        const colspan = value.colspan || 1;
+                        const style = value.style || ''; // 样式来自 value 对象
+                        const colspanAttr = colspan > 1 ? `colspan="${colspan}"` : '';
+                        
+                        if (value.html !== undefined) {
+                            // 自定义HTML (用于浓度)
+                            tableHTML += `<td ${colspanAttr} class="${style}">${value.html}</td>`;
+                        } else if (value.cn !== undefined && value.en !== undefined) {
+                            // 标准双语对象
+                            tableHTML += `<td ${colspanAttr} class="${style}">`;
+                            tableHTML += `<span class="cn-content ${isEn ? 'hidden' : ''}">${value.cn}</span>`;
+                            tableHTML += `<span class="en-content ${!isEn ? 'hidden' : ''}">${value.en}</span>`;
+                            tableHTML += `</td>`;
+                        } else {
+                            // 意外的对象 (例如旧的 {value: "..."})
+                            tableHTML += `<td ${colspanAttr} class="${style}">${value.value || JSON.stringify(value)}</td>`;
+                        }
+                    } else if (typeof value === 'string') {
+                         // 备用：处理旧的字符串
+                        if (value === 'N/A') {
+                            tableHTML += `<td class="text-gray-500 italic">N/A</td>`;
+                        } else {
+                            tableHTML += `<td>${value}</td>`;
+                        }
+                    } else {
+                         // 备用：处理 null 或其他
+                        tableHTML += `<td class="text-gray-500 italic">N/A</td>`;
+                    }
+                }
+                
+                tableHTML += `</tr>`;
+            }
+            
+            tableHTML += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            container.innerHTML = tableHTML;
+            
+            console.log('✅ ComparisonTable 渲染完成');
+        }
+        
+        // 13. 渲染页脚
+        function renderFooter() {
+            const footer = headerData.FooterInfo;
+            const metadata = headerData.ReportMetadata;
+            
+            // 设置数据来源 - 优先从FooterInfo获取，否则使用默认值
+            const footerSourceCN = document.getElementById('footerSource');
+            const footerSourceEN = document.getElementById('footerSourceEN');
+            
+            if (footer && footer.dataSource) {
+                footerSourceCN.textContent = footer.dataSource.cn || '数据来源：CIR 专家评估';
+                footerSourceEN.textContent = footer.dataSource.en || 'Source: CIR Expert Assessment';
+            } else {
+                // 如果FooterInfo不存在，使用默认值
+                footerSourceCN.textContent = '数据来源：CIR 专家评估';
+                footerSourceEN.textContent = 'Source: CIR Expert Assessment';
+            }
+            
+            // 设置发布日期和文献名
+            const releaseDateCN = document.getElementById('footerReleaseDate');
+            const releaseDateEN = document.getElementById('footerReleaseDateEN');
+            
+            let cnText = '';
+            let enText = '';
+            
+            // 添加PublicationDate
+            if (headerData.PublicationDate) {
+                cnText = `CIR专家小组发布于：${headerData.PublicationDate}`;
+                enText = `CIR Expert Panel Published: ${headerData.PublicationDate}`;
+            }
+            
+            // 添加ReferenceName
+            if (headerData.ReferenceName) {
+                if (cnText) {
+                    cnText += ` | 文献名：${headerData.ReferenceName}`;
+                    enText += ` | Reference: ${headerData.ReferenceName}`;
+                } else {
+                    cnText = `文献名：${headerData.ReferenceName}`;
+                    enText = `Reference: ${headerData.ReferenceName}`;
+                }
+            }
+            
+            releaseDateCN.textContent = cnText || '发布日期：2025年';
+            releaseDateEN.textContent = enText || 'Release Date: 2025';
+            
+            // 设置版本信息 - 从JSON获取
+            const versionEl = document.getElementById('footerVersion');
+            if (versionEl) {
+                const versionText = headerData.version || (footer && footer.version ? (footer.version.cn || footer.version.en) : 'N/A');
+                versionEl.querySelector('.cn-content').textContent = `版本: ${versionText}`;
+                versionEl.querySelector('.en-content').textContent = `Version: ${versionText}`;
+            }
+        }
+        
+        // ============================================
+        // 语言切换
+        // ============================================
+        
+        function toggleLanguage() {
+            isEnglish = !isEnglish;
+            langToggle.classList.toggle('active');
+            updateLanguageDisplay();
+            
+            // 重新渲染图表以更新标签
+            renderUsageChart();
+            // [MODIFIED] v4.4.3: 重新渲染对比表以更新标题
+            renderComparisonTable();
+        }
+        
+        function updateLanguageDisplay() {
+            document.querySelectorAll('.cn-content').forEach(el => {
+                el.classList.toggle('hidden', isEnglish);
+            });
+            document.querySelectorAll('.en-content').forEach(el => {
+                el.classList.toggle('hidden', !isEnglish);
+            });
+        }
+        
+        // ============================================
+        // 滚动导航
+        // ============================================
+        
+        function setupScrollAnchors() {
+            const allScrollLinks = document.querySelectorAll('.scroll-link');
+            const allSections = document.querySelectorAll('.section-highlight');
+            
+            allScrollLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                        
+                        allScrollLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Scrollspy
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        allScrollLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '-100px 0px -80% 0px',
+                threshold: 0
+            });
+            
+            allSections.forEach(section => {
+                if (section) observer.observe(section);
+            });
+        }
+        
+        // ============================================
+        // [MODIFIED] 移除模拟数据
+        // ============================================
+        
+        /*
+        function getMockData() {
+            // ... MOCK DATA REMOVED ...
+        }
+        */
+        
+        // ============================================
+        // 初始化
+        // ============================================
+        
+        window.addEventListener('load', () => {
+            langToggle = document.getElementById('langToggle');
+            if (langToggle) {
+                langToggle.addEventListener('click', toggleLanguage);
+            }
+            
+            loadData(); // 加载数据（可能是异步的）
+            
+            // 如果数据已同步加载，立即渲染
+            if (headerData) {
+                renderPage();
+                setupScrollAnchors();
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script type="module" src="/@vite/client"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康评估报告模板 (v3.4 - 外部数据)</title>
+    <!-- 样式与原文件相同 -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "SimSun", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+        
+        @media print {
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+            .image-gallery, .modal {
+                display: none; /* 打印时隐藏影像廊和弹窗 */
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px;
+            margin: -20mm -20mm 20px -20mm;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-subtitle {
+            font-size: 14px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .title-main {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: white;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .qr-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .info-section {
+            margin: 20px 0;
+        }
+        
+        .info-row {
+            display: flex;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .info-label {
+            width: 120px;
+            font-weight: bold;
+        }
+        
+        .info-value {
+            flex: 1;
+        }
+        
+        .section-title {
+            background: #1e3a8a;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px 0;
+            text-align: center;
+        }
+        
+        .subsection-title {
+            background: #f3f4f6;
+            padding: 10px 15px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            border-left: 4px solid #1e3a8a;
+        }
+        
+        .content-box {
+            background: #f9fafb;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .recommendation-box {
+            background: #e8f5e9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .ai-judge-box, .doctor-judge-box {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+        .ai-judge-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+        }
+        .doctor-judge-box {
+            background: #e0f2fe;
+            border-left: 4px solid #0ea5e9;
+        }
+        .judge-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+        
+        table th {
+            background: #1e3a8a;
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+        
+        .highlight {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .page-number {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .body-diagram {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .body-diagram-placeholder {
+            width: 200px;
+            height: 400px;
+            margin: 0 auto;
+            background: #f3f4f6;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        .template-comment {
+            background: #fffbef;
+            border: 1px dashed #fcd34d;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #b45309;
+            border-radius: 5px;
+            display: none; 
+        }
+        
+        body.dev-mode .template-comment {
+            display: block;
+        }
+
+        /* ----- 新增影像样式 ----- */
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            margin-top: 10px;
+            page-break-inside: avoid;
+        }
+        .gallery-item {
+            width: 150px;
+            text-align: center;
+        }
+        .gallery-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .gallery-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .gallery-caption {
+            font-size: 11px;
+            color: #555;
+            margin-top: 5px;
+            line-height: 1.3;
+            word-wrap: break-word;
+        }
+        
+        /* ----- 新增弹窗 (Modal) 样式 ----- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1001; 
+            padding-top: 60px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.9); 
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 5px;
+        }
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 15px 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .modal-content, #caption {
+            animation-name: zoom;
+            animation-duration: 0.4s;
+        }
+        @keyframes zoom {
+            from {transform: scale(0.8)}
+            to {transform: scale(1)}
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 1002;
+        }
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+        /* ----- 样式结束 ----- */
+    </style>
+</head>
+<body>
+
+    <!-- 第1页 - 封面 -->
+    <div class="page">
+        <!-- 页面内容... (与原文件相同) -->
+        <div class="header">
+            <div class="logo">INCOSC</div>
+            <div class="logo-subtitle">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            <div class="title-main">会员健康<br>档案</div>
+            <div class="subtitle">慢病康养，肿瘤预防，综合抗衰</div>
+        </div>
+        <div class="qr-code">
+            <div class="qr-placeholder">扫码关注<br>INCOSC公众号</div>
+        </div>
+        <div class="info-section">
+            <div class="info-row">
+                <div class="info-label">姓名：</div>
+                <div class="info-value" data-json-path="patientInfo.name"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">性别：</div>
+                <div class="info-value" data-json-path="patientInfo.gender"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">年龄：</div>
+                <div class="info-value" data-json-path="patientInfo.age"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">身高：</div>
+                <div class="info-value" data-json-path="patientInfo.height"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">体重：</div>
+                <div class="info-value" data-json-path="patientInfo.weight"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">BMI：</div>
+                <div class="info-value" data-json-path="patientInfo.bmi"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">收缩压：</div>
+                <div class="info-value" data-json-path="patientInfo.bloodPressure_Systolic"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">舒张压：</div>
+                <div class="info-value" data-json-path="patientInfo.bloodPressure_Diastolic"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">过敏：</div>
+                <div class="info-value" data-json-path="patientInfo.allergy"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">诉求：</div>
+                <div class="info-value" data-json-path="patientInfo.mainConcern"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">体检单位</div>
+                <div class="info-value" data-json-path="patientInfo.examUnit"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">检查日期</div>
+                <div class="info-value" data-json-path="patientInfo.examDate"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">建档日期：</div>
+                <div class="info-value" data-json-path="patientInfo.reportDate"></div>
+            </div>
+        </div>
+        <div class="footer">
+            深耕细胞科技<br>守护国民健康
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 1</div>
+    </div>
+
+    <!-- 第2页 - 病史 与 专科检查 -->
+    <div class="page">
+        <!-- 页面内容... (与原文件相同) -->
+        <div class="section-title">体检结果</div>
+        <div class="subsection-title">病史情况</div>
+        <div class="content-box">
+            <p><strong>病史：</strong><span data-json-path="medicalHistory.history"></span></p>
+            <p><strong>服药情况：</strong><span data-json-path="medicalHistory.medication"></span></p>
+            <p><strong>营养品与保健品：</strong><span data-json-path="medicalHistory.supplements"></span></p>
+            <p><strong>生活方式：</strong><span data-json-path="medicalHistory.lifestyle"></span></p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p data-json-path="medicalHistory.assessment"></p>
+        </div>
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `specialistExams` 数组动态生成。将为数组中的每个对象重复 `specialist-exam-item` 模板块。</p>
+        </div>
+        <div id="specialist-exams-container" data-json-array="specialistExams">
+            <!-- specialistExams 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 2</div>
+    </div>
+
+    <!-- 第3页 - 实验室检查 -->
+    <div class="page">
+        <!-- 页面内容... (与原文件相同) -->
+        <div class="section-title">实验室检查结果</div>
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `labResults` 数组动态生成。</p>
+        </div>
+        <div id="lab-results-container" data-json-array="labResults">
+            <!-- labResults 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 3</div>
+    </div>
+
+    <!-- 第4页 - 影像检查 (*** 此页已修改 ***) -->
+    <div class="page">
+        <div class="section-title">影像检查</div>
+
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `imagingResults` 数组动态生成。将为数组中的每个对象重复 `imaging-result-item` 模板块。</p>
+            <p><strong>V3.3 新增：</strong>每个影像检查项现在包含 `AIJudge` 和 `DoctorJudge` 字段。</p>
+            <p><strong>*** V3.4 (自定义) 新增：***</strong> 
+                如果 `image_data.json` 中存在匹配的影像类别，将自动在此处插入一个影像廊 (`.image-gallery`)。
+                图片路径假定为 `Images/` 目录。
+            </p>
+        </div>
+
+        <!-- imagingResults 循环模板 - 将由 JavaScript 填充 (*** 此处逻辑已更新 ***) -->
+        <div id="imaging-results-container" data-json-array="imagingResults">
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 4</div>
+    </div>
+
+    <!-- 第5页 - 健康专家意见封面 -->
+    <div class="page">
+        <!-- 页面内容... (与原文件相同) -->
+        <div style="text-align: center; margin-top: 100px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 50px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            <h1 style="font-size: 36px; margin: 80px 0; color: #1e3a8a;">健康专家意见</h1>
+            <div class="body-diagram">
+                <div class="body-diagram-placeholder">人体示意图</div>
+            </div>
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 5</div>
+    </div>
+
+    <!-- 第6页 - 健康专家意见详情 -->
+    <div class="page">
+        <!-- 页面内容... (与原文件相同) -->
+        <div class="section-title">健康系统</div>
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `expertOpinions` 数组动态生成。</p>
+        </div>
+        <div id="expert-opinions-container" data-json-array="expertOpinions">
+            <!-- expertOpinions 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 6</div>
+    </div>
+
+    <!-- 第7页 - 康养安全意见封面 -->
+    <div class="page">
+        <!-- 页面内容... (与原文件相同) -->
+        <div style="text-align: center; margin-top: 100px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 50px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            <h1 style="font-size: 36px; margin: 80px 0; color: #1e3a8a;">康养安全意见</h1>
+            <div class="body-diagram">
+                <div class="body-diagram-placeholder">人体示意图</div>
+            </div>
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 7</div>
+    </div>
+
+    <!-- 第8页 - 康养安全评估 -->
+    <div class="page">
+        <!-- 页面内容... (与原文件相同) -->
+        <div class="section-title">康养安全评估</div>
+        <div class="subsection-title">一、适用性评估</div>
+        <div id="applicability-assessment-container" data-json-array="wellnessSafetyAssessment.applicabilityAssessment"></div>
+        <div class="subsection-title">二、安全性评估</div>
+        <div>
+            <div class="content-box">
+                <p><strong>（1）不宜安排细胞应用的情况：</strong></p>
+                <div id="contraindications-container" data-json-array="wellnessSafetyAssessment.safetyAssessment.contraindications"></div>
+            </div>
+            <div class="content-box">
+                <p><strong>（2）评估结果：</strong><span data-json-path="wellnessSafetyAssessment.safetyAssessment.assessmentResult"></span></p>
+            </div>
+            <div class="content-box">
+                <p><strong>（3）特别提示：</strong><span data-json-path="wellnessSafetyAssessment.safetyAssessment.specialNote"></span></p>
+            </div>
+        </div>
+        <div class="subsection-title">三、补充检查（应用细胞前）</div>
+        <div class="content-box">
+            <p><strong>（1）抽血项目：</strong></p>
+            <div id="blood-draw-items-container" data-json-array="wellnessSafetyAssessment.supplementaryExams.bloodDrawItems"></div>
+            <p style="margin-top: 10px;"><strong>（2）影像学检查：</strong></p>
+            <div id="imaging-exams-container" data-json-array="wellnessSafetyAssessment.supplementaryExams.imagingExams"></div>
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 8</div>
+    </div>
+
+    <!-- 第9页 - 康养计划(1) -->
+    <div class="page">
+        <!-- 页面内容... (与原文件相同) -->
+        <div class="section-title">康养计划（1）</div>
+        <div class="subsection-title">一、主要健康问题</div>
+        <div id="main-issues-container" data-json-array="healthPlan.mainIssues"></div>
+        <div class="subsection-title">二、次要健康问题</div>
+        <div id="secondary-issues-container" data-json-array="healthPlan.secondaryIssues"></div>
+        <div class="page-number">健康评估报告|客户隐私文件 9</div>
+    </div>
+
+
+    <!-- 第10页 - 康养计划(2) -->
+    <div class="page">
+        <!-- 页面内容... (与原文件相同) -->
+        <div class="section-title">康养计划（2）</div>
+        <div class="subsection-title">一、康养计划</div>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4" style="text-align: center; font-size: 16px;">康养保健方案</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>细胞类型</th>
+                    <th>应用方案</th>
+                    <th>预期效果</th>
+                </tr>
+            </thead>
+            <tbody id="plan-details-tbody" data-json-array="healthPlan.planDetails"></tbody>
+        </table>
+        <div class="subsection-title">二、预防计划</div>
+        <div class="content-box" id="preventive-plan-container" data-json-array="healthPlan.preventivePlan"></div>
+        <div class="page-number">健康评估报告|客户隐私文件 10</div>
+    </div>
+
+    <!-- 第11页 - 结束页 -->
+    <div class="page">
+        <!-- 页面内容... (与原文件相同) -->
+        <div style="text-align: center; margin-top: 150px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 30px; font-size: 60px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666; font-size: 16px; margin-bottom: 50px;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            <div class="qr-code" style="margin: 50px auto;">
+                <div class="qr-placeholder">二维码<br>扫码关注</div>
+            </div>
+            <p style="font-size: 18px; color: #1e3a8a; margin: 20px 0;">扫码关注</p>
+            <p style="font-size: 20px; font-weight: bold; color: #1e3a8a; margin: 20px 0;">INCOSC 公众号</p>
+            <div style="margin-top: 80px; padding: 30px; background: #f3f4f6; border-radius: 10px;">
+                <p style="font-size: 14px; color: #666; line-height: 2;">如果您在阅读本报告时有问题，请及时向您的健康管理专家或<br>医生进行咨询。</p>
+            </div>
+            <div style="margin-top: 50px; font-size: 16px; color: #1e3a8a;">
+                <p>慢病康养，肿瘤预防，综合抗衰</p>
+            </div>
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 11</div>
+    </div>
+
+    <!-- ***** 新增 Modal Lightbox HTML ***** -->
+    <div id="imageModal" class="modal">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+    <!-- ***** Modal 结束 ***** -->
+
+
+    <script>
+      // (*** 此处逻辑已修改 ***)
+      
+      /**
+       * 从对象路径获取值
+       * @param {object} obj - 数据对象
+       * @param {string} path - 路径，如 "patientInfo.name"
+       * @returns {*} 值
+       */
+      function getValueByPath(obj, path) {
+        if (!path) return null;
+        const keys = path.split('.');
+        let value = obj;
+        for (const key of keys) {
+          if (value && typeof value === 'object' && key in value) {
+            value = value[key];
+          } else {
+            return null;
+          }
+        }
+        return value;
+      }
+      
+      /**
+       * 安全的 HTML 转义
+       */
+      function escapeHtml(text) {
+        if (text === null || text === undefined) return '';
+        const div = document.createElement('div');
+        div.textContent = String(text);
+        return div.innerHTML;
+      }
+      
+      /**
+       * 填充简单数据路径 (data-json-path)
+       */
+      function fillSimplePaths(data) {
+        document.querySelectorAll('[data-json-path]').forEach(el => {
+          const path = el.getAttribute('data-json-path');
+          if (!path) return;
+          
+          const value = getValueByPath(data, path);
+          if (value !== null && value !== undefined) {
+            const suffix = el.getAttribute('data-suffix') || '';
+            const displayValue = String(value) + suffix;
+            
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+              el.value = displayValue;
+            } else {
+              el.textContent = displayValue;
+            }
+          }
+        });
+      }
+      
+      /**
+       * 渲染专科检查 (specialistExams)
+       */
+      function renderSpecialistExams(exams) {
+        const container = document.getElementById('specialist-exams-container');
+        if (!container || !exams || !Array.isArray(exams) || exams.length === 0) return;
+        
+        container.innerHTML = exams.map(exam => `
+          <div class="specialist-exam-item" style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px; page-break-inside: avoid;">
+            <div class="subsection-title">${escapeHtml(exam.category)}</div>
+            <div class="content-box">
+              <p>${escapeHtml(exam.finding)}</p>
+            </div>
+            <div class="recommendation-box">
+              <p><strong>评估与建议：</strong></p>
+              <p>${escapeHtml(exam.assessment)}</p>
+            </div>
+            ${exam.AIJudge ? `
+              <div class="ai-judge-box">
+                <p class="judge-title">AI 评估 (${escapeHtml(exam.AIJudge.result || '')})</p>
+                <p>${escapeHtml(exam.AIJudge.assessment)}</p>
+              </div>
+            ` : ''}
+            ${exam.DoctorJudge ? `
+              <div class="doctor-judge-box">
+                <p class="judge-title">医生建议 (${escapeHtml(exam.DoctorJudge.result || '')})</p>
+                <p>${escapeHtml(exam.DoctorJudge.assessment)}</p>
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+      }
+      
+      /**
+       * 渲染实验室检查 (labResults)
+       */
+      function renderLabResults(labs) {
+        const container = document.getElementById('lab-results-container');
+        if (!container || !labs || !Array.isArray(labs) || labs.length === 0) return;
+        
+        container.innerHTML = labs.map(lab => `
+          <div class="lab-result-category" style="page-break-inside: avoid;">
+            <div class="subsection-title">${escapeHtml(lab.category)}</div>
+            
+            ${lab.items && lab.items.length > 0 ? `
+              <table>
+                <thead>
+                  <tr>
+                    <th>项目名称</th>
+                    <th>结果</th>
+                    <th>单位</th>
+                    <th>参考值</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${lab.items.map(item => `
+                    <tr>
+                      <td>${escapeHtml(item.name)}</td>
+                      <td class="${item.isAbnormal ? 'highlight' : ''}">${escapeHtml(item.value)}</td>
+                      <td>${escapeHtml(item.unit)}</td>
+                      <td>${escapeHtml(item.referenceRange)}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            ` : ''}
+            
+            <div class="recommendation-box">
+              <p><strong>评估与建议：</strong></p>
+              <p>${escapeHtml(lab.assessment)}</p>
+            </div>
+            
+            ${lab.AIJudge ? `
+              <div class="ai-judge-box">
+                <p class="judge-title">AI 评估 (${escapeHtml(lab.AIJudge.result || '')})</p>
+                <p>${escapeHtml(lab.AIJudge.assessment)}</p>
+              </div>
+            ` : ''}
+            ${lab.DoctorJudge ? `
+              <div class="doctor-judge-box">
+                <p class="judge-title">医生建议 (${escapeHtml(lab.DoctorJudge.result || '')})</p>
+                <p>${escapeHtml(lab.DoctorJudge.assessment)}</p>
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+      }
+      
+      /**
+       * 渲染影像检查 (imagingResults)
+       * (*** 此函数已更新 ***)
+       * @param {Array} imaging - reportData.imagingResults
+       * @param {Object} imageCategories - imageData.category
+       */
+      function renderImagingResults(imaging, imageCategories) {
+        const container = document.getElementById('imaging-results-container');
+        if (!container || !imaging || !Array.isArray(imaging) || imaging.length === 0) return;
+        
+        if (!imageCategories) {
+            console.warn("影像数据(imageCategories)未提供，将不显示图片廊。");
+            imageCategories = {};
+        }
+
+        container.innerHTML = imaging.map(img => {
+          
+          // --- 新增：生成影像廊 ---
+          const categoryKey = img.category;
+          const images = imageCategories[categoryKey] || [];
+          let galleryHtml = '';
+
+          if (images.length > 0) {
+            galleryHtml = `
+              <div class="image-gallery">
+                ${images.map(image => `
+                  <div class="gallery-item">
+                    <img src="Images/${escapeHtml(image.filename)}" 
+                         alt="${escapeHtml(image.filedesc)}" 
+                         class="gallery-image"
+                         data-description="${escapeHtml(image.description)}"
+                         onerror="this.src='https://placehold.co/150x150/eee/999?text=Image+Not+Found'">
+                    <div class="gallery-caption">${escapeHtml(image.filedesc)}</div>
+                  </div>
+                `).join('')}
+              </div>
+            `;
+          }
+          // --- 影像廊结束 ---
+
+          return `
+            <div class="imaging-result-item" style="page-break-inside: avoid; margin-bottom: 20px;">
+              <div class="subsection-title">${escapeHtml(img.category)}</div>
+              <div class="content-box">
+                ${img.findings && img.findings.length > 0 
+                  ? img.findings.map(f => `<p>${escapeHtml(f)}</p>`).join('') 
+                  : '<p>无异常发现</p>'}
+              </div>
+              
+              <!-- 在此处插入影像廊 -->
+              ${galleryHtml}
+
+              <div class="recommendation-box">
+                <p><strong>评估与建议：</strong></p>
+                <p>${escapeHtml(img.assessment)}</p>
+              </div>
+              ${img.AIJudge ? `
+                <div class="ai-judge-box">
+                  <p class="judge-title">AI 评估 (${escapeHtml(img.AIJudge.result || '')})</p>
+                  <p>${escapeHtml(img.AIJudge.assessment)}</p>
+                </div>
+              ` : ''}
+              ${img.DoctorJudge ? `
+                <div class="doctor-judge-box">
+                  <p class="judge-title">医生建议 (${escapeHtml(img.DoctorJudge.result || '')})</p>
+                  <p>${escapeHtml(img.DoctorJudge.assessment)}</p>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+      }
+      
+      /**
+       * 渲染健康专家意见 (expertOpinions)
+       */
+      function renderExpertOpinions(opinions) {
+        const container = document.getElementById('expert-opinions-container');
+        if (!container || !opinions || !Array.isArray(opinions) || opinions.length === 0) return;
+        
+        container.innerHTML = opinions.map(op => `
+          <div class="expert-opinion-item" style="page-break-inside: avoid; margin-bottom: 20px;">
+            <div class="subsection-title">${escapeHtml(op.system)}</div>
+            <div class="content-box">
+              <p><strong>体检阳性发现：</strong></p>
+              ${op.positiveFindings && op.positiveFindings.length > 0 
+                ? op.positiveFindings.map(f => `<p>${escapeHtml(f)}</p>`).join('') 
+                : '<p>无</p>'}
+            </div>
+            ${op.AIJudge ? `
+              <div class="ai-judge-box">
+                <p class="judge-title">AI 评估 (${escapeHtml(op.AIJudge.result || '')})</p>
+                <p>${escapeHtml(op.AIJudge.assessment)}</p>
+              </div>
+            ` : ''}
+            ${op.DoctorJudge ? `
+              <div class="doctor-judge-box">
+                <p class="judge-title">医生建议 (${escapeHtml(op.DoctorJudge.result || '')})</p>
+                <p>${escapeHtml(op.DoctorJudge.assessment)}</p>
+              </div>
+            ` : ''}
+            <div class="recommendation-box">
+              <p><strong>医疗组评估及建议：</strong></p>
+              ${op.assessmentAndRecommendations && op.assessmentAndRecommendations.length > 0 
+                ? op.assessmentAndRecommendations.map(r => `<p>${escapeHtml(r)}</p>`).join('') 
+                : '<p>无</p>'}
+            </div>
+          </div>
+        `).join('');
+      }
+      
+      /**
+       * 渲染康养安全评估 (wellnessSafetyAssessment)
+       */
+      function renderWellnessSafety(wellness) {
+        if (!wellness) return;
+        
+        // 适用性评估
+        const appContainer = document.getElementById('applicability-assessment-container');
+        if (appContainer && wellness.applicabilityAssessment) {
+          appContainer.innerHTML = wellness.applicabilityAssessment.map(item => `
+            <div class="content-box">
+              <p><strong>${escapeHtml(item.suitability)}</strong></p>
+              <p><strong>原理：</strong>${escapeHtml(item.principle)}</p>
+            </div>
+          `).join('');
+        }
+        
+        // 禁忌症
+        const contraContainer = document.getElementById('contraindications-container');
+        if (contraContainer && wellness.safetyAssessment?.contraindications) {
+          contraContainer.innerHTML = wellness.safetyAssessment.contraindications
+            .map(c => `<p>${escapeHtml(c)}</p>`).join('');
+        }
+        
+        // 抽血项目
+        const bloodContainer = document.getElementById('blood-draw-items-container');
+        if (bloodContainer && wellness.supplementaryExams?.bloodDrawItems) {
+          bloodContainer.innerHTML = wellness.supplementaryExams.bloodDrawItems
+            .map(item => `<p>${escapeHtml(item)}</p>`).join('');
+        }
+        
+        // 影像学检查
+        const imgExamContainer = document.getElementById('imaging-exams-container');
+        if (imgExamContainer && wellness.supplementaryExams?.imagingExams) {
+          imgExamContainer.innerHTML = wellness.supplementaryExams.imagingExams
+            .map(item => `<p>${escapeHtml(item)}</p>`).join('');
+        }
+      }
+      
+      /**
+       * 渲染康养计划 (healthPlan)
+       */
+      function renderHealthPlan(plan) {
+        if (!plan) return;
+        
+        // 主要健康问题
+        const mainContainer = document.getElementById('main-issues-container');
+        if (mainContainer && plan.mainIssues) {
+          mainContainer.innerHTML = plan.mainIssues
+            .map(issue => `<div class="content-box"><p>${escapeHtml(issue)}</p></div>`).join('');
+        }
+        
+        // 次要健康问题
+        const secContainer = document.getElementById('secondary-issues-container');
+        if (secContainer && plan.secondaryIssues) {
+          secContainer.innerHTML = plan.secondaryIssues
+            .map(issue => `<div class="content-box"><p>${escapeHtml(issue)}</p></div>`).join('');
+        }
+        
+        // 康养计划详情表格
+        const planTbody = document.getElementById('plan-details-tbody');
+        if (planTbody && plan.planDetails) {
+          planTbody.innerHTML = plan.planDetails.map(detail => `
+            <tr>
+              <td>${escapeHtml(detail.planName || '')}</td>
+              <td>${escapeHtml(detail.cellType || '')}</td>
+              <td>${escapeHtml(detail.application || '')}</td>
+              <td>${escapeHtml(detail.expectedEffect || '')}</td>
+            </tr>
+          `).join('');
+        }
+        
+        // 预防计划
+        const prevContainer = document.getElementById('preventive-plan-container');
+        if (prevContainer && plan.preventivePlan) {
+          prevContainer.innerHTML = plan.preventivePlan
+            .map(p => `<p>${escapeHtml(p)}</p>`).join('');
+        }
+      }
+
+      /**
+       * (*** 新增 ***)
+       * 设置影像弹窗 (Modal) 的所有事件监听器
+       */
+      function setupModal() {
+        const modal = document.getElementById('imageModal');
+        // 确保 modal 存在
+        if (!modal) {
+            console.error("Modal HTML (imageModal) not found.");
+            return;
+        }
+        
+        const modalImg = document.getElementById('modalImage');
+        const captionText = document.getElementById('caption');
+        const span = document.getElementsByClassName('close-btn')[0];
+
+        // 1. 关闭按钮
+        if (span) {
+            span.onclick = function() {
+                modal.style.display = 'none';
+            }
+        }
+
+        // 2. 点击 Modal 外部关闭
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // 3. 为所有 (新渲染的) gallery-image 添加点击事件
+        document.querySelectorAll('.gallery-image').forEach(img => {
+            img.onclick = function() {
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+                // 使用 data-description 属性显示更详细的描述
+                captionText.innerHTML = this.dataset.description || this.alt;
+            }
+        });
+        
+        console.log("Modal 事件监听器已设置。");
+      }
+      
+      /**
+       * 主函数：填充所有数据
+       * (*** 此函数已更新 ***)
+       */
+      function populateReport(reportData, imageData) {
+        console.log('🚀 开始填充 V3.4 报告数据 (外部加载)...');
+        
+        // 1. 填充简单路径数据
+        fillSimplePaths(reportData);
+        
+        // 2. 填充数组数据
+        renderSpecialistExams(reportData.specialistExams);
+        renderLabResults(reportData.labResults);
+        
+        // (*** 更新 ***) 传入 reportData 和 imageData
+        renderImagingResults(reportData.imagingResults, imageData ? imageData.category : {});
+        
+        renderExpertOpinions(reportData.expertOpinions);
+        renderWellnessSafety(reportData.wellnessSafetyAssessment);
+        renderHealthPlan(reportData.healthPlan);
+        
+        // (*** 新增 ***) 在渲染完影像廊后，设置 Modal 点击事件
+        setupModal();
+
+        console.log('✅ 数据填充完成!');
+      }
+
+      /**
+       * (*** 新增 ***)
+       * 加载并渲染所有数据的主入口
+       */
+      async function loadAndRenderReport() {
+        // 定义要加载的 JSON 文件
+        const reportDataFile = '2023.json'; // 报告数据 (按您要求命名)
+        const imageDataFile = 'image_data.json'; // 影像数据
+        
+        try {
+            console.log(`正在加载 ${reportDataFile} 和 ${imageDataFile}...`);
+            
+            // 并行加载两个 JSON 文件
+            const [reportResponse, imageResponse] = await Promise.all([
+                fetch(reportDataFile),
+                fetch(imageDataFile)
+            ]);
+
+            if (!reportResponse.ok) {
+                throw new Error(`无法加载 ${reportDataFile}: ${reportResponse.statusText}`);
+            }
+            if (!imageResponse.ok) {
+                throw new Error(`无法加载 ${imageDataFile}: ${imageResponse.statusText}`);
+            }
+
+            // 解析 JSON
+            const reportData = await reportResponse.json();
+            const imageData = await imageResponse.json();
+
+            // 检查数据是否存在
+            if (!reportData) {
+                throw new Error("报告数据 (2025.json) 为空或格式错误。");
+            }
+             if (!imageData) {
+                throw new Error("影像数据 (image_data.json) 为空或格式错误。");
+            }
+
+            // 成功加载所有数据，开始填充
+            populateReport(reportData, imageData);
+
+        } catch (error) {
+            console.error('❌ 加载报告数据时出错:', error);
+            // 在页面上显示错误，以便用户知道出了什么问题
+            document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif; color: red; font-size: 18px;">
+                <h2>加载报告失败</h2>
+                <p>无法加载必要的JSON数据文件（${reportDataFile} 或 ${imageDataFile}）。</p>
+                <p>请确保文件已放置在与HTML相同的目录中，并且文件名正确。</p>
+                <p><strong>详细错误:</strong> ${escapeHtml(error.message)}</p>
+            </div>`;
+        }
+      }
+      
+      // 页面加载完成后执行数据加载和填充
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadAndRenderReport);
+      } else {
+        // DOM 已加载
+        loadAndRenderReport();
+      }
+    </script>
+    </body>
+</html>

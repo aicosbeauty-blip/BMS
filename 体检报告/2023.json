@@ -1,0 +1,2072 @@
+{
+  "reportId": "0371202310273020",
+  "patientInfo": {
+    "name": "袁英",
+    "gender": "女",
+    "age": 48,
+    "height": "159.5",
+    "weight": "59.0",
+    "bmi": "23.2",
+    "bloodPressure_Diastolic": "63",
+    "bloodPressure_Systolic": "117",
+    "allergy": "",
+    "mainConcern": "",
+    "examUnit": "瑞慈健康体检",
+    "examDate": "2023-10-27",
+    "reportDate": "2023-10-27"
+  },
+  "medicalHistory": {
+    "history": "不详",
+    "medication": "不详",
+    "supplements": "不详",
+    "lifestyle": "不详",
+    "assessment": ""
+  },
+  "specialistExams": [
+    {
+      "category": "内科",
+      "finding": "营养良好, 面容正常, 心率76次/分, 心律齐, 心音正常, 心脏杂音无, 两肺呼吸音正常, 腹部未见异常, 肝脏肋下未及, 脾脏肋下未及。",
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "体格检查各项指标基本正常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "外科",
+      "finding": "皮肤、浅表淋巴结、甲状腺、脊柱、四肢关节、肛门指诊均未见异常。双侧乳腺小叶增生。",
+      "assessment": "",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "发现双侧乳腺小叶增生，建议乳腺外科随诊并定期复查。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "眼科",
+      "finding": "戴镜视力右1.2, 左1.0。外眼检查未见异常，眼底检查未见明显异常，裂隙灯检查未见异常。",
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "视力正常，眼部检查未见明显异常。"
+      },
+      "DoctorJudge": ""
+    }
+  ],
+  "labResults": [
+    {
+      "category": "尿常规",
+      "items": [
+        {
+          "name": "尿比重",
+          "value": "1.020",
+          "referenceRange": "1.003-1.025",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿比重正常，反映肾脏浓缩功能良好。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "白细胞",
+          "value": "(-)",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液白细胞正常，未见炎症迹象。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "红细胞计数",
+          "value": "(-)",
+          "referenceRange": "0-25",
+          "unit": "个/μl",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液红细胞计数正常，未见血尿。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "鳞状上皮细胞",
+          "value": "",
+          "referenceRange": "0-28",
+          "unit": "个/μl",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "透明管型",
+          "value": "(-)",
+          "referenceRange": "0-1",
+          "unit": "个/LP",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液透明管型正常，未见肾脏疾病迹象。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "细菌",
+          "value": "",
+          "referenceRange": "0-386",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "霉菌",
+          "value": "",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "粘液丝",
+          "value": "",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "非鳞状上皮细胞",
+          "value": "",
+          "referenceRange": "0-28",
+          "unit": "个/μl",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "病理管型",
+          "value": "(-)",
+          "referenceRange": "0-1",
+          "unit": "个/LP",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液病理管型正常，未见肾脏疾病迹象。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "白细胞计数",
+          "value": "(-)",
+          "referenceRange": "0-25",
+          "unit": "个/μl",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液白细胞计数正常，未见泌尿系感染迹象。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "颜色",
+          "value": "",
+          "referenceRange": "",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "尿潜血",
+          "value": "(-)",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿潜血正常，未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "胆红素",
+          "value": "(-)",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液胆红素正常，未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "尿胆原",
+          "value": "norm.",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿胆原正常，未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "尿酮体",
+          "value": "(-)",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液酮体正常，未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "尿蛋白",
+          "value": "++",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "尿蛋白呈阳性(++)，提示肾脏可能存在损伤或病变，建议肾内科复查并进一步评估。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "葡萄糖",
+          "value": "(-)",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿糖正常，未见糖尿病迹象。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "酸碱度（PH）",
+          "value": "8.00",
+          "referenceRange": "5.5-7",
+          "unit": "",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "尿液酸碱度偏高，可能与饮食、药物或泌尿道感染等因素有关，建议进一步观察或咨询医生。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "尿常规检查提示尿蛋白阳性和尿液酸碱度偏高，建议肾内科就诊进一步检查明确原因并接受治疗。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "尿生化",
+      "items": [
+        {
+          "name": "尿微量白蛋白",
+          "value": "",
+          "referenceRange": "0-20",
+          "unit": "mg/l",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "尿肌酐",
+          "value": "",
+          "referenceRange": "3540-24600",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "尿微量白蛋白/尿肌酐",
+          "value": "",
+          "referenceRange": "0-35",
+          "unit": "mg/l",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "未见异常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "血常规",
+      "items": [
+        {
+          "name": "白细胞计数",
+          "value": "4.030",
+          "referenceRange": "3.5-9.5",
+          "unit": "10^9/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "白细胞计数正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "中性粒细胞比值",
+          "value": "57.90",
+          "referenceRange": "40.0-75.0",
+          "unit": "%",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "中性粒细胞比例正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "淋巴细胞比值",
+          "value": "35.10",
+          "referenceRange": "20.0-50.0",
+          "unit": "%",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "淋巴细胞比例正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "单核细胞比值",
+          "value": "4.70",
+          "referenceRange": "3.0-10.0",
+          "unit": "%",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "单核细胞比例正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "中性粒细胞绝对值",
+          "value": "2.33",
+          "referenceRange": "1.8-6.3",
+          "unit": "10^9/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "中性粒细胞绝对值正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "淋巴细胞绝对值",
+          "value": "1.41",
+          "referenceRange": "1.1-3.2",
+          "unit": "10^9/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "淋巴细胞绝对值正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "单核细胞绝对值",
+          "value": "0.19",
+          "referenceRange": "0.10-0.6",
+          "unit": "10^9/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "单核细胞绝对值正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "红细胞计数",
+          "value": "4.08",
+          "referenceRange": "3.80-5.1",
+          "unit": "10^12/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "红细胞计数正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血红蛋白",
+          "value": "137",
+          "referenceRange": "115-150",
+          "unit": "g/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血红蛋白正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "红细胞压积",
+          "value": "39.900",
+          "referenceRange": "40.0-50.0",
+          "unit": "%",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "红细胞压积略低于正常范围，但仍在报告参考值内，建议观察或咨询医生。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "平均血红蛋白含量",
+          "value": "33.4",
+          "referenceRange": "27.0-34.0",
+          "unit": "pg",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "平均血红蛋白含量正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "平均血红蛋白浓度",
+          "value": "342",
+          "referenceRange": "320-350",
+          "unit": "g/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "平均血红蛋白浓度正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血小板计数",
+          "value": "149",
+          "referenceRange": "125-350",
+          "unit": "10^9/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血小板计数正常。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "血常规各项指标基本正常，仅红细胞压积略低，但仍在可接受范围。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "血糖",
+      "items": [
+        {
+          "name": "空腹葡萄糖",
+          "value": "5.1",
+          "referenceRange": "3.9-5.6",
+          "unit": "mmol/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "空腹血糖正常，血糖代谢良好。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "餐后2小时血糖",
+          "value": "",
+          "referenceRange": "<7.8",
+          "unit": "mmol/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "糖化血红蛋白",
+          "value": "5.20",
+          "referenceRange": "4-6",
+          "unit": "%",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "糖化血红蛋白正常，反映近期的血糖平均水平良好。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "空腹胰岛素",
+          "value": "3.72",
+          "referenceRange": "2.6-24.9",
+          "unit": "uU/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "胰岛素水平正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "空腹C肽",
+          "value": "1.00",
+          "referenceRange": "0.62-2.74",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "C肽水平正常。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "血糖相关指标均在正常范围，血糖代谢状况良好。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "肝功能",
+      "items": [
+        {
+          "name": "谷丙转移酶",
+          "value": "12.2",
+          "referenceRange": "9-50",
+          "unit": "U/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "谷丙转氨酶正常，肝功能良好。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "谷草转移酶",
+          "value": "15.2",
+          "referenceRange": "13-35",
+          "unit": "U/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "谷草转氨酶正常，肝功能良好。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "r-GGT",
+          "value": "31.2",
+          "referenceRange": "10-60",
+          "unit": "U/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "γ-谷氨酰转肽酶正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "总胆红素",
+          "value": "11.7",
+          "referenceRange": "0-21",
+          "unit": "umol/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "总胆红素正常，肝脏代谢功能良好。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "直接胆红素",
+          "value": "3.25",
+          "referenceRange": "0-17.1",
+          "unit": "umol/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "直接胆红素正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "间接胆红素",
+          "value": "8.45",
+          "referenceRange": "1.7-10.2",
+          "unit": "umol/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "间接胆红素正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "碱性磷酸酶",
+          "value": "83.9",
+          "referenceRange": "45-125",
+          "unit": "U/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "碱性磷酸酶正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血清总蛋白",
+          "value": "69.8",
+          "referenceRange": "65-85",
+          "unit": "g/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血清总蛋白正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血清白蛋白",
+          "value": "45.0",
+          "referenceRange": "40-55",
+          "unit": "g/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血清白蛋白正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血清球蛋白",
+          "value": "24.80",
+          "referenceRange": "20-40",
+          "unit": "g/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血清球蛋白正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血清白球比",
+          "value": "1.81",
+          "referenceRange": "1.2-2.4",
+          "unit": ":1",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "白球蛋白比例正常。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "肝功能各项指标均在正常范围，肝脏功能良好。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "血脂",
+      "items": [
+        {
+          "name": "总胆固醇",
+          "value": "6.06",
+          "referenceRange": "<5.20",
+          "unit": "mmol/L",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "总胆固醇偏高，可能增加心血管疾病风险，建议调整饮食结构，定期复查。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "LDL-胆固醇",
+          "value": "2.98",
+          "referenceRange": "2.1-3.34",
+          "unit": "mmol/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "低密度脂蛋白胆固醇正常，但仍需关注总胆固醇水平。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "HDL-胆固醇",
+          "value": "2.53",
+          "referenceRange": ">1.04",
+          "unit": "mmol/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "高密度脂蛋白胆固醇正常偏高，通常认为是有益的，但具体意义需结合其他血脂指标全面评估。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "甘油三酯",
+          "value": "0.67",
+          "referenceRange": "0-1.69",
+          "unit": "mmol/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "甘油三酯正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "载脂蛋白 A1",
+          "value": "1.96",
+          "referenceRange": "1-1.6",
+          "unit": "g/L",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "载脂蛋白A1偏高，通常认为是心血管保护因素，但超出参考范围建议咨询医生评估。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "载脂蛋白 B",
+          "value": "0.99",
+          "referenceRange": "0.6-1.1",
+          "unit": "g/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "载脂蛋白B正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "脂蛋白 a",
+          "value": "456.6",
+          "referenceRange": "0-300",
+          "unit": "mmol/L",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "脂蛋白a测定值偏高，脂蛋白a水平高是独立的心血管疾病风险因素，建议咨询心内科医生进行风险评估和干预。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "同型半氨胱酸",
+          "value": "8.8",
+          "referenceRange": "6.0-16.0",
+          "unit": "umol/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "同型半胱氨酸水平正常，心血管疾病风险较低。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "血脂报告显示总胆固醇、载脂蛋白A1和脂蛋白a偏高，提示心血管疾病风险增加，建议咨询心内科医生，调整饮食和生活方式，并定期复查。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "肾功能",
+      "items": [
+        {
+          "name": "尿素",
+          "value": "4.33",
+          "referenceRange": "2.86-8.20",
+          "unit": "mmol/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血清尿素正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "肌酐",
+          "value": "55.2",
+          "referenceRange": "57-130",
+          "unit": "umol/L",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "血清肌酐略低于正常范围，可能与个体差异或肌肉量有关，建议结合临床进一步评估。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血尿酸",
+          "value": "403.3",
+          "referenceRange": "150-416",
+          "unit": "umol/L",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "血尿酸偏高，可能与高尿酸血症或痛风风险增加有关，建议调整饮食结构，避免高嘌呤食物，并咨询医生。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "eGFR",
+          "value": "",
+          "referenceRange": "100-120",
+          "unit": "ml/min",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血清胱抑素 C",
+          "value": "",
+          "referenceRange": "0.51-1.09",
+          "unit": "mg/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "肾功能检查提示血肌酐略低但血尿酸偏高，建议注意饮食，避免高嘌呤食物，并咨询医生进一步评估肾脏功能及代谢情况。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "肿瘤标志物",
+      "items": [
+        {
+          "name": "AFP",
+          "value": "3.36",
+          "referenceRange": "<9.0",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "甲胎蛋白正常，未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "CEA",
+          "value": "1.09",
+          "referenceRange": "<5.0",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "癌胚抗原正常，未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "CA125",
+          "value": "6.05",
+          "referenceRange": "<24.00",
+          "unit": "U/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "糖类抗原125正常，未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "CA15-3",
+          "value": "4.39",
+          "referenceRange": "<26.40",
+          "unit": "U/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "糖类抗原15-3正常，未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "CA19-9",
+          "value": "12.58",
+          "referenceRange": "<27.00",
+          "unit": "U/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "糖类抗原19-9正常，未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "CA72-4",
+          "value": "",
+          "referenceRange": "<6.9",
+          "unit": "U/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "CA242",
+          "value": "",
+          "referenceRange": "<20.00",
+          "unit": "U/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "CYFRA21-1",
+          "value": "",
+          "referenceRange": "<3.30",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "NSE",
+          "value": "2.62",
+          "referenceRange": "<16.30",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "神经元特异性烯醇化酶正常，未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "SCC",
+          "value": "",
+          "referenceRange": "<2.D",
+          "unit": "U/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "TPSA",
+          "value": "",
+          "referenceRange": "<4.00",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "FPSA",
+          "value": "",
+          "referenceRange": ">0.930",
+          "unit": "ng/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "FPSA/TPSA",
+          "value": "",
+          "referenceRange": "0.25-1.00",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "铁蛋白",
+          "value": "",
+          "referenceRange": "23.9-336.2",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "各项肿瘤标志物均在正常范围，未见明显异常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "甲状腺功能",
+      "items": [
+        {
+          "name": "TSH",
+          "value": "3.03",
+          "referenceRange": "0.35-4.94",
+          "unit": "ulU/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "促甲状腺激素正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "T3",
+          "value": "1.62",
+          "referenceRange": "0.84-2.02",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "T3正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "T4",
+          "value": "90.03",
+          "referenceRange": "5.13-14.06",
+          "unit": "ug/dl",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "T4值90.03 ng/ml，如果按报告单位ng/ml对照范围40-135ng/ml正常；如果严格按schema单位ug/dl换算，则需进一步评估。建议对照报告原始单位和参考范围进行评估。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "FT4",
+          "value": "15.23",
+          "referenceRange": "0.7-1.48",
+          "unit": "ng/dL",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "FT4值15.23 pg/ml，如果按报告单位pg/ml对照范围6.75-28.00 pg/ml正常；如果严格按schema单位ng/dL换算，则需进一步评估。建议对照报告原始单位和参考范围进行评估。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "FT3",
+          "value": "2.82",
+          "referenceRange": "3.53-7.37",
+          "unit": "pmol/L",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "FT3值2.82 pg/ml，如果按报告单位pg/ml对照范围1.5-5.0 pg/ml正常；如果严格按schema单位pmol/L换算，则需进一步评估。建议对照报告原始单位和参考范围进行评估。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "TPO-Ab",
+          "value": "",
+          "referenceRange": "<34",
+          "unit": "U/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "TG-Ab",
+          "value": "",
+          "referenceRange": "<=115",
+          "unit": "U/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "甲状腺功能部分指标存在单位差异，但根据报告参考范围和单位来看，大部分指标在正常范围。建议以报告提供的单位和参考范围为准进行评估。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "凝血常规",
+      "items": [
+        {
+          "name": "凝血酶原时间PT",
+          "value": "",
+          "referenceRange": "11.5-14.5",
+          "unit": "s",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "国际标准化比值 INR",
+          "value": "",
+          "referenceRange": "0.9-1.10",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "部分凝血活酶时间 APTT",
+          "value": "",
+          "referenceRange": "29.2-41.2",
+          "unit": "s",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "凝血酶时间 TT",
+          "value": "",
+          "referenceRange": "14.5-18.5",
+          "unit": "s",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "纤维蛋白原 FIB",
+          "value": "",
+          "referenceRange": "2.00-4.00",
+          "unit": "g/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "D-二聚体",
+          "value": "",
+          "referenceRange": "0.00-0.50",
+          "unit": "ug/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "未见异常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "传染病八项",
+      "items": [
+        {
+          "name": "乙肝表面抗原",
+          "value": "阴性",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "乙肝表面抗原阴性，未感染乙肝病毒。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "乙肝表面抗体",
+          "value": "阳性(+)",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "乙肝表面抗体阳性，表明对乙肝病毒具有免疫力。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "丙肝抗体",
+          "value": "阴性(-)",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "丙肝抗体阴性，未感染丙肝病毒。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "梅毒+HIV抗体",
+          "value": "阴性",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "艾滋病和梅毒筛查结果均为阴性，未见感染。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "乙肝表面抗体阳性，提示对乙肝病毒有免疫力。其余传染病筛查结果均为阴性，未见异常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "其他检查",
+      "items": [
+        {
+          "name": "肌钙蛋白",
+          "value": "",
+          "referenceRange": "<0.06",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "肌酸激酶",
+          "value": "50.0",
+          "referenceRange": "40-200",
+          "unit": "U/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "肌酸激酶正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "肌酸激酶-同工酶",
+          "value": "8.5",
+          "referenceRange": "0-5",
+          "unit": "ng/mL",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "肌酸激酶同工酶偏高，结合报告单位（U/L）和参考范围（0-25 U/L）其在正常范围内，但如果严格按照schema单位（ng/mL）和参考范围（0-5 ng/mL）则为高。建议以报告提供的单位和参考范围为准。若以schema为准，可能提示心肌受损，建议进一步检查。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "肌红蛋白",
+          "value": "",
+          "referenceRange": "28-72",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "C-反应蛋白",
+          "value": "2.06",
+          "referenceRange": "0-10",
+          "unit": "mg/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "C反应蛋白正常，未见明显炎症。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "PGI",
+          "value": "72.00",
+          "referenceRange": ">70",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "胃蛋白酶原I水平正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "PGII",
+          "value": "8.8",
+          "referenceRange": "<11",
+          "unit": "ng/mL",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "胃蛋白酶原II水平正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "PG1/PG2",
+          "value": "8.2",
+          "referenceRange": ">7",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "胃蛋白酶原比值正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "胃泌素17",
+          "value": "52.90",
+          "referenceRange": "<5.7",
+          "unit": "pmol/L",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "胃泌素-17水平偏高，如果严格按照schema单位（pmol/L）和参考范围（<5.7 pmol/L）则为高；但对照报告单位（pg/ml）和参考范围（35.46--104.58 pg/ml）则在正常范围内。建议以报告提供的单位和参考范围为准进行评估。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "25-羟基维生素 D",
+          "value": "",
+          "referenceRange": "6.6-49.9",
+          "unit": "ng/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未见异常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "滴虫",
+          "value": "(-)",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "白带常规滴虫阴性。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "霉菌",
+          "value": "(-)",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "白带常规霉菌阴性。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "清洁度",
+          "value": "II°",
+          "referenceRange": "I-II°",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "白带清洁度正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "TCT(液基超薄细胞检测)",
+          "value": "未见上皮内病变或恶性细胞(NILM)。炎症反应性细胞改变。请结合临床并定期复查。",
+          "referenceRange": "正常",
+          "unit": "",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "TCT结果显示炎症反应性细胞改变，无上皮内病变或恶性细胞。建议结合临床表现定期复查。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "单项补体测定(C3)",
+          "value": "1.51",
+          "referenceRange": "0.70-1.40",
+          "unit": "g/L",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "C3偏高，可能提示炎症或免疫系统活动性增强，建议内科复查。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "单项补体测定(C4)",
+          "value": "0.541",
+          "referenceRange": "0.100-0.400",
+          "unit": "g/L",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "C4偏高，可能提示炎症或免疫系统活动性增强，建议内科复查。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血清促卵泡刺激素",
+          "value": "64.59",
+          "referenceRange": "卵泡期3.5--12.5 排卵期4.7--21.5 黄体期1.7--7.7 绝经期25.8--134.8",
+          "unit": "mIU/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "促卵泡刺激素偏高（若按生殖期参考），结合年龄48岁，可能提示卵巢功能下降或进入围绝经期，符合绝经期参考范围，建议妇科随诊。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血清促黄体生成素",
+          "value": "33.93",
+          "referenceRange": "卵泡期1.9--11.6 排卵期12.9--105.2 黄体期0.8--10.5 绝经期6.6--64.4",
+          "unit": "mIU/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "促黄体生成素偏高（若按生殖期参考），结合年龄48岁，可能提示卵巢功能下降或进入围绝经期，符合绝经期参考范围，建议妇科随诊。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "雌二醇测定",
+          "value": "44.57",
+          "referenceRange": "卵泡期25--138 排卵期100--440 黄体期31--317 绝经期0--84",
+          "unit": "pg/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "雌二醇水平正常，符合围绝经期或早期卵泡期水平，建议妇科随诊。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "孕酮测定",
+          "value": "0.31",
+          "referenceRange": "滤泡期0.2--1.6 排卵期0.3--2.1 黄体期1.8--22.5 绝经期0.04--1.05",
+          "unit": "ng/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "孕酮水平正常，符合围绝经期或早期卵泡期水平，建议妇科随诊。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血清泌乳素测定",
+          "value": "10.72",
+          "referenceRange": "3.8--30.7",
+          "unit": "ng/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "泌乳素水平正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "睾酮测定",
+          "value": "0.55",
+          "referenceRange": "0.1--0.55",
+          "unit": "ng/ml",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "睾酮水平正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "乙型肝炎E抗原",
+          "value": "阴性(-)",
+          "referenceRange": "阴性(-)",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "乙肝E抗原阴性，提示病毒复制不活跃。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "乙型肝炎E抗体",
+          "value": "阴性(-)",
+          "referenceRange": "阴性(-)",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "乙肝E抗体阴性。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "乙型肝炎核心抗体",
+          "value": "阴性(-)",
+          "referenceRange": "阴性(-)",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "乙肝核心抗体阴性。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "全血粘度(低切)",
+          "value": "11.72",
+          "referenceRange": "9.22-14.8",
+          "unit": "M Pa.s",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "全血粘度(低切)正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "全血粘度(5低切)",
+          "value": "7.89",
+          "referenceRange": "6.74-9.73",
+          "unit": "M pa.s",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "全血粘度(5低切)正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "全血粘度(50中切)",
+          "value": "5.18",
+          "referenceRange": "4.61-6.04",
+          "unit": "M Pa.s",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "全血粘度(50中切)正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "全血粘度(高切)",
+          "value": "4.74",
+          "referenceRange": "4.02-5.5",
+          "unit": "M Pa.s",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "全血粘度(高切)正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血浆粘度",
+          "value": "1.35",
+          "referenceRange": "1.18-1.74",
+          "unit": "M Pa.s",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血浆粘度正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "红细胞沉降率",
+          "value": "8.00",
+          "referenceRange": "0.00-20.00",
+          "unit": "mm/h",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "红细胞沉降率正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "全血高切相对指数",
+          "value": "3.51",
+          "referenceRange": "2.31-4.65",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "全血高切相对指数正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "全血低切相对指数",
+          "value": "8.68",
+          "referenceRange": "5.3-12.54",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "全血低切相对指数正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血沉方程K值",
+          "value": "32.31",
+          "referenceRange": "0.00-94.00",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血沉方程K值正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "红细胞聚集指数",
+          "value": "1.88",
+          "referenceRange": "1.38-2.74",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "红细胞聚集指数正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "全血低切还原粘度",
+          "value": "17.04",
+          "referenceRange": "9.35-32.06",
+          "unit": "M Pa.s",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "全血低切还原粘度正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "全血高切还原粘度",
+          "value": "5.57",
+          "referenceRange": "2.85-10.17",
+          "unit": "M Pa.s",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "全血高切还原粘度正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "红细胞变形指数TK",
+          "value": "0.88",
+          "referenceRange": "0.38-1.11",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "红细胞变形指数正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "红细胞刚性指数",
+          "value": "5.57",
+          "referenceRange": "2.85-10.14",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "红细胞刚性指数正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "人乳头瘤病毒16型/18型检测(HPV16型/18型)",
+          "value": "阴性",
+          "referenceRange": "阴性",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "HPV 16型/18型检测阴性，感染风险较低。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "谷草/谷丙",
+          "value": "1.25",
+          "referenceRange": "1.00--3.00",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "谷草/谷丙比值正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "血清胆碱酯酶测定",
+          "value": "10123",
+          "referenceRange": "4500--13000",
+          "unit": "U/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血清胆碱酯酶测定值正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "乳酸脱氢酶",
+          "value": "155",
+          "referenceRange": "109--245",
+          "unit": "U/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "乳酸脱氢酶水平正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "腺苷脱氨酶",
+          "value": "8.9",
+          "referenceRange": "4--24",
+          "unit": "U/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "腺苷脱氨酶水平正常。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "动脉硬化指数(AI)",
+          "value": "1.40",
+          "referenceRange": "0--4",
+          "unit": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "动脉硬化指数正常，但仍需结合其他血脂指标全面评估。"
+          },
+          "DoctorJudge": ""
+        },
+        {
+          "name": "小而密低密度脂蛋白胆固醇(sdLDL-C)",
+          "value": "208.5",
+          "referenceRange": "94--428",
+          "unit": "mg/L",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "小而密低密度脂蛋白胆固醇水平正常。"
+          },
+          "DoctorJudge": ""
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "部分其他检查项目（如肌酸激酶同工酶、胃泌素17等）在单位和参考范围上与schema存在差异，若以报告为准则在正常范围内。同时，白带常规、TCT、补体C3、C4结果异常或需关注，建议妇科和内科进一步随诊。"
+      },
+      "DoctorJudge": ""
+    }
+  ],
+  "imagingResults": [
+    {
+      "category": "C13或C14呼气试验",
+      "findings": [
+        "C13呼气试验结果为阴性，未检出幽门螺旋杆菌感染。"
+      ],
+      "assessment": "C13呼气试验阴性",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "C13呼气试验阴性，提示目前无幽门螺旋杆菌感染。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "超声（心脏，血管）",
+      "findings": [
+        "左房室内径正常，左室壁不增厚，静息状态下各节段收缩活动未见明显异常。",
+        "二尖瓣不增厚，开放不受限。",
+        "升主动脉及主动脉根部不增宽，主动脉瓣不增厚，开放不受限。",
+        "右房室内径正常，肺动脉内径正常。",
+        "LVEF:62%。",
+        "二尖瓣见轻度反流。",
+        "主动脉瓣未见明显反流。",
+        "三尖瓣见轻度反流。",
+        "肺动脉瓣未见明显反流。",
+        "双侧颈动脉内径正常，管壁未见增厚，内膜光滑，管腔无明显狭窄和扩张。"
+      ],
+      "assessment": "二尖瓣轻度反流，三尖瓣轻度反流。建议心内科随诊。",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "心脏彩超显示二尖瓣和三尖瓣均有轻度反流，建议心内科进一步评估和随诊。颈动脉超声未见异常，血管情况良好。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "超声（甲状腺，肝胆胰脾，泌尿系统）",
+      "findings": [
+        "肝脏形态大小正常，实质回声分布均匀，血管纹理清晰。",
+        "胆囊大小正常范围，胆汁透声尚可，胆囊腔内未见异常回声。胆总管近端未见扩张。",
+        "胰腺形态大小正常，内部回声均匀，主胰管未见扩张。",
+        "脾脏形态大小正常，包膜完整，内部回声均匀。",
+        "双肾形态大小正常范围，包膜光滑，集合系统未见明显分离。",
+        "双叶甲状腺形态大小正常，峡部厚度正常，包膜完整，内部回声均匀。",
+        "双侧乳腺腺体致密，内部回声增强，结构紊乱，分布不均，腺管未见明显扩张，双乳内见数枚异常回声，左侧较大位于2至3点钟方向为无回声，大小约5x3mm;右侧较大位于外上象限为低回声，大小约4.5x2.5mm。",
+        "子宫前位，形态正常，轮廓清晰，宫腔线居中，肌层回声欠均匀，子宫内膜4mm，双侧附件区未见明显异常。"
+      ],
+      "assessment": "双侧乳腺小叶增生，双侧乳腺结节。子宫肌层回声欠均匀。肝、胆、胰、脾、双肾目前未见明显占位性病变。双叶甲状腺未见明显异常。双侧颈动脉未见明显异常。双侧附件目前未见明显占位性病变。",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "超声检查发现双侧乳腺有小叶增生和结节，以及子宫肌层回声欠均匀，建议乳腺外科和妇科进一步随诊和复查。肝胆胰脾肾、甲状腺、颈动脉及附件未见明显异常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "X线或CT（颈，胸，腹部）",
+      "findings": [
+        "双侧大脑半球对称，脑实质内未见明显异常密度，各脑室、脑池大小形态正常，中线结构居中，小脑、脑干未见明显异常。",
+        "胸廓对称，两肺纹理增多，右肺上叶见微小结节影(薄层im45)，直径约为4mm，余两肺未见明显实变影，气管及诸叶、段支气管通畅。纵隔窗示纵隔居中，纵隔内未见明显肿大淋巴结。心影未见明显异常，未见明显胸腔积液征象。",
+        "双乳腺体构成为ACRd型(致密型)，双乳腺体呈片状及块状密度不均匀性增高 未见明显肿块、钙化、结构扭曲及不对称致密影。双侧乳头、皮肤及皮下脂肪未见明显异常。双侧腋下未见明显肿大淋巴结。"
+      ],
+      "assessment": "头颅CT平扫未见明显异常征象。右肺上叶微小结节，建议随诊复查。双乳腺体增生性改变；鉴于双乳腺体构成为ACRd型(致密型)，X线敏感性下降，BI-RADSO类，建议结合其它影像学检查。",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "头颅CT正常，胸部CT发现右肺上叶微小结节，建议呼吸内科随诊复查。乳腺钼靶提示双乳腺体增生性改变，乳腺组织致密，X线敏感性下降，建议结合其他影像学检查。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "十二道导联心电图",
+      "findings": [
+        "窦性心律，正常心电图。"
+      ],
+      "assessment": "窦性心律，正常心电图。",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "心电图显示窦性心律，无明显异常。"
+      },
+      "DoctorJudge": ""
+    }
+  ],
+  "expertOpinions": [
+    {
+      "system": "心血管系统",
+      "positiveFindings": [
+        "心超提示：二尖瓣轻度反流；三尖瓣轻度反流。",
+        "血清脂蛋白a测定值偏高(456.6mg/L)(参考值3--397)。",
+        "总胆固醇偏高。",
+        "载脂蛋白A1偏高。"
+      ],
+      "assessmentAndRecommendations": [
+        "心超提示二尖瓣和三尖瓣均有轻度反流，建议心内科随诊。",
+        "血清脂蛋白a测定值偏高，是独立的心血管疾病风险因素，建议心内科随诊。",
+        "总胆固醇偏高，载脂蛋白A1偏高，建议调整饮食结构，定期复查，并咨询心内科医生进行风险评估和干预。"
+      ],
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "心脏瓣膜反流及血脂异常提示心血管系统存在多重风险，需引起重视并及时干预。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "system": "呼吸系统",
+      "positiveFindings": [
+        "右肺上叶微小结节。"
+      ],
+      "assessmentAndRecommendations": [
+        "右肺上叶微小结节，建议呼吸内科随诊复查。"
+      ],
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "肺部结节需要定期随访，以排除恶性病变风险。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "system": "泌尿系统",
+      "positiveFindings": [
+        "尿蛋白(++)。",
+        "尿液酸碱度偏高。",
+        "血尿酸偏高(403.3umol/L)(参考值140--340)。",
+        "血清肌酐略低于正常范围。"
+      ],
+      "assessmentAndRecommendations": [
+        "尿蛋白阳性，提示肾脏可能存在损伤，建议肾内科复查。",
+        "尿液酸碱度偏高，可能与饮食、药物或泌尿道感染有关，建议观察或咨询医生。",
+        "血尿酸偏高，建议调整饮食结构，避免高嘌呤食物，并咨询内分泌代谢科或风湿病科医生。",
+        "血清肌酐略低，建议结合临床进一步评估。"
+      ],
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "尿蛋白、尿酸碱度及血尿酸异常提示泌尿系统和代谢功能可能存在问题，需及时就医评估。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "system": "生殖系统",
+      "positiveFindings": [
+        "双侧乳腺小叶增生。",
+        "双侧乳腺结节。",
+        "子宫肌层回声欠均匀。",
+        "女性激素水平测定需结合生理周期判读。",
+        "TCT结果显示炎症反应性细胞改变。"
+      ],
+      "assessmentAndRecommendations": [
+        "双侧乳腺小叶增生和结节，建议乳腺外科定期复查。",
+        "子宫肌层回声欠均匀，建议妇科随诊。",
+        "女性激素水平测定需结合生理周期判读，请咨询妇科医生，建议妇科随诊。",
+        "TCT结果提示炎症反应，建议结合临床定期复查。"
+      ],
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "乳腺和妇科超声、TCT结果均显示异常或需关注，提示生殖系统健康存在问题，需及时咨询专科医生进行进一步检查和处理。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "system": "血液系统",
+      "positiveFindings": [
+        "单项补体测定(C3)值偏高(1.51g/L)(参考值0.70-1.40)。",
+        "单项补体测定(C4)值偏高(0.541g/L)(参考值0.100-0.400)。"
+      ],
+      "assessmentAndRecommendations": [
+        "单项补体C3、C4均偏高，可能提示炎症或免疫系统活动性增强，建议内科复查。"
+      ],
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "补体C3和C4偏高提示免疫系统可能存在异常活跃或炎症反应，建议内科进一步检查。"
+      },
+      "DoctorJudge": ""
+    }
+  ],
+  "wellnessSafetyAssessment": {
+    "applicabilityAssessment": [],
+    "safetyAssessment": {
+      "contraindications": [],
+      "assessmentResult": "",
+      "specialNote": ""
+    },
+    "supplementaryExams": {
+      "bloodDrawItems": [],
+      "imagingExams": []
+    }
+  },
+  "healthPlan": {
+    "mainIssues": [],
+    "secondaryIssues": [],
+    "planDetails": [],
+    "preventivePlan": []
+  }
+}

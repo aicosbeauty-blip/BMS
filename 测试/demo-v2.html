@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>员工权限管理系统 V2 - 紧凑卡片版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles-v2.css">
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-orange-50 to-gray-50 min-h-screen">
+    
+    <!-- 顶部导航 -->
+    <header class="bg-white shadow-lg sticky top-0 z-40 border-b-4 border-orange-500">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl">
+                        <i class="fas fa-user-shield text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent">
+                            员工权限管理系统
+                        </h1>
+                        <p class="text-sm text-gray-500 mt-1">V2.0 紧凑卡片版 - 新JSON结构</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="px-4 py-2 bg-orange-100 text-orange-800 rounded-lg text-sm font-semibold">
+                        <i class="fas fa-bolt mr-2"></i>新架构
+                    </div>
+                    <button onclick="showHelp()" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                        <i class="fas fa-question-circle mr-2"></i>帮助
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-6 py-8">
+        
+        <!-- 新版本特性说明 -->
+        <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl shadow-2xl p-8 mb-8 text-white">
+            <div class="flex items-start gap-6">
+                <div class="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-sparkles text-4xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-3xl font-bold mb-3">🎉 全新设计！紧凑卡片布局</h2>
+                    <p class="text-orange-100 mb-4 text-lg">
+                        专为新JSON架构优化，采用部门卡片设计，每个卡片清晰显示已授权/未授权数量
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-white bg-opacity-20 backdrop-blur-sm p-4 rounded-xl">
+                            <div class="text-orange-100 text-sm mb-1">部门卡片</div>
+                            <div class="text-2xl font-bold">紧凑设计</div>
+                        </div>
+                        <div class="bg-white bg-opacity-20 backdrop-blur-sm p-4 rounded-xl">
+                            <div class="text-orange-100 text-sm mb-1">进度可视化</div>
+                            <div class="text-2xl font-bold">一目了然</div>
+                        </div>
+                        <div class="bg-white bg-opacity-20 backdrop-blur-sm p-4 rounded-xl">
+                            <div class="text-orange-100 text-sm mb-1">快速操作</div>
+                            <div class="text-2xl font-bold">批量授权</div>
+                        </div>
+                        <div class="bg-white bg-opacity-20 backdrop-blur-sm p-4 rounded-xl">
+                            <div class="text-orange-100 text-sm mb-1">详情弹窗</div>
+                            <div class="text-2xl font-bold">精细管理</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 核心特性 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-green-200 hover:shadow-xl transition">
+                <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-grip text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">部门卡片网格</h3>
+                <p class="text-gray-600">
+                    每个部门一张卡片，显示已授权/未授权数量，进度条直观展示授权比例
+                </p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-blue-200 hover:shadow-xl transition">
+                <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-mouse-pointer text-blue-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">点击查看详情</h3>
+                <p class="text-gray-600">
+                    点击任意部门卡片，弹出详情窗口，查看该部门下所有公司的授权状态
+                </p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200 hover:shadow-xl transition">
+                <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-bolt text-purple-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">快速批量操作</h3>
+                <p class="text-gray-600">
+                    支持一键授权/取消整个部门，也可在详情中精确管理每个公司
+                </p>
+            </div>
+        </div>
+
+        <!-- JSON架构说明 -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                <i class="fas fa-code text-orange-500"></i>
+                新JSON数据结构
+            </h2>
+            <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <pre class="text-sm text-gray-800 overflow-x-auto"><code>{
+  "品牌部": {
+    "Y": [/* 已授权的公司列表 */],
+    "N": [/* 未授权的公司列表 */]
+  },
+  "财务部": {
+    "Y": [...],
+    "N": [...]
+  },
+  ...
+}</code></pre>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-4">
+                <div class="flex items-center gap-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold">1</div>
+                    <div>
+                        <div class="font-semibold text-blue-900">第一层</div>
+                        <div class="text-xs text-blue-600">部门类型</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center text-white font-bold">2</div>
+                    <div>
+                        <div class="font-semibold text-green-900">第二层</div>
+                        <div class="text-xs text-green-600">Y/N 授权状态</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                    <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center text-white font-bold">3</div>
+                    <div>
+                        <div class="font-semibold text-purple-900">第三层</div>
+                        <div class="text-xs text-purple-600">公司数据</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 员工列表 -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 p-6">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                    <i class="fas fa-users"></i>
+                    员工列表
+                </h2>
+                <p class="text-orange-100 mt-2">点击"配置权限"按钮体验新的紧凑卡片布局</p>
+            </div>
+            
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="employeeList">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 使用提示 -->
+        <div class="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-2 border-blue-200">
+            <h3 class="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-lightbulb text-yellow-500"></i>
+                快速上手指南
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white p-4 rounded-xl shadow">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">1</div>
+                        <h4 class="font-bold text-gray-900">选择员工</h4>
+                    </div>
+                    <p class="text-sm text-gray-600">点击任意员工卡片的"配置权限"按钮</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">2</div>
+                        <h4 class="font-bold text-gray-900">浏览部门</h4>
+                    </div>
+                    <p class="text-sm text-gray-600">查看所有部门卡片，了解授权进度</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">3</div>
+                        <h4 class="font-bold text-gray-900">快速操作</h4>
+                    </div>
+                    <p class="text-sm text-gray-600">使用卡片上的按钮一键授权/取消整个部门</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">4</div>
+                        <h4 class="font-bold text-gray-900">精细管理</h4>
+                    </div>
+                    <p class="text-sm text-gray-600">点击卡片查看详情，逐一管理每个公司</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 加载权限弹框HTML -->
+    <div id="permissionModalContainer"></div>
+
+    <!-- 引入脚本 -->
+    <script src="employee-permission-modal-v2.js"></script>
+    
+    <script>
+        // 模拟员工数据
+        const employees = [
+            { id: 'EMP001', name: '张三', role: '部门经理', department: '市场部', avatar: '👨‍💼', color: 'blue' },
+            { id: 'EMP002', name: '李四', role: '财务主管', department: '财务部', avatar: '👨‍💻', color: 'green' },
+            { id: 'EMP003', name: '王五', role: '技术总监', department: '技术部', avatar: '👩‍💻', color: 'purple' },
+            { id: 'EMP004', name: '赵六', role: '人事经理', department: '人力资源部', avatar: '👩‍💼', color: 'pink' },
+            { id: 'EMP005', name: '钱七', role: '销售总监', department: '销售部', avatar: '👨‍💼', color: 'orange' },
+            { id: 'EMP006', name: '孙八', role: '采购经理', department: '采购部', avatar: '👩‍💼', color: 'teal' }
+        ];
+
+        // 渲染员工列表
+        function renderEmployeeList() {
+            const container = document.getElementById('employeeList');
+            container.innerHTML = employees.map(emp => `
+                <div class="employee-card bg-gradient-to-br from-white to-${emp.color}-50 rounded-2xl p-6 border-2 border-${emp.color}-200 hover:border-${emp.color}-400 shadow-lg cursor-pointer group">
+                    <div class="flex items-start gap-4">
+                        <div class="text-6xl group-hover:scale-110 transition-transform duration-300">
+                            ${emp.avatar}
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-gray-900 group-hover:text-${emp.color}-600 transition-colors mb-1">
+                                ${emp.name}
+                            </h3>
+                            <p class="text-sm text-gray-600 flex items-center gap-2 mb-1">
+                                <i class="fas fa-briefcase text-${emp.color}-500"></i>${emp.role}
+                            </p>
+                            <p class="text-sm text-gray-500 flex items-center gap-2">
+                                <i class="fas fa-building text-blue-500"></i>${emp.department}
+                            </p>
+                            <button 
+                                onclick="openPermissionModal('${emp.name}', '${emp.role}', '${emp.id}')"
+                                class="mt-4 w-full px-4 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all font-semibold shadow-lg hover:shadow-xl group-hover:scale-105">
+                                <i class="fas fa-key mr-2"></i>配置权限
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 打开权限管理弹框
+        function openPermissionModal(name, role, id) {
+            EmployeePermissionModal.open(name, role, id);
+        }
+
+        // 显示帮助
+        function showHelp() {
+            alert('V2.0 新特性：\n\n' +
+                  '1. 紧凑的部门卡片设计\n' +
+                  '2. 清晰的已授权/未授权数量显示\n' +
+                  '3. 进度条可视化授权比例\n' +
+                  '4. 点击卡片查看详情和精细管理\n' +
+                  '5. 快速批量操作按钮\n' +
+                  '6. 支持新的JSON架构（部门>Y/N>公司）');
+        }
+
+        // 监听权限保存事件
+        document.addEventListener('employeePermissionSaved', function(event) {
+            console.log('权限已保存 (V2):', event.detail);
+        });
+
+        // 页面加载
+        document.addEventListener('DOMContentLoaded', function() {
+            renderEmployeeList();
+            
+            // 加载权限弹框HTML
+            fetch('employee-permission-modal-v2.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('permissionModalContainer').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('加载权限弹框失败:', error);
+                });
+        });
+    </script>
+</body>
+</html>

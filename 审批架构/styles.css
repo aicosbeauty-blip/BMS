@@ -1,0 +1,113 @@
+/* 基础样式 */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 侧边栏动画 */
+.sidebar-overlay {
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-panel {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-panel.closed {
+    transform: translateX(100%);
+}
+
+/* 员工卡片样式 */
+.employee-card {
+    transition: all 0.2s ease;
+}
+
+.employee-card:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(249, 115, 22, 0.3);
+}
+
+.employee-card.selected {
+    border-color: #f97316;
+    background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+}
+
+/* 角色节点样式 */
+.role-node {
+    transition: all 0.2s ease;
+    max-width: 1000px;
+}
+
+.role-node:hover {
+    box-shadow: 0 4px 16px rgba(249, 115, 22, 0.15);
+}
+
+.role-node.active {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+/* 公司卡片 */
+.company-card {
+    transition: all 0.2s ease;
+}
+
+.company-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 部门复选框样式 */
+.dept-checkbox {
+    transition: all 0.15s ease;
+}
+
+.dept-checkbox:hover {
+    background-color: #fff7ed;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+/* 角色节点样式 */
+.role-node {
+    transition: all 0.2s ease;
+}
+
+.role-node:hover {
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15);
+    transform: translateY(-2px);
+}
+
+.role-node.active {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+/* 拖放指示器 */
+.drop-indicator {
+    display: none;
+    transition: all 0.15s ease-out;
+}
+
+.drop-indicator.active {
+    display: flex !important;
+    background-color: #fff7ed;
+    border-color: #f97316;
+}
+
+/* 拖拽时的角色卡片 */
+.role-card.dragging {
+    opacity: 0.5;
+    transform: scale(0.95);
+}

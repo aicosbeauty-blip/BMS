@@ -1,0 +1,1025 @@
+  {"reportId": "0371202410284011",
+  "patientInfo": {
+    "name": "袁英",
+    "gender": "女",
+    "age": 49,
+    "height": "159.5",
+    "weight": "60.5",
+    "bmi": "23.7",
+    "bloodPressure_Diastolic": "65",
+    "bloodPressure_Systolic": "120",
+    "allergy": null,
+    "mainConcern": "年度复查，重点关注肺结节、乳腺结节及血脂情况",
+    "examUnit": "瑞慈健康体检",
+    "examDate": "2024-10-28",
+    "reportDate": "2024-10-28"
+  },
+  "medicalHistory": {
+    "history": "2023年体检发现右肺微小结节、双侧乳腺结节、高尿酸血症、高脂血症。",
+    "medication": "不详",
+    "supplements": "不详",
+    "lifestyle": "尝试低嘌呤饮食",
+    "assessment": null
+  },
+  "specialistExams": [
+    {
+      "category": "内科",
+      "finding": "营养良好；面容正常；心率78次/分；心律齐；心音正常；心脏杂音无；两肺呼吸音正常；腹部未见异常；肝脏肋下未及；脾脏肋下未及。",
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "外科",
+      "finding": "皮肤未见异常；浅表淋巴结未见异常；甲状腺未见异常；乳房双侧乳腺小叶增生（复查）；脊柱未见异常；四肢关节未见异常；肛门指诊未见异常。",
+      "assessment": "双侧乳腺小叶增生（同前）",
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "妇科",
+      "finding": "外阴未见异常；阴道未见异常；宫颈未见异常；宫体未见异常；附件未触及异常；人乳头瘤病毒16型和18型检测(妇科)已采样；白带常规(妇科)已采集；TCT(妇科)已采集。",
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "眼科",
+      "finding": "戴镜视力右1.2；戴镜视力左1.0；外眼检查未见异常；眼底检查未见明显异常；裂隙灯检查未见异常。",
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    }
+  ],
+  "labResults": [
+    {
+      "category": "尿常规",
+      "items": [
+        {
+          "name": "尿比重",
+          "value": "1.015",
+          "isAbnormal": false,
+          "referenceRange": "1.003-1.025",
+          "unit": ""
+        },
+        {
+          "name": "白细胞",
+          "value": "(-)",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "红细胞计数",
+          "value": "(-)",
+          "isAbnormal": false,
+          "referenceRange": "0-25",
+          "unit": "个/μl"
+        },
+        {
+          "name": "鳞状上皮细胞",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "0-28",
+          "unit": "个/μl"
+        },
+        {
+          "name": "透明管型",
+          "value": "(-)",
+          "isAbnormal": false,
+          "referenceRange": "0-1",
+          "unit": "个/LP"
+        },
+        {
+          "name": "细菌",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "0-386",
+          "unit": ""
+        },
+        {
+          "name": "霉菌",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "粘液丝",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "非鳞状上皮细胞",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "0-28",
+          "unit": "个/μl"
+        },
+        {
+          "name": "病理管型",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "0-1",
+          "unit": "个/LP"
+        },
+        {
+          "name": "白细胞计数",
+          "value": "(-)",
+          "isAbnormal": false,
+          "referenceRange": "0-25",
+          "unit": "个/μl"
+        },
+        {
+          "name": "颜色",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "",
+          "unit": ""
+        },
+        {
+          "name": "尿潜血",
+          "value": "(-)",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "胆红素",
+          "value": "(-)",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "尿胆原",
+          "value": "norm.",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "尿酮体",
+          "value": "(-)",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "尿蛋白",
+          "value": "(-)",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "葡萄糖",
+          "value": "(-)",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "酸碱度（PH）",
+          "value": "6.50",
+          "isAbnormal": false,
+          "referenceRange": "5.5-7",
+          "unit": ""
+        }
+      ],
+      "assessment": "尿蛋白（-），较去年（++）改善",
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "尿生化",
+      "items": [
+        {
+          "name": "尿微量白蛋白",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "0-20",
+          "unit": "mg/l"
+        },
+        {
+          "name": "尿肌酐",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "3540-24600",
+          "unit": ""
+        },
+        {
+          "name": "尿微量白蛋白/尿肌酐",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "0-35",
+          "unit": "mg/l"
+        }
+      ],
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "血常规",
+      "items": [
+        {
+          "name": "白细胞计数",
+          "value": "4.150",
+          "isAbnormal": false,
+          "referenceRange": "3.5-9.5",
+          "unit": "10^9/L"
+        },
+        {
+          "name": "中性粒细胞比值",
+          "value": "58.20",
+          "isAbnormal": false,
+          "referenceRange": "40.0-75.0",
+          "unit": "%"
+        },
+        {
+          "name": "淋巴细胞比值",
+          "value": "34.50",
+          "isAbnormal": false,
+          "referenceRange": "20.0-50.0",
+          "unit": "%"
+        },
+        {
+          "name": "单核细胞比值",
+          "value": "4.80",
+          "isAbnormal": false,
+          "referenceRange": "3.0-10.0",
+          "unit": "%"
+        },
+        {
+          "name": "中性粒细胞绝对值",
+          "value": "2.41",
+          "isAbnormal": false,
+          "referenceRange": "1.8-6.3",
+          "unit": "10^9/L"
+        },
+        {
+          "name": "淋巴细胞绝对值",
+          "value": "1.43",
+          "isAbnormal": false,
+          "referenceRange": "1.1-3.2",
+          "unit": "10^9/L"
+        },
+        {
+          "name": "单核细胞绝对值",
+          "value": "0.20",
+          "isAbnormal": false,
+          "referenceRange": "0.10-0.6",
+          "unit": "10^9/L"
+        },
+        {
+          "name": "红细胞计数",
+          "value": "4.10",
+          "isAbnormal": false,
+          "referenceRange": "3.80-5.1",
+          "unit": "10^12/L"
+        },
+        {
+          "name": "血红蛋白",
+          "value": "135",
+          "isAbnormal": false,
+          "referenceRange": "115-150",
+          "unit": "g/L"
+        },
+        {
+          "name": "红细胞压积",
+          "value": "39.500",
+          "isAbnormal": false,
+          "referenceRange": "40.0-50.0",
+          "unit": "%"
+        },
+        {
+          "name": "平均血红蛋白含量",
+          "value": "33.1",
+          "isAbnormal": false,
+          "referenceRange": "27.0-34.0",
+          "unit": "pg"
+        },
+        {
+          "name": "平均血红蛋白浓度",
+          "value": "341",
+          "isAbnormal": false,
+          "referenceRange": "320-350",
+          "unit": "g/L"
+        },
+        {
+          "name": "血小板计数",
+          "value": "152",
+          "isAbnormal": false,
+          "referenceRange": "125-350",
+          "unit": "10^9/L"
+        }
+      ],
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "血糖",
+      "items": [
+        {
+          "name": "空腹葡萄糖",
+          "value": "5.2",
+          "isAbnormal": false,
+          "referenceRange": "3.9-5.6",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "餐后2小时血糖",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "<7.8",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "糖化血红蛋白",
+          "value": "5.30",
+          "isAbnormal": false,
+          "referenceRange": "4-6",
+          "unit": "%"
+        },
+        {
+          "name": "空腹胰岛素",
+          "value": "3.80",
+          "isAbnormal": false,
+          "referenceRange": "2.6-24.9",
+          "unit": "uU/mL"
+        },
+        {
+          "name": "空腹 C 肽",
+          "value": "1.05",
+          "isAbnormal": false,
+          "referenceRange": "0.62-2.74",
+          "unit": "ng/mL"
+        }
+      ],
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "肝功能",
+      "items": [
+        {
+          "name": "谷丙转移酶",
+          "value": "13.0",
+          "isAbnormal": false,
+          "referenceRange": "9-50",
+          "unit": "U/L"
+        },
+        {
+          "name": "谷草转移酶",
+          "value": "15.0",
+          "isAbnormal": false,
+          "referenceRange": "13-35",
+          "unit": "U/L"
+        },
+        {
+          "name": "r-GGT",
+          "value": "30.0",
+          "isAbnormal": false,
+          "referenceRange": "10-60",
+          "unit": "U/L"
+        },
+        {
+          "name": "总胆红素",
+          "value": "12.0",
+          "isAbnormal": false,
+          "referenceRange": "0-21",
+          "unit": "umol/L"
+        },
+        {
+          "name": "直接胆红素",
+          "value": "3.30",
+          "isAbnormal": false,
+          "referenceRange": "0-17.1",
+          "unit": "umol/L"
+        },
+        {
+          "name": "间接胆红素",
+          "value": "8.70",
+          "isAbnormal": false,
+          "referenceRange": "1.7-10.2",
+          "unit": "umol/L"
+        },
+        {
+          "name": "碱性磷酸酶",
+          "value": "85.0",
+          "isAbnormal": false,
+          "referenceRange": "45-125",
+          "unit": "U/L"
+        },
+        {
+          "name": "血清总蛋白",
+          "value": "70.0",
+          "isAbnormal": false,
+          "referenceRange": "65-85",
+          "unit": "g/L"
+        },
+        {
+          "name": "血清白蛋白",
+          "value": "45.5",
+          "isAbnormal": false,
+          "referenceRange": "40-55",
+          "unit": "g/L"
+        },
+        {
+          "name": "血清球蛋白",
+          "value": "24.50",
+          "isAbnormal": false,
+          "referenceRange": "20-40",
+          "unit": "g/L"
+        },
+        {
+          "name": "血清白球比",
+          "value": "1.85",
+          "isAbnormal": false,
+          "referenceRange": "1.2-2.4",
+          "unit": ":1"
+        }
+      ],
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "血脂",
+      "items": [
+        {
+          "name": "总胆固醇",
+          "value": "5.85",
+          "isAbnormal": true,
+          "referenceRange": "<5.20",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "LDL-胆固醇",
+          "value": "2.90",
+          "isAbnormal": false,
+          "referenceRange": "2.1-3.34",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "HDL-胆固醇",
+          "value": "2.50",
+          "isAbnormal": true,
+          "referenceRange": ">1.04",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "甘油三酯",
+          "value": "0.70",
+          "isAbnormal": false,
+          "referenceRange": "0-1.69",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "载脂蛋白 A1",
+          "value": "1.90",
+          "isAbnormal": true,
+          "referenceRange": "1-1.6",
+          "unit": "g/L"
+        },
+        {
+          "name": "载脂蛋白 B",
+          "value": "0.98",
+          "isAbnormal": false,
+          "referenceRange": "0.6-1.1",
+          "unit": "g/L"
+        },
+        {
+          "name": "脂蛋白 a",
+          "value": "450.0",
+          "isAbnormal": true,
+          "referenceRange": "0-300",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "同型半氨胱酸",
+          "value": "8.5",
+          "isAbnormal": false,
+          "referenceRange": "6.0-16.0",
+          "unit": "umol/L"
+        }
+      ],
+      "assessment": "总胆固醇、脂蛋白a仍偏高，请注意饮食，定期复查",
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "肾功能",
+      "items": [
+        {
+          "name": "尿素",
+          "value": "4.30",
+          "isAbnormal": false,
+          "referenceRange": "2.86-8.20",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "肌酐",
+          "value": "56.0",
+          "isAbnormal": false,
+          "referenceRange": "57-130",
+          "unit": "umol/L"
+        },
+        {
+          "name": "血尿酸",
+          "value": "380.0",
+          "isAbnormal": true,
+          "referenceRange": "150-416",
+          "unit": "umol/L"
+        },
+        {
+          "name": "eGFR",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "100-120",
+          "unit": "ml/min"
+        },
+        {
+          "name": "血清胱抑素 C",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "0.51-1.09",
+          "unit": "mg/L"
+        }
+      ],
+      "assessment": "血尿酸偏高，较去年（403.3）下降，请继续低嘌呤饮食",
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "肿瘤标志物",
+      "items": [
+        {
+          "name": "AFP",
+          "value": "3.30",
+          "isAbnormal": false,
+          "referenceRange": "<9.0",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "CEA",
+          "value": "1.10",
+          "isAbnormal": false,
+          "referenceRange": "<5.0",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "CA125",
+          "value": "6.00",
+          "isAbnormal": false,
+          "referenceRange": "<24.00",
+          "unit": "U/ml"
+        },
+        {
+          "name": "CA15-3",
+          "value": "4.50",
+          "isAbnormal": false,
+          "referenceRange": "<26.40",
+          "unit": "U/ml"
+        },
+        {
+          "name": "CA19-9",
+          "value": "12.00",
+          "isAbnormal": false,
+          "referenceRange": "<27.00",
+          "unit": "U/ml"
+        },
+        {
+          "name": "CA72-4",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "<6.9",
+          "unit": "U/ml"
+        },
+        {
+          "name": "CA24-2",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "<20.00",
+          "unit": "U/ml"
+        },
+        {
+          "name": "CYFRA21-1",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "<3.30",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "NSE",
+          "value": "2.60",
+          "isAbnormal": false,
+          "referenceRange": "<16.30",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "SCC",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "<2.D",
+          "unit": "U/ml"
+        },
+        {
+          "name": "TPSA",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "<4.00",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "FPSA",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": ">0.930",
+          "unit": "ng/ml"
+        },
+        {
+          "name": "f-PSA/t-PSA 比值",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "0.25-1.00",
+          "unit": ""
+        },
+        {
+          "name": "铁蛋白",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "23.9-336.2",
+          "unit": "ng/mL"
+        }
+      ],
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "甲状腺功能",
+      "items": [
+        {
+          "name": "TSH",
+          "value": "3.00",
+          "isAbnormal": false,
+          "referenceRange": "0.35-4.94",
+          "unit": "ulU/mL"
+        },
+        {
+          "name": "T3",
+          "value": "1.60",
+          "isAbnormal": false,
+          "referenceRange": "0.84-2.02",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "T4",
+          "value": "90.00",
+          "isAbnormal": false,
+          "referenceRange": "5.13-14.06",
+          "unit": "ug/dl"
+        },
+        {
+          "name": "FT4",
+          "value": "15.20",
+          "isAbnormal": false,
+          "referenceRange": "0.7-1.48",
+          "unit": "ng/dL"
+        },
+        {
+          "name": "FT3",
+          "value": "2.80",
+          "isAbnormal": false,
+          "referenceRange": "3.53-7.37",
+          "unit": "pmol/L"
+        },
+        {
+          "name": "TPO-Ab",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "<34",
+          "unit": "U/ml"
+        },
+        {
+          "name": "TG-Ab",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "<=115",
+          "unit": "U/ml"
+        }
+      ],
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "凝血常规",
+      "items": [
+        {
+          "name": "凝血酶原时间PT",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "11.5-14.5",
+          "unit": "s"
+        },
+        {
+          "name": "国际标准化比值 INR",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "0.9-1.10",
+          "unit": ""
+        },
+        {
+          "name": "部分凝血活酶时间 APTT",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "29.2-41.2",
+          "unit": "s"
+        },
+        {
+          "name": "凝血酶时间 TT",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "14.5-18.5",
+          "unit": "s"
+        },
+        {
+          "name": "纤维蛋白原 FIB",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "2.00-4.00",
+          "unit": "g/L"
+        },
+        {
+          "name": "D-二聚体",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "0.00-0.50",
+          "unit": "ug/mL"
+        }
+      ],
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "传染病八项",
+      "items": [
+        {
+          "name": "乙肝表面抗原",
+          "value": "阴性",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "乙肝表面抗体",
+          "value": "阳性",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "丙肝抗体",
+          "value": "阴性",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "梅毒+HIV",
+          "value": "阴性",
+          "isAbnormal": false,
+          "referenceRange": "阴性",
+          "unit": ""
+        }
+      ],
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "其他检查",
+      "items": [
+        {
+          "name": "肌钙蛋白",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "<0.06",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "肌酸激酶",
+          "value": "52.0",
+          "isAbnormal": false,
+          "referenceRange": "40-200",
+          "unit": "U/L"
+        },
+        {
+          "name": "肌红蛋白",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "28-72",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "C-反应蛋白",
+          "value": "2.00",
+          "isAbnormal": false,
+          "referenceRange": "0-10",
+          "unit": "mg/L"
+        },
+        {
+          "name": "PGI",
+          "value": "70.00",
+          "isAbnormal": false,
+          "referenceRange": ">70",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "PGII",
+          "value": "8.5",
+          "isAbnormal": false,
+          "referenceRange": "<11",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "PG1/PG2",
+          "value": "8.0",
+          "isAbnormal": true,
+          "referenceRange": ">7",
+          "unit": ""
+        },
+        {
+          "name": "胃泌素17",
+          "value": "50.00",
+          "isAbnormal": true,
+          "referenceRange": "<5.7",
+          "unit": "pmol/L"
+        },
+        {
+          "name": "25-羟基维生素 D",
+          "value": null,
+          "isAbnormal": false,
+          "referenceRange": "6.6-49.9",
+          "unit": "ng/ml"
+        }
+      ],
+      "assessment": null,
+      "AIJudge": null,
+      "DoctorJudge": null
+    }
+  ],
+  "imagingResults": [
+    {
+      "category": "C13或C14呼气试验",
+      "findings": [
+        "呼气试验阴性"
+      ],
+      "assessment": "诊断: Hp阴性",
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "超声（心脏，血管）",
+      "findings": [
+        "左房室内径正常,左室壁不增厚,静息状态下各节段收缩活动未见明显异常。",
+        "二尖瓣不增厚,开放不受限。",
+        "升主动脉及主动脉根部不增宽,主动脉瓣不增厚,开放不受限。",
+        "右房室内径正常,肺动脉内径正常。",
+        "LVEF:63%。",
+        "二尖瓣CDF/PWD:见轻度反流。",
+        "二尖瓣血流图示E>A。",
+        "主动脉瓣CDF/PWD:未见明显反流。",
+        "三尖瓣CDF/PWD:见轻度反流。",
+        "肺动脉瓣CDF/PWD:未见明显反流。",
+        "双侧颈动脉内径正常,管壁未见增厚,内膜光滑,管腔无明显狭窄和扩张。CDFI:显示血管充盈良好。"
+      ],
+      "assessment": "1.二尖瓣轻度反流(同2023年) 2.三尖瓣轻度反流(同2023年)",
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "超声（甲状腺，肝胆胰脾，泌尿系统）",
+      "findings": [
+        "肝脏形态大小正常,实质回声分布均匀,血管纹理清晰。CDFI:未见明显异常血流信号。",
+        "胆囊大小正常范围,胆汁透声尚可,胆囊腔内未见明显异常回声。胆总管近端未见扩张。",
+        "胰腺形态大小正常,内部回声均匀,主胰管未见扩张。CDFI:未见明显异常血流信号。",
+        "脾脏形态大小正常,包膜完整,内部回声均匀。CDFI:未见明显异常血流信号。",
+        "双肾形态大小正常范围,包膜光滑,集合系统未见明显分离。CDFI:血流灌注良好。",
+        "双叶甲状腺形态大小正常,峡部厚度正常,包膜完整,内部回声均匀。CDFI:未见明显异常血流信号。",
+        "双侧乳腺腺体致密,内部回声增强,结构紊乱,分布不均,腺管未见明显扩张,双乳内见数枚异常回声,左侧较大位于2至3点钟方向为无回声,大小约5x3mm;右侧较大位于外上象限为低回声,大小约5x3mm。CDFI:未见明显异常血流信号。",
+        "子宫前位,形态正常,轮廓清晰,宫腔线居中,肌层回声欠均匀,子宫内膜4mm,双侧附件区未见明显异常。CDFI:未见明显异常血流信号。"
+      ],
+      "assessment": "1.双侧乳腺小叶增生(同前) 2.双侧乳腺结节(左侧5x3mm,右侧5x3mm,与去年对比大小稳定) 3.子宫肌层回声欠均匀(同前) 4.肝、胆、胰、脾、双肾目前未见明显占位性病变 5.双叶甲状腺未见明显异常 6.双侧颈动脉未见明显异常 7.双侧附件目前未见明显占位性病变",
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "X线或CT（颈，胸，腹部）",
+      "findings": [
+        "双侧大脑半球对称,脑实质内未见明显异常密度,各脑室、脑池大小形态正常,中线结构居中,小脑、脑干未见明显异常。",
+        "胸廓对称,两肺纹理增多,右肺上叶见微小结节影(薄层im50),直径约为4mm,与2023-10-27日CT片对比未见明显变化,余两肺未见明显实变影,气管及诸叶、段支气管通畅。纵隔窗示纵隔居中,纵隔内未见明显肿天淋巴结。心影未见明显异常,未见明显胸腔积液征象。",
+        "双乳腺体构成为ACRd型(致密型),双乳腺体呈片状及块状密度不均匀性增高未见明显肿块、钙化、结构扭曲及不对称致密影。双侧乳头、皮肤及皮下脂肪未见明显异常。双侧腋下未见明显肿大淋巴结。"
+      ],
+      "assessment": "头颅CT平扫未见明显异常征象。右肺上叶微小结节,与去年(2023-10-27)CT对比未见明显变化,请继续随诊复查。双乳腺体增生性改变;鉴于双乳腺体构成为ACRd型(致密型),X线敏感性下降,BI-RADS 0类,建议结合其它影像学检查。",
+      "AIJudge": null,
+      "DoctorJudge": null
+    },
+    {
+      "category": "十二道导联心电图",
+      "findings": [
+        "心率:72 bpm",
+        "PR间期:190 ms",
+        "QRS时限:90 ms",
+        "QT间期:380 ms",
+        "QTC间期:400 ms",
+        "P电轴:65 Angle",
+        "QRS电轴:77 Angle",
+        "T电轴:68 Angle",
+        "RV5:1.20 mv",
+        "SV1:0.61 mv"
+      ],
+      "assessment": "窦性心律 正常心电图",
+      "AIJudge": null,
+      "DoctorJudge": null
+    }
+  ],
+  "expertOpinions": [
+    {
+      "system": "心血管系统",
+      "positiveFindings": [
+        "心超提示:二尖瓣轻度反流;三尖瓣轻度反流(同2023年)。",
+        "血清脂蛋白a测定值偏高(450.0 mg/L)(参考值3--397)。",
+        "总胆固醇5.85 mmol/L (参考值 <5.20 mmol/L)",
+        "高密度脂蛋白胆固醇2.50 mmol/L (参考值 >1.04 mmol/L)",
+        "血清载脂蛋白A1测定1.90 g/L (参考值 1.00-1.78 g/L)"
+      ],
+      "assessmentAndRecommendations": [
+        "瓣膜轻度反流，年度复查即可。",
+        "总胆固醇、脂蛋白a持续偏高，建议心内科随诊，评估心血管风险，严格控制饮食，加强运动。"
+      ]
+    },
+    {
+      "system": "呼吸系统",
+      "positiveFindings": [
+        "CT提示:右肺上叶微小结节，与2023年CT对比无明显变化。"
+      ],
+      "assessmentAndRecommendations": [
+        "肺部结节稳定，良性可能大，建议继续呼吸内科年度随诊复查胸部CT。"
+      ]
+    },
+    {
+      "system": "泌尿系统",
+      "positiveFindings": [
+        "尿蛋白已转阴(2023年为++)。",
+        "血清尿酸值(380.0 umol/L)(参考值140--340)。"
+      ],
+      "assessmentAndRecommendations": [
+        "尿蛋白转阴，情况良好。",
+        "血尿酸仍偏高，但较去年(403.3)有所改善。建议继续坚持低嘌呤饮食、多饮水，定期复查肾功能及尿酸。",
+        "适当运动,控制体重。"
+      ]
+    },
+    {
+      "system": "内分泌系统",
+      "positiveFindings": [
+        "高尿酸血症。"
+      ],
+      "assessmentAndRecommendations": [
+        "血清尿酸值(380.0 umol/L)(参考值140--340)。建议继续调整饮食结构,以低嘌呤食物为主,内分泌代谢科随诊。"
+      ]
+    },
+    {
+      "system": "生殖系统",
+      "positiveFindings": [
+        "钼靶提示:双乳腺体增生性改变;BI-RADS 0类(同2023年)。",
+        "超声提示:双侧乳腺小叶增生;双侧乳腺结节(与去年对比大小稳定)。",
+        "超声提示:子宫肌层回声欠均匀(同2023年)。"
+      ],
+      "assessmentAndRecommendations": [
+        "乳腺结节及增生情况稳定，建议乳腺外科或妇科定期复查（如每年1次超声）。",
+        "子宫肌层回声欠均匀，建议妇科定期随诊。"
+      ]
+    },
+    {
+      "system": "血液系统",
+      "positiveFindings": [
+        "补体两项测定(C3、C4)提示:单项补体测定(C3)值偏高(1.50g/L)(参考值0.70-1.40);单项补体测定(C4)值偏高(0.540g/L)(参考值0.100-0.400)。",
+        "血粘度检测结果详见报告。"
+      ],
+      "assessmentAndRecommendations": [
+        "建议内科复查。"
+      ]
+    }
+  ],
+  "wellnessSafetyAssessment": null,
+  "healthPlan": null
+}

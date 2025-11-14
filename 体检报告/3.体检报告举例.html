@@ -1,0 +1,2612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script type="module" src="/@vite/client"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康评估报告模板 (v3.3)</title>
+    <!-- 样式与原文件相同 -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "SimSun", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+        
+        @media print {
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px;
+            margin: -20mm -20mm 20px -20mm;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-subtitle {
+            font-size: 14px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .title-main {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: white;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .qr-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .info-section {
+            margin: 20px 0;
+        }
+        
+        .info-row {
+            display: flex;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .info-label {
+            width: 120px;
+            font-weight: bold;
+        }
+        
+        .info-value {
+            flex: 1;
+        }
+        
+        .section-title {
+            background: #1e3a8a;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px 0;
+            text-align: center;
+        }
+        
+        .subsection-title {
+            background: #f3f4f6;
+            padding: 10px 15px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            border-left: 4px solid #1e3a8a;
+        }
+        
+        .content-box {
+            background: #f9fafb;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .recommendation-box {
+            background: #e8f5e9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        /* 新增：AI 和 医生评估框 的样式 */
+        .ai-judge-box, .doctor-judge-box {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+        .ai-judge-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+        }
+        .doctor-judge-box {
+            background: #e0f2fe;
+            border-left: 4px solid #0ea5e9;
+        }
+        .judge-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+        
+        table th {
+            background: #1e3a8a;
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+        
+        .highlight {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .page-number {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .body-diagram {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .body-diagram-placeholder {
+            width: 200px;
+            height: 400px;
+            margin: 0 auto;
+            background: #f3f4f6;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        /* 模板说明样式 */
+        .template-comment {
+            background: #fffbef;
+            border: 1px dashed #fcd34d;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #b45309;
+            border-radius: 5px;
+            display: none; /* 默认隐藏开发说明 */
+        }
+        
+        /* 开发模式下显示说明 */
+        body.dev-mode .template-comment {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 第1页 - 封面 -->
+    <!-- 数据来源: patientInfo 对象 -->
+    <div class="page">
+        <div class="header">
+            <div class="logo">INCOSC</div>
+            <div class="logo-subtitle">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            <div class="title-main">会员健康<br>档案</div>
+            <div class="subtitle">慢病康养，肿瘤预防，综合抗衰</div>
+        </div>
+        
+        <div class="qr-code">
+            <div class="qr-placeholder">扫码关注<br>INCOSC公众号</div>
+        </div>
+        
+        <div class="info-section">
+            <div class="info-row">
+                <div class="info-label">姓名：</div>
+                <div class="info-value" data-json-path="patientInfo.name"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">性别：</div>
+                <div class="info-value" data-json-path="patientInfo.gender"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">年龄：</div>
+                <div class="info-value" data-json-path="patientInfo.age"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">身高：</div>
+                <div class="info-value" data-json-path="patientInfo.height"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">体重：</div>
+                <div class="info-value" data-json-path="patientInfo.weight"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">BMI：</div>
+                <div class="info-value" data-json-path="patientInfo.bmi"></div>
+            </div>
+            <!-- 更新：血压拆分 -->
+            <div class="info-row">
+                <div class="info-label">收缩压：</div>
+                <div class="info-value" data-json-path="patientInfo.bloodPressure_Systolic"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">舒张压：</div>
+                <div class="info-value" data-json-path="patientInfo.bloodPressure_Diastolic"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">过敏：</div>
+                <div class="info-value" data-json-path="patientInfo.allergy"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">诉求：</div>
+                <div class="info-value" data-json-path="patientInfo.mainConcern"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">体检单位</div>
+                <div class="info-value" data-json-path="patientInfo.examUnit"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">检查日期</div>
+                <div class="info-value" data-json-path="patientInfo.examDate"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">建档日期：</div>
+                <div class="info-value" data-json-path="patientInfo.reportDate"></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            深耕细胞科技<br>守护国民健康
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 1</div>
+    </div>
+
+    <!-- 第2页 - 病史 与 专科检查 -->
+    <!-- 数据来源: medicalHistory 对象 和 specialistExams 数组 -->
+    <div class="page">
+        <div class="section-title">体检结果</div>
+        
+        <!-- 更新：病史情况动态化 -->
+        <div class="subsection-title">病史情况</div>
+        <div class="content-box">
+            <p><strong>病史：</strong><span data-json-path="medicalHistory.history"></span></p>
+            <p><strong>服药情况：</strong><span data-json-path="medicalHistory.medication"></span></p>
+            <p><strong>营养品与保健品：</strong><span data-json-path="medicalHistory.supplements"></span></p>
+            <p><strong>生活方式：</strong><span data-json-path="medicalHistory.lifestyle"></span></p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p data-json-path="medicalHistory.assessment"></p>
+        </div>
+        
+        <!-- 专科检查动态内容 -->
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `specialistExams` 数组动态生成。将为数组中的每个对象重复 `specialist-exam-item` 模板块。</p>
+            <p><strong>V3.3 新增：</strong>每个专科检查项现在包含 `AIJudge` 和 `DoctorJudge` 字段，需要使用 `.ai-judge-box` 和 `.doctor-judge-box` 样式展示。</p>
+            <p>示例结构：</p>
+            <pre>
+&lt;div class="subsection-title"&gt;{category}&lt;/div&gt;
+&lt;div class="content-box"&gt;{finding}&lt;/div&gt;
+&lt;div class="ai-judge-box"&gt;
+  &lt;div class="judge-title"&gt;AI 评估&lt;/div&gt;
+  &lt;p&gt;{AIJudge.result}: {AIJudge.assessment}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="doctor-judge-box"&gt;
+  &lt;div class="judge-title"&gt;医生评估&lt;/div&gt;
+  &lt;p&gt;{DoctorJudge.result}: {DoctorJudge.assessment}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="recommendation-box"&gt;{assessment}&lt;/div&gt;
+            </pre>
+        </div>
+
+        <div id="specialist-exams-container" data-json-array="specialistExams">
+            <!-- specialistExams 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 2</div>
+    </div>
+
+    <!-- 第3页 - 实验室检查 -->
+    <!-- 数据来源: labResults 数组 -->
+    <div class="page">
+        <div class="section-title">实验室检查结果</div>
+
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `labResults` 数组动态生成。将为数组中的每个对象（代表一个检查类别，如"血常规"）重复 `lab-result-category` 模板块。</p>
+            <p><strong>V3.3 新增：</strong>每个检查类别（category）和每个检查项（item）都包含 `AIJudge` 和 `DoctorJudge` 字段。</p>
+            <p>结构说明：</p>
+            <ul>
+                <li>类别级别：在类别表格后显示该类别的 AI 和医生综合评估</li>
+                <li>项目级别：每个异常项目（isAbnormal=true）可以选择性显示 AI/医生评估</li>
+            </ul>
+        </div>
+
+        <div id="lab-results-container" data-json-array="labResults">
+            <!-- labResults 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 3</div>
+    </div>
+
+    <!-- 第4页 - 影像检查 -->
+    <!-- 数据来源: imagingResults 数组 -->
+    <div class="page">
+        <div class="section-title">影像检查</div>
+
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `imagingResults` 数组动态生成。将为数组中的每个对象重复 `imaging-result-item` 模板块。</p>
+            <p><strong>V3.3 新增：</strong>每个影像检查项现在包含 `AIJudge` 和 `DoctorJudge` 字段，需要使用 `.ai-judge-box` 和 `.doctor-judge-box` 样式展示。</p>
+            <p>示例结构：</p>
+            <pre>
+&lt;div class="subsection-title"&gt;{category}&lt;/div&gt;
+&lt;div class="content-box"&gt;
+  {findings.map(f =&gt; `&lt;p&gt;• ${f}&lt;/p&gt;`).join('')}
+&lt;/div&gt;
+&lt;div class="ai-judge-box"&gt;
+  &lt;div class="judge-title"&gt;AI 评估&lt;/div&gt;
+  &lt;p&gt;{AIJudge.result}: {AIJudge.assessment}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="doctor-judge-box"&gt;
+  &lt;div class="judge-title"&gt;医生评估&lt;/div&gt;
+  &lt;p&gt;{DoctorJudge.result}: {DoctorJudge.assessment}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="recommendation-box"&gt;{assessment}&lt;/div&gt;
+            </pre>
+        </div>
+
+        <div id="imaging-results-container" data-json-array="imagingResults">
+            <!-- imagingResults 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 4</div>
+    </div>
+
+    <!-- 第5页 - 健康专家意见封面 -->
+    <!-- 静态页面 -->
+    <div class="page">
+        <div style="text-align: center; margin-top: 100px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 50px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            
+            <h1 style="font-size: 36px; margin: 80px 0; color: #1e3a8a;">健康专家意见</h1>
+            
+            <div class="body-diagram">
+                <div class="body-diagram-placeholder">人体示意图</div>
+            </div>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 5</div>
+    </div>
+
+    <!-- 第6页 - 健康专家意见详情 -->
+    <!-- 数据来源: expertOpinions 数组 -->
+    <div class="page">
+        <div class="section-title">健康系统</div>
+
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `expertOpinions` 数组动态生成。将为数组中的每个对象重复 `expert-opinion-item` 模板块。</p>
+            <p><strong>V3.3 新增：</strong>每个健康系统意见现在包含 `AIJudge` 和 `DoctorJudge` 字段，需要使用 `.ai-judge-box` 和 `.doctor-judge-box` 样式展示。</p>
+            <p>示例结构：</p>
+            <pre>
+&lt;div class="subsection-title"&gt;{system}&lt;/div&gt;
+&lt;div class="content-box"&gt;
+  &lt;p&gt;&lt;strong&gt;体检阳性发现：&lt;/strong&gt;&lt;/p&gt;
+  {positiveFindings.map(f =&gt; `&lt;p&gt;• ${f}&lt;/p&gt;`).join('')}
+&lt;/div&gt;
+&lt;div class="ai-judge-box"&gt;
+  &lt;div class="judge-title"&gt;AI 评估&lt;/div&gt;
+  &lt;p&gt;{AIJudge.result}: {AIJudge.assessment}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="doctor-judge-box"&gt;
+  &lt;div class="judge-title"&gt;医生评估&lt;/div&gt;
+  &lt;p&gt;{DoctorJudge.result}: {DoctorJudge.assessment}&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="recommendation-box"&gt;
+  &lt;p&gt;&lt;strong&gt;医疗组评估及建议：&lt;/strong&gt;&lt;/p&gt;
+  {assessmentAndRecommendations.map(r =&gt; `&lt;p&gt;• ${r}&lt;/p&gt;`).join('')}
+&lt;/div&gt;
+            </pre>
+        </div>
+        
+        <div id="expert-opinions-container" data-json-array="expertOpinions">
+            <!-- expertOpinions 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+
+        <div class="page-number">健康评估报告|客户隐私文件 6</div>
+    </div>
+
+    <!-- 第7页 - 康养安全意见封面 -->
+    <!-- 静态页面 -->
+    <div class="page">
+        <div style="text-align: center; margin-top: 100px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 50px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            
+            <h1 style="font-size: 36px; margin: 80px 0; color: #1e3a8a;">康养安全意见</h1>
+            
+            <div class="body-diagram">
+                <div class="body-diagram-placeholder">人体示意图</div>
+            </div>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 7</div>
+    </div>
+
+    <!-- 第8页 - 康养安全评估 -->
+    <!-- 数据来源: wellnessSafetyAssessment 对象 -->
+    <div class="page">
+        <div class="section-title">康养安全评估</div>
+        
+        <div class="subsection-title">一、适用性评估</div>
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容根据 `wellnessSafetyAssessment.applicabilityAssessment` 数组生成，为每项生成一个 `content-box`。</p>
+        </div>
+        <div id="applicability-assessment-container" data-json-array="wellnessSafetyAssessment.applicabilityAssessment">
+            <!-- applicabilityAssessment 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+
+        
+        <div class="subsection-title">二、安全性评估</div>
+        <div>
+            <div class="content-box">
+                <p><strong>（1）不宜安排细胞应用的情况：</strong></p>
+                <div id="contraindications-container" data-json-array="wellnessSafetyAssessment.safetyAssessment.contraindications">
+                    <!-- contraindications 循环模板 - 将由 JavaScript 填充 -->
+                </div>
+            </div>
+            
+            <div class="content-box">
+                <p><strong>（2）评估结果：</strong><span data-json-path="wellnessSafetyAssessment.safetyAssessment.assessmentResult"></span></p>
+            </div>
+            
+            <div class="content-box">
+                <p><strong>（3）特别提示：</strong><span data-json-path="wellnessSafetyAssessment.safetyAssessment.specialNote"></span></p>
+            </div>
+        </div>
+
+        
+        <div class="subsection-title">三、补充检查（应用细胞前）</div>
+        <div class="content-box">
+            <p><strong>（1）抽血项目：</strong></p>
+            <div id="blood-draw-items-container" data-json-array="wellnessSafetyAssessment.supplementaryExams.bloodDrawItems">
+                <!-- bloodDrawItems 循环模板 - 将由 JavaScript 填充 -->
+            </div>
+            
+            <p style="margin-top: 10px;"><strong>（2）影像学检查：</strong></p>
+            <div id="imaging-exams-container" data-json-array="wellnessSafetyAssessment.supplementaryExams.imagingExams">
+                <!-- imagingExams 循环模板 - 将由 JavaScript 填充 -->
+            </div>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 8</div>
+    </div>
+
+    <!-- 第9页 - 康养计划(1) -->
+    <!-- 数据来源: healthPlan 对象 -->
+    <div class="page">
+        <div class="section-title">康养计划（1）</div>
+        
+        <div class="subsection-title">一、主要健康问题</div>
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容根据 `healthPlan.mainIssues` 数组生成，为每项生成一个 `content-box`。</p>
+        </div>
+        <div id="main-issues-container" data-json-array="healthPlan.mainIssues">
+            <!-- healthPlan.mainIssues 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+        
+        <div class="subsection-title">二、次要健康问题</div>
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容根据 `healthPlan.secondaryIssues` 数组生成，为每项生成一个 `content-box`。</p>
+        </div>
+        <div id="secondary-issues-container" data-json-array="healthPlan.secondaryIssues">
+            <!-- healthPlan.secondaryIssues 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 9</div>
+    </div>
+
+
+    <!-- 第10页 - 康养计划(2) -->
+    <!-- 数据来源: healthPlan 对象 -->
+    <div class="page">
+        <div class="section-title">康养计划（2）</div>
+
+        <div class="subsection-title">一、康养计划</div>
+        
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>康养保健方案表格将根据 `healthPlan.planDetails` 数组动态填充。</p>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4" style="text-align: center; font-size: 16px;">康养保健方案</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>细胞类型</th>
+                    <th>应用方案</th>
+                    <th>预期效果</th>
+                </tr>
+            </thead>
+            <tbody id="plan-details-tbody" data-json-array="healthPlan.planDetails">
+                <!-- healthPlan.planDetails 循环模板 - 将由 JavaScript 填充 -->
+            </tbody>
+        </table>
+
+        <div class="subsection-title">二、预防计划</div>
+        
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容根据 `healthPlan.preventivePlan` 数组生成，为每项生成一个段落。</p>
+        </div>
+        <div class="content-box" id="preventive-plan-container" data-json-array="healthPlan.preventivePlan">
+            <!-- healthPlan.preventivePlan 循环模板 - 将由 JavaScript 填充 -->
+        </div>
+
+        <div class="page-number">健康评估报告|客户隐私文件 10</div>
+    </div>
+
+    <!-- 第11页 - 结束页 -->
+    <!-- 静态页面 -->
+    <div class="page">
+        <div style="text-align: center; margin-top: 150px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 30px; font-size: 60px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666; font-size: 16px; margin-bottom: 50px;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            
+            <div class="qr-code" style="margin: 50px auto;">
+                <div class="qr-placeholder">二维码<br>扫码关注</div>
+            </div>
+            
+            <p style="font-size: 18px; color: #1e3a8a; margin: 20px 0;">扫码关注</p>
+            <p style="font-size: 20px; font-weight: bold; color: #1e3a8a; margin: 20px 0;">INCOSC 公众号</p>
+            
+            <div style="margin-top: 80px; padding: 30px; background: #f3f4f6; border-radius: 10px;">
+                <p style="font-size: 14px; color: #666; line-height: 2;">如果您在阅读本报告时有问题，请及时向您的健康管理专家或<br>医生进行咨询。</p>
+            </div>
+            
+            <div style="margin-top: 50px; font-size: 16px; color: #1e3a8a;">
+                <p>慢病康养，肿瘤预防，综合抗衰</p>
+            </div>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 11</div>
+    </div>
+
+
+    <script>
+      const reportData = {
+  "reportId": "0371202310273020",
+  "patientInfo": {
+    "name": "袁英",
+    "gender": "女",
+    "age": 48,
+    "height": "159.5",
+    "weight": "59.0",
+    "bmi": "23.2",
+    "bloodPressure_Diastolic": "63",
+    "bloodPressure_Systolic": "117",
+    "allergy": "",
+    "mainConcern": "",
+    "examUnit": "瑞慈健康体检",
+    "examDate": "2023-10-27",
+    "reportDate": "2023-10-27"
+  },
+  "medicalHistory": {
+    "history": "不详",
+    "medication": "不详",
+    "supplements": "不详",
+    "lifestyle": "不详",
+    "assessment": ""
+  },
+  "specialistExams": [
+    {
+      "category": "内科",
+      "finding": "营养良好，面容正常，心率76次/分，心律齐，心音正常，无心脏杂音，两肺呼吸音正常，腹部未见异常，肝脏肋下未及，脾脏肋下未及。",
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "内科检查结果总体良好，未见明显异常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "外科",
+      "finding": "皮肤未见异常，浅表淋巴结未见异常，甲状腺未见异常，双侧乳腺小叶增生，脊柱未见异常，四肢关节未见异常，肛门指诊未见异常。",
+      "assessment": "双侧乳腺小叶增生",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "发现双侧乳腺小叶增生，建议定期复查乳腺相关检查。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "妇科",
+      "finding": "外阴未见异常，阴道未见异常，宫颈未见异常，宫体未见异常，附件未触及异常。人乳头瘤病毒16型和18型检测(妇科)已采样，白带常规(妇科)已采集，TCT(妇科)已采集。",
+      "assessment": "TCT(液基超薄细胞检测)未见上皮内病变或恶性细胞(NILM)。炎症反应性细胞改变。请结合临床并定期复查。",
+      "AIJudge": {
+        "result": "建议关注",
+        "assessment": "妇科检查显示TCT有炎症反应性细胞改变，建议结合临床并定期复查。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "眼科",
+      "finding": "戴镜视力右1.2，戴镜视力左1.0，外眼检查未见异常，眼底检查未见明显异常，裂隙灯检查未见异常。",
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "眼科检查结果正常，视力良好，眼底及裂隙灯检查未见明显异常。"
+      },
+      "DoctorJudge": ""
+    }
+  ],
+  "labResults": [
+    {
+      "category": "尿常规",
+      "items": [
+        {
+          "name": "尿比重",
+          "value": "1.020",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿比重在正常范围内，提示肾脏浓缩功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "1.003-1.025",
+          "unit": ""
+        },
+        {
+          "name": "白细胞",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液白细胞阴性，未见感染迹象。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "红细胞计数",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液红细胞阴性，未见血尿迹象。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-25",
+          "unit": "个/μl"
+        },
+        {
+          "name": "鳞状上皮细胞",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到异常鳞状上皮细胞。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-28",
+          "unit": "个/μl"
+        },
+        {
+          "name": "透明管型",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到透明管型。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-1",
+          "unit": "个/LP"
+        },
+        {
+          "name": "细菌",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到细菌，尿路感染风险较低。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-386",
+          "unit": ""
+        },
+        {
+          "name": "霉菌",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到霉菌。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "粘液丝",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到粘液丝。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "非鳞状上皮细胞",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到异常非鳞状上皮细胞。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-28",
+          "unit": "个/μl"
+        },
+        {
+          "name": "病理管型",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到病理管型，提示肾脏功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-1",
+          "unit": "个/LP"
+        },
+        {
+          "name": "白细胞计数",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液白细胞计数阴性，未见异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-25",
+          "unit": "个/μl"
+        },
+        {
+          "name": "颜色",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液颜色正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "",
+          "unit": ""
+        },
+        {
+          "name": "尿潜血",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿潜血阴性，未见异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "胆红素",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿胆红素阴性，肝功能无明显异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "尿胆原",
+          "value": "norm.",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿胆原正常，肝功能无明显异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "尿酮体",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿酮体阴性，未见代谢异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "尿蛋白",
+          "value": "++",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "尿蛋白呈阳性(++)，提示肾功能可能存在异常，建议肾内科复查并进一步诊治。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "葡萄糖",
+          "value": "(-)",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿糖阴性，血糖控制良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "酸碱度（PH）",
+          "value": "8.00",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿液酸碱度在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "5.5-7",
+          "unit": ""
+        }
+      ],
+      "assessment": "尿常规检查中尿蛋白呈阳性(++)，需要引起重视，建议肾内科复查。",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "尿常规检查发现尿蛋白异常，提示肾功能可能存在问题，建议及时就医进行肾内科复查和评估，明确病因并进行针对性治疗。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "尿生化",
+      "items": [
+        {
+          "name": "尿微量白蛋白",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到尿微量白蛋白异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-20",
+          "unit": "mg/l"
+        },
+        {
+          "name": "尿肌酐",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿肌酐正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "3540-24600",
+          "unit": ""
+        },
+        {
+          "name": "尿微量白蛋白/尿肌酐",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿微量白蛋白与尿肌酐比值正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-35",
+          "unit": "mg/l"
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "尿生化各项指标正常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "血常规",
+      "items": [
+        {
+          "name": "白细胞计数",
+          "value": "4.030",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "白细胞计数在正常范围内，未见感染或免疫异常迹象。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "3.5-9.5",
+          "unit": "10^9/L"
+        },
+        {
+          "name": "中性粒细胞比值",
+          "value": "57.90",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "中性粒细胞比值正常，提示免疫功能稳定。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "40.0-75.0",
+          "unit": "%"
+        },
+        {
+          "name": "淋巴细胞比值",
+          "value": "35.10",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "淋巴细胞比值正常，免疫系统功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "20.0-50.0",
+          "unit": "%"
+        },
+        {
+          "name": "单核细胞比值",
+          "value": "4.70",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "单核细胞比值正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "3.0-10.0",
+          "unit": "%"
+        },
+        {
+          "name": "中性粒细胞绝对值",
+          "value": "2.33",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "中性粒细胞绝对值正常，免疫防御功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "1.8-6.3",
+          "unit": "10^9/L"
+        },
+        {
+          "name": "淋巴细胞绝对值",
+          "value": "1.41",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "淋巴细胞绝对值正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "1.1-3.2",
+          "unit": "10^9/L"
+        },
+        {
+          "name": "单核细胞绝对值",
+          "value": "0.19",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "单核细胞绝对值正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0.10-0.6",
+          "unit": "10^9/L"
+        },
+        {
+          "name": "红细胞计数",
+          "value": "4.08",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "红细胞计数在正常范围内，未见贫血迹象。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "3.80-5.1",
+          "unit": "10^12/L"
+        },
+        {
+          "name": "血红蛋白",
+          "value": "137",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血红蛋白水平正常，提示身体携氧能力良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "115-150",
+          "unit": "g/L"
+        },
+        {
+          "name": "红细胞压积",
+          "value": "39.900",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "红细胞压积正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "40.0-50.0",
+          "unit": "%"
+        },
+        {
+          "name": "平均血红蛋白含量",
+          "value": "33.4",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "平均血红蛋白含量正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "27.0-34.0",
+          "unit": "pg"
+        },
+        {
+          "name": "平均血红蛋白浓度",
+          "value": "342",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "平均血红蛋白浓度正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "320-350",
+          "unit": "g/L"
+        },
+        {
+          "name": "血小板计数",
+          "value": "149",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血小板计数在正常范围内，凝血功能正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "125-350",
+          "unit": "10^9/L"
+        }
+      ],
+      "assessment": "血常规各项指标均在正常范围内。",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "血常规检查结果显示各项指标均在正常范围内，血液系统功能良好。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "血糖",
+      "items": [
+        {
+          "name": "空腹葡萄糖",
+          "value": "5.1",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "空腹血糖值在正常范围内，提示血糖控制良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "3.9-5.6",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "餐后 2 小时血糖",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到餐后2小时血糖异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<7.8",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "糖化血红蛋白",
+          "value": "5.20",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "糖化血红蛋白在正常范围内，反映近2-3个月血糖控制良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "4-6",
+          "unit": "%"
+        },
+        {
+          "name": "空腹胰岛素",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到空腹胰岛素异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "2.6-24.9",
+          "unit": "uU/mL"
+        },
+        {
+          "name": "空腹 C 肽",
+          "value": "1.00",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "C肽测定值正常，提示胰岛素分泌功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0.62-2.74",
+          "unit": "ng/mL"
+        }
+      ],
+      "assessment": "血糖相关指标均在正常范围内，血糖控制良好。",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "血糖相关检查结果显示各项指标均在正常范围内，提示血糖控制良好，胰岛功能正常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "肝功能",
+      "items": [
+        {
+          "name": "谷丙转移酶",
+          "value": "12.2",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "谷丙转移酶正常，肝细胞损伤风险低。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "9-50",
+          "unit": "U/L"
+        },
+        {
+          "name": "谷草转移酶",
+          "value": "15.2",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "谷草转移酶正常，肝功能无明显异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "13-35",
+          "unit": "U/L"
+        },
+        {
+          "name": "r-GGT",
+          "value": "31.2",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "γ-谷氨酰基转移酶正常，提示肝胆系统功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "10-60",
+          "unit": "U/L"
+        },
+        {
+          "name": "总胆红素",
+          "value": "11.7",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "总胆红素在正常范围内，未见黄疸迹象。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-21",
+          "unit": "umol/L"
+        },
+        {
+          "name": "直接胆红素",
+          "value": "3.25",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "直接胆红素正常，肝脏代谢功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-17.1",
+          "unit": "umol/L"
+        },
+        {
+          "name": "间接胆红素",
+          "value": "8.45",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "间接胆红素正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "1.7-10.2",
+          "unit": "umol/L"
+        },
+        {
+          "name": "碱性磷酸酶",
+          "value": "83.9",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "碱性磷酸酶正常，肝胆功能无明显异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "45-125",
+          "unit": "U/L"
+        },
+        {
+          "name": "血清总蛋白",
+          "value": "69.8",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血清总蛋白正常，营养状况良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "65-85",
+          "unit": "g/L"
+        },
+        {
+          "name": "血清白蛋白",
+          "value": "45.0",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血清白蛋白正常，提示肝脏合成功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "40-55",
+          "unit": "g/L"
+        },
+        {
+          "name": "血清球蛋白",
+          "value": "24.80",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血清球蛋白正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "20-40",
+          "unit": "g/L"
+        },
+        {
+          "name": "血清白球比",
+          "value": "1.81",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "白球比正常，肝功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "1.2-2.4",
+          "unit": ":1"
+        }
+      ],
+      "assessment": "肝功能各项指标均在正常范围内，肝脏功能良好。",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "肝功能检查结果显示各项指标均在正常范围内，提示肝脏功能良好。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "血脂",
+      "items": [
+        {
+          "name": "总胆固醇",
+          "value": "6.06",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "总胆固醇偏高，提示血脂异常，增加心血管疾病风险，建议调整饮食结构，减少高胆固醇食物摄入，并定期复查。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<5.20",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "LDL-胆固醇",
+          "value": "2.98",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "低密度脂蛋白胆固醇在正常范围内，但总胆固醇偏高时仍需关注。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "2.1-3.34",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "HDL-胆固醇",
+          "value": "2.53",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "高密度脂蛋白胆固醇偏高，通常认为是心血管保护因素，但仍需结合其他血脂指标全面评估。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": ">1.04",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "甘油三酯",
+          "value": "0.67",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "甘油三酯在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-1.69",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "载脂蛋白 A1",
+          "value": "1.96",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "载脂蛋白A1偏高，通常与高密度脂蛋白胆固醇升高相关，对心血管有保护作用，但仍需结合其他指标综合评估。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "1-1.6",
+          "unit": "g/L"
+        },
+        {
+          "name": "载脂蛋白 B",
+          "value": "0.99",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "载脂蛋白B在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0.6-1.1",
+          "unit": "g/L"
+        },
+        {
+          "name": "脂蛋白 a",
+          "value": "456.6",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "血清脂蛋白a测定值偏高，脂蛋白a水平升高与动脉粥样硬化、冠心病、心肌梗死、脑出血有密切关系。建议心内科随诊，并咨询医生制定干预方案。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-300",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "同型半氨胱酸",
+          "value": "8.8",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "同型半胱氨酸在正常范围内，降低心血管疾病风险。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "6.0-16.0",
+          "unit": "umol/L"
+        }
+      ],
+      "assessment": "血脂检查发现总胆固醇、高密度脂蛋白胆固醇、载脂蛋白A1和脂蛋白a偏高，提示血脂代谢异常，心血管疾病风险增加。特别是脂蛋白a偏高，与动脉粥样硬化风险密切相关，需引起高度重视。",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "总胆固醇、高密度脂蛋白胆固醇、载脂蛋白A1和脂蛋白a均偏高。其中脂蛋白a升高是心血管疾病的独立危险因素，建议立即咨询心内科医生，进行更全面的心血管风险评估，并根据医生建议调整生活方式或考虑药物干预。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "肾功能",
+      "items": [
+        {
+          "name": "尿素",
+          "value": "4.33",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "尿素值正常，肾脏排泄功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "2.86-8.20",
+          "unit": "mmol/L"
+        },
+        {
+          "name": "肌酐",
+          "value": "55.2",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "肌酐值正常，肾脏滤过功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "57-130",
+          "unit": "umol/L"
+        },
+        {
+          "name": "血尿酸",
+          "value": "403.3",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "血尿酸偏高，提示存在高尿酸血症。高尿酸血症可能导致痛风、肾脏损害及心血管疾病，建议调整饮食结构，减少高嘌呤食物摄入，多饮水，并咨询医生进行进一步评估和管理。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "150-416",
+          "unit": "umol/L"
+        },
+        {
+          "name": "eGFR",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "肾小球滤过率正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "100-120",
+          "unit": "ml/min"
+        },
+        {
+          "name": "血清胱抑素 C",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血清胱抑素C正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0.51-1.09",
+          "unit": "mg/L"
+        }
+      ],
+      "assessment": "血尿酸偏高，提示高尿酸血症。",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "肾功能检查发现血尿酸偏高，属于高尿酸血症，建议调整饮食（避免高嘌呤食物，多饮水），并咨询内分泌代谢科或肾内科医生，以预防痛风及其他相关并发症。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "肿瘤标志物",
+      "items": [
+        {
+          "name": "AFP",
+          "value": "3.36",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "甲胎蛋白在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<9.0",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "CEA",
+          "value": "1.09",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "癌胚抗原在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<5.0",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "CA125",
+          "value": "6.05",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "CA125在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<24.00",
+          "unit": "U/ml"
+        },
+        {
+          "name": "CA15-3",
+          "value": "4.39",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "CA15-3在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<26.40",
+          "unit": "U/ml"
+        },
+        {
+          "name": "CA19-9",
+          "value": "12.58",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "CA19-9在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<27.00",
+          "unit": "U/ml"
+        },
+        {
+          "name": "CA72-4",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到CA72-4异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<6.9",
+          "unit": "U/ml"
+        },
+        {
+          "name": "CA24-2",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到CA24-2异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<20.00",
+          "unit": "U/ml"
+        },
+        {
+          "name": "CYFRA21-1",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到CYFRA21-1异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<3.30",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "NSE",
+          "value": "2.62",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "NSE在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<16.30",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "SCC",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到SCC异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<2.D",
+          "unit": "U/ml"
+        },
+        {
+          "name": "TPSA",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到TPSA异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<4.00",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "FPSA",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到FPSA异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": ">0.930",
+          "unit": "ng/ml"
+        },
+        {
+          "name": "FPSA/TPSA",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "FPSA/TPSA比值正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0.25-1.00",
+          "unit": ""
+        },
+        {
+          "name": "铁蛋白",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到铁蛋白异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "23.9-336.2",
+          "unit": "ng/mL"
+        }
+      ],
+      "assessment": "肿瘤标志物检查结果均在正常范围内。",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "肿瘤标志物检查结果均在正常范围内，目前未见肿瘤相关指标异常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "甲状腺功能",
+      "items": [
+        {
+          "name": "TSH",
+          "value": "3.03",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "促甲状腺激素在正常范围内，甲状腺功能正常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0.35-4.94",
+          "unit": "ulU/mL"
+        },
+        {
+          "name": "T3",
+          "value": "1.62",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "三碘甲状腺原氨酸在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0.84-2.02",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "T4",
+          "value": "90.03",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "甲状腺素在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "5.13-14.06",
+          "unit": "ug/dl"
+        },
+        {
+          "name": "FT4",
+          "value": "15.23",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "游离甲状腺素在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0.7-1.48",
+          "unit": "ng/dL"
+        },
+        {
+          "name": "FT3",
+          "value": "2.82",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "游离三碘甲状腺原氨酸在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "3.53-7.37",
+          "unit": "pmol/L"
+        },
+        {
+          "name": "TPO-Ab",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到TPO-Ab异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<34",
+          "unit": "U/ml"
+        },
+        {
+          "name": "TG-Ab",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到TG-Ab异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<=115",
+          "unit": "U/ml"
+        }
+      ],
+      "assessment": "甲状腺功能各项指标均在正常范围内。",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "甲状腺功能检查结果显示各项指标均在正常范围内，提示甲状腺功能良好。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "凝血常规",
+      "items": [
+        {
+          "name": "凝血酶原时间PT",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到凝血酶原时间PT异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "11.5-14.5",
+          "unit": "s"
+        },
+        {
+          "name": "国际标准化比值 INR",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到国际标准化比值INR异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0.9-1.10",
+          "unit": ""
+        },
+        {
+          "name": "部分凝血活酶时间 APTT",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到部分凝血活酶时间APTT异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "29.2-41.2",
+          "unit": "s"
+        },
+        {
+          "name": "凝血酶时间 TT",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到凝血酶时间TT异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "14.5-18.5",
+          "unit": "s"
+        },
+        {
+          "name": "纤维蛋白原 FIB",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到纤维蛋白原FIB异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "2.00-4.00",
+          "unit": "g/L"
+        },
+        {
+          "name": "D-二聚体",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到D-二聚体异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0.00-0.50",
+          "unit": "ug/mL"
+        }
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "凝血常规各项指标均未检测到异常。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "传染病八项",
+      "items": [
+        {
+          "name": "乙肝表面抗原",
+          "value": "阴性",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "乙肝表面抗原阴性，未感染乙肝病毒。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "乙肝表面抗体",
+          "value": "阳性",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "乙肝表面抗体阳性，提示对乙肝病毒具有免疫力。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "丙肝抗体",
+          "value": "阴性",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "丙肝抗体阴性，未感染丙肝病毒。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        },
+        {
+          "name": "梅毒+HIV",
+          "value": "阴性",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "梅毒和HIV抗体均为阴性，未感染梅毒或HIV病毒。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "阴性",
+          "unit": ""
+        }
+      ],
+      "assessment": "乙肝表面抗体阳性，对乙肝病毒具有免疫力；丙肝抗体、梅毒和HIV抗体均为阴性。",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "传染病八项检查结果良好，乙肝表面抗体阳性提示具备免疫力，未发现其他传染病感染。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "其他检查",
+      "items": [
+        {
+          "name": "肌钙蛋白",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到肌钙蛋白异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<0.06",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "肌酸激酶",
+          "value": "50.0",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "血清磷酸肌酸激酶在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "40-200",
+          "unit": "U/L"
+        },
+        {
+          "name": "肌红蛋白",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到肌红蛋白异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "28-72",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "C-反应蛋白",
+          "value": "2.06",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "超敏C反应蛋白在正常范围内，提示炎症反应轻微。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "0-10",
+          "unit": "mg/L"
+        },
+        {
+          "name": "PGI",
+          "value": "72.00",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "胃蛋白酶原I在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": ">70",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "PGII",
+          "value": "8.8",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "胃蛋白酶原II在正常范围内。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<11",
+          "unit": "ng/mL"
+        },
+        {
+          "name": "PG1/PG2",
+          "value": "8.2",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "胃蛋白酶原比值在正常范围内，提示胃黏膜功能良好。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": ">7",
+          "unit": ""
+        },
+        {
+          "name": "胃泌素17",
+          "value": "52.90",
+          "isAbnormal": true,
+          "AIJudge": {
+            "result": "异常",
+            "assessment": "胃泌素-17偏高，可能与胃酸分泌异常或胃底黏膜病变有关，建议进一步胃部检查，如胃镜，以明确诊断。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "<5.7",
+          "unit": "pmol/L"
+        },
+        {
+          "name": "25-羟基维生素 D",
+          "value": "",
+          "isAbnormal": false,
+          "AIJudge": {
+            "result": "正常",
+            "assessment": "未检测到25-羟基维生素D异常。"
+          },
+          "DoctorJudge": "",
+          "referenceRange": "6.6-49.9",
+          "unit": "ng/ml"
+        }
+      ],
+      "assessment": "胃泌素-17偏高，需要进一步检查胃部情况。",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "其他检查结果显示胃泌素-17偏高，可能提示胃部存在异常，建议咨询消化内科医生，考虑进行胃镜等进一步检查以明确诊断。"
+      },
+      "DoctorJudge": ""
+    }
+  ],
+  "imagingResults": [
+    {
+      "category": "C13或C14呼气试验",
+      "findings": [
+        "呼气试验阴性",
+        "诊断: Hp阴性"
+      ],
+      "assessment": "",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "C13呼气试验结果阴性，未发现幽门螺旋杆菌感染。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "超声（心脏，血管）",
+      "findings": [
+        "左房室内径正常,左室壁不增厚,静息状态下各节段收缩活动未见明显异常。",
+        "二尖瓣不增厚,开放不受限。",
+        "升主动脉及主动脉根部不增宽,主动脉瓣不增厚,开放不受限。",
+        "右房室内径正常,肺动脉内径正常。",
+        "LVEF:62%",
+        "二尖瓣CDF/PWD:见轻度反流。",
+        "二尖瓣血流图示E>A。",
+        "主动脉瓣CDF/PWD:未见明显反流。",
+        "三尖瓣CDF/PWD:见轻度反流。",
+        "肺动脉瓣CDF/PWD:未见明显反流。",
+        "双侧颈动脉内径正常,管壁未见增厚,內膜光滑,管腔无明显狭窄和扩张。CDFI:显示血管充盈良好。"
+      ],
+      "assessment": "1.二尖瓣轻度反流;2.三尖瓣轻度反流",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "心脏彩超显示二尖瓣和三尖瓣存在轻度反流，建议咨询心内科医生进行随诊和评估。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "超声（甲状腺，肝胆胰脾，泌尿系统）",
+      "findings": [
+        "肝脏形态大小正常,实质回声分布均匀,血管纹理清晰。CDFI:未见明显异常血流信号。",
+        "胆囊大小正常范围,胆汁透声尚可,胆囊腔内未见异常回声。胆总管近端未见扩张。",
+        "胰腺形态大小正常,内部回声均匀,主胰管未见扩张。CDFI:未见明显异常血流信号。",
+        "脾脏形态大小正常,包膜完整,内部回声均匀。CDFI:未见明显异常血流信号。",
+        "双肾形态大小正常范围,包膜光滑,集合系统未见明显分离。CDFI:血流灌注良好。",
+        "双叶甲状腺形态大小正常,峡部厚度正常,包膜完整,内部回声均匀。CDFI:未见明显异常血流信号。",
+        "双侧乳腺腺体致密,内部回声增强,结构紊乱,分布不均,腺管未见明显扩张,双乳内见数枚异常回声,左侧较大位于2至3点钟方向为无回声,大小约5x3mm;右侧较大位于外上象限为低回声,大小约4.5x2.5mm。CDFI:未见明显异常血流信号。",
+        "子宫前位,形态正常,轮廓清晰,宫腔线居中,肌层回声欠均匀,子宫内膜4mm,双侧附件区未见明显异常。CDFI:未见明显异常血流信号。"
+      ],
+      "assessment": "1.双侧乳腺小叶增生;2.双侧乳腺结节;3.子宫肌层回声欠均匀;4.肝、胆、胰、脾、双肾目前未见明显占位性病变;5.双叶甲状腺未见明显异常;6.双侧颈动脉未见明显异常;7.双侧附件目前未见明显占位性病变",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "超声检查发现双侧乳腺小叶增生和结节，以及子宫肌层回声欠均匀。乳腺问题建议乳腺外科定期复查，子宫问题建议妇科随诊，以明确诊断并进行必要处理。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "X线或CT（颈，胸，腹部）",
+      "findings": [
+        "双侧大脑半球对称,脑实质内未见明显异常密度,各脑室、脑池大小形态正常,中线结构居中,小脑、脑干未见明显异常。",
+        "胸廓对称,两肺纹理增多,右肺上叶见微小结节影(薄层im45),直径约为4mm,余两肺未见明显实变影,气管及诸叶、段支气管通畅。纵隔窗示纵隔居中,纵隔内未见明显肿大淋巴结。心影未见明显异常,未见明显胸腔积液征象。",
+        "双乳腺体构成为ACRd型(致密型),双乳腺体呈片状及块状密度不均匀性增高未见明显肿块、钙化、结构扭曲及不对称致密影。双侧乳头、皮肤及皮下脂肪未见明显异常。双侧腋下未见明显肿大淋巴结。"
+      ],
+      "assessment": "头颅CT平扫未见明显异常征象。右肺上叶微小结节,建议随诊复查。双乳腺体增生性改变;鉴于双乳腺体构成为ACRd型(致密型),X线敏感性下降,BI-RADSO类,建议结合其它影像学检查。",
+      "AIJudge": {
+        "result": "异常",
+        "assessment": "CT检查发现右肺上叶微小结节，钼靶显示双乳腺体增生且为致密型（BI-RADSO类）。肺部结节建议呼吸内科随诊复查，乳腺问题因X线敏感性下降，建议结合乳腺超声等其他影像学检查进行综合评估和定期复查。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "category": "十二道导联心电图",
+      "findings": [
+        "心率:70 bpm",
+        "PR间期:192 ms",
+        "QRS时限:91 ms",
+        "QT间期:382 ms",
+        "QTC间期:400 ms",
+        "P电轴:64 Angle",
+        "QRS电轴:78 Angle",
+        "T电轴:67 Angle",
+        "RV5:1.23 mv",
+        "SV1:0.60 mv"
+      ],
+      "assessment": "窦性心律，正常心电图",
+      "AIJudge": {
+        "result": "正常",
+        "assessment": "心电图检查结果正常，提示心脏电生理活动良好。"
+      },
+      "DoctorJudge": ""
+    }
+  ],
+  "expertOpinions": [
+    {
+      "system": "心血管系统",
+      "positiveFindings": [
+        "二尖瓣轻度反流",
+        "三尖瓣轻度反流",
+        "血清脂蛋白a测定值偏高(456.6mg/L)(参考值3--397)",
+        "总胆固醇(6.06 mmol/L)高于正常上限(5.20 mmol/L)",
+        "高密度脂蛋白胆固醇(2.53 mmol/L)高于正常上限(2.19 mmol/L)",
+        "载脂蛋白A1(1.96 g/L)高于正常上限(1.6 g/L)"
+      ],
+      "assessmentAndRecommendations": [
+        "心超提示二尖瓣轻度反流、三尖瓣轻度反流，建议心内科随诊。",
+        "血脂八项提示血清脂蛋白a测定值偏高，脂蛋白a水平升高与动脉粥样硬化、冠心病、心肌梗死、脑出血有密切关系，建议心内科随诊。"
+      ],
+      "AIJudge": {
+        "result": "异常，需进一步诊疗",
+        "assessment": "心脏超声显示二尖瓣和三尖瓣轻度反流，结合血脂检查总胆固醇、高密度脂蛋白胆固醇、载脂蛋白A1和脂蛋白a均偏高，特别是脂蛋白a升高是心血管疾病的独立危险因素。这些结果提示存在心血管系统风险，建议立即咨询心内科医生，进行更全面的心血管风险评估，并根据医生建议调整生活方式或考虑药物干预。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "system": "呼吸系统",
+      "positiveFindings": [
+        "右肺上叶微小结节(直径约为4mm)"
+      ],
+      "assessmentAndRecommendations": [
+        "CT提示右肺上叶微小结节，建议呼吸内科随诊复查。"
+      ],
+      "AIJudge": {
+        "result": "异常，建议关注",
+        "assessment": "胸部CT发现右肺上叶微小结节，虽然目前尺寸较小，但仍建议咨询呼吸内科医生，定期随访观察结节变化，必要时进行进一步检查以排除恶性病变。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "system": "泌尿系统",
+      "positiveFindings": [
+        "尿蛋白(++)",
+        "血清尿酸值偏高(403.3umol/L)(参考值140--340)"
+      ],
+      "assessmentAndRecommendations": [
+        "尿蛋白呈阳性，建议肾内科复查。",
+        "血尿酸偏高，属于高尿酸血症，建议调整饮食结构，以低嘌呤食物为主，内分泌代谢科随诊。"
+      ],
+      "AIJudge": {
+        "result": "异常，需进一步诊疗",
+        "assessment": "尿常规提示尿蛋白阳性，同时血尿酸偏高，提示泌尿系统和代谢功能可能存在异常。建议立即就医，咨询肾内科医生进行全面检查，明确尿蛋白原因，并根据医生指导调整高尿酸血症，预防痛风和肾脏损害。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "system": "内分泌系统",
+      "positiveFindings": [
+        "单项补体测定(C3)值偏高(1.51g/L)(参考值0.70-1.40)",
+        "单项补体测定(C4)值偏高(0.541g/L)(参考值0.100-0.400)"
+      ],
+      "assessmentAndRecommendations": [
+        "补体两项测定(C3、C4)偏高，建议内科复查。"
+      ],
+      "AIJudge": {
+        "result": "异常，建议关注",
+        "assessment": "补体C3和C4均偏高，可能提示体内存在炎症、感染或免疫系统活跃，建议咨询内科医生，进行进一步检查以明确原因。"
+      },
+      "DoctorJudge": ""
+    },
+    {
+      "system": "生殖系统",
+      "positiveFindings": [
+        "双侧乳腺小叶增生",
+        "双侧乳腺结节",
+        "子宫肌层回声欠均匀",
+        "双乳腺体增生性改变"
+      ],
+      "assessmentAndRecommendations": [
+        "乳腺超声提示双侧乳腺小叶增生、结节，乳腺钼靶提示双乳腺体增生性改变，建议乳腺外科定期复查。",
+        "【乳腺小叶增生】应及时到医院检查，以防隐患。",
+        "子宫超声提示子宫肌层回声欠均匀，建议妇科随诊。"
+      ],
+      "AIJudge": {
+        "result": "异常，需进一步诊疗",
+        "assessment": "乳腺检查发现双侧乳腺小叶增生和结节，且乳腺密度高（BI-RADSO类），增加了X线检查的难度，可能掩盖病变。同时，子宫肌层回声欠均匀。这些结果提示乳腺和妇科健康存在异常。建议咨询乳腺外科和妇科医生，进行乳腺超声、乳腺MRI等进一步检查，并定期随访，以排除恶性病变及其他妇科问题。"
+      },
+      "DoctorJudge": ""
+    }
+  ],
+  "wellnessSafetyAssessment": {
+    "applicabilityAssessment": [],
+    "safetyAssessment": {
+      "contraindications": [],
+      "assessmentResult": "",
+      "specialNote": ""
+    },
+    "supplementaryExams": {
+      "bloodDrawItems": [],
+      "imagingExams": []
+    }
+  },
+  "healthPlan": {
+    "mainIssues": [],
+    "secondaryIssues": [],
+    "planDetails": [],
+    "preventivePlan": []
+  }
+};
+      
+      /**
+       * 从对象路径获取值
+       * @param {object} obj - 数据对象
+       * @param {string} path - 路径，如 "patientInfo.name"
+       * @returns {*} 值
+       */
+      function getValueByPath(obj, path) {
+        if (!path) return null;
+        const keys = path.split('.');
+        let value = obj;
+        for (const key of keys) {
+          if (value && typeof value === 'object' && key in value) {
+            value = value[key];
+          } else {
+            return null;
+          }
+        }
+        return value;
+      }
+      
+      /**
+       * 安全的 HTML 转义
+       */
+      function escapeHtml(text) {
+        if (text === null || text === undefined) return '';
+        const div = document.createElement('div');
+        div.textContent = String(text);
+        return div.innerHTML;
+      }
+      
+      /**
+       * 填充简单数据路径 (data-json-path)
+       */
+      function fillSimplePaths(data) {
+        document.querySelectorAll('[data-json-path]').forEach(el => {
+          const path = el.getAttribute('data-json-path');
+          if (!path) return;
+          
+          const value = getValueByPath(data, path);
+          if (value !== null && value !== undefined) {
+            const suffix = el.getAttribute('data-suffix') || '';
+            const displayValue = String(value) + suffix;
+            
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+              el.value = displayValue;
+            } else {
+              el.textContent = displayValue;
+            }
+          }
+        });
+      }
+      
+      /**
+       * 渲染专科检查 (specialistExams)
+       */
+      function renderSpecialistExams(exams) {
+        const container = document.getElementById('specialist-exams-container');
+        if (!container || !exams || !Array.isArray(exams) || exams.length === 0) return;
+        
+        container.innerHTML = exams.map(exam => `
+          <div class="specialist-exam-item" style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px; page-break-inside: avoid;">
+            <div class="subsection-title">${escapeHtml(exam.category)}</div>
+            <div class="content-box">
+              <p>${escapeHtml(exam.finding)}</p>
+            </div>
+            <div class="recommendation-box">
+              <p><strong>评估与建议：</strong></p>
+              <p>${escapeHtml(exam.assessment)}</p>
+            </div>
+            ${exam.AIJudge ? `
+              <div class="ai-judge-box">
+                <p class="judge-title">AI 评估 (${escapeHtml(exam.AIJudge.result || '')})</p>
+                <p>${escapeHtml(exam.AIJudge.assessment)}</p>
+              </div>
+            ` : ''}
+            ${exam.DoctorJudge ? `
+              <div class="doctor-judge-box">
+                <p class="judge-title">医生建议 (${escapeHtml(exam.DoctorJudge.result || '')})</p>
+                <p>${escapeHtml(exam.DoctorJudge.assessment)}</p>
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+      }
+      
+      /**
+       * 渲染实验室检查 (labResults)
+       */
+      function renderLabResults(labs) {
+        const container = document.getElementById('lab-results-container');
+        if (!container || !labs || !Array.isArray(labs) || labs.length === 0) return;
+        
+        container.innerHTML = labs.map(lab => `
+          <div class="lab-result-category" style="page-break-inside: avoid;">
+            <div class="subsection-title">${escapeHtml(lab.category)}</div>
+            
+            ${lab.items && lab.items.length > 0 ? `
+              <table>
+                <thead>
+                  <tr>
+                    <th>项目名称</th>
+                    <th>结果</th>
+                    <th>单位</th>
+                    <th>参考值</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${lab.items.map(item => `
+                    <tr>
+                      <td>${escapeHtml(item.name)}</td>
+                      <td class="${item.isAbnormal ? 'highlight' : ''}">${escapeHtml(item.value)}</td>
+                      <td>${escapeHtml(item.unit)}</td>
+                      <td>${escapeHtml(item.referenceRange)}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            ` : ''}
+            
+            <div class="recommendation-box">
+              <p><strong>评估与建议：</strong></p>
+              <p>${escapeHtml(lab.assessment)}</p>
+            </div>
+            
+            ${lab.AIJudge ? `
+              <div class="ai-judge-box">
+                <p class="judge-title">AI 评估 (${escapeHtml(lab.AIJudge.result || '')})</p>
+                <p>${escapeHtml(lab.AIJudge.assessment)}</p>
+              </div>
+            ` : ''}
+            ${lab.DoctorJudge ? `
+              <div class="doctor-judge-box">
+                <p class="judge-title">医生建议 (${escapeHtml(lab.DoctorJudge.result || '')})</p>
+                <p>${escapeHtml(lab.DoctorJudge.assessment)}</p>
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+      }
+      
+      /**
+       * 渲染影像检查 (imagingResults)
+       */
+      function renderImagingResults(imaging) {
+        const container = document.getElementById('imaging-results-container');
+        if (!container || !imaging || !Array.isArray(imaging) || imaging.length === 0) return;
+        
+        container.innerHTML = imaging.map(img => `
+          <div class="imaging-result-item" style="page-break-inside: avoid; margin-bottom: 20px;">
+            <div class="subsection-title">${escapeHtml(img.category)}</div>
+            <div class="content-box">
+              ${img.findings && img.findings.length > 0 
+                ? img.findings.map(f => `<p>${escapeHtml(f)}</p>`).join('') 
+                : '<p>无异常发现</p>'}
+            </div>
+            <div class="recommendation-box">
+              <p><strong>评估与建议：</strong></p>
+              <p>${escapeHtml(img.assessment)}</p>
+            </div>
+            ${img.AIJudge ? `
+              <div class="ai-judge-box">
+                <p class="judge-title">AI 评估 (${escapeHtml(img.AIJudge.result || '')})</p>
+                <p>${escapeHtml(img.AIJudge.assessment)}</p>
+              </div>
+            ` : ''}
+            ${img.DoctorJudge ? `
+              <div class="doctor-judge-box">
+                <p class="judge-title">医生建议 (${escapeHtml(img.DoctorJudge.result || '')})</p>
+                <p>${escapeHtml(img.DoctorJudge.assessment)}</p>
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+      }
+      
+      /**
+       * 渲染健康专家意见 (expertOpinions)
+       */
+      function renderExpertOpinions(opinions) {
+        const container = document.getElementById('expert-opinions-container');
+        if (!container || !opinions || !Array.isArray(opinions) || opinions.length === 0) return;
+        
+        container.innerHTML = opinions.map(op => `
+          <div class="expert-opinion-item" style="page-break-inside: avoid; margin-bottom: 20px;">
+            <div class="subsection-title">${escapeHtml(op.system)}</div>
+            <div class="content-box">
+              <p><strong>体检阳性发现：</strong></p>
+              ${op.positiveFindings && op.positiveFindings.length > 0 
+                ? op.positiveFindings.map(f => `<p>${escapeHtml(f)}</p>`).join('') 
+                : '<p>无</p>'}
+            </div>
+            ${op.AIJudge ? `
+              <div class="ai-judge-box">
+                <p class="judge-title">AI 评估 (${escapeHtml(op.AIJudge.result || '')})</p>
+                <p>${escapeHtml(op.AIJudge.assessment)}</p>
+              </div>
+            ` : ''}
+            ${op.DoctorJudge ? `
+              <div class="doctor-judge-box">
+                <p class="judge-title">医生建议 (${escapeHtml(op.DoctorJudge.result || '')})</p>
+                <p>${escapeHtml(op.DoctorJudge.assessment)}</p>
+              </div>
+            ` : ''}
+            <div class="recommendation-box">
+              <p><strong>医疗组评估及建议：</strong></p>
+              ${op.assessmentAndRecommendations && op.assessmentAndRecommendations.length > 0 
+                ? op.assessmentAndRecommendations.map(r => `<p>${escapeHtml(r)}</p>`).join('') 
+                : '<p>无</p>'}
+            </div>
+          </div>
+        `).join('');
+      }
+      
+      /**
+       * 渲染康养安全评估 (wellnessSafetyAssessment)
+       */
+      function renderWellnessSafety(wellness) {
+        if (!wellness) return;
+        
+        // 适用性评估
+        const appContainer = document.getElementById('applicability-assessment-container');
+        if (appContainer && wellness.applicabilityAssessment) {
+          appContainer.innerHTML = wellness.applicabilityAssessment.map(item => `
+            <div class="content-box">
+              <p><strong>${escapeHtml(item.suitability)}</strong></p>
+              <p><strong>原理：</strong>${escapeHtml(item.principle)}</p>
+            </div>
+          `).join('');
+        }
+        
+        // 禁忌症
+        const contraContainer = document.getElementById('contraindications-container');
+        if (contraContainer && wellness.safetyAssessment?.contraindications) {
+          contraContainer.innerHTML = wellness.safetyAssessment.contraindications
+            .map(c => `<p>${escapeHtml(c)}</p>`).join('');
+        }
+        
+        // 抽血项目
+        const bloodContainer = document.getElementById('blood-draw-items-container');
+        if (bloodContainer && wellness.supplementaryExams?.bloodDrawItems) {
+          bloodContainer.innerHTML = wellness.supplementaryExams.bloodDrawItems
+            .map(item => `<p>${escapeHtml(item)}</p>`).join('');
+        }
+        
+        // 影像学检查
+        const imgExamContainer = document.getElementById('imaging-exams-container');
+        if (imgExamContainer && wellness.supplementaryExams?.imagingExams) {
+          imgExamContainer.innerHTML = wellness.supplementaryExams.imagingExams
+            .map(item => `<p>${escapeHtml(item)}</p>`).join('');
+        }
+      }
+      
+      /**
+       * 渲染康养计划 (healthPlan)
+       */
+      function renderHealthPlan(plan) {
+        if (!plan) return;
+        
+        // 主要健康问题
+        const mainContainer = document.getElementById('main-issues-container');
+        if (mainContainer && plan.mainIssues) {
+          mainContainer.innerHTML = plan.mainIssues
+            .map(issue => `<div class="content-box"><p>${escapeHtml(issue)}</p></div>`).join('');
+        }
+        
+        // 次要健康问题
+        const secContainer = document.getElementById('secondary-issues-container');
+        if (secContainer && plan.secondaryIssues) {
+          secContainer.innerHTML = plan.secondaryIssues
+            .map(issue => `<div class="content-box"><p>${escapeHtml(issue)}</p></div>`).join('');
+        }
+        
+        // 康养计划详情表格
+        const planTbody = document.getElementById('plan-details-tbody');
+        if (planTbody && plan.planDetails) {
+          planTbody.innerHTML = plan.planDetails.map(detail => `
+            <tr>
+              <td>${escapeHtml(detail.planName || '')}</td>
+              <td>${escapeHtml(detail.cellType || '')}</td>
+              <td>${escapeHtml(detail.application || '')}</td>
+              <td>${escapeHtml(detail.expectedEffect || '')}</td>
+            </tr>
+          `).join('');
+        }
+        
+        // 预防计划
+        const prevContainer = document.getElementById('preventive-plan-container');
+        if (prevContainer && plan.preventivePlan) {
+          prevContainer.innerHTML = plan.preventivePlan
+            .map(p => `<p>${escapeHtml(p)}</p>`).join('');
+        }
+      }
+      
+      /**
+       * 主函数：填充所有数据
+       */
+      function populateReport(data) {
+        console.log('🚀 开始填充 V3.2 报告数据...', data);
+        
+        // 1. 填充简单路径数据
+        fillSimplePaths(data);
+        
+        // 2. 填充数组数据
+        renderSpecialistExams(data.specialistExams);
+        renderLabResults(data.labResults);
+        renderImagingResults(data.imagingResults);
+        renderExpertOpinions(data.expertOpinions);
+        renderWellnessSafety(data.wellnessSafetyAssessment);
+        renderHealthPlan(data.healthPlan);
+        
+        console.log('✅ 数据填充完成!');
+      }
+      
+      // 页面加载完成后执行填充
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => populateReport(reportData));
+      } else {
+        populateReport(reportData);
+      }
+    </script>
+    </body>
+</html>

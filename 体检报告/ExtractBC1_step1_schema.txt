@@ -1,0 +1,1231 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "健康评估报告 Schema (V3.3 显式类别定义)",
+  "description": "用于定义和验证健康评估报告的数据结构。V3.3: 重构 labResults 以显式定义每个 Category 包含的 TestItem 列表。为Category和TestItem增加了AIJudge和DoctorJudge字段。修正了与HTML不一致的缺失项。",
+  "type": "object",
+  "properties": {
+    "reportId": {
+      "description": "报告的唯一标识符",
+      "type": "string"
+    },
+    "patientInfo": {
+      "description": "患者基本信息 (对应报告第1页)",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "姓名" },
+        "gender": { "type": "string", "enum": ["男", "女"], "description": "性别" },
+        "age": { "type": "integer", "description": "年龄 (可由出生年份计算)" },
+        "height": {
+          "type": "string",
+          "description": "身高",
+          "unit": "cm"
+        },
+        "weight": {
+          "type": "string",
+          "description": "体重",
+          "unit": "kg"
+        },
+        "bmi": {
+          "type": "string",
+          "description": "BMI。标准范围: 18.5-23.99。数据可能来自 '体质指数' 字段。",
+          "unit": "kg/m^2"
+        },
+        "bloodPressure_Diastolic": {
+          "type": "string",
+          "description": "血压-舒张压. 标准范围: 60-90. 单位: mmHg. 通常取较低的那个值。",
+          "unit": "mmHg"
+        },
+        "bloodPressure_Systolic": {
+          "type": "string",
+          "description": "血压-收缩压. 标准范围: 90-140. 单位: mmHg. 通常取较高的那个值。",
+          "unit": "mmHg"
+        },
+        "allergy": { "type": "string", "description": "过敏史" },
+        "mainConcern": { "type": "string", "description": "主要诉求" },
+        "examUnit": { "type": "string", "description": "体检单位" },
+        "examDate": { "type": "string", "format": "date", "description": "检查日期" },
+        "reportDate": { "type": "string", "format": "date", "description": "建档日期" }
+      },
+      "required": ["name", "examDate", "reportDate"]
+    },
+    "medicalHistory": {
+      "description": "病史情况 (对应报告第2页)",
+      "type": "object",
+      "properties": {
+        "history": { "type": "string", "description": "病史", "default": "不详" },
+        "medication": { "type": "string", "description": "服药情况", "default": "不详" },
+        "supplements": { "type": "string", "description": "营养品与保健品", "default": "不详" },
+        "lifestyle": { "type": "string", "description": "生活方式", "default": "不详" },
+        "assessment": { "type": "string", "description": "评估与建议" }
+      }
+    },
+    "specialistExams": {
+      "description": "专科检查 (对应报告第2页)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "检查类别。注意：源数据'全科医学检查'应映射到'外科'，'耳鼻喉检查'应映射到'耳鼻喉科'，以此类推。",
+            "enum": [
+              "内科",
+              "外科",
+              "眼科",
+              "耳鼻喉科",
+              "口腔科"
+            ]
+          },
+          "finding": { "type": "string", "description": "检查所见" },
+          "assessment": { "type": "string", "description": "评估与建议" },
+          "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+          "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+        }
+      }
+    },
+    "labResults": {
+      "description": "实验室检查结果 (对应报告第3-8页)。每个类别对象都包含该类别下的所有检查项。",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/definitions/category_尿常规" },
+          { "$ref": "#/definitions/category_尿生化" },
+          { "$ref": "#/definitions/category_血常规" },
+          { "$ref": "#/definitions/category_血糖" },
+          { "$ref": "#/definitions/category_肝功能" },
+          { "$ref": "#/definitions/category_血脂" },
+          { "$ref": "#/definitions/category_肾功能" },
+          { "$ref": "#/definitions/category_肿瘤标志物" },
+          { "$ref": "#/definitions/category_甲状腺功能" },
+          { "$ref": "#/definitions/category_凝血常规" },
+          { "$ref": "#/definitions/category_传染病八项" },
+          { "$ref": "#/definitions/category_其他检查" }
+        ]
+      }
+    },
+    "imagingResults": {
+      "description": "影像学检查 (对应报告第9-10页)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "检查类别。源数据需要映射, 例如 '胸部 CT 平扫' 应映射到 'X线或CT（颈，胸，腹部）'。",
+            "enum": [
+              "十二道导联心电图",
+              "X线或CT（颈，胸，腹部）",
+              "超声（甲状腺，肝胆胰脾，泌尿系统）",
+              "超声（心脏，血管）",
+              "骨密度",
+              "冠脉动脉CTA",
+              "颅脑(CT或MRI)",
+              "C13或C14呼气试验",
+              "胃镜",
+              "肠镜"
+            ]
+          },
+          "findings": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "检查发现 (可能有多条)"
+          },
+          "assessment": {
+            "type": "string",
+            "description": "评估与建议"
+          },
+          "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+          "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+        }
+      }
+    },
+    "expertOpinions": {
+      "description": "健康专家意见 (对应报告第12-14页)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "system": {
+            "type": "string",
+            "description": "健康系统 (如: 血液系统, 泌尿系统)",
+            "enum": [
+              "血液系统",
+              "泌尿系统",
+              "内分泌系统",
+              "呼吸系统",
+              "心血管系统",
+              "生殖系统"
+            ]
+          },
+          "positiveFindings": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "体检阳性发现"
+          },
+          "assessmentAndRecommendations": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "医疗组评估及建议"
+          }
+        }
+      }
+    },
+    "wellnessSafetyAssessment": {
+      "description": "康养安全评估 (对应报告第16页)",
+      "type": "object",
+      "properties": {
+        "applicabilityAssessment": {
+          "description": "一、适用性评估",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "suitability": { "type": "string", "description": "适用性说明 (如: 您适合应用 NK 细胞)" },
+              "principle": { "type": "string", "description": "原理说明" }
+            }
+          }
+        },
+        "safetyAssessment": {
+          "description": "二、安全性评估",
+          "type": "object",
+          "properties": {
+            "contraindications": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "不宜安排细胞应用的情况"
+            },
+            "assessmentResult": {
+              "type": "string",
+              "description": "评估结果"
+            },
+            "specialNote": {
+              "type": "string",
+              "description": "特别提示"
+            }
+          }
+        },
+        "supplementaryExams": {
+          "description": "三、补充检查（应用细胞前）",
+          "type": "object",
+          "properties": {
+            "bloodDrawItems": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "抽血项目"
+            },
+            "imagingExams": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "影像学检查"
+            }
+          }
+        }
+      }
+    },
+    "healthPlan": {
+      "description": "康养计划 (对应报告第17-20页)",
+      "type": "object",
+      "properties": {
+        "mainIssues": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "主要健康问题"
+        },
+        "secondaryIssues": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "次要健康问题"
+        },
+        "planDetails": {
+          "type": "array",
+          "items": { "type": "object" },
+          "description": "康养保健方案详情"
+        },
+        "preventivePlan": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "预防计划"
+        }
+      }
+    }
+  },
+  "required": ["reportId", "patientInfo", "labResults"],
+  "definitions": {
+    "baseItem": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": ["string", "null"],
+          "description": "检查结果值 (若无结果则为 null)"
+        },
+        "isAbnormal": {
+          "type": "boolean",
+          "description": "结果是否异常 (true 表示异常)"
+        },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["name", "referenceRange", "unit"]
+    },
+    "judgeDefinition": {
+      "type": "object",
+      "properties": {
+        "result": { "type": "string", "description": "判断结果 (如: 异常, 正常, 建议关注)" },
+        "assessment": { "type": "string", "description": "详细评估或建议" }
+      },
+      "description": "用于AI和医生的评估结构"
+    },
+
+    "category_尿常规": {
+      "type": "object",
+      "description": "尿常规 (19 项)",
+      "properties": {
+        "category": { "const": "尿常规" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_尿比重" },
+            { "$ref": "#/definitions/item_白细胞" },
+            { "$ref": "#/definitions/item_红细胞计数" },
+            { "$ref": "#/definitions/item_鳞状上皮细胞" },
+            { "$ref": "#/definitions/item_透明管型" },
+            { "$ref": "#/definitions/item_细菌" },
+            { "$ref": "#/definitions/item_霉菌" },
+            { "$ref": "#/definitions/item_粘液丝" },
+            { "$ref": "#/definitions/item_非鳞状上皮细胞" },
+            { "$ref": "#/definitions/item_病理管型" },
+            { "$ref": "#/definitions/item_白细胞计数" },
+            { "$ref": "#/definitions/item_颜色" },
+            { "$ref": "#/definitions/item_尿潜血" },
+            { "$ref": "#/definitions/item_胆红素" },
+            { "$ref": "#/definitions/item_尿胆原" },
+            { "$ref": "#/definitions/item_尿酮体" },
+            { "$ref": "#/definitions/item_尿蛋白" },
+            { "$ref": "#/definitions/item_葡萄糖" },
+            { "$ref": "#/definitions/item_酸碱度PH" }
+          ],
+          "minItems": 19,
+          "maxItems": 19
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_尿生化": {
+      "type": "object",
+      "description": "尿生化 (3 项)",
+      "properties": {
+        "category": { "const": "尿生化" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_尿微量白蛋白" },
+            { "$ref": "#/definitions/item_尿肌酐" },
+            { "$ref": "#/definitions/item_尿微量白蛋白尿肌酐" }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_血常规": {
+      "type": "object",
+      "description": "血常规 (13 项)",
+      "properties": {
+        "category": { "const": "血常规" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_白细胞计数_血" },
+            { "$ref": "#/definitions/item_中性粒细胞比值" },
+            { "$ref": "#/definitions/item_淋巴细胞比值" },
+            { "$ref": "#/definitions/item_单核细胞比值" },
+            { "$ref": "#/definitions/item_中性粒细胞绝对值" },
+            { "$ref": "#/definitions/item_淋巴细胞绝对值" },
+            { "$ref": "#/definitions/item_单核细胞绝对值" },
+            { "$ref": "#/definitions/item_红细胞计数_血" },
+            { "$ref": "#/definitions/item_血红蛋白" },
+            { "$ref": "#/definitions/item_红细胞压积" },
+            { "$ref": "#/definitions/item_平均血红蛋白含量" },
+            { "$ref": "#/definitions/item_平均血红蛋白浓度" },
+            { "$ref": "#/definitions/item_血小板计数" }
+          ],
+          "minItems": 13,
+          "maxItems": 13
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_血糖": {
+      "type": "object",
+      "description": "血糖 (5 项)",
+      "properties": {
+        "category": { "const": "血糖" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_空腹葡萄糖" },
+            { "$ref": "#/definitions/item_餐后2小时血糖" },
+            { "$ref": "#/definitions/item_糖化血红蛋白" },
+            { "$ref": "#/definitions/item_空腹胰岛素" },
+            { "$ref": "#/definitions/item_空腹C肽" }
+          ],
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_肝功能": {
+      "type": "object",
+      "description": "肝功能 (11 项)",
+      "properties": {
+        "category": { "const": "肝功能" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_谷丙转移酶" },
+            { "$ref": "#/definitions/item_谷草转移酶" },
+            { "$ref": "#/definitions/item_rGGT" },
+            { "$ref": "#/definitions/item_总胆红素" },
+            { "$ref": "#/definitions/item_直接胆红素" },
+            { "$ref": "#/definitions/item_间接胆红素" },
+            { "$ref": "#/definitions/item_碱性磷酸酶" },
+            { "$ref": "#/definitions/item_血清总蛋白" },
+            { "$ref": "#/definitions/item_血清白蛋白" },
+            { "$ref": "#/definitions/item_血清球蛋白" },
+            { "$ref": "#/definitions/item_血清白球比" }
+          ],
+          "minItems": 11,
+          "maxItems": 11
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_血脂": {
+      "type": "object",
+      "description": "血脂 (8 项)",
+      "properties": {
+        "category": { "const": "血脂" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_总胆固醇" },
+            { "$ref": "#/definitions/item_LDL胆固醇" },
+            { "$ref": "#/definitions/item_HDL胆固醇" },
+            { "$ref": "#/definitions/item_甘油三酯" },
+            { "$ref": "#/definitions/item_载脂蛋白A1" },
+            { "$ref": "#/definitions/item_载脂蛋白B" },
+            { "$ref": "#/definitions/item_脂蛋白a" },
+            { "$ref": "#/definitions/item_同型半氨胱酸" }
+          ],
+          "minItems": 8,
+          "maxItems": 8
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_肾功能": {
+      "type": "object",
+      "description": "肾功能 (5 项)",
+      "properties": {
+        "category": { "const": "肾功能" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_尿素" },
+            { "$ref": "#/definitions/item_肌酐" },
+            { "$ref": "#/definitions/item_血尿酸" },
+            { "$ref": "#/definitions/item_eGFR" },
+            { "$ref": "#/definitions/item_血清胱抑素C" }
+          ],
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_肿瘤标志物": {
+      "type": "object",
+      "description": "肿瘤标志物 (14 项)",
+      "properties": {
+        "category": { "const": "肿瘤标志物" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_AFP" },
+            { "$ref": "#/definitions/item_CEA" },
+            { "$ref": "#/definitions/item_CA125" },
+            { "$ref": "#/definitions/item_CA153" },
+            { "$ref": "#/definitions/item_CA199" },
+            { "$ref": "#/definitions/item_CA724" },
+            { "$ref": "#/definitions/item_CA242" },
+            { "$ref": "#/definitions/item_CYFRA211" },
+            { "$ref": "#/definitions/item_NSE" },
+            { "$ref": "#/definitions/item_SCC" },
+            { "$ref": "#/definitions/item_TPSA" },
+            { "$ref": "#/definitions/item_FPSA" },
+            { "$ref": "#/definitions/item_FPSATPSA" },
+            { "$ref": "#/definitions/item_铁蛋白" }
+          ],
+          "minItems": 14,
+          "maxItems": 14
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_甲状腺功能": {
+      "type": "object",
+      "description": "甲状腺功能 (7 项)",
+      "properties": {
+        "category": { "const": "甲状腺功能" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_TSH" },
+            { "$ref": "#/definitions/item_T3" },
+            { "$ref": "#/definitions/item_T4" },
+            { "$ref": "#/definitions/item_FT4" },
+            { "$ref": "#/definitions/item_FT3" },
+            { "$ref": "#/definitions/item_TPOAb" },
+            { "$ref": "#/definitions/item_TGAb" }
+          ],
+          "minItems": 7,
+          "maxItems": 7
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_凝血常规": {
+      "type": "object",
+      "description": "凝血常规 (6 项)",
+      "properties": {
+        "category": { "const": "凝血常规" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_凝血酶原时间PT" },
+            { "$ref": "#/definitions/item_国际标准化比值INR" },
+            { "$ref": "#/definitions/item_部分凝血活酶时间APTT" },
+            { "$ref": "#/definitions/item_凝血酶时间TT" },
+            { "$ref": "#/definitions/item_纤维蛋白原FIB" },
+            { "$ref": "#/definitions/item_D二聚体" }
+          ],
+          "minItems": 6,
+          "maxItems": 6
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_传染病八项": {
+      "type": "object",
+      "description": "传染病八项 (4 项)",
+      "properties": {
+        "category": { "const": "传染病八项" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_乙肝表面抗原" },
+            { "$ref": "#/definitions/item_乙肝表面抗体" },
+            { "$ref": "#/definitions/item_丙肝抗体" },
+            { "$ref": "#/definitions/item_梅毒HIV抗体" }
+          ],
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+    "category_其他检查": {
+      "type": "object",
+      "description": "其他检查 (9 项)",
+      "properties": {
+        "category": { "const": "其他检查" },
+        "items": {
+          "type": "array",
+          "items": [
+            { "$ref": "#/definitions/item_肌钙蛋白" },
+            { "$ref": "#/definitions/item_肌酸激酶" },
+            { "$ref": "#/definitions/item_肌红蛋白" },
+            { "$ref": "#/definitions/item_C反应蛋白" },
+            { "$ref": "#/definitions/item_PGI" },
+            { "$ref": "#/definitions/item_PGII" },
+            { "$ref": "#/definitions/item_PG1PG2" },
+            { "$ref": "#/definitions/item_胃泌素17" },
+            { "$ref": "#/definitions/item_25羟基维生素D" }
+          ],
+          "minItems": 9,
+          "maxItems": 9
+        },
+        "assessment": { "type": "string", "description": "该类别的综合评估与建议" },
+        "AIJudge": { "$ref": "#/definitions/judgeDefinition" },
+        "DoctorJudge": { "$ref": "#/definitions/judgeDefinition" }
+      },
+      "required": ["category", "items"]
+    },
+
+    "item_尿比重": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["尿比重", "比重[SG]"] }, "referenceRange": { "const": "1.003-1.025" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_白细胞": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["白细胞", "白细胞[LEU]"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_红细胞计数": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["红细胞计数", "红细胞[ERY]"] }, "referenceRange": { "const": "0-25" }, "unit": { "const": "个/μl" } } }
+      ]
+    },
+    "item_鳞状上皮细胞": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["鳞状上皮细胞"] }, "referenceRange": { "const": "0-28" }, "unit": { "const": "个/μl" } } }
+      ]
+    },
+    "item_透明管型": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["透明管型"] }, "referenceRange": { "const": "0-1" }, "unit": { "const": "个/LP" } } }
+      ]
+    },
+    "item_细菌": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["细菌"] }, "referenceRange": { "const": "0-386" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_霉菌": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["霉菌"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_粘液丝": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["粘液丝"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_非鳞状上皮细胞": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["非鳞状上皮细胞"] }, "referenceRange": { "const": "0-28" }, "unit": { "const": "个/μl" } } }
+      ]
+    },
+    "item_病理管型": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["病理管型"] }, "referenceRange": { "const": "0-1" }, "unit": { "const": "个/LP" } } }
+      ]
+    },
+    "item_白细胞计数": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["白细胞计数", "白细胞计数[WBC]"] }, "referenceRange": { "const": "0-25" }, "unit": { "const": "个/μl" } } }
+      ]
+    },
+    "item_颜色": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["颜色", "颜色[Color]"] }, "referenceRange": { "const": "" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_尿潜血": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["尿潜血", "潜血"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_胆红素": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["胆红素", "胆红素[BIL]"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_尿胆原": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["尿胆原", "尿胆原[UBG]"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_尿酮体": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["尿酮体", "尿酮体[KET]"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_尿蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["尿蛋白", "蛋白质[PRO]"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_葡萄糖": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["葡萄糖", "葡萄糖[GLU]"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_酸碱度PH": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["酸碱度（PH）", "尿液酸碱度[PH]"] }, "referenceRange": { "const": "5.5-7" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_尿微量白蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["尿微量白蛋白"] }, "referenceRange": { "const": "0-20" }, "unit": { "const": "mg/l" } } }
+      ]
+    },
+    "item_尿肌酐": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["尿肌酐"] }, "referenceRange": { "const": "3540-24600" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_尿微量白蛋白尿肌酐": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["尿微量白蛋白/尿肌酐"] }, "referenceRange": { "const": "0-35" }, "unit": { "const": "mg/l" } } }
+      ]
+    },
+    "item_白细胞计数_血": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["白细胞计数", "白细胞计数，WBC"] }, "referenceRange": { "const": "3.5-9.5" }, "unit": { "const": "10^9/L" } } }
+      ]
+    },
+    "item_中性粒细胞比值": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["中性粒细胞比值", "中性粒细胞百分比[N]"] }, "referenceRange": { "const": "40.0-75.0" }, "unit": { "const": "%" } } }
+      ]
+    },
+    "item_淋巴细胞比值": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["淋巴细胞比值", "淋巴细胞百分比[L]"] }, "referenceRange": { "const": "20.0-50.0" }, "unit": { "const": "%" } } }
+      ]
+    },
+    "item_单核细胞比值": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["单核细胞比值", "单核细胞百分比[M]"] }, "referenceRange": { "const": "3.0-10.0" }, "unit": { "const": "%" } } }
+      ]
+    },
+    "item_中性粒细胞绝对值": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["中性粒细胞绝对值", "中性粒细胞绝对数[N#]"] }, "referenceRange": { "const": "1.8-6.3" }, "unit": { "const": "10^9/L" } } }
+      ]
+    },
+    "item_淋巴细胞绝对值": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["淋巴细胞绝对值", "淋巴细胞绝对数[L#]"] }, "referenceRange": { "const": "1.1-3.2" }, "unit": { "const": "10^9/L" } } }
+      ]
+    },
+    "item_单核细胞绝对值": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["单核细胞绝对值", "单核细胞绝对数[M#]"] }, "referenceRange": { "const": "0.10-0.6" }, "unit": { "const": "10^9/L" } } }
+      ]
+    },
+    "item_红细胞计数_血": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["红细胞计数", "RBC"] }, "referenceRange": { "const": "3.80-5.1" }, "unit": { "const": "10^12/L" } } }
+      ]
+    },
+    "item_血红蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["血红蛋白", "Hb"] }, "referenceRange": { "const": "115-150" }, "unit": { "const": "g/L" } } }
+      ]
+    },
+    "item_红细胞压积": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["红细胞压积", "HCT"] }, "referenceRange": { "const": "40.0-50.0" }, "unit": { "const": "%" } } }
+      ]
+    },
+    "item_平均血红蛋白含量": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["平均血红蛋白含量", "MCH", "平均红细胞血红蛋白含量"] }, "referenceRange": { "const": "27.0-34.0" }, "unit": { "const": "pg" } } }
+      ]
+    },
+    "item_平均血红蛋白浓度": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["平均血红蛋白浓度", "MCHC", "平均红细胞血红蛋白浓度"] }, "referenceRange": { "const": "320-350" }, "unit": { "const": "g/L" } } }
+      ]
+    },
+    "item_血小板计数": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["血小板计数", "PLT"] }, "referenceRange": { "const": "125-350" }, "unit": { "const": "10^9/L" } } }
+      ]
+    },
+    "item_空腹葡萄糖": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["空腹葡萄糖", "空腹血糖[GLU(0h)]"] }, "referenceRange": { "const": "3.9-5.6" }, "unit": { "const": "mmol/L" } } }
+      ]
+    },
+    "item_餐后2小时血糖": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["餐后 2 小时血糖"] }, "referenceRange": { "const": "<7.8" }, "unit": { "const": "mmol/L" } } }
+      ]
+    },
+    "item_糖化血红蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["糖化血红蛋白", "糖化血红蛋白[HbA1C]"] }, "referenceRange": { "const": "4-6" }, "unit": { "const": "%" } } }
+      ]
+    },
+    "item_空腹胰岛素": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["空腹胰岛素", "空腹胰岛素[INS(0h)]"] }, "referenceRange": { "const": "2.6-24.9" }, "unit": { "const": "uU/mL" } } }
+      ]
+    },
+    "item_空腹C肽": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["空腹 C 肽"] }, "referenceRange": { "const": "0.62-2.74" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_谷丙转移酶": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["谷丙转移酶", "血清丙氨酸氨基转移酶[ALT]"] }, "referenceRange": { "const": "9-50" }, "unit": { "const": "U/L" } } }
+      ]
+    },
+    "item_谷草转移酶": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["谷草转移酶", "血清天门冬氨酸氨基转移酶[AST]"] }, "referenceRange": { "const": "13-35" }, "unit": { "const": "U/L" } } }
+      ]
+    },
+    "item_rGGT": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["r-GGT", "血清γ-谷氨酰基转移酶[GGT]"] }, "referenceRange": { "const": "10-60" }, "unit": { "const": "U/L" } } }
+      ]
+    },
+    "item_总胆红素": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["总胆红素", "血清总胆红素[T-BIL]"] }, "referenceRange": { "const": "0-21" }, "unit": { "const": "umol/L" } } }
+      ]
+    },
+    "item_直接胆红素": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["直接胆红素", "血清直接胆红素[DBIL]"] }, "referenceRange": { "const": "0-17.1" }, "unit": { "const": "umol/L" } } }
+      ]
+    },
+    "item_间接胆红素": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["间接胆红素", "血清间接胆红素[IBIL]"] }, "referenceRange": { "const": "1.7-10.2" }, "unit": { "const": "umol/L" } } }
+      ]
+    },
+    "item_碱性磷酸酶": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["碱性磷酸酶", "血清碱性磷酸酶[ALP]"] }, "referenceRange": { "const": "45-125" }, "unit": { "const": "U/L" } } }
+      ]
+    },
+    "item_血清总蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["血清总蛋白", "血清总蛋白[TP]"] }, "referenceRange": { "const": "65-85" }, "unit": { "const": "g/L" } } }
+      ]
+    },
+    "item_血清白蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["血清白蛋白", "血清白蛋白[ALB]"] }, "referenceRange": { "const": "40-55" }, "unit": { "const": "g/L" } } }
+      ]
+    },
+    "item_血清球蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["血清球蛋白", "血清球蛋白[GLOB]"] }, "referenceRange": { "const": "20-40" }, "unit": { "const": "g/L" } } }
+      ]
+    },
+    "item_血清白球比": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["血清白球比", "血清白球比[A/G]"] }, "referenceRange": { "const": "1.2-2.4" }, "unit": { "const": ":1" } } }
+      ]
+    },
+    "item_总胆固醇": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["总胆固醇", "血清总胆固醇[TCHOL]"] }, "referenceRange": { "const": "<5.20" }, "unit": { "const": "mmol/L" } } }
+      ]
+    },
+    "item_LDL胆固醇": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["LDL-胆固醇", "血清低密度脂蛋白胆固醇[LDL-CH]"] }, "referenceRange": { "const": "2.1-3.34" }, "unit": { "const": "mmol/L" } } }
+      ]
+    },
+    "item_HDL胆固醇": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["HDL-胆固醇", "血清高密度脂蛋白胆固醇[HDL-CH]"] }, "referenceRange": { "const": ">1.04" }, "unit": { "const": "mmol/L" } } }
+      ]
+    },
+    "item_甘油三酯": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["甘油三酯", "血清甘油三酯[TG]"] }, "referenceRange": { "const": "0-1.69" }, "unit": { "const": "mmol/L" } } }
+      ]
+    },
+    "item_载脂蛋白A1": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["载脂蛋白 A1", "血清载脂蛋白 AⅠ[ApoAⅠ]"] }, "referenceRange": { "const": "1-1.6" }, "unit": { "const": "g/L" } } }
+      ]
+    },
+    "item_载脂蛋白B": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["载脂蛋白 B", "血清载脂蛋白 B[ApoB]"] }, "referenceRange": { "const": "0.6-1.1" }, "unit": { "const": "g/L" } } }
+      ]
+    },
+    "item_脂蛋白a": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["脂蛋白 a", "脂蛋白 a[Lp(a)]"] }, "referenceRange": { "const": "0-300" }, "unit": { "const": "mmol/L" } } }
+      ]
+    },
+    "item_同型半氨胱酸": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["同型半氨胱酸", "同型半胱氨酸[HCY]"] }, "referenceRange": { "const": "6.0-16.0" }, "unit": { "const": "umol/L" } } }
+      ]
+    },
+    "item_尿素": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["尿素", "尿素[UREA]"] }, "referenceRange": { "const": "2.86-8.20" }, "unit": { "const": "mmol/L" } } }
+      ]
+    },
+    "item_肌酐": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["肌酐", "血清肌酐[CREA]"] }, "referenceRange": { "const": "57-130" }, "unit": { "const": "umol/L" } } }
+      ]
+    },
+    "item_血尿酸": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["血尿酸", "血清尿酸[UA]"] }, "referenceRange": { "const": "150-416" }, "unit": { "const": "umol/L" } } }
+      ]
+    },
+    "item_eGFR": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["eGFR", "肾小球滤过率[eGFR]"] }, "referenceRange": { "const": "100-120" }, "unit": { "const": "ml/min" } } }
+      ]
+    },
+    "item_血清胱抑素C": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["血清胱抑素 C", "血清胱抑素 C[Cystatin C]"] }, "referenceRange": { "const": "0.51-1.09" }, "unit": { "const": "mg/L" } } }
+      ]
+    },
+    "item_AFP": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["AFP", "甲胎蛋白[AFP]"] }, "referenceRange": { "const": "<9.0" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_CEA": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["CEA", "癌胚抗原[CEA]"] }, "referenceRange": { "const": "<5.0" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_CA125": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["CA125"] }, "referenceRange": { "const": "<24.00" }, "unit": { "const": "U/ml" } } }
+      ]
+    },
+    "item_CA153": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["CA15-3"] }, "referenceRange": { "const": "<26.40" }, "unit": { "const": "U/ml" } } }
+      ]
+    },
+    "item_CA199": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["CA19-9", "糖类抗原 19-9[CA19-9]"] }, "referenceRange": { "const": "<27.00" }, "unit": { "const": "U/ml" } } }
+      ]
+    },
+    "item_CA724": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["CA72-4", "糖类抗原 72-4[CA72-4]"] }, "referenceRange": { "const": "<6.9" }, "unit": { "const": "U/ml" } } }
+      ]
+    },
+    "item_CA242": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["CA24-2", "糖类抗原 242[CA242]"] }, "referenceRange": { "const": "<20.00" }, "unit": { "const": "U/ml" } } }
+      ]
+    },
+    "item_CYFRA211": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["CYFRA21-1", "细胞角蛋白 19 片段[CYFRA21-1]"] }, "referenceRange": { "const": "<3.30" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_NSE": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["NSE", "神经元特异性烯醇化酶[NSE]"] }, "referenceRange": { "const": "<16.30" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_SCC": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["SCC", "鳞状细胞癌相关抗原[SCC]"] }, "referenceRange": { "const": "<2.D" }, "unit": { "const": "U/ml" } } }
+      ]
+    },
+    "item_TPSA": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["TPSA", "总前列腺特异性抗原[T-PSA]"] }, "referenceRange": { "const": "<4.00" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_FPSA": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["FPSA", "游离前列腺特异性抗原[F-PSA]"] }, "referenceRange": { "const": ">0.930" }, "unit": { "const": "ng/ml" } } }
+      ]
+    },
+    "item_FPSATPSA": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["FPSA/TPSA", "f-PSA/t-PSA 比值"] }, "referenceRange": { "const": "0.25-1.00" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_铁蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["铁蛋白", "铁蛋白[FER]"] }, "referenceRange": { "const": "23.9-336.2" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_TSH": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["TSH", "血清促甲状腺激素[TSH]"] }, "referenceRange": { "const": "0.35-4.94" }, "unit": { "const": "ulU/mL" } } }
+      ]
+    },
+    "item_T3": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["T3", "血清三碘甲状原氨酸[T3]"] }, "referenceRange": { "const": "0.84-2.02" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_T4": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["T4", "血清甲状腺素[T4]"] }, "referenceRange": { "const": "5.13-14.06" }, "unit": { "const": "ug/dl" } } }
+      ]
+    },
+    "item_FT4": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["FT4", "血清游离甲状腺素[FT4]"] }, "referenceRange": { "const": "0.7-1.48" }, "unit": { "const": "ng/dL" } } }
+      ]
+    },
+    "item_FT3": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["FT3", "血清游离三碘甲状原氨酸[FT3]"] }, "referenceRange": { "const": "3.53-7.37" }, "unit": { "const": "pmol/L" } } }
+      ]
+    },
+    "item_TPOAb": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["TPO-Ab", "抗甲状腺过氧化物酶抗体[TPO-Ab]"] }, "referenceRange": { "const": "<34" }, "unit": { "const": "U/ml" } } }
+      ]
+    },
+    "item_TGAb": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["TG-Ab", "抗甲状腺球蛋白抗体[TG-Ab]"] }, "referenceRange": { "const": "<=115" }, "unit": { "const": "U/ml" } } }
+      ]
+    },
+    "item_凝血酶原时间PT": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["凝血酶原时间PT"] }, "referenceRange": { "const": "11.5-14.5" }, "unit": { "const": "s" } } }
+      ]
+    },
+    "item_国际标准化比值INR": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["国际标准化比值 INR"] }, "referenceRange": { "const": "0.9-1.10" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_部分凝血活酶时间APTT": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["部分凝血活酶时间 APTT"] }, "referenceRange": { "const": "29.2-41.2" }, "unit": { "const": "s" } } }
+      ]
+    },
+    "item_凝血酶时间TT": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["凝血酶时间 TT"] }, "referenceRange": { "const": "14.5-18.5" }, "unit": { "const": "s" } } }
+      ]
+    },
+    "item_纤维蛋白原FIB": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["纤维蛋白原 FIB"] }, "referenceRange": { "const": "2.00-4.00" }, "unit": { "const": "g/L" } } }
+      ]
+    },
+    "item_D二聚体": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["D-二聚体"] }, "referenceRange": { "const": "0.00-0.50" }, "unit": { "const": "ug/mL" } } }
+      ]
+    },
+    "item_乙肝表面抗原": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["乙肝表面抗原"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_乙肝表面抗体": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["乙肝表面抗体"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_丙肝抗体": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["丙肝抗体"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_梅毒HIV抗体": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["梅毒+HIV", "梅毒+HIV 抗体"] }, "referenceRange": { "const": "阴性" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_肌钙蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["肌钙蛋白", "血清肌钙蛋白 T[TNT]", "肌钙蛋白 T"] }, "referenceRange": { "const": "<0.06" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_肌酸激酶同工酶": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["肌酸激酶-同工酶", "血清肌酸激酶同工酶[CK-MB]"] }, "referenceRange": { "const": "0-5" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_肌红蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["肌红蛋白", "血清肌红蛋白测定[Mb]"] }, "referenceRange": { "const": "28-72" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_C反应蛋白": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["C-反应蛋白", "超敏 C 反应蛋白[hsCRP]"] }, "referenceRange": { "const": "0-10" }, "unit": { "const": "mg/L" } } }
+      ]
+    },
+    "item_PGI": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["PGI"] }, "referenceRange": { "const": ">70" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_PGII": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["PGII"] }, "referenceRange": { "const": "<11" }, "unit": { "const": "ng/mL" } } }
+      ]
+    },
+    "item_PG1PG2": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["PG1/PG2"] }, "referenceRange": { "const": ">7" }, "unit": { "const": "" } } }
+      ]
+    },
+    "item_胃泌素17": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["胃泌素17"] }, "referenceRange": { "const": "<5.7" }, "unit": { "const": "pmol/L" } } }
+      ]
+    },
+    "item_肌酸激酶": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["肌酸激酶"] }, "referenceRange": { "const": "40-200" }, "unit": { "const": "U/L" } } }
+      ]
+    },
+    "item_25羟基维生素D": {
+      "allOf": [
+        { "$ref": "#/definitions/baseItem" },
+        { "properties": { "name": { "enum": ["25-羟基维生素 D"] }, "referenceRange": { "const": "6.6-49.9" }, "unit": { "const": "ng/ml" } } }
+      ]
+    }
+  }
+}

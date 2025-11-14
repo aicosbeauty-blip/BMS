@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历年综合分析报告 v2.0</title>
+    <!-- 版本: v2.0 | 更新日期: 2025-11-08 | 修复: 实验室检查表格列数显示问题 -->
+    <!-- 引入 Chart.js 用于绘制图表 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* 1. 基础样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Microsoft YaHei", "SimSun", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f3f4f6;
+        }
+
+        /* 视图切换的CSS (核心逻辑) */
+        .non-key-item, .non-key-block { display: none; }
+        body.show-full-data .subsection-title.non-key-item { display: block; }
+        body.show-full-data .comparison-grid.non-key-item { display: grid; }
+        body.show-full-data table.lab-table.non-key-item { display: table; }
+        body.show-full-data tr.non-key-item { display: table-row; }
+        body.show-full-data .comparison-item.non-key-block { display: block; }
+        
+        .container { max-width: 1400px; margin: 20px auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo { font-size: 36px; font-weight: bold; margin-bottom: 5px; }
+        .title-main { font-size: 28px; font-weight: bold; margin: 10px 0; }
+        .section-title {
+            background: #1e3a8a;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px 0;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .subsection-title {
+            background: #f3f4f6;
+            padding: 10px 15px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            border-left: 4px solid #1e3a8a;
+        }
+        .content-box {
+            background: #fff;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+        
+        .highlight { color: #dc2626; font-weight: bold; }
+        .highlight-green { color: #16a34a; font-weight: bold; }
+        
+        /* 2. AI 分析模块样式 */
+        .ai-judge-box {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-size: 15px;
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+        }
+        .judge-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #b45309;
+            font-size: 18px;
+        }
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .chart-container {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .chart-container h4 {
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #1e3a8a;
+        }
+        .status-box {
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left-width: 4px;
+            border-left-style: solid;
+        }
+        .status-green { background: #e8f5e9; border-color: #4caf50; }
+        .status-yellow { background: #fffbeb; border-color: #f59e0b; }
+        .status-box ul { list-style-position: inside; padding-left: 5px; }
+        .status-box li { margin-bottom: 8px; }
+        
+        /* 视图切换开关样式 */
+        .view-switcher {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #fff;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .view-switcher-label { font-size: 16px; font-weight: bold; color: #1e3a8a; }
+        .switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #2196F3; }
+        input:checked + .slider:before { transform: translateX(26px); }
+
+        /* 3. 详细数据表样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: 5px;
+            overflow: hidden;
+            min-width: 800px;
+        }
+        table th {
+            background: #1e3a8a;
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+        table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+            vertical-align: top;
+        }
+        table tr:last-child td { border-bottom: none; }
+        table tr:nth-child(even) { background: #f9fafb; }
+        
+        .vitals-table th:nth-child(1), .vitals-table td:nth-child(1) { font-weight: bold; }
+        .vitals-table td:not(:first-child) { text-align: center; }
+        .vitals-table th:not(:first-child) { text-align: center; }
+
+        .lab-table th:nth-child(1), .lab-table td:nth-child(1) { font-weight: bold; min-width: 150px; }
+        .lab-table th:nth-child(2), .lab-table td:nth-child(2) { min-width: 80px; color: #666; }
+        .lab-table th:nth-child(3), .lab-table td:nth-child(3) { min-width: 100px; color: #666; }
+        
+        .comparison-grid {
+            display: grid;
+            gap: 15px;
+        }
+        .comparison-item {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #e5e7eb;
+        }
+        .comparison-item h4 {
+            font-size: 16px;
+            color: #1e3a8a;
+            margin-bottom: 5px;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 5px;
+        }
+        .comparison-item p { font-size: 13px; line-height: 1.5; }
+        .comparison-item ul { padding-left: 20px; font-size: 13px; }
+
+        /* 加载提示样式 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loading-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+            background: #fee;
+            color: #c00;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px;
+            border-left: 4px solid #c00;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 1200px) {
+            .comparison-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 900px) {
+            .chart-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .comparison-grid { grid-template-columns: 1fr; }
+            .view-switcher { flex-direction: column; align-items: flex-start; gap: 10px; }
+            table { font-size: 12px; }
+            table th { padding: 10px 5px; }
+            table td { padding: 8px 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>正在加载体检数据...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 头部信息 -->
+        <div class="header">
+            <div class="logo">瑞慈健康体检</div>
+            <div class="title-main" id="report-title">历年综合分析报告</div>
+            <div id="patient-info" style="margin-top: 15px; font-size: 16px;"></div>
+        </div>
+
+        <!-- 视图切换开关 -->
+        <div class="view-switcher">
+            <span class="view-switcher-label">
+                <span id="view-mode-text">仅显示关键项</span>
+            </span>
+            <label class="switch">
+                <input type="checkbox" id="view-toggle-switch">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <!-- AI 综合分析 -->
+        <div class="section-title">AI 综合分析与健康趋势总结</div>
+        <div class="content-box">
+            <div class="ai-judge-box">
+                <div class="judge-title" id="ai-summary-title">健康趋势总结</div>
+                <div id="ai-summary-content"></div>
+            </div>
+            
+            <div id="status-summary"></div>
+            
+            <!-- 趋势图表 -->
+            <div class="chart-grid" id="charts-container"></div>
+        </div>
+
+        <!-- 关键体征对比 -->
+        <div class="section-title">关键体征历年对比 <span class="view-mode-title">(关键项)</span></div>
+        <div class="content-box">
+            <table class="vitals-table" id="vitals-table">
+                <thead id="vitals-header"></thead>
+                <tbody id="vitals-body"></tbody>
+            </table>
+        </div>
+
+        <!-- 专科检查 -->
+        <div class="section-title">专科检查历年对比 <span class="view-mode-title">(关键项)</span></div>
+        <div class="content-box" id="specialist-exams-container"></div>
+
+        <!-- 影像学检查 -->
+        <div class="section-title">影像学检查历年对比 <span class="view-mode-title">(关键项)</span></div>
+        <div class="content-box" id="imaging-results-container"></div>
+
+        <!-- 实验室检查 -->
+        <div class="section-title">实验室检查历年对比 <span class="view-mode-title">(关键项)</span></div>
+        <div class="content-box" id="lab-results-container"></div>
+        
+        <!-- 版本信息 -->
+        <div style="text-align: center; color: #999; font-size: 12px; margin-top: 40px; padding: 20px; border-top: 1px solid #eee;">
+            <p>版本: v2.0 | 更新日期: 2025-11-08</p>
+            <p>修复: 实验室检查表格显示问题，确保所有年份数据正确显示</p>
+        </div>
+    </div>
+
+    <script>
+        // ===== 配置区域 =====
+        const CONFIG = {
+            // JSON 文件路径配置
+            summaryDataFile: '体检比较.JSON',
+            detailedDataFiles: [
+                '2022.json',
+                '2023.json',
+                '2024.json',
+                '2025.json'
+            ],
+            
+            // 如果文件在子文件夹中，可以配置路径前缀
+            // pathPrefix: 'data/',
+            pathPrefix: '',
+            
+            // 关键检查项配置（根据实际数据配置）
+            keySpecialistExams: ['内科', '外科', '妇科', '眼科'],
+            keyImagingExams: [
+                '超声（心脏，血管）',
+                '超声（甲状腺，肝胆胰脾，泌尿系统）',
+                'X线或CT（颈，胸，腹部）'
+            ],
+            keyLabItems: [
+                '尿蛋白', '餐后2小时血糖', '总胆固醇',
+                'LDL-胆固醇', 'HDL-胆固醇', '载脂蛋白 A1',
+                '载脂蛋白 B', '脂蛋白 a', '血尿酸'
+            ]
+        };
+
+        // ===== 工具函数 =====
+        function escapeHTML(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function formatValue(item, year, values) {
+            const yearData = values[year];
+            if (!yearData) return '<span style="color: #999;">-</span>';
+            
+            const value = yearData.value || '';
+            const isAbnormal = yearData.isAbnormal;
+            
+            if (isAbnormal) {
+                return `<span class="highlight">${escapeHTML(value)}</span>`;
+            }
+            return escapeHTML(value);
+        }
+
+        // ===== 数据加载函数 =====
+        async function loadJSONFile(filename) {
+            try {
+                const response = await fetch(CONFIG.pathPrefix + filename);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error(`加载文件 ${filename} 失败:`, error);
+                throw error;
+            }
+        }
+
+        async function loadAllData() {
+            try {
+                // 加载摘要数据
+                const summaryData = await loadJSONFile(CONFIG.summaryDataFile);
+                
+                // 加载明细数据（可能是2个也可能是10个）
+                const detailedData = [];
+                for (const filename of CONFIG.detailedDataFiles) {
+                    try {
+                        const data = await loadJSONFile(filename);
+                        detailedData.push(data);
+                    } catch (error) {
+                        console.warn(`跳过文件 ${filename}:`, error);
+                    }
+                }
+                
+                if (detailedData.length === 0) {
+                    throw new Error('没有成功加载任何明细数据文件');
+                }
+                
+                return { summaryData, detailedData };
+            } catch (error) {
+                console.error('数据加载失败:', error);
+                throw error;
+            }
+        }
+
+        // ===== 渲染函数 =====
+        function renderStaticContent(summaryData) {
+            const header = summaryData.headerInfo;
+            const aiSummary = summaryData.aiSummary;
+            
+            // 渲染标题
+            document.getElementById('report-title').textContent = aiSummary.title;
+            
+            // 渲染患者信息
+            const patientInfo = `${header.patientName} | ${header.patientGender} | ${header.latestAge}岁 | 对比年度: ${header.yearRange}`;
+            document.getElementById('patient-info').textContent = patientInfo;
+            
+            // 渲染AI总结
+            let summaryHTML = `<p style="margin-bottom: 15px; line-height: 1.8;">${escapeHTML(aiSummary.introduction)}</p>`;
+            summaryHTML += `<ul style="margin-left: 20px;">`;
+            aiSummary.points.forEach(point => {
+                summaryHTML += `<li style="margin-bottom: 10px;">${escapeHTML(point)}</li>`;
+            });
+            summaryHTML += `</ul>`;
+            summaryHTML += `<p style="margin-top: 15px; font-weight: bold; color: #1e3a8a;">${escapeHTML(aiSummary.conclusion)}</p>`;
+            
+            document.getElementById('ai-summary-content').innerHTML = summaryHTML;
+        }
+
+        function renderStatusSummary(statusSummary) {
+            const container = document.getElementById('status-summary');
+            let html = '';
+            
+            if (statusSummary.improvements && statusSummary.improvements.length > 0) {
+                html += `<div class="status-box status-green">`;
+                html += `<strong style="color: #2e7d32;">✓ 显著改善</strong><ul style="margin-top: 10px;">`;
+                statusSummary.improvements.forEach(item => {
+                    html += `<li>${escapeHTML(item)}</li>`;
+                });
+                html += `</ul></div>`;
+            }
+            
+            if (statusSummary.risks && statusSummary.risks.length > 0) {
+                html += `<div class="status-box status-yellow">`;
+                html += `<strong style="color: #b45309;">⚠ 需要关注</strong><ul style="margin-top: 10px;">`;
+                statusSummary.risks.forEach(item => {
+                    html += `<li>${escapeHTML(item)}</li>`;
+                });
+                html += `</ul></div>`;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function renderVitals(keyVitals) {
+            const headerRow = document.getElementById('vitals-header');
+            const bodyRows = document.getElementById('vitals-body');
+            
+            // 渲染表头
+            let headerHTML = '<tr><th>体征项目</th>';
+            keyVitals.exams.forEach(exam => {
+                headerHTML += `<th>${exam.examDate}<br>(${exam.age}岁)</th>`;
+            });
+            headerHTML += '</tr>';
+            headerRow.innerHTML = headerHTML;
+            
+            // 渲染数据行
+            let bodyHTML = '';
+            keyVitals.metrics.forEach(metric => {
+                bodyHTML += `<tr><td>${escapeHTML(metric.name)}</td>`;
+                metric.values.forEach(value => {
+                    bodyHTML += `<td>${escapeHTML(value)}</td>`;
+                });
+                bodyHTML += '</tr>';
+            });
+            bodyRows.innerHTML = bodyHTML;
+        }
+
+        function renderCharts(chartData) {
+            const container = document.getElementById('charts-container');
+            const labels = chartData.labels;
+            
+            // BMI 和体重趋势图
+            const bmiChartHTML = `
+                <div class="chart-container">
+                    <h4>体重与BMI趋势</h4>
+                    <canvas id="bmi-chart"></canvas>
+                </div>
+            `;
+            
+            // 血脂趋势图
+            const lipidChartHTML = `
+                <div class="chart-container">
+                    <h4>血脂趋势</h4>
+                    <canvas id="lipid-chart"></canvas>
+                </div>
+            `;
+            
+            // 尿酸趋势图
+            const uricAcidChartHTML = `
+                <div class="chart-container">
+                    <h4>血尿酸趋势</h4>
+                    <canvas id="uric-acid-chart"></canvas>
+                </div>
+            `;
+            
+            container.innerHTML = bmiChartHTML + lipidChartHTML + uricAcidChartHTML;
+            
+            // 绘制图表
+            setTimeout(() => {
+                // BMI图表
+                new Chart(document.getElementById('bmi-chart'), {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: '体重 (kg)',
+                                data: chartData.bmiChart.weight,
+                                borderColor: '#3b82f6',
+                                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                                yAxisID: 'y'
+                            },
+                            {
+                                label: 'BMI (kg/m²)',
+                                data: chartData.bmiChart.bmi,
+                                borderColor: '#10b981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                yAxisID: 'y1'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        interaction: { mode: 'index', intersect: false },
+                        scales: {
+                            y: { type: 'linear', display: true, position: 'left', title: { display: true, text: '体重 (kg)' } },
+                            y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'BMI (kg/m²)' }, grid: { drawOnChartArea: false } }
+                        }
+                    }
+                });
+                
+                // 血脂图表
+                new Chart(document.getElementById('lipid-chart'), {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: '总胆固醇 (mmol/L)',
+                                data: chartData.lipidChart.totalCholesterol,
+                                borderColor: '#ef4444',
+                                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                yAxisID: 'y'
+                            },
+                            {
+                                label: '脂蛋白a (mg/L)',
+                                data: chartData.lipidChart.lipoproteinA,
+                                borderColor: '#f59e0b',
+                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                                yAxisID: 'y1'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        interaction: { mode: 'index', intersect: false },
+                        scales: {
+                            y: { type: 'linear', display: true, position: 'left', title: { display: true, text: '总胆固醇 (mmol/L)' } },
+                            y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: '脂蛋白a (mg/L)' }, grid: { drawOnChartArea: false } }
+                        }
+                    }
+                });
+                
+                // 尿酸图表
+                new Chart(document.getElementById('uric-acid-chart'), {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: '血尿酸 (umol/L)',
+                            data: chartData.uricAcidChart.uricAcid,
+                            borderColor: '#8b5cf6',
+                            backgroundColor: 'rgba(139, 92, 246, 0.1)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: { title: { display: true, text: '血尿酸 (umol/L)' } }
+                        }
+                    }
+                });
+            }, 100);
+        }
+
+        function renderSpecialistExams(reports) {
+            const container = document.getElementById('specialist-exams-container');
+            const categoryMap = new Map();
+            const years = reports.map(r => r.patientInfo.examDate.substring(0, 4));
+            
+            reports.forEach(report => {
+                const year = report.patientInfo.examDate.substring(0, 4);
+                (report.specialistExams || []).forEach(exam => {
+                    if (!categoryMap.has(exam.category)) {
+                        categoryMap.set(exam.category, {});
+                    }
+                    categoryMap.get(exam.category)[year] = {
+                        assessment: exam.assessment || '未见明显异常',
+                        findings: exam.finding ? [exam.finding] : []
+                    };
+                });
+            });
+            
+            let html = '';
+            categoryMap.forEach((yearData, category) => {
+                const isKeyCategory = CONFIG.keySpecialistExams.includes(category);
+                const categoryClass = isKeyCategory ? 'key-category' : 'non-key-item';
+                const blockClass = isKeyCategory ? 'key-block' : 'non-key-block';
+                
+                html += `<div class="subsection-title ${categoryClass}">${escapeHTML(category)}</div>`;
+                html += `<div class="comparison-grid ${categoryClass}" style="grid-template-columns: repeat(${years.length}, 1fr);">`;
+                
+                years.forEach(year => {
+                    const data = yearData[year];
+                    html += `<div class="comparison-item ${blockClass}"><h4>${year}</h4>`;
+                    if (data) {
+                        html += `<p><strong>评估结论:</strong> ${escapeHTML(data.assessment)}</p>`;
+                        if (data.findings && data.findings.length > 0) {
+                            html += `<p style="margin-top:10px;"><strong>主要所见:</strong></p><ul>`;
+                            data.findings.forEach(f => {
+                                html += `<li>${escapeHTML(f)}</li>`;
+                            });
+                            html += `</ul>`;
+                        }
+                    } else {
+                        html += `<p style="color: #999;">未检查</p>`;
+                    }
+                    html += `</div>`;
+                });
+                
+                html += `</div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderImagingResults(reports) {
+            const container = document.getElementById('imaging-results-container');
+            const categoryMap = new Map();
+            const years = reports.map(r => r.patientInfo.examDate.substring(0, 4));
+            
+            reports.forEach(report => {
+                const year = report.patientInfo.examDate.substring(0, 4);
+                (report.imagingResults || []).forEach(exam => {
+                    if (!categoryMap.has(exam.category)) {
+                        categoryMap.set(exam.category, {});
+                    }
+                    categoryMap.get(exam.category)[year] = {
+                        assessment: exam.assessment || '未见明显异常',
+                        findings: exam.finding ? [exam.finding] : []
+                    };
+                });
+            });
+            
+            let html = '';
+            categoryMap.forEach((yearData, category) => {
+                const isKeyCategory = CONFIG.keyImagingExams.includes(category);
+                const categoryClass = isKeyCategory ? 'key-category' : 'non-key-item';
+                const blockClass = isKeyCategory ? 'key-block' : 'non-key-block';
+                
+                html += `<div class="subsection-title ${categoryClass}">${escapeHTML(category)}</div>`;
+                html += `<div class="comparison-grid ${categoryClass}" style="grid-template-columns: repeat(${years.length}, 1fr);">`;
+                
+                years.forEach(year => {
+                    const data = yearData[year];
+                    html += `<div class="comparison-item ${blockClass}"><h4>${year}</h4>`;
+                    if (data) {
+                        html += `<p><strong>评估结论:</strong> ${escapeHTML(data.assessment)}</p>`;
+                        if (data.findings && data.findings.length > 0) {
+                            html += `<p style="margin-top:10px;"><strong>主要所见:</strong></p><ul>`;
+                            data.findings.forEach(f => {
+                                html += `<li>${escapeHTML(f)}</li>`;
+                            });
+                            html += `</ul>`;
+                        }
+                    } else {
+                        html += `<p style="color: #999;">未检查</p>`;
+                    }
+                    html += `</div>`;
+                });
+                
+                html += `</div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderLabResults(reports) {
+            const container = document.getElementById('lab-results-container');
+            const categoryMap = new Map();
+            const years = reports.map(r => r.patientInfo.examDate.substring(0, 4));
+            
+            // 调试信息
+            console.log('=== 实验室检查渲染调试 ===');
+            console.log('报告数量:', reports.length);
+            console.log('年份列表:', years);
+            console.log('关键项配置:', CONFIG.keyLabItems);
+            
+            reports.forEach(report => {
+                const year = report.patientInfo.examDate.substring(0, 4);
+                (report.labResults || []).forEach(category => {
+                    if (!categoryMap.has(category.category)) {
+                        categoryMap.set(category.category, { items: new Map() });
+                    }
+                    const categoryData = categoryMap.get(category.category);
+                    
+                    (category.items || []).forEach(item => {
+                        const itemName = item.name;
+                        if (!categoryData.items.has(itemName)) {
+                            categoryData.items.set(itemName, {
+                                name: itemName,
+                                ref: item.referenceRange || '',
+                                unit: item.unit || '',
+                                values: {}
+                            });
+                        }
+                        const itemData = categoryData.items.get(itemName);
+                        itemData.values[year] = {
+                            value: item.value,
+                            isAbnormal: item.isAbnormal
+                        };
+                        if ((!itemData.ref && item.referenceRange) || item.referenceRange === '阴性') {
+                            itemData.ref = item.referenceRange;
+                        }
+                        if (!itemData.unit && item.unit) {
+                            itemData.unit = item.unit;
+                        }
+                    });
+                });
+            });
+            
+            let html = '';
+            let renderedCategories = 0;
+            categoryMap.forEach((categoryData, categoryName) => {
+                let categoryHasKeyItem = false;
+                categoryData.items.forEach(item => {
+                    if (CONFIG.keyLabItems.includes(item.name)) {
+                        categoryHasKeyItem = true;
+                    }
+                });
+                
+                const categoryClass = categoryHasKeyItem ? 'key-category' : 'non-key-item';
+                
+                if (categoryHasKeyItem) {
+                    renderedCategories++;
+                    console.log(`渲染类别 ${renderedCategories}: ${categoryName}, 项目数: ${categoryData.items.size}`);
+                }
+                
+                html += `<div class="subsection-title ${categoryClass}">${escapeHTML(categoryName)}</div>`;
+                html += `<table class="lab-table ${categoryClass}">`;
+                html += `<thead><tr><th>项目名称</th><th>单位</th><th>参考范围</th>`;
+                years.forEach(year => {
+                    html += `<th>${year}</th>`;
+                });
+                html += `</tr></thead><tbody>`;
+                
+                categoryData.items.forEach(item => {
+                    const rowClass = CONFIG.keyLabItems.includes(item.name) ? 'key-item' : 'non-key-item';
+                    html += `<tr class="${rowClass}">
+                                <td>${escapeHTML(item.name)}</td>
+                                <td>${escapeHTML(item.unit)}</td>
+                                <td>${escapeHTML(item.ref)}</td>`;
+                    years.forEach(year => {
+                        html += `<td>${formatValue(item, year, item.values)}</td>`;
+                    });
+                    html += `</tr>`;
+                });
+                
+                html += `</tbody></table>`;
+            });
+            
+            console.log(`总共渲染了 ${renderedCategories} 个包含关键项的类别`);
+            console.log('年份列表长度:', years.length);
+            console.log('=== 渲染完成 ===');
+            
+            container.innerHTML = html;
+        }
+
+        function setupViewSwitcher() {
+            const toggle = document.getElementById('view-toggle-switch');
+            const modeText = document.getElementById('view-mode-text');
+            const titles = document.querySelectorAll('.view-mode-title');
+            
+            if (toggle) {
+                toggle.addEventListener('change', function() {
+                    if (this.checked) {
+                        document.body.classList.add('show-full-data');
+                        modeText.textContent = '显示全部数据';
+                        titles.forEach(t => t.textContent = '(全部数据)');
+                    } else {
+                        document.body.classList.remove('show-full-data');
+                        modeText.textContent = '仅显示关键项';
+                        titles.forEach(t => t.textContent = '(关键项)');
+                    }
+                });
+            }
+        }
+
+        function initializeReport(summaryData, detailedData) {
+            renderStaticContent(summaryData);
+            renderStatusSummary(summaryData.statusSummary);
+            renderVitals(summaryData.keyVitals);
+            renderCharts(summaryData.chartData);
+            renderSpecialistExams(detailedData);
+            renderImagingResults(detailedData);
+            renderLabResults(detailedData);
+            setupViewSwitcher();
+        }
+
+        function showError(message) {
+            const container = document.querySelector('.container');
+            container.innerHTML = `
+                <div class="error-message">
+                    <h3>数据加载失败</h3>
+                    <p>${message}</p>
+                    <p style="margin-top: 10px; font-size: 14px;">
+                        请检查：<br>
+                        1. JSON 文件是否在正确的位置<br>
+                        2. 文件名是否与配置一致<br>
+                        3. 浏览器控制台是否有错误信息
+                    </p>
+                </div>
+            `;
+        }
+
+        // ===== 页面加载入口 =====
+        window.addEventListener('load', async () => {
+            try {
+                const { summaryData, detailedData } = await loadAllData();
+                
+                // 隐藏加载提示
+                document.getElementById('loading-overlay').style.display = 'none';
+                
+                // 初始化报告
+                initializeReport(summaryData, detailedData);
+                
+                console.log('报告加载成功！');
+            } catch (error) {
+                // 隐藏加载提示
+                document.getElementById('loading-overlay').style.display = 'none';
+                
+                // 显示错误信息
+                showError(error.message);
+                console.error('初始化失败:', error);
+            }
+        });
+    </script>
+</body>
+</html>

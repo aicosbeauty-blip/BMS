@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统诊断检查</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #f97316;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9fafb;
+            border-left: 4px solid #f97316;
+        }
+        .success {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .error {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        .warning {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+        pre {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        button {
+            background: #f97316;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 10px 0;
+        }
+        button:hover {
+            background: #ea580c;
+        }
+        .info-box {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 审批流程管理系统 - 诊断检查</h1>
+        
+        <div class="info-box">
+            <strong>📌 使用说明：</strong><br>
+            1. 确保你的主页面（index.html）已经打开并加载完成<br>
+            2. 点击下面的"开始诊断"按钮<br>
+            3. 查看诊断结果，根据提示修复问题
+        </div>
+
+        <button onclick="runDiagnostics()">🔍 开始诊断</button>
+        <button onclick="checkVersion()">📋 检查版本</button>
+        <button onclick="testRoleMatching()">🎯 测试角色匹配</button>
+        <button onclick="showRawData()">📊 查看原始数据</button>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function runDiagnostics() {
+            const resultsDiv = document.getElementById('results');
+            let html = '<div class="section"><h2>🔍 诊断结果</h2>';
+            
+            // 检查是否是在主页面的上下文中运行
+            if (typeof availableRoles === 'undefined') {
+                html += '<p class="error">❌ 无法访问主页面数据</p>';
+                html += '<p>请确保：</p>';
+                html += '<ol>';
+                html += '<li>主页面（index.html）已经打开</li>';
+                html += '<li>在主页面的控制台（F12）中运行诊断脚本</li>';
+                html += '</ol>';
+                html += '<p>或者复制下面的代码到主页面控制台运行：</p>';
+                html += '<pre>' + getDiagnosticCode() + '</pre>';
+                html += '</div>';
+                resultsDiv.innerHTML = html;
+                return;
+            }
+
+            // 1. 检查角色数据
+            html += '<h3>1. 角色数据检查</h3>';
+            if (typeof availableRoles !== 'undefined') {
+                html += `<p class="success">✓ 角色数据已加载: ${availableRoles.length} 个角色</p>`;
+                if (availableRoles.length > 0) {
+                    html += '<p>角色列表：</p><ul>';
+                    availableRoles.forEach(role => {
+                        html += `<li>${role.name} (ID: ${role.id}, ${role.employeeCount} 名员工)</li>`;
+                    });
+                    html += '</ul>';
+                } else {
+                    html += '<p class="error">❌ 角色列表为空！</p>';
+                }
+            } else {
+                html += '<p class="error">❌ 角色数据未加载</p>';
+            }
+
+            // 2. 检查流程数据
+            html += '<h3>2. 流程数据检查</h3>';
+            if (typeof processList !== 'undefined') {
+                html += `<p class="success">✓ 流程数据已加载: ${processList.length} 个流程</p>`;
+                if (processList.length > 0) {
+                    processList.forEach(process => {
+                        html += `<p><strong>${process.name}</strong> (${process.nodes ? process.nodes.length : 0} 个节点)</p>`;
+                    });
+                }
+            } else {
+                html += '<p class="error">❌ 流程数据未加载</p>';
+            }
+
+            // 3. 检查当前工作流
+            html += '<h3>3. 当前工作流检查</h3>';
+            if (typeof workflowNodes !== 'undefined') {
+                html += `<p>当前节点数: ${workflowNodes.length}</p>`;
+                if (workflowNodes.length > 0) {
+                    html += '<table style="width:100%; border-collapse: collapse;">';
+                    html += '<tr style="background:#f3f4f6;"><th style="padding:8px; border:1px solid #ddd;">节点</th><th style="padding:8px; border:1px solid #ddd;">角色</th><th style="padding:8px; border:1px solid #ddd;">员工数</th><th style="padding:8px; border:1px solid #ddd;">状态</th></tr>';
+                    workflowNodes.forEach((node, i) => {
+                        const empCount = node.employees ? node.employees.length : 0;
+                        const status = empCount > 0 ? '<span class="success">✓</span>' : '<span class="error">✗</span>';
+                        html += `<tr>`;
+                        html += `<td style="padding:8px; border:1px solid #ddd;">节点 ${i+1}</td>`;
+                        html += `<td style="padding:8px; border:1px solid #ddd;">${node.role || node.roleName || '未知'}</td>`;
+                        html += `<td style="padding:8px; border:1px solid #ddd;">${empCount}</td>`;
+                        html += `<td style="padding:8px; border:1px solid #ddd;">${status}</td>`;
+                        html += `</tr>`;
+                        if (empCount > 0) {
+                            html += `<tr><td colspan="4" style="padding:8px; border:1px solid #ddd; font-size:12px; color:#666;">员工: ${node.employees.map(e => e.name).join(', ')}</td></tr>`;
+                        }
+                    });
+                    html += '</table>';
+                } else {
+                    html += '<p class="warning">⚠ 当前没有工作流节点</p>';
+                }
+            }
+
+            // 4. 角色匹配测试
+            html += '<h3>4. 角色匹配测试</h3>';
+            if (typeof workflowNodes !== 'undefined' && typeof availableRoles !== 'undefined' && workflowNodes.length > 0) {
+                html += '<table style="width:100%; border-collapse: collapse;">';
+                html += '<tr style="background:#f3f4f6;"><th style="padding:8px; border:1px solid #ddd;">节点角色</th><th style="padding:8px; border:1px solid #ddd;">匹配状态</th><th style="padding:8px; border:1px solid #ddd;">详情</th></tr>';
+                workflowNodes.forEach(node => {
+                    const roleName = node.role || node.roleName;
+                    const matchedRole = availableRoles.find(r => r.name === roleName);
+                    if (matchedRole) {
+                        html += `<tr>`;
+                        html += `<td style="padding:8px; border:1px solid #ddd;">${roleName}</td>`;
+                        html += `<td style="padding:8px; border:1px solid #ddd;"><span class="success">✓ 找到匹配</span></td>`;
+                        html += `<td style="padding:8px; border:1px solid #ddd;">${matchedRole.employeeCount} 名员工</td>`;
+                        html += `</tr>`;
+                    } else {
+                        html += `<tr>`;
+                        html += `<td style="padding:8px; border:1px solid #ddd;">${roleName}</td>`;
+                        html += `<td style="padding:8px; border:1px solid #ddd;"><span class="error">✗ 未找到</span></td>`;
+                        html += `<td style="padding:8px; border:1px solid #ddd;">检查角色名称是否完全匹配</td>`;
+                        html += `</tr>`;
+                    }
+                });
+                html += '</table>';
+            }
+
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+        }
+
+        function checkVersion() {
+            const resultsDiv = document.getElementById('results');
+            let html = '<div class="section"><h2>📋 版本检查</h2>';
+            
+            // 检查selectProcess函数的代码
+            if (typeof selectProcess === 'function') {
+                const funcStr = selectProcess.toString();
+                if (funcStr.includes('处理节点') && funcStr.includes('员工列表:')) {
+                    html += '<p class="success">✓ 版本正确：已使用 v1.2 版本</p>';
+                    html += '<p>包含详细日志输出功能</p>';
+                } else if (funcStr.includes('方式2：通过role名称查找')) {
+                    html += '<p class="warning">⚠ 版本：v1.1（部分修复）</p>';
+                    html += '<p class="error">建议更新到 v1.2 获取详细日志</p>';
+                } else {
+                    html += '<p class="error">✗ 版本过旧：v1.0 或更早</p>';
+                    html += '<p class="error">请立即更新 main-logic.js 文件！</p>';
+                }
+            } else {
+                html += '<p class="error">✗ 无法检测版本（函数不存在）</p>';
+            }
+
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+        }
+
+        function testRoleMatching() {
+            const resultsDiv = document.getElementById('results');
+            let html = '<div class="section"><h2>🎯 角色匹配详细测试</h2>';
+            
+            if (typeof workflowNodes === 'undefined' || typeof availableRoles === 'undefined') {
+                html += '<p class="error">❌ 数据未加载，无法测试</p></div>';
+                resultsDiv.innerHTML = html;
+                return;
+            }
+
+            html += '<h3>可用角色完整列表</h3>';
+            html += '<ul>';
+            availableRoles.forEach(role => {
+                html += `<li><strong>${role.name}</strong> (ID: ${role.id})`;
+                if (role.employees && role.employees.length > 0) {
+                    html += `<br>&nbsp;&nbsp;员工 (${role.employees.length}): `;
+                    html += role.employees.slice(0, 5).map(e => e.RUSERNAME).join(', ');
+                    if (role.employees.length > 5) html += ` ...等${role.employees.length}人`;
+                } else {
+                    html += `<br>&nbsp;&nbsp;<span class="error">无员工数据</span>`;
+                }
+                html += '</li>';
+            });
+            html += '</ul>';
+
+            html += '<h3>节点角色匹配结果</h3>';
+            workflowNodes.forEach((node, i) => {
+                const roleName = node.role || node.roleName;
+                html += `<p><strong>节点 ${i+1}: ${roleName}</strong></p>`;
+                html += '<ul>';
+                
+                // 尝试各种匹配方式
+                const exactMatch = availableRoles.find(r => r.name === roleName);
+                const caseInsensitiveMatch = availableRoles.find(r => r.name.toLowerCase() === roleName.toLowerCase());
+                const containsMatch = availableRoles.filter(r => r.name.includes(roleName) || roleName.includes(r.name));
+                
+                if (exactMatch) {
+                    html += `<li class="success">✓ 精确匹配: ${exactMatch.name}</li>`;
+                } else {
+                    html += `<li class="error">✗ 无精确匹配</li>`;
+                }
+                
+                if (caseInsensitiveMatch && !exactMatch) {
+                    html += `<li class="warning">⚠ 大小写不匹配: "${roleName}" vs "${caseInsensitiveMatch.name}"</li>`;
+                }
+                
+                if (containsMatch.length > 0 && !exactMatch) {
+                    html += `<li class="warning">⚠ 可能的相似角色: ${containsMatch.map(r => r.name).join(', ')}</li>`;
+                }
+                
+                html += '</ul>';
+            });
+
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+        }
+
+        function showRawData() {
+            const resultsDiv = document.getElementById('results');
+            let html = '<div class="section"><h2>📊 原始数据</h2>';
+            
+            html += '<h3>角色数据 (availableRoles)</h3>';
+            html += '<pre>' + JSON.stringify(availableRoles || [], null, 2) + '</pre>';
+            
+            html += '<h3>工作流节点 (workflowNodes)</h3>';
+            html += '<pre>' + JSON.stringify(workflowNodes || [], null, 2) + '</pre>';
+            
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+        }
+
+        function getDiagnosticCode() {
+            return `// 在主页面控制台运行此代码
+console.log('=== 系统诊断 ===');
+console.log('角色数:', availableRoles?.length || 0);
+console.log('流程数:', processList?.length || 0);
+console.log('节点数:', workflowNodes?.length || 0);
+if (workflowNodes) {
+    workflowNodes.forEach((n, i) => {
+        console.log(\`节点\${i+1}: \${n.role}, 员工数: \${n.employees?.length || 0}\`);
+    });
+}`;
+        }
+    </script>
+</body>
+</html>

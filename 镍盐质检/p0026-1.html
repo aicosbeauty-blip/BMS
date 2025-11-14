@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品P0026 真实数据 vs 理想数据</title>
+    <!-- 1. 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 2. 引入ECharts图表库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- 报告头部 -->
+        <header class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h1 class="text-3xl font-bold text-blue-800">产品P0026 质量数据对比</h1>
+            <p class="text-lg text-gray-600">真实数据 (Ppk=0.49) vs. 理想正态数据 (Ppk=1.68)</p>
+            <p class="mt-4 text-gray-700">
+                本页面对比了“镍(Ni)含量”的 **真实数据** 和 **模拟的理想数据**。两者具有相同的规格下限 (LSL=22.2) 和相似的变异程度。<br>
+                核心差异在于：<strong>真实数据均值 (≈22.212)</strong> 极度靠近下限，而 <strong>理想数据均值 (≈22.250)</strong> 位于规格中心。
+            </p>
+        </header>
+
+        <!-- 对比网格 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- 1. 真实数据分析 -->
+            <section class="space-y-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-semibold mb-4 text-red-700">真实数据分析 (Ppk: 0.49)</h2>
+                    <p class="text-red-600 font-bold">结论: 均值紧贴下限，分布被截断，能力严重不足。</p>
+                    
+                    <!-- ECharts 单值图 (I-Chart) -->
+                    <h3 class="text-lg font-medium text-gray-800 mt-6 mb-2">单值图 (I-Chart) - 真实</h3>
+                    <div id="real-i-chart" style="width: 100%; height: 280px;"></div>
+                    
+                    <!-- ECharts 移动极差图 (MR-Chart) -->
+                    <h3 class="text-lg font-medium text-gray-800 mt-6 mb-2">移动极差图 (MR-Chart) - 真实</h3>
+                    <div id="real-mr-chart" style="width: 100%; height: 280px;"></div>
+
+                    <!-- ECharts 直方图容器 -->
+                    <h3 class="text-lg font-medium text-gray-800 mt-6 mb-2">过程能力分析 - 真实</h3>
+                    <div id="real-capability-chart" style="width: 100%; height: 280px;"></div>
+                    
+                    <!-- 分析结论 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <h4 class="font-bold text-gray-700">过程数据</h4>
+                            <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                <li>样本 N: <span class="font-medium" id="stat-n-real"></span></li>
+                                <li>规格下限 (LSL): <span class="font-medium" id="stat-lsl-real"></span></li>
+                                <li>过程均值 (Mean): <span class="font-medium" id="stat-mean-real"></span></li>
+                                <li>标准差 (整体): <span class="font-medium" id="stat-stddev-pp-real"></span></li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <h4 class="font-bold text-gray-700">能力分析</h4>
+                            <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                <li class="text-red-600 font-bold">整体能力 (Ppk): <span class="font-medium" id="stat-ppk-real"></span></li>
+                                <li>组内能力 (Cpk): <span class="font-medium" id="stat-cpk-real"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. 理想数据分析 -->
+            <section class="space-y-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-semibold mb-4 text-green-700">理想数据对比 (Ppk: 1.68)</h2>
+                    <p class="text-green-600 font-bold">结论: 均值居中，呈正态分布（钟形曲线），能力充足。</p>
+                    
+                    <!-- ECharts 单值图 (I-Chart) -->
+                    <h3 class="text-lg font-medium text-gray-800 mt-6 mb-2">单值图 (I-Chart) - 理想</h3>
+                    <div id="ideal-i-chart" style="width: 100%; height: 280px;"></div>
+                    
+                    <!-- ECharts 移动极差图 (MR-Chart) -->
+                    <h3 class="text-lg font-medium text-gray-800 mt-6 mb-2">移动极差图 (MR-Chart) - 理想</h3>
+                    <div id="ideal-mr-chart" style="width: 100%; height: 280px;"></div>
+
+                    <!-- ECharts 直方图容器 -->
+                    <h3 class="text-lg font-medium text-gray-800 mt-6 mb-2">过程能力分析 - 理想</h3>
+                    <div id="ideal-capability-chart" style="width: 100%; height: 280px;"></div>
+                    
+                    <!-- 分析结论 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <h4 class="font-bold text-gray-700">过程数据</h4>
+                            <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                <li>样本 N: <span class="font-medium" id="stat-n-ideal"></span></li>
+                                <li>规格下限 (LSL): <span class="font-medium" id="stat-lsl-ideal"></span></li>
+                                <li>过程均值 (Mean): <span class="font-medium" id="stat-mean-ideal"></span></li>
+                                <li>标准差 (整体): <span class="font-medium" id="stat-stddev-pp-ideal"></span></li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <h4 class="font-bold text-gray-700">能力分析</h4>
+                            <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                <li class="text-green-600 font-bold">整体能力 (Ppk): <span class="font-medium" id="stat-ppk-ideal"></span></li>
+                                <li>组内能力 (Cpk): <span class="font-medium" id="stat-cpk-ideal"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- 3. 嵌入JSON数据和ECharts初始化脚本 -->
+    <script>
+        // 辅助函数：计算正态分布密度
+        function normalDensity(x, mean, stdDev) {
+            if (stdDev === 0) return (x === mean) ? Infinity : 0;
+            const variance = stdDev * stdDev;
+            const factor = 1 / Math.sqrt(2 * Math.PI * variance);
+            return factor * Math.exp(-Math.pow(x - mean, 2) / (2 * variance));
+        }
+
+        // 辅助函数：计算SPC统计数据
+        function calculateSPC(data, LSL, USL = null) {
+            const N = data.length;
+            if (N === 0) return null;
+
+            // 1. 均值
+            const mean = data.reduce((a, b) => a + b, 0) / N; // X-bar
+            
+            // 2. 移动极差 (MR)
+            const mrData = [];
+            for (let i = 1; i < N; i++) {
+                mrData.push(Math.abs(data[i] - data[i-1]));
+            }
+            if (mrData.length === 0) return null; // 需要至少2个点
+            const mrMean = mrData.reduce((a, b) => a + b, 0) / mrData.length; // MR-bar
+
+            // 3. 控制限常量
+            const d2 = 1.128; // for n=2
+            const D4 = 3.267; // for n=2
+            const D3 = 0;     // for n=2
+
+            // 4. 控制限 (Control Limits)
+            const ucl_I = mean + 3 * (mrMean / d2);
+            const lcl_I = mean - 3 * (mrMean / d2);
+            const ucl_MR = D4 * mrMean;
+            const lcl_MR = D3 * mrMean;
+
+            // 5. 标准差
+            const sigma_within = mrMean / d2;
+            
+            function getStdDev(arr) {
+                const n = arr.length;
+                if (n <= 1) return 0;
+                const m = arr.reduce((a, b) => a + b, 0) / n;
+                return Math.sqrt(arr.map(x => Math.pow(x - m, 2)).reduce((a, b) => a + b, 0) / (n - 1));
+            }
+            const sigma_overall = getStdDev(data);
+
+            // 6. 能力指数 (Capability Indices)
+            let ppk = null, cpk = null;
+            const pkl = (mean - LSL) / (3 * sigma_overall);
+            const ckl = (mean - LSL) / (3 * sigma_within);
+
+            if (USL !== null) {
+                const pku = (USL - mean) / (3 * sigma_overall);
+                const cku = (USL - mean) / (3 * sigma_within);
+                ppk = Math.min(pkl, pku);
+                cpk = Math.min(ckl, cku);
+            } else {
+                ppk = pkl; // 只有单边规格
+                cpk = ckl;
+            }
+            
+            // 7. 柱状图数据
+            const frequencies = data.reduce((acc, item) => {
+                const val = item.toFixed(2); // 按小数点后两位分组
+                acc[val] = (acc[val] || 0) + 1;
+                return acc;
+            }, {});
+            const histCategories = Object.keys(frequencies).sort();
+            const histData = histCategories.map(cat => frequencies[cat]);
+            const binWidth = histCategories.length > 1 ? (parseFloat(histCategories[1]) - parseFloat(histCategories[0])) : 0.01;
+
+
+            return {
+                N, LSL, USL, mean, mrData,
+                ucl_I, lcl_I, cl_I: mean,
+                ucl_MR, lcl_MR, cl_MR: mrMean,
+                sigma_overall, sigma_within,
+                ppk, cpk,
+                histCategories, histData, binWidth
+            };
+        }
+        
+        // 辅助函数：绘制图表
+        function drawCharts(stats, data, chartPrefix) {
+            if (!stats) return;
+
+            // --- 更新统计数据
+            document.getElementById(`stat-n-${chartPrefix}`).textContent = stats.N;
+            document.getElementById(`stat-lsl-${chartPrefix}`).textContent = stats.LSL.toFixed(2);
+            document.getElementById(`stat-mean-${chartPrefix}`).textContent = stats.mean.toFixed(4);
+            document.getElementById(`stat-stddev-pp-${chartPrefix}`).textContent = stats.sigma_overall.toFixed(4);
+            document.getElementById(`stat-ppk-${chartPrefix}`).textContent = stats.ppk.toFixed(2);
+            document.getElementById(`stat-cpk-${chartPrefix}`).textContent = stats.cpk.toFixed(2);
+            
+            // --- 绘制图表 ---
+            
+            // 1. I-Chart
+            try {
+                const iChartDom = document.getElementById(`${chartPrefix}-i-chart`);
+                echarts.init(iChartDom).setOption({
+                    tooltip: { trigger: 'axis' },
+                    grid: { left: '10%', right: '4%', bottom: '3%', containLabel: true },
+                    xAxis: { type: 'category', name: '样本', boundaryGap: false, data: data.map((_, i) => i + 1) },
+                    yAxis: { type: 'value', name: 'Ni 含量 (%)', scale: true },
+                    series: [{
+                        name: 'Ni 含量', type: 'line', data: data,
+                        markPoint: {
+                            data: data.map((val, idx) => (val > stats.ucl_I || val < stats.lcl_I) ? { value: val, xAxis: idx, yAxis: val, itemStyle: { color: 'red' }, symbolSize: 10 } : null).filter(Boolean)
+                        },
+                        markLine: {
+                            symbol: 'none',
+                            data: [
+                                { name: 'UCL', yAxis: stats.ucl_I, lineStyle: { color: 'red', type: 'dashed' }, label: { formatter: 'UCL\n{c}', position: 'end' } },
+                                { name: 'CL', yAxis: stats.cl_I, lineStyle: { color: 'green' } },
+                                { name: 'LCL', yAxis: stats.lcl_I, lineStyle: { color: 'red', type: 'dashed' }, label: { formatter: 'LCL\n{c}', position: 'end' } },
+                                { name: 'LSL', yAxis: stats.LSL, lineStyle: { color: '#EF4444', type: 'solid', width: 2 }, label: { formatter: 'LSL\n{c}', position: 'start', color: '#EF4444' } }
+                            ]
+                        }
+                    }]
+                });
+            } catch (e) { console.error("I-Chart Error:", e); }
+
+            // 2. MR-Chart
+            try {
+                const mrChartDom = document.getElementById(`${chartPrefix}-mr-chart`);
+                echarts.init(mrChartDom).setOption({
+                    tooltip: { trigger: 'axis' },
+                    grid: { left: '10%', right: '4%', bottom: '3%', containLabel: true },
+                    xAxis: { type: 'category', name: '样本', boundaryGap: false, data: stats.mrData.map((_, i) => i + 2) },
+                    yAxis: { type: 'value', name: '移动极差 (MR)', scale: true },
+                    series: [{
+                        name: 'MR', type: 'line', data: stats.mrData, itemStyle: { color: '#888' },
+                        markPoint: {
+                            data: stats.mrData.map((val, idx) => (val > stats.ucl_MR) ? { value: val, xAxis: idx, yAxis: val, itemStyle: { color: 'red' }, symbolSize: 10 } : null).filter(Boolean)
+                        },
+                        markLine: {
+                            symbol: 'none',
+                            data: [
+                                { name: 'UCL', yAxis: stats.ucl_MR, lineStyle: { color: 'red', type: 'dashed' }, label: { formatter: 'UCL\n{c}', position: 'end' } },
+                                { name: 'CL', yAxis: stats.cl_MR, lineStyle: { color: 'green' } }
+                            ]
+                        }
+                    }]
+                });
+            } catch (e) { console.error("MR-Chart Error:", e); }
+
+            // 3. Capability Histogram
+            try {
+                // 为正态曲线准备数据
+                const lineData = [];
+                const scaleFactor = stats.N * stats.binWidth;
+                for (let i = 0; i < stats.histCategories.length; i++) {
+                    const x = parseFloat(stats.histCategories[i]);
+                    // 使用 sigma_overall (Ppk) 来绘制整体分布
+                    const y = normalDensity(x, stats.mean, stats.sigma_overall) * scaleFactor;
+                    lineData.push(y);
+                }
+
+                const histogramDom = document.getElementById(`${chartPrefix}-capability-chart`);
+                echarts.init(histogramDom).setOption({
+                    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+                    grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+                    xAxis: [{ type: 'category', name: 'Ni 含量 (%)', data: stats.histCategories, axisTick: { alignWithLabel: true } }],
+                    yAxis: [{ type: 'value', name: '批次数' }],
+                    series: [
+                        {
+                            name: '批次数', type: 'bar', barWidth: '60%', data: stats.histData,
+                            itemStyle: { color: (chartPrefix === 'real' ? '#EF4444' : '#10B981') },
+                            markLine: {
+                                symbol: 'none',
+                                data: [
+                                    { name: 'LSL', xAxis: stats.LSL.toFixed(2), lineStyle: { color: '#EF4444', type: 'dashed', width: 2 }, label: { formatter: 'LSL\n22.20', position: 'insideStartTop', color: '#EF4444', fontSize: 14 } },
+                                    { name: '均值', type: 'average', lineStyle: { color: '#F59E0B', type: 'solid', width: 2 }, label: { formatter: `均值\n${stats.mean.toFixed(3)}`, position: 'insideEndTop', color: '#F59E0B', fontSize: 14 } }
+                                ]
+                            }
+                        },
+                        {
+                            name: '正态分布',
+                            type: 'line',
+                            smooth: true,
+                            data: lineData,
+                            showSymbol: false,
+                            lineStyle: {
+                                color: '#EF4444', // 红色曲线
+                                width: 3,
+                                type: (chartPrefix === 'real' ? 'dashed' : 'solid') // 真实数据用虚线, 理想数据用实线
+                            }
+                        }
+                    ]
+                });
+            } catch (e) { console.error("Histogram Error:", e); }
+        }
+
+        // 页面加载完成后初始化图表
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- 1. 真实数据 ---
+            const realJsonData = {
+                "code": 0, "message": "success",
+                "data": [{"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.22}, {"DNI": 22.22}, {"DNI": 22.2}, {"DNI": 22.22}, {"DNI": 22.22}, {"DNI": 22.22}, {"DNI": 22.23}, {"DNI": 22.22}, {"DNI": 22.22}, {"DNI": 22.22}, {"DNI": 22.2}, {"DNI": 22.22}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.22}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.23}, {"DNI": 22.22}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.22}, {"DNI": 22.23}, {"DNI": 22.22}, {"DNI": 22.22}, {"DNI": 22.23}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.23}, {"DNI": 22.23}, {"DNI": 22.21}, {"DNI": 22.21}, {"DNI": 22.21}, {"DNI": 22.21}, {"DNI": 22.2}, {"DNI": 22.21}, {"DNI": 22.21}, {"DNI": 22.21}, {"DNI": 22.2}, {"DNI": 22.2}, {"DNI": 22.21}, {"DNI": 22.2}, {"DNI": 22.21}, {"DNI": 22.21}, {"DNI": 22.21}, {"DNI": 22.22}, {"DNI": 22.21}, {"DNI": 22.21}, {"DNI": 22.2}, {"DNI": 22.21}]
+            };
+            const realNiData = realJsonData.data.map(item => item.DNI).reverse();
+            const realLSL = 22.2;
+            const realStats = calculateSPC(realNiData, realLSL);
+            drawCharts(realStats, realNiData, 'real');
+
+            // --- 2. 理想(伪造)数据 ---
+            // 目标: 均值=22.25, 标准差≈0.008, LSL=22.2, USL=22.3 (假设)
+            const idealMean = 22.25;
+            const idealStdDev = 0.008;
+            const idealN = 60;
+            const idealLSL = 22.2;
+            const idealUSL = 22.3; // 假设一个双边规格，让钟形更明显
+            
+            function generateNormalData(N, mean, stdDev) {
+                let data = [];
+                for (let i = 0; i < N; i++) {
+                    // 使用中心极限定理简易模拟正态分布 (Box-Muller太复杂)
+                    let sum = 0;
+                    for (let j = 0; j < 12; j++) {
+                        sum += Math.random();
+                    }
+                    let normal = (sum - 6) * stdDev + mean; // (sum - 6) 均值为0, 方差为1
+                    data.push(normal);
+                }
+                return data;
+            }
+            
+            const idealNiData = generateNormalData(idealN, idealMean, idealStdDev);
+            const idealStats = calculateSPC(idealNiData, idealLSL, idealUSL);
+            drawCharts(idealStats, idealNiData, 'ideal');
+
+
+            // --- 3. 初始化仪表盘 (使用真实数据 Ppk) ---
+            // (这段代码在HTML中是注释掉的，但在实际执行中是需要的)
+            /*
+            try {
+                const cpkChartDom = document.getElementById('overall-cpk-chart');
+                if (cpkChartDom) {
+                    const cpkChart = echarts.init(cpkChartDom);
+                    const option = {
+                        series: [{
+                            type: 'gauge', center: ['50%', '60%'], startAngle: 200, endAngle: -20,
+                            min: 0, max: 2, splitNumber: 5,
+                            itemStyle: { color: '#EF4444' },
+                            progress: { show: true, width: 18, itemStyle: { color: '#EF4444' } },
+                            pointer: { length: '75%', width: 6 },
+                            axisLine: {
+                                lineStyle: {
+                                    width: 18,
+                                    color: [
+                                        [0.5, '#EF4444'], [0.665, '#F59E0B'], [0.835, '#10B981'], [1, '#059669']
+                                    ]
+                                }
+                            },
+                            axisTick: { distance: -25, length: 5, lineStyle: { color: '#999' } },
+                            splitLine: { distance: -30, length: 10, lineStyle: { color: '#999' } },
+                            axisLabel: {
+                                distance: 5, color: '#666', fontSize: 12,
+                                formatter: function (v) {
+                                    if (v === 0) return '0';
+                                    if (v === 0.5) return 'Ppk 1.0';
+                                    if (v === 0.665) return '1.33';
+                                    if (v === 0.835) return '1.67';
+                                    if (v === 1) return 'Ppk 2.0';
+                                    return '';
+                                }
+                            },
+                            anchor: { show: true, showAbove: true, size: 20, itemStyle: { borderColor: '#EF4444', borderWidth: 10 } },
+                            title: { show: false },
+                            detail: { show: false },
+                            data: [{ value: realStats.ppk }] // 使用真实数据的 Ppk
+                        }]
+                    };
+                    cpkChart.setOption(option);
+                }
+            } catch (e) { console.error("Cpk Chart Error:", e); }
+            */
+            
+            // --- 4. 窗口自适应 ---
+            window.addEventListener('resize', function() {
+                try {
+                    // echarts.getInstanceByDom(document.getElementById('overall-cpk-chart'))?.resize();
+                    echarts.getInstanceByDom(document.getElementById('real-i-chart'))?.resize();
+                    echarts.getInstanceByDom(document.getElementById('real-mr-chart'))?.resize();
+                    echarts.getInstanceByDom(document.getElementById('real-capability-chart'))?.resize();
+                    echarts.getInstanceByDom(document.getElementById('ideal-i-chart'))?.resize();
+                    echarts.getInstanceByDom(document.getElementById('ideal-mr-chart'))?.resize();
+                    echarts.getInstanceByDom(document.getElementById('ideal-capability-chart'))?.resize();
+                } catch (e) {
+                    console.error("Resize error:", e);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

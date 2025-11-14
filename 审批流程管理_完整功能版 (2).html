@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>审批流程管理 - 员工权限编辑</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        /* 侧边栏动画 */
+        .sidebar-overlay {
+            transition: opacity 0.3s ease;
+        }
+        
+        .sidebar-panel {
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar-panel.closed {
+            transform: translateX(100%);
+        }
+        
+        /* 员工标签样式 */
+        .employee-tag {
+            transition: all 0.2s ease;
+            font-size: 12px;
+        }
+        
+        .employee-tag:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(249, 115, 22, 0.15);
+        }
+        
+        .employee-tag.selected {
+            border-color: #f97316;
+            background-color: #fff7ed;
+        }
+        
+        /* 员工标签内部元素样式 */
+        .employee-tag .employee-name {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        
+        .employee-tag .employee-desc {
+            font-size: 11px;
+            line-height: 1.3;
+            color: #6b7280;
+            margin-top: 2px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .employee-tag .remove-btn {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .employee-tag:hover .remove-btn {
+            opacity: 1;
+        }
+        
+        /* 公司卡片 */
+        .company-card {
+            transition: all 0.2s ease;
+        }
+        
+        .company-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* 部门复选框样式 */
+        .dept-checkbox {
+            transition: all 0.15s ease;
+        }
+        
+        .dept-checkbox:hover {
+            background-color: #fff7ed;
+        }
+        
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        /* 角色节点样式 */
+        .role-node {
+            transition: all 0.2s ease;
+        }
+        
+        .role-node:hover {
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .role-node.active {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+        }
+        
+        /* 拖放指示器 */
+        .drop-indicator {
+            display: none;
+            transition: all 0.15s ease-out;
+        }
+        
+        .drop-indicator.active {
+            display: flex !important;
+            background-color: #fff7ed;
+            border-color: #f97316;
+        }
+        
+        /* 移除pulse动画，使用简单的边框颜色 */
+        .drop-indicator.active {
+            border-color: #f97316;
+            background-color: #fff7ed;
+        }
+        
+        /* 拖拽时的角色卡片 */
+        .role-card.dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <div class="min-h-screen flex flex-col">
+        
+        <!-- 顶部栏 -->
+        <header class="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-sm">
+            <div class="px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900">报销审批流程</h1>
+                        <p class="text-sm text-gray-500 mt-1">拖拽左侧角色卡配置审批流程</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <button onclick="saveWorkflow()" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition font-medium">
+                            <i class="fas fa-save mr-2"></i>保存流程
+                        </button>
+                        <button onclick="exportWorkflow()" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                            <i class="fas fa-download mr-2"></i>导出
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 flex">
+            
+            <!-- 左侧流程列表 -->
+            <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+                <div class="p-5 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-800">审批流程列表</h2>
+                </div>
+                
+                <div class="flex-1 overflow-y-auto p-4 space-y-2" id="processList">
+                    <div class="p-3 bg-orange-50 border-l-4 border-orange-500 rounded cursor-pointer">
+                        <div class="font-semibold text-gray-900">报销审批流程</div>
+                        <div class="text-xs text-gray-500 mt-1">3 个节点</div>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded cursor-pointer hover:bg-gray-100 transition">
+                        <div class="font-semibold text-gray-700">请假审批流程</div>
+                        <div class="text-xs text-gray-500 mt-1">2 个节点</div>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded cursor-pointer hover:bg-gray-100 transition">
+                        <div class="font-semibold text-gray-700">采购审批流程</div>
+                        <div class="text-xs text-gray-500 mt-1">3 个节点</div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 中间流程编辑区 -->
+            <div class="flex-1 flex flex-col bg-gray-50 overflow-hidden">
+                
+                <!-- 流程画布 -->
+                <div class="flex-1 overflow-y-auto p-8" 
+                     ondragover="handleCanvasDragOver(event)"
+                     ondrop="handleCanvasDrop(event)">
+                    <div id="workflowCanvas" class="max-w-4xl mx-auto space-y-6">
+                        <!-- 动态生成内容 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧可用角色面板 -->
+            <aside id="rolePanel" class="w-80 bg-white border-l border-gray-200 flex flex-col">
+                <div class="p-5 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-800">可用角色</h2>
+                    <div class="mt-3">
+                        <input 
+                            type="text" 
+                            id="roleSearch"
+                            placeholder="搜索角色..." 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        />
+                    </div>
+                </div>
+                
+                <div class="flex-1 overflow-y-auto p-4 space-y-2">
+                    <!-- 角色列表将由JavaScript动态生成 -->
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-spinner fa-spin text-3xl mb-2"></i>
+                        <p>正在加载角色...</p>
+                    </div>
+                </div>
+            </aside>
+
+        </main>
+
+    </div>
+
+    <!-- 右侧滑出面板 - 员工权限编辑 -->
+    <div id="permissionSidebar" class="sidebar-overlay fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="sidebar-panel closed fixed right-0 top-0 h-full w-full max-w-2xl bg-white shadow-2xl flex flex-col">
+            
+            <!-- 侧边栏头部 -->
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold" id="sidebarEmployeeName">张三</h2>
+                            <p class="text-orange-100 text-sm" id="sidebarEmployeeRole">部门经理 - 配置审批范围</p>
+                        </div>
+                    </div>
+                    <button onclick="closePermissionPanel()" class="text-white hover:bg-white hover:bg-opacity-20 rounded-lg p-2 transition">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <!-- 统计信息 -->
+                <div class="mt-4 flex gap-4">
+                    <div class="flex-1 bg-white bg-opacity-20 rounded-lg p-3">
+                        <div class="text-orange-100 text-xs">已授权部门</div>
+                        <div class="text-2xl font-bold mt-1" id="authorizedCount">0</div>
+                    </div>
+                    <div class="flex-1 bg-white bg-opacity-20 rounded-lg p-3">
+                        <div class="text-orange-100 text-xs">总部门数</div>
+                        <div class="text-2xl font-bold mt-1" id="totalDeptCount">0</div>
+                    </div>
+                    <div class="flex-1 bg-white bg-opacity-20 rounded-lg p-3">
+                        <div class="text-orange-100 text-xs">覆盖公司</div>
+                        <div class="text-2xl font-bold mt-1" id="companyCount">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 筛选栏 -->
+            <div class="border-b border-gray-200 p-4 bg-gray-50">
+                <div class="flex gap-3 items-center">
+                    <!-- 业务板块筛选 -->
+                    <div class="flex items-center gap-2">
+                        <label class="text-sm font-medium text-gray-700 whitespace-nowrap">业务板块:</label>
+                        <select id="sidebarGroupFilter" class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            <option value="">全部</option>
+                            <option value="博雅生命">博雅生命</option>
+                            <option value="集团板块">集团板块</option>
+                            <option value="美容">美容</option>
+                        </select>
+                    </div>
+                    
+                    <!-- 公司筛选 -->
+                    <div class="flex items-center gap-2 flex-1">
+                        <label class="text-sm font-medium text-gray-700 whitespace-nowrap">公司:</label>
+                        <select id="sidebarCompanyFilter" class="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            <option value="">全部公司</option>
+                        </select>
+                    </div>
+                    
+                    <!-- 搜索框 -->
+                    <div class="flex-1">
+                        <input 
+                            type="text" 
+                            id="sidebarSearchInput"
+                            placeholder="搜索部门..." 
+                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        />
+                    </div>
+                </div>
+                
+                <!-- 批量操作 -->
+                <div class="flex gap-2 mt-3">
+                    <button onclick="selectAllVisible()" class="flex-1 px-3 py-2 text-sm bg-green-50 text-green-700 border border-green-200 rounded-lg hover:bg-green-100 transition">
+                        <i class="fas fa-check-square mr-1"></i>全选可见
+                    </button>
+                    <button onclick="deselectAllVisible()" class="flex-1 px-3 py-2 text-sm bg-red-50 text-red-700 border border-red-200 rounded-lg hover:bg-red-100 transition">
+                        <i class="fas fa-square mr-1"></i>取消全选
+                    </button>
+                </div>
+            </div>
+
+            <!-- 公司和部门列表 -->
+            <div class="flex-1 overflow-y-auto p-4" id="sidebarContent">
+                <!-- 动态生成内容 -->
+            </div>
+
+            <!-- 底部操作栏 -->
+            <div class="border-t border-gray-200 p-4 bg-white">
+                <div class="flex gap-3">
+                    <button onclick="closePermissionPanel()" class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium">
+                        取消
+                    </button>
+                    <button onclick="saveEmployeePermissions()" class="flex-1 px-4 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition font-medium">
+                        <i class="fas fa-save mr-2"></i>保存权限
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 当前编辑的员工信息
+        let currentEmployee = null;
+        let selectedProcessId = null;
+        
+        // 拖拽相关变量
+        let draggedRole = null;
+        let workflowNodes = [];
+        
+        // 流程列表数据
+        let processList = [];
+        
+        // 可用角色列表
+        let availableRoles = [];
+        
+        // 部门数据 - 将从JSON文件动态加载
+        let departmentData = {
+            "data": []
+        };
+
+        let filteredData = [];
+
+        // ============ 数据加载 ============
+        
+        /**
+         * 从JSON文件加载数据
+         */
+        async function loadDataFromJson() {
+            try {
+                // 1. 加载审批架构.json文件（部门数据）
+                try {
+                    const deptResponse = await fetch('审批架构.json');
+                    if (deptResponse.ok) {
+                        const deptData = await deptResponse.json();
+                        if (deptData.data && Array.isArray(deptData.data)) {
+                            departmentData.data = deptData.data;
+                            console.log(`✓ 成功加载 ${departmentData.data.length} 条部门数据`);
+                        }
+                    }
+                } catch (e) {
+                    console.warn('⚠ 未找到审批架构.json，使用空数据');
+                }
+                
+                // 2. 加载角色.json文件（角色和流程数据）
+                try {
+                    const roleResponse = await fetch('角色.json');
+                    if (roleResponse.ok) {
+                        const roleData = await roleResponse.json();
+                        
+                        // 加载角色列表
+                        if (roleData.data && Array.isArray(roleData.data)) {
+                            availableRoles = roleData.data.map(role => ({
+                                id: role.SERIALCOLUMN,
+                                name: role.RLNAME,
+                                employeeCount: role.data1 ? role.data1.length : 0,
+                                employees: role.data1 || []
+                            }));
+                            console.log(`✓ 成功加载 ${availableRoles.length} 个可用角色`);
+                        }
+                    } else {
+                        throw new Error('角色文件不存在');
+                    }
+                } catch (e) {
+                    console.error('✗ 加载角色.json失败:', e.message);
+                    alert('无法加载角色数据文件 "角色.json"，请确保文件在同一目录下。');
+                }
+                
+                // 3. 加载流程.json文件（流程列表）
+                try {
+                    const processResponse = await fetch('流程.json');
+                    if (processResponse.ok) {
+                        const processData = await processResponse.json();
+                        if (processData.data && Array.isArray(processData.data)) {
+                            processList = processData.data;
+                            console.log(`✓ 成功加载 ${processList.length} 个审批流程`);
+                        }
+                    } else {
+                        // 如果没有流程文件，使用默认流程
+                        processList = [
+                            {
+                                id: 'process1',
+                                name: '报销审批流程',
+                                amountLimit: 10000,
+                                createBy: 'ADMIN',
+                                updateTime: '2025-01-01 10:30:00',
+                                nodes: [
+                                    { id: 'node1', role: '部门经理', employees: [] },
+                                    { id: 'node2', role: '财务经理', employees: [] },
+                                    { id: 'node3', role: '总经理', employees: [] }
+                                ]
+                            },
+                            {
+                                id: 'process2',
+                                name: '请假审批流程',
+                                amountLimit: null,
+                                createBy: 'ADMIN',
+                                updateTime: '2025-01-02 14:20:00',
+                                nodes: [
+                                    { id: 'node1', role: '直属主管', employees: [] },
+                                    { id: 'node2', role: '人事经理', employees: [] }
+                                ]
+                            },
+                            {
+                                id: 'process3',
+                                name: '采购审批流程',
+                                amountLimit: 50000,
+                                createBy: 'ADMIN',
+                                updateTime: '2025-01-03 09:15:00',
+                                nodes: [
+                                    { id: 'node1', role: '采购经理', employees: [] },
+                                    { id: 'node2', role: '财务经理', employees: [] },
+                                    { id: 'node3', role: '总经理', employees: [] }
+                                ]
+                            }
+                        ];
+                        console.log('⚠ 使用默认流程列表数据');
+                    }
+                } catch (e) {
+                    console.warn('⚠ 未找到流程.json，使用默认数据');
+                    processList = [
+                        {
+                            id: 'process1',
+                            name: '报销审批流程',
+                            amountLimit: 10000,
+                            createBy: 'ADMIN',
+                            updateTime: '2025-01-01 10:30:00',
+                            nodes: [
+                                { id: 'node1', role: '部门经理', employees: [] },
+                                { id: 'node2', role: '财务经理', employees: [] }
+                            ]
+                        }
+                    ];
+                }
+                
+                // 渲染页面
+                renderProcessList();
+                renderAvailableRoles();
+                
+                // 选中第一个流程
+                if (processList.length > 0) {
+                    selectProcess(processList[0].id);
+                }
+                
+                console.log('✓ 所有数据加载完成');
+                
+            } catch (error) {
+                console.error('✗ 加载数据失败:', error);
+                alert('数据加载失败: ' + error.message);
+            }
+        }
+
+        // ============ 渲染函数 ============
+        
+        /**
+         * 渲染流程列表
+         */
+        function renderProcessList() {
+            const container = document.getElementById('processList');
+            if (!container) return;
+            
+            container.innerHTML = processList.map(process => {
+                const isActive = selectedProcessId === process.id;
+                return `
+                    <div class="p-3 ${isActive ? 'bg-orange-50 border-l-4 border-orange-500' : 'bg-gray-50 border-l-4 border-transparent'} rounded cursor-pointer hover:bg-orange-50 transition"
+                         onclick="selectProcess('${process.id}')">
+                        <div class="font-semibold ${isActive ? 'text-gray-900' : 'text-gray-700'}">${process.name}</div>
+                        
+                        ${process.amountLimit != null ? 
+                            `<div class="text-xs text-orange-600 mt-1">
+                                <i class="fas fa-coins mr-1"></i>≤ ¥${process.amountLimit.toLocaleString()}
+                            </div>` : 
+                            `<div class="text-xs text-gray-500 mt-1">
+                                <i class="fas fa-infinity mr-1"></i>无金额限制
+                            </div>`
+                        }
+                        
+                        <div class="text-xs text-gray-500 mt-1">
+                            <i class="fas fa-user mr-1"></i>${process.createBy || 'N/A'}
+                            <span class="ml-2">
+                                <i class="fas fa-clock mr-1"></i>${process.updateTime || 'N/A'}
+                            </span>
+                        </div>
+                        
+                        <div class="text-xs text-gray-400 mt-1">
+                            ${process.nodes ? process.nodes.length : 0} 个节点
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        /**
+         * 选择流程
+         */
+        function selectProcess(processId) {
+            selectedProcessId = processId;
+            const process = processList.find(p => p.id === processId);
+            
+            if (process) {
+                // 加载该流程的节点配置
+                workflowNodes = process.nodes || [];
+                
+                // 为每个节点加载员工信息（从角色数据中获取）
+                workflowNodes.forEach(node => {
+                    if (node.roleId) {
+                        const role = availableRoles.find(r => r.id === node.roleId);
+                        if (role && role.employees) {
+                            // 将角色的员工转换为节点员工格式
+                            node.employees = role.employees.map(emp => ({
+                                id: emp.SERIALCOLUMN,
+                                userId: emp.RLUSER,
+                                name: emp.RUSERNAME,
+                                title: emp.RDDESC || node.roleName,
+                                roleId: node.roleId
+                            }));
+                        }
+                    }
+                });
+                
+                renderWorkflow();
+                renderProcessList(); // 更新列表高亮
+                
+                // 更新标题
+                const titleElement = document.getElementById('process-title');
+                if (titleElement) {
+                    titleElement.textContent = process.name;
+                }
+            }
+        }
+        
+        /**
+         * 渲染可用角色列表
+         */
+        function renderAvailableRoles() {
+            const container = document.querySelector('#rolePanel .overflow-y-auto');
+            if (!container) return;
+            
+            if (availableRoles.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-inbox text-4xl mb-2"></i>
+                        <p>暂无可用角色</p>
+                        <p class="text-xs mt-1">请检查角色.json文件</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = availableRoles.map(role => `
+                <div class="role-card p-3 bg-gray-50 rounded-lg border border-gray-200 cursor-move hover:border-orange-300 hover:bg-orange-50 transition" 
+                     draggable="true"
+                     data-role-id="${role.id}"
+                     data-role-name="${role.name}">
+                    <div class="font-medium text-gray-900">${role.name}</div>
+                    <div class="text-xs text-gray-500 mt-1">
+                        <i class="fas fa-users mr-1"></i>${role.employeeCount} 名员工
+                    </div>
+                    <div class="text-xs text-gray-400 mt-1">拖拽到左侧添加节点</div>
+                </div>
+            `).join('');
+            
+            // 重新绑定拖拽事件
+            bindRoleDragEvents();
+        }
+        
+        /**
+         * 绑定角色卡片的拖拽事件
+         */
+        function bindRoleDragEvents() {
+            document.querySelectorAll('.role-card').forEach(card => {
+                const roleName = card.dataset.roleName;
+                card.addEventListener('dragstart', (e) => handleRoleDragStart(e, roleName));
+                card.addEventListener('dragend', handleRoleDragEnd);
+            });
+        }
+
+        // ============ 拖拽功能 ============
+        
+        let isDraggingOver = false; // 防止重复触发
+        
+        // 角色卡片开始拖拽
+        function handleRoleDragStart(e, roleName) {
+            draggedRole = roleName;
+            e.dataTransfer.effectAllowed = 'copy';
+            e.dataTransfer.setData('text/plain', roleName);
+            e.target.style.opacity = '0.5';
+        }
+
+        // 角色卡片拖拽结束
+        function handleRoleDragEnd(e) {
+            e.target.style.opacity = '1';
+            draggedRole = null;
+            isDraggingOver = false;
+            // 移除所有拖拽指示器
+            document.querySelectorAll('.drop-indicator.active').forEach(el => {
+                el.classList.remove('active');
+            });
+        }
+
+        // 画布拖拽进入
+        function handleCanvasDragOver(e) {
+            if (!draggedRole) return;
+            e.preventDefault();
+            e.stopPropagation();
+            e.dataTransfer.dropEffect = 'copy';
+            // 不做任何DOM操作，避免跳动
+        }
+
+        // 画布放置
+        function handleCanvasDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (draggedRole) {
+                addWorkflowNode(draggedRole);
+                isDraggingOver = false;
+            }
+        }
+
+        // 节点间拖拽进入
+        function handleNodeDragOver(e, nodeId) {
+            if (!draggedRole) return;
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const dropzone = e.currentTarget.querySelector('.drop-indicator');
+            if (dropzone && !dropzone.classList.contains('active')) {
+                // 移除其他指示器
+                document.querySelectorAll('.drop-indicator.active').forEach(el => {
+                    if (el !== dropzone) {
+                        el.classList.remove('active');
+                    }
+                });
+                dropzone.classList.add('active');
+            }
+        }
+
+        // 节点间拖拽离开
+        function handleNodeDragLeave(e, nodeId) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // 检查是否真的离开了这个区域
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            if (x < rect.left || x >= rect.right || y < rect.top || y >= rect.bottom) {
+                const dropzone = e.currentTarget.querySelector('.drop-indicator');
+                if (dropzone) {
+                    dropzone.classList.remove('active');
+                }
+            }
+        }
+
+        // 节点间放置
+        function handleNodeDrop(e, nodeId) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const dropzone = e.currentTarget.querySelector('.drop-indicator');
+            if (dropzone) {
+                dropzone.classList.remove('active');
+            }
+            
+            if (draggedRole) {
+                const nodeIndex = workflowNodes.findIndex(n => n.id === nodeId);
+                if (nodeIndex !== -1) {
+                    // 插入到当前节点之前（上方）
+                    insertWorkflowNode(draggedRole, nodeIndex);
+                }
+                isDraggingOver = false;
+            }
+        }
+
+        // 添加审批节点
+        // 添加审批节点
+        function addWorkflowNode(roleName) {
+            // 从可用角色中查找该角色
+            const role = availableRoles.find(r => r.name === roleName);
+            
+            const newNode = {
+                id: `node${Date.now()}`,
+                role: roleName,
+                roleId: role ? role.id : null,
+                roleName: roleName,
+                employees: []
+            };
+            
+            // 如果找到角色，自动添加该角色下的所有员工
+            if (role && role.employees && role.employees.length > 0) {
+                newNode.employees = role.employees.map(emp => ({
+                    id: emp.SERIALCOLUMN,
+                    userId: emp.RLUSER,
+                    name: emp.RUSERNAME,
+                    title: emp.RDDESC || roleName,
+                    roleId: role.id
+                }));
+                console.log(`✓ 自动添加 ${newNode.employees.length} 名员工到节点`);
+            }
+            
+            workflowNodes.push(newNode);
+            renderWorkflow();
+        }
+
+        // 在指定位置插入节点
+        function insertWorkflowNode(roleName, index) {
+            // 从可用角色中查找该角色
+            const role = availableRoles.find(r => r.name === roleName);
+            
+            const newNode = {
+                id: `node${Date.now()}`,
+                role: roleName,
+                roleId: role ? role.id : null,
+                roleName: roleName,
+                employees: []
+            };
+            
+            // 如果找到角色，自动添加该角色下的所有员工
+            if (role && role.employees && role.employees.length > 0) {
+                newNode.employees = role.employees.map(emp => ({
+                    id: emp.SERIALCOLUMN,
+                    userId: emp.RLUSER,
+                    name: emp.RUSERNAME,
+                    title: emp.RDDESC || roleName,
+                    roleId: role.id
+                }));
+                console.log(`✓ 自动添加 ${newNode.employees.length} 名员工到节点`);
+            }
+            
+            workflowNodes.splice(index, 0, newNode);
+            renderWorkflow();
+        }
+
+        // 删除节点
+        function deleteNode(nodeId) {
+            if (confirm('确定删除此审批节点吗？')) {
+                workflowNodes = workflowNodes.filter(n => n.id !== nodeId);
+                renderWorkflow();
+            }
+        }
+
+        // 渲染工作流
+        function renderWorkflow() {
+            const canvas = document.getElementById('workflowCanvas');
+            
+            let html = `
+                <!-- 开始节点 -->
+                <div class="flex flex-col items-center">
+                    <div class="bg-orange-50 border-2 border-orange-500 rounded-lg px-6 py-3 text-orange-600 font-semibold">
+                        开始
+                    </div>
+                    <div class="w-0.5 h-8 bg-gray-300"></div>
+                </div>
+            `;
+
+            workflowNodes.forEach((node, index) => {
+                const iconMap = {
+                    '部门经理': 'fa-user-tie',
+                    '财务经理': 'fa-user-shield',
+                    '总经理': 'fa-crown',
+                    '人事经理': 'fa-user-cog',
+                    '直属主管': 'fa-user-check'
+                };
+                
+                const icon = iconMap[node.role] || 'fa-user';
+                
+                html += `
+                    <!-- 审批节点 ${index + 1} -->
+                    <div class="flex flex-col items-center node-dropzone" 
+                         ondragover="handleNodeDragOver(event, '${node.id}')"
+                         ondragleave="handleNodeDragLeave(event, '${node.id}')"
+                         ondrop="handleNodeDrop(event, '${node.id}')">
+                        
+                        <!-- 拖放指示器 -->
+                        <div class="drop-indicator w-full max-w-md h-12 border-2 border-dashed border-gray-300 rounded-lg mb-2 hidden items-center justify-center text-gray-400 text-sm">
+                            <i class="fas fa-plus mr-2"></i>拖放到此处插入节点
+                        </div>
+                        
+                        <div class="role-node w-full max-w-md bg-white rounded-lg border-2 border-gray-200 p-4 cursor-pointer relative group">
+                            <!-- 删除按钮 -->
+                            <button onclick="deleteNode('${node.id}')" 
+                                    class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 z-10">
+                                <i class="fas fa-times text-xs"></i>
+                            </button>
+                            
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas ${icon} text-orange-500"></i>
+                                    <span class="font-semibold text-gray-900">${node.role}</span>
+                                </div>
+                                <span class="text-xs bg-gray-100 px-2 py-1 rounded">审批节点 ${index + 1}</span>
+                            </div>
+                            
+                            <!-- 员工标签列表 -->
+                            <div class="flex flex-wrap gap-1.5">
+                                ${(node.employees || []).map(emp => {
+                                    // 处理title，如果太长则截断，显示更短
+                                    const maxTitleLength = 15;
+                                    const displayTitle = emp.title && emp.title.length > maxTitleLength 
+                                        ? emp.title.substring(0, maxTitleLength) + '...' 
+                                        : (emp.title || node.role);
+                                    
+                                    return `
+                                        <div class="employee-tag px-2 py-1 bg-white border border-gray-300 rounded text-xs flex items-center gap-1.5 cursor-pointer hover:bg-orange-50 hover:border-orange-300 transition group relative"
+                                             onclick="openEmployeePermissionPanel('${emp.name}', '${node.role}', '${emp.id}')"
+                                             title="${emp.title || node.role}">
+                                            <i class="fas fa-user text-gray-400 text-[10px]"></i>
+                                            <div class="flex flex-col" style="max-width: 140px;">
+                                                <span class="employee-name text-gray-900">${emp.name}</span>
+                                                <span class="employee-desc">${displayTitle}</span>
+                                            </div>
+                                            <i class="fas fa-cog text-orange-500 text-[10px] remove-btn"></i>
+                                        </div>
+                                    `;
+                                }).join('')}
+                                <button onclick="addEmployeeToNode('${node.id}')" 
+                                        class="px-2.5 py-1 border-2 border-dashed border-gray-300 rounded text-xs text-gray-500 hover:border-orange-300 hover:text-orange-500 transition">
+                                    <i class="fas fa-plus text-[10px] mr-1"></i>添加
+                                </button>
+                            </div>
+                        </div>
+                        <div class="w-0.5 h-8 bg-gray-300"></div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <!-- 结束节点 -->
+                <div class="flex flex-col items-center">
+                    <div class="bg-green-50 border-2 border-green-500 rounded-lg px-6 py-3 text-green-600 font-semibold">
+                        结束
+                    </div>
+                </div>
+            `;
+
+            canvas.innerHTML = html;
+        }
+
+        // 添加员工到节点
+        function addEmployeeToNode(nodeId) {
+            const node = workflowNodes.find(n => n.id === nodeId);
+            if (node) {
+                const name = prompt('请输入员工姓名:');
+                if (name) {
+                    const title = prompt('请输入员工职位:');
+                    const newEmployee = {
+                        id: `emp${Date.now()}`,
+                        name: name,
+                        title: title || node.role
+                    };
+                    node.employees.push(newEmployee);
+                    renderWorkflow();
+                }
+            }
+        }
+
+        // ============ 员工权限编辑面板 ============
+
+        // 打开员工权限编辑面板
+        function openEmployeePermissionPanel(employeeName, roleName, employeeId) {
+            currentEmployee = {
+                id: employeeId,
+                name: employeeName,
+                role: roleName
+            };
+            
+            // 更新侧边栏标题
+            document.getElementById('sidebarEmployeeName').textContent = employeeName;
+            document.getElementById('sidebarEmployeeRole').textContent = `${roleName} - 配置审批范围`;
+            
+            // 显示侧边栏
+            const overlay = document.getElementById('permissionSidebar');
+            const panel = overlay.querySelector('.sidebar-panel');
+            
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.style.opacity = '1';
+                panel.classList.remove('closed');
+            }, 10);
+            
+            // 初始化数据
+            initializeSidebarFilters();
+            renderSidebarContent();
+            updateSidebarStatistics();
+        }
+
+        // 关闭权限编辑面板
+        function closePermissionPanel() {
+            const overlay = document.getElementById('permissionSidebar');
+            const panel = overlay.querySelector('.sidebar-panel');
+            
+            overlay.style.opacity = '0';
+            panel.classList.add('closed');
+            
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        }
+
+        // 初始化侧边栏筛选器
+        function initializeSidebarFilters() {
+            // 填充公司选项
+            const companies = [...new Set(departmentData.data.map(d => d.CNAMEEN))].sort();
+            const companySelect = document.getElementById('sidebarCompanyFilter');
+            companySelect.innerHTML = '<option value="">全部公司</option>';
+            
+            companies.forEach(company => {
+                const option = document.createElement('option');
+                option.value = company;
+                option.textContent = company;
+                companySelect.appendChild(option);
+            });
+            
+            // 绑定筛选事件
+            document.getElementById('sidebarGroupFilter').addEventListener('change', applySidebarFilters);
+            document.getElementById('sidebarCompanyFilter').addEventListener('change', applySidebarFilters);
+            document.getElementById('sidebarSearchInput').addEventListener('input', applySidebarFilters);
+            
+            // 初始化过滤数据
+            filteredData = [...departmentData.data];
+        }
+
+        // 应用侧边栏筛选
+        function applySidebarFilters() {
+            const groupFilter = document.getElementById('sidebarGroupFilter').value;
+            const companyFilter = document.getElementById('sidebarCompanyFilter').value;
+            const searchTerm = document.getElementById('sidebarSearchInput').value.toLowerCase();
+            
+            filteredData = departmentData.data.filter(dept => {
+                if (groupFilter && dept.GROUPID !== groupFilter) return false;
+                if (companyFilter && dept.CNAMEEN !== companyFilter) return false;
+                if (searchTerm && !dept.RDEPT.toLowerCase().includes(searchTerm)) return false;
+                return true;
+            });
+            
+            renderSidebarContent();
+            updateSidebarStatistics();
+        }
+
+        // 渲染侧边栏内容
+        function renderSidebarContent() {
+            const container = document.getElementById('sidebarContent');
+            
+            // 按公司分组
+            const groupedByCompany = {};
+            filteredData.forEach(dept => {
+                const company = dept.CNAMEEN;
+                if (!groupedByCompany[company]) {
+                    groupedByCompany[company] = {
+                        company: company,
+                        fullName: dept.CDESC3,
+                        groupId: dept.GROUPID,
+                        departments: []
+                    };
+                }
+                groupedByCompany[company].departments.push(dept);
+            });
+            
+            // 生成HTML
+            container.innerHTML = Object.values(groupedByCompany).map(companyData => {
+                const selectedCount = companyData.departments.filter(d => d.FLAG === 'Y').length;
+                const totalCount = companyData.departments.length;
+                
+                return `
+                    <div class="company-card bg-white rounded-lg border border-gray-200 mb-4 overflow-hidden">
+                        <!-- 公司头部 -->
+                        <div class="bg-gray-50 p-4 border-b border-gray-200">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-building text-orange-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900">${companyData.company}</h4>
+                                        <p class="text-xs text-gray-500">${companyData.fullName}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="toggleCompanyDepts('${companyData.company}', true)" 
+                                            class="px-2 py-1 text-xs border border-green-300 text-green-700 rounded hover:bg-green-50 transition">
+                                        全选
+                                    </button>
+                                    <button onclick="toggleCompanyDepts('${companyData.company}', false)" 
+                                            class="px-2 py-1 text-xs border border-red-300 text-red-700 rounded hover:bg-red-50 transition">
+                                        全不选
+                                    </button>
+                                    <span class="ml-2 text-sm font-semibold text-gray-700">${selectedCount}/${totalCount}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 部门列表 -->
+                        <div class="p-3 space-y-1">
+                            ${companyData.departments.map(dept => `
+                                <label class="dept-checkbox flex items-center gap-3 p-2 rounded cursor-pointer hover:bg-orange-50 transition">
+                                    <input 
+                                        type="checkbox" 
+                                        ${dept.FLAG === 'Y' ? 'checked' : ''} 
+                                        onchange="toggleDepartment('${dept.RDEPT}', '${companyData.company}')"
+                                        class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500 cursor-pointer"
+                                    />
+                                    <span class="flex-1 text-sm ${dept.FLAG === 'Y' ? 'text-gray-900 font-medium' : 'text-gray-600'}">
+                                        ${dept.RDEPT}
+                                    </span>
+                                    ${dept.FLAG === 'Y' ? '<i class="fas fa-check-circle text-orange-500 text-xs"></i>' : ''}
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 切换部门选择
+        function toggleDepartment(deptName, company) {
+            const dept = departmentData.data.find(d => d.RDEPT === deptName && d.CNAMEEN === company);
+            if (dept) {
+                dept.FLAG = dept.FLAG === 'Y' ? 'N' : 'Y';
+                renderSidebarContent();
+                updateSidebarStatistics();
+            }
+        }
+
+        // 切换公司所有部门
+        function toggleCompanyDepts(company, selectAll) {
+            departmentData.data.forEach(dept => {
+                if (dept.CNAMEEN === company && filteredData.includes(dept)) {
+                    dept.FLAG = selectAll ? 'Y' : 'N';
+                }
+            });
+            renderSidebarContent();
+            updateSidebarStatistics();
+        }
+
+        // 全选可见部门
+        function selectAllVisible() {
+            filteredData.forEach(dept => {
+                dept.FLAG = 'Y';
+            });
+            renderSidebarContent();
+            updateSidebarStatistics();
+        }
+
+        // 取消全选
+        function deselectAllVisible() {
+            filteredData.forEach(dept => {
+                dept.FLAG = 'N';
+            });
+            renderSidebarContent();
+            updateSidebarStatistics();
+        }
+
+        // 更新侧边栏统计信息
+        function updateSidebarStatistics() {
+            const authorizedDepts = departmentData.data.filter(d => d.FLAG === 'Y');
+            const companies = [...new Set(authorizedDepts.map(d => d.CNAMEEN))];
+            
+            document.getElementById('authorizedCount').textContent = authorizedDepts.length;
+            document.getElementById('totalDeptCount').textContent = departmentData.data.length;
+            document.getElementById('companyCount').textContent = companies.length;
+        }
+
+        // 保存员工权限
+        function saveEmployeePermissions() {
+            const authorizedDepts = departmentData.data.filter(d => d.FLAG === 'Y');
+            console.log('保存员工权限:', {
+                employee: currentEmployee,
+                departments: authorizedDepts
+            });
+            
+            alert(`已为 ${currentEmployee.name} 配置 ${authorizedDepts.length} 个部门的审批权限`);
+            closePermissionPanel();
+        }
+
+        // 保存工作流
+        function saveWorkflow() {
+            console.log('保存工作流:', workflowNodes);
+            alert('审批流程已保存');
+        }
+
+        // 导出工作流
+        function exportWorkflow() {
+            const data = JSON.stringify(workflowNodes, null, 2);
+            const blob = new Blob([data], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '审批流程.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // 点击遮罩层关闭侧边栏
+        document.getElementById('permissionSidebar').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePermissionPanel();
+            }
+        });
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', async function() {
+            // 加载JSON数据（会自动渲染所有内容）
+            await loadDataFromJson();
+        });
+    </script>
+
+</body>
+</html>

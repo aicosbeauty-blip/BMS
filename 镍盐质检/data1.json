@@ -1,0 +1,916 @@
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": [
+        {
+            "STYPE": "辅助材料",
+            "SCODE": "A0001",
+            "SNAME": "工业盐酸"
+        },
+        {
+            "STYPE": "辅助材料",
+            "SCODE": "A0002",
+            "SNAME": "工业硫酸"
+        },
+        {
+            "STYPE": "辅助材料",
+            "SCODE": "A0003",
+            "SNAME": "工业氢氧化钠"
+        },
+        {
+            "STYPE": "辅助材料",
+            "SCODE": "A0004",
+            "SNAME": "工业碳酸钠"
+        },
+        {
+            "STYPE": "抽查",
+            "SCODE": "C0001",
+            "SNAME": "NY电镀硫酸镍(抽查)"
+        },
+        {
+            "STYPE": "抽查",
+            "SCODE": "C0002",
+            "SNAME": "NY电池硫酸镍(抽查)"
+        },
+        {
+            "STYPE": "抽查",
+            "SCODE": "C0003",
+            "SNAME": "JH电池硫酸镍(抽查)"
+        },
+        {
+            "STYPE": "抽查",
+            "SCODE": "C0004",
+            "SNAME": "JHC272低钠萃余液(抽查)"
+        },
+        {
+            "STYPE": "抽查",
+            "SCODE": "C0005",
+            "SNAME": "JHl硫酸钴溶液（抽查）"
+        },
+        {
+            "STYPE": "抽查",
+            "SCODE": "C0006",
+            "SNAME": "NYP204反萃液（抽查）"
+        },
+        {
+            "STYPE": "抽查",
+            "SCODE": "C0007",
+            "SNAME": "JH二次氢氧化镍（抽查）"
+        },
+        {
+            "STYPE": "抽查",
+            "SCODE": "C0008",
+            "SNAME": "一钴二次氢氧化镍（抽查）"
+        },
+        {
+            "STYPE": "抽查",
+            "SCODE": "C0009",
+            "SNAME": "JH用氢氧化镍（抽查）"
+        },
+        {
+            "STYPE": "抽查",
+            "SCODE": "C0010",
+            "SNAME": "LHN用氢氧化镍（抽查）"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "O0001",
+            "SNAME": "NY萃取前液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "O0002",
+            "SNAME": "NY蒸发前液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "O0003",
+            "SNAME": "NYP204反萃液"
+        },
+        {
+            "STYPE": "硫酸镍一分厂过程检测",
+            "SCODE": "O0004",
+            "SNAME": "一分厂C272低钠萃余液"
+        },
+        {
+            "STYPE": "硫酸镍一分厂过程检测",
+            "SCODE": "O0005",
+            "SNAME": "一分厂P204一段萃余液"
+        },
+        {
+            "STYPE": "硫酸镍一分厂过程检测",
+            "SCODE": "O0006",
+            "SNAME": "一分厂P204二段萃余液"
+        },
+        {
+            "STYPE": "硫酸镍一分厂过程检测",
+            "SCODE": "O0007",
+            "SNAME": "一分厂五系列C272低钠萃余液"
+        },
+        {
+            "STYPE": "硫酸镍一分厂过程检测",
+            "SCODE": "O0008",
+            "SNAME": "一分厂P204低钠反萃液"
+        },
+        {
+            "STYPE": "硫酸镍一分厂过程检测",
+            "SCODE": "O0009",
+            "SNAME": "一分厂四系列P204二段低钠萃余液"
+        },
+        {
+            "STYPE": "硫酸镍一分厂过程检测",
+            "SCODE": "O0010",
+            "SNAME": "除硅后液5#"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0001",
+            "SNAME": "NY电池硫酸镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0002",
+            "SNAME": "NY电镀硫酸镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0003",
+            "SNAME": "银驼氯化镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0004",
+            "SNAME": "氧化亚镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0005",
+            "SNAME": "JH碳酸镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0007",
+            "SNAME": "JH电池硫酸镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0008",
+            "SNAME": "3万吨付粉体材料P204反萃液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0009",
+            "SNAME": "3.5万吨付兰州新材料硫酸钴溶液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0010",
+            "SNAME": "付粉体材料硫酸镍母液（NY）"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0011",
+            "SNAME": "付粉体材料硫酸镍母液（JH）"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0012",
+            "SNAME": "3万吨付兰州金通P204反萃液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0013",
+            "SNAME": "工业硫酸钴"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0015",
+            "SNAME": "3.5万吨付粉体材料C272高钠萃余液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0016",
+            "SNAME": "3.5万吨付兰州金通C272低钠萃余液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0017",
+            "SNAME": "1.5付粉体材料硫酸镍反萃液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0018",
+            "SNAME": "1.5万吨付兰州金通硫酸镍溶液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0020",
+            "SNAME": "3.5万吨付镍厂低钠萃余液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0022",
+            "SNAME": "1.5万吨付镍厂硫酸镍溶液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0023",
+            "SNAME": "1.5万吨付镍厂盐酸反萃液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0024",
+            "SNAME": "十万吨付镍厂硫酸镍溶液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0025",
+            "SNAME": "十万吨付金通硫酸镍溶液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0026",
+            "SNAME": "1.5万吨电镀级硫酸镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0027",
+            "SNAME": "1.5万吨电池级硫酸镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0030",
+            "SNAME": "电池硫酸镍AC料"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0031",
+            "SNAME": "十万吨付新材料硫酸钴"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0032",
+            "SNAME": "1.5万吨付鑫盛源盐酸反萃液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0001",
+            "SNAME": "JHP204除杂高钠萃余液二段"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0002",
+            "SNAME": "JHP204除杂低钠萃余液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0003",
+            "SNAME": "JHP204除杂反萃液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0004",
+            "SNAME": "JH外付C272低钠萃余液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0005",
+            "SNAME": "JH外付C272高钠萃余液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0007",
+            "SNAME": "JHC272反萃液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0008",
+            "SNAME": "JH蒸发前液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0009",
+            "SNAME": "JH母液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0014",
+            "SNAME": "LSN用一千四液（综合）"
+        },
+        {
+            "STYPE": "硫酸镍一分厂过程检测",
+            "SCODE": "Q0015",
+            "SNAME": "常压浸出液（综合）"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0016",
+            "SNAME": "JHP204除杂高钠萃余液一段"
+        },
+        {
+            "STYPE": "氯化镍分厂过程检测",
+            "SCODE": "Q0017",
+            "SNAME": "1.5盐酸反萃液付镍厂（综合）"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0018",
+            "SNAME": "JH付镍厂低钠萃余液(综合样)"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0019",
+            "SNAME": "富集后液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0020",
+            "SNAME": "镍冶炼厂阳极液(综合)"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0023",
+            "SNAME": "C272低钠萃余液"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "Q0024",
+            "SNAME": "NY母液"
+        },
+        {
+            "STYPE": "氯化镍分厂过程检测",
+            "SCODE": "Q0040",
+            "SNAME": "1.5万吨蒸发前液"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0001",
+            "SNAME": "韩国氢氧化镍"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0002",
+            "SNAME": "第一量子氢氧化镍"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0009",
+            "SNAME": "力勤氢氧化镍"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0010",
+            "SNAME": "镍厂付NY加压浸出液（JH）"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0011",
+            "SNAME": "镍厂加压浸出液"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0012",
+            "SNAME": "镍厂付十万吨阳极液"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0013",
+            "SNAME": "LSN用一千四液"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0014",
+            "SNAME": "JH用铜业公司铜萃余液"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0015",
+            "SNAME": "镍冶炼厂3500加压浸出液(综合)"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0016",
+            "SNAME": "镍冶炼厂13000加压浸出液（综合）"
+        },
+        {
+            "STYPE": "原料",
+            "SCODE": "R0017",
+            "SNAME": "3500一段常压浸出液（综合）"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0002",
+            "SNAME": "NY蒸发前液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0003",
+            "SNAME": "NY结晶母液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0004",
+            "SNAME": "JH蒸发前液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0005",
+            "SNAME": "JH结晶母液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0006",
+            "SNAME": "JH到NYC272低钠萃余液(油份)"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0007",
+            "SNAME": "NYP204反萃液-JH"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0009",
+            "SNAME": "十万吨付3.5万吨低钠浸出液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0010",
+            "SNAME": "JH到NYC272高钠萃余液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0011",
+            "SNAME": "鑫盛源废水"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0012",
+            "SNAME": "NY镍粉溶解液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0013",
+            "SNAME": "JH返锰液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0014",
+            "SNAME": "JH洗镁液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0015",
+            "SNAME": "金柯溶解液付1.5万吨"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0016",
+            "SNAME": "JH到NYC272低钠萃余液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0017",
+            "SNAME": "3.5万吨付1.5万吨C272高钠萃余液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0020",
+            "SNAME": "鑫盛源再生酸"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0021",
+            "SNAME": "金柯硫酸镍溶液付镍盐"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0022",
+            "SNAME": "外付C272反萃液（LHN）"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0023",
+            "SNAME": "3.5万吨付1.5万吨C272低钠萃余液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0027",
+            "SNAME": "3.5万吨付镍厂硫酸镍母液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0028",
+            "SNAME": "NY母液--JH"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0031",
+            "SNAME": "泵鑫付3万吨p204反萃液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0032",
+            "SNAME": "外付聚创硫酸钴溶液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0033",
+            "SNAME": "常压浸出液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0034",
+            "SNAME": "泵鑫付3.5万吨硫酸钴溶液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0035",
+            "SNAME": "十万吨付3.5万吨低钠萃余液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0036",
+            "SNAME": "十万吨付1.5万吨低钠萃余液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0037",
+            "SNAME": "十万吨返锰液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0038",
+            "SNAME": "十万吨付3.5万吨高钠萃余液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0040",
+            "SNAME": "1.5万吨蒸发前液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0041",
+            "SNAME": "十万吨付3.5万吨高钠浸出液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0042",
+            "SNAME": "十万吨付3万吨低钠萃余液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0043",
+            "SNAME": "三万吨付1.5万吨P204反萃液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0044",
+            "SNAME": "3.5万吨付10万吨高钠萃余液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0045",
+            "SNAME": "JH付十万吨阳极液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0046",
+            "SNAME": "十万付3.5万吨阳极液前液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0047",
+            "SNAME": "NY付十万吨反萃液"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0048",
+            "SNAME": "28万吨加压浸出液(混合样)"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0001",
+            "SNAME": "NY盐酸洗铁液--JH"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0002",
+            "SNAME": "JH二次氢氧化镍"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0004",
+            "SNAME": "废水项目清水池"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0005",
+            "SNAME": "JHP204除杂反萃液"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0006",
+            "SNAME": "废水项目2号隔油池（JH）"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0007",
+            "SNAME": "JH碳酸镍上清液"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0008",
+            "SNAME": "废水项目2号隔油池(NY)"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0009",
+            "SNAME": "LHN（1.5）萃残液"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0013",
+            "SNAME": "金柯污泥"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0014",
+            "SNAME": "LSN盐酸洗铁液--JH"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0015",
+            "SNAME": "NY生活废水"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0016",
+            "SNAME": "NY办公楼废水"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0017",
+            "SNAME": "JH生活废水"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0018",
+            "SNAME": "1.5生活废水"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0021",
+            "SNAME": "十万吨二次氢氧化镍"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0022",
+            "SNAME": "废水项目渣"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0023",
+            "SNAME": "十万吨生活废水"
+        },
+        {
+            "STYPE": "硫酸镍二分厂过程检测",
+            "SCODE": "",
+            "SNAME": "测试11x"
+        }
+    ],
+    "jkdata": [
+        {
+            "STYPE": "产品",
+            "SCODE": "P0006",
+            "SNAME": "聚创付金通溶液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0014",
+            "SNAME": "银驼化学镀硫酸镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0021",
+            "SNAME": "金柯付镍厂硫酸镍溶液"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0028",
+            "SNAME": "氨基磺酸镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P0029",
+            "SNAME": "金柯付鑫盛源溶夜"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P9001",
+            "SNAME": "INCOmond 硫酸镍"
+        },
+        {
+            "STYPE": "产品",
+            "SCODE": "P9002",
+            "SNAME": "INCOmond 氯化镍"
+        },
+        {
+            "STYPE": "中控样品",
+            "SCODE": "S0030",
+            "SNAME": "金柯付鑫盛源氯化镍溶液"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0019",
+            "SNAME": "金柯生产废水"
+        },
+        {
+            "STYPE": "尾料（萃残）",
+            "SCODE": "W0020",
+            "SNAME": "废水项目1号隔油池（十万吨）"
+        }
+    ],
+    "data2": [
+        {
+            "CNAME": "DAL",
+            "CDESC": "Al",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DAS",
+            "CDESC": "As",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DCA",
+            "CDESC": "Ca",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DCD",
+            "CDESC": "Cd",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DCL",
+            "CDESC": "Cl",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DCO",
+            "CDESC": "Co",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DCR",
+            "CDESC": "Cr",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DCU",
+            "CDESC": "Cu",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DCYW",
+            "CDESC": "磁异物(PPB)",
+            "CDESC2": "FE:  ZN:   CR:  NI(%):"
+        },
+        {
+            "CNAME": "DDENSITY",
+            "CDESC": "密度",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DF",
+            "CDESC": "F",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DFE",
+            "CDESC": "Fe",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DH",
+            "CDESC": "H",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DH2O",
+            "CDESC": "水份",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DHG",
+            "CDESC": "Hg",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DINSOLUBLE",
+            "CDESC": "水不溶物",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DK",
+            "CDESC": "K",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DLD ",
+            "CDESC": "粒度",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DMG",
+            "CDESC": "Mg",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DMN",
+            "CDESC": "Mn",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DNA",
+            "CDESC": "Na",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DNA2CO3",
+            "CDESC": "Na2CO3",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DNAOH",
+            "CDESC": "NaOH",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DNI",
+            "CDESC": "Ni",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DNI2",
+            "CDESC": "Ni%",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DNO3",
+            "CDESC": "NO3",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DOIL",
+            "CDESC": "油份(PPM)",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DPB",
+            "CDESC": "Pb",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DPH",
+            "CDESC": "PH",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DS",
+            "CDESC": "S",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DSI",
+            "CDESC": "Si",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DSO4",
+            "CDESC": "SO4",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DSPECGRAV",
+            "CDESC": "比重",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DTI",
+            "CDESC": "Ti",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DYSBRW",
+            "CDESC": "盐酸不溶物",
+            "CDESC2": ""
+        },
+        {
+            "CNAME": "DZN",
+            "CDESC": "Zn",
+            "CDESC2": ""
+        }
+    ],
+    "requestId": "63b83120-bf7c-11f0-9f73-0242ac110003"
+}

@@ -1,0 +1,264 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "历年综合分析报告 (AnnualComparisonReport_Summary)",
+  "description": "用于填充 '体检比较.HTML' 模板中*汇总分析部分*的数据结构。它*不包含*用于动态生成详细列表的 `reportData` 数组，只包含预处理的总结信息（如AI评价、图表数据）。",
+  "type": "object",
+  "properties": {
+    "headerInfo": {
+      "$ref": "#/definitions/headerInfo",
+      "description": "页面顶部信息"
+    },
+    "keyVitals": {
+      "$ref": "#/definitions/keyVitals",
+      "description": "关键体征变化表"
+    },
+    "aiSummary": {
+      "$ref": "#/definitions/aiSummary",
+      "description": "AI 综合评价"
+    },
+    "chartData": {
+      "$ref": "#/definitions/chartData",
+      "description": "关键指标趋势图数据"
+    },
+    "statusSummary": {
+      "$ref": "#/definitions/statusSummary",
+      "description": "保持与改善 / 风险与关注"
+    }
+  },
+  "required": [
+    "headerInfo",
+    "keyVitals",
+    "aiSummary",
+    "chartData",
+    "statusSummary"
+  ],
+  "definitions": {
+    "headerInfo": {
+      "type": "object",
+      "description": "页面顶部信息",
+      "properties": {
+        "patientName": {
+          "type": "string",
+          "description": "客户姓名"
+        },
+        "patientGender": {
+          "type": "string",
+          "description": "客户性别"
+        },
+        "latestAge": {
+          "type": "number",
+          "description": "最近一次体检的年龄"
+        },
+        "yearRange": {
+          "type": "string",
+          "description": "报告覆盖的年份范围 (用于顶部标题)",
+          "pattern": "^\\d{4}-\\d{4}$",
+          "examples": [
+            "2022-2025"
+          ]
+        }
+      },
+      "required": [
+        "patientName",
+        "patientGender",
+        "latestAge",
+        "yearRange"
+      ]
+    },
+    "keyVitals": {
+      "type": "object",
+      "description": "关键体征变化表数据",
+      "properties": {
+        "exams": {
+          "type": "array",
+          "description": "表头列定义 (按检查日期排序)",
+          "items": {
+            "$ref": "#/definitions/examIdentifier"
+          }
+        },
+        "metrics": {
+          "type": "array",
+          "description": "体征指标和对应的值",
+          "items": {
+            "$ref": "#/definitions/vitalMetric"
+          }
+        }
+      },
+      "required": [
+        "exams",
+        "metrics"
+      ]
+    },
+    "examIdentifier": {
+      "type": "object",
+      "description": "定义一个具体的检查时间点 (用于表头)",
+      "properties": {
+        "examDate": {
+          "type": "string",
+          "format": "date",
+          "description": "该次检查的具体日期 (YYYY-MM-DD)"
+        },
+        "age": {
+          "type": "number",
+          "description": "当次检查的年龄"
+        }
+      },
+      "required": [
+        "examDate",
+        "age"
+      ]
+    },
+    "vitalMetric": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "指标名称 (如 '体重 (kg)')"
+        },
+        "values": {
+          "type": "array",
+          "description": "按 'exams' 数组顺序排列的值",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "values"
+      ]
+    },
+    "aiSummary": {
+      "type": "object",
+      "description": "AI 综合评价内容",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string",
+          "description": "引导性段落"
+        },
+        "points": {
+          "type": "array",
+          "description": "总结要点 (ul > li)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "conclusion": {
+          "type": "string",
+          "description": "核心建议"
+        }
+      },
+      "required": [
+        "title",
+        "introduction",
+        "points",
+        "conclusion"
+      ]
+    },
+    "chartData": {
+      "type": "object",
+      "description": "图表数据",
+      "properties": {
+        "labels": {
+          "type": "array",
+          "description": "X轴标签 (应为 YYYY-MM-DD 格式的日期字符串)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bmiChart": {
+          "type": "object",
+          "properties": {
+            "weight": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "bmi": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "weight",
+            "bmi"
+          ]
+        },
+        "lipidChart": {
+          "type": "object",
+          "properties": {
+            "totalCholesterol": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "lipoproteinA": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "totalCholesterol",
+            "lipoproteinA"
+          ]
+        },
+        "uricAcidChart": {
+          "type": "object",
+          "properties": {
+            "uricAcid": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "uricAcid"
+          ]
+        }
+      },
+      "required": [
+        "labels",
+        "bmiChart",
+        "lipidChart",
+        "uricAcidChart"
+      ]
+    },
+    "statusSummary": {
+      "type": "object",
+      "description": "状态总结框",
+      "properties": {
+        "improvements": {
+          "type": "array",
+          "description": "保持与改善 (绿色框) 列表",
+          "items": {
+            "type": "string"
+          }
+        },
+        "risks": {
+          "type": "array",
+          "description": "风险与关注 (黄色框) 列表",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "improvements",
+        "risks"
+      ]
+    }
+  }
+}
+
+
+

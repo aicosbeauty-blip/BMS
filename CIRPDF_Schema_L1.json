@@ -1,0 +1,446 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CIR 成分明细 Schema (v4.0.6 - 增强标签版)",
+  "version": "4.0.6",
+  "description": "CIR成分明细数据结构,支持从PDF中提取多个成分信息。每个成分包含其完整的模块信息和增强的标签系统。",
+  "extractionInstructions": {
+    "zh": "从PDF文档中提取所有成分的信息。每个成分都应该包含完整的模块数据（modules）和dynamicTags。如果PDF中有多个成分，请将它们全部提取到ingredients数组中。对于synonyms字段：应包含所有同义名、别名、常用名称、商品名、化学变体名等；中文格式为：中文名称 (English Name)，例如：氮化硼 (Boron Nitride)。\n\n重要：提取以下标签信息：\n1. CIR认证安全状态（safetyTags）- 例如：CIR认证安全、安全有限制条件\n2. 欧盟法规状态（complianceTags）- 例如：欧盟允许、欧盟禁用、欧盟限用\n3. 主要用途和功能（functionTags）- 例如：染发剂、着色剂、保湿剂\n4. 刺激性评估（safetyTags）- 例如：低刺激性、中度刺激性、高刺激性\n5. 致敏性评估（safetyTags）- 例如：低致敏性、可能致敏\n6. 毒理学安全信息（safetyTags）- 例如：无遗传毒性、无致癌性",
+    "en": "Extract information for ALL ingredients from the PDF document. Each ingredient should contain its complete module data and dynamicTags. If there are multiple ingredients in the PDF, extract all of them into the ingredients array. For synonyms field: include all synonyms, aliases, common names, trade names, chemical variants, etc.; Chinese format should be: 中文名称 (English Name), e.g., 氮化硼 (Boron Nitride).\n\nImportant: Extract the following tag information:\n1. CIR certification safety status (safetyTags) - e.g., CIR Certified Safe, Safe with Restrictions\n2. EU regulatory status (complianceTags) - e.g., EU Allowed, EU Prohibited, EU Restricted\n3. Main uses and functions (functionTags) - e.g., Hair Dye, Colorant, Moisturizer\n4. Irritation assessment (safetyTags) - e.g., Low Irritation, Moderate Irritation, High Irritation\n5. Sensitization assessment (safetyTags) - e.g., Low Sensitization, May Sensitize\n6. Toxicological safety information (safetyTags) - e.g., Non-genotoxic, Non-carcinogenic"
+  },
+  "tagGuidelines": {
+    "description": "标签提取和分类指南 / Tag extraction and classification guidelines",
+    "categories": {
+      "safetyTags": {
+        "description": "安全相关标签，包括CIR认证、刺激性、致敏性、毒理学评估",
+        "recommendedTags": [
+          {
+            "id": "cir_certified_safe",
+            "label": { "CHS": "CIR认证安全", "ENG": "CIR Certified Safe" },
+            "icon": "check-circle",
+            "color": "green",
+            "priority": 10,
+            "usage": "当CIR专家小组明确认证成分在当前使用条件下安全时使用"
+          },
+          {
+            "id": "safe_with_restrictions",
+            "label": { "CHS": "安全有限制条件", "ENG": "Safe with Restrictions" },
+            "icon": "alert-circle",
+            "color": "orange",
+            "priority": 15,
+            "usage": "当成分在特定条件或浓度下安全，但有限制时使用"
+          },
+          {
+            "id": "low_irritation",
+            "label": { "CHS": "低刺激性", "ENG": "Low Irritation" },
+            "icon": "check",
+            "color": "green",
+            "priority": 30,
+            "usage": "当刺激性测试结果显示轻微或无刺激性时使用"
+          },
+          {
+            "id": "moderate_irritation",
+            "label": { "CHS": "中度刺激性", "ENG": "Moderate Irritation" },
+            "icon": "alert-triangle",
+            "color": "orange",
+            "priority": 35,
+            "usage": "当存在中度刺激性风险时使用"
+          },
+          {
+            "id": "low_sensitization",
+            "label": { "CHS": "低致敏性", "ENG": "Low Sensitization" },
+            "icon": "shield-check",
+            "color": "green",
+            "priority": 40,
+            "usage": "当致敏性测试结果为阴性或低风险时使用"
+          },
+          {
+            "id": "may_sensitize",
+            "label": { "CHS": "可能致敏", "ENG": "May Sensitize" },
+            "icon": "alert-circle",
+            "color": "yellow",
+            "priority": 45,
+            "usage": "当存在致敏可能性或需要斑贴试验时使用"
+          },
+          {
+            "id": "non_genotoxic",
+            "label": { "CHS": "无遗传毒性", "ENG": "Non-genotoxic" },
+            "icon": "shield",
+            "color": "green",
+            "priority": 50,
+            "usage": "当遗传毒性测试结果为阴性时使用"
+          },
+          {
+            "id": "non_carcinogenic",
+            "label": { "CHS": "无致癌性", "ENG": "Non-carcinogenic" },
+            "icon": "shield",
+            "color": "green",
+            "priority": 55,
+            "usage": "当致癌性测试结果为阴性时使用"
+          }
+        ]
+      },
+      "complianceTags": {
+        "description": "法规合规相关标签，包括欧盟、FDA等监管机构状态",
+        "recommendedTags": [
+          {
+            "id": "eu_allowed",
+            "label": { "CHS": "欧盟允许", "ENG": "EU Allowed" },
+            "icon": "globe",
+            "color": "blue",
+            "priority": 20,
+            "usage": "当成分在欧盟法规中被允许使用时使用"
+          },
+          {
+            "id": "eu_restricted",
+            "label": { "CHS": "欧盟限用", "ENG": "EU Restricted" },
+            "icon": "alert-triangle",
+            "color": "orange",
+            "priority": 22,
+            "usage": "当成分在欧盟法规中有使用限制（如浓度限制）时使用"
+          },
+          {
+            "id": "eu_prohibited",
+            "label": { "CHS": "欧盟禁用", "ENG": "EU Prohibited" },
+            "icon": "x-circle",
+            "color": "red",
+            "priority": 25,
+            "usage": "当成分在欧盟法规中被禁止使用时使用"
+          },
+          {
+            "id": "fda_approved",
+            "label": { "CHS": "FDA批准", "ENG": "FDA Approved" },
+            "icon": "check-circle",
+            "color": "blue",
+            "priority": 21,
+            "usage": "当成分获得FDA批准时使用"
+          }
+        ]
+      },
+      "functionTags": {
+        "description": "功能和用途相关标签",
+        "recommendedTags": [
+          {
+            "id": "oxidative_hair_dye",
+            "label": { "CHS": "氧化型染发剂", "ENG": "Oxidative Hair Dye" },
+            "icon": "droplet",
+            "color": "purple",
+            "priority": 60,
+            "usage": "当成分用作氧化型染发剂时使用"
+          },
+          {
+            "id": "colorant",
+            "label": { "CHS": "着色剂", "ENG": "Colorant" },
+            "icon": "palette",
+            "color": "purple",
+            "priority": 65,
+            "usage": "当成分主要用作着色剂时使用"
+          },
+          {
+            "id": "preservative",
+            "label": { "CHS": "防腐剂", "ENG": "Preservative" },
+            "icon": "shield",
+            "color": "blue",
+            "priority": 70,
+            "usage": "当成分用作防腐剂时使用"
+          },
+          {
+            "id": "moisturizer",
+            "label": { "CHS": "保湿剂", "ENG": "Moisturizer" },
+            "icon": "droplet",
+            "color": "blue",
+            "priority": 75,
+            "usage": "当成分具有保湿功能时使用"
+          },
+          {
+            "id": "antioxidant",
+            "label": { "CHS": "抗氧化剂", "ENG": "Antioxidant" },
+            "icon": "shield-check",
+            "color": "green",
+            "priority": 80,
+            "usage": "当成分具有抗氧化功能时使用"
+          }
+        ]
+      },
+      "customTags": {
+        "description": "其他自定义标签",
+        "usage": "用于上述类别未涵盖的特殊标签"
+      }
+    }
+  },
+  "lastUpdated": "2025-11-02",
+  "changelog": {
+    "v4.0.6": [
+      "增强dynamicTags系统，添加详细的标签类型说明",
+      "为CIR认证、欧盟法规、功能、刺激性、致敏性、毒理学安全等添加推荐标签",
+      "在extractionInstructions中明确标签提取要求",
+      "添加tagGuidelines部分，提供标签分类和使用指南",
+      "为每个推荐标签提供id、label、icon、color、priority和usage说明"
+    ]
+  },
+  "type": "object",
+  "definitions": {
+    "bilingualText": {
+      "type": "object",
+      "description": "简单双语文本（CHS/ENG）",
+      "properties": {
+        "CHS": { "type": "string" },
+        "ENG": { "type": "string" }
+      },
+      "required": ["CHS", "ENG"]
+    },
+    "textSegment": {
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "style": {
+          "type": "string",
+          "enum": ["normal", "bold", "highlight", "warning"],
+          "default": "normal"
+        }
+      },
+      "required": ["text"]
+    },
+    "richTextArray": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/textSegment" }
+    },
+    "bilingualTextBlock": {
+      "type": "object",
+      "properties": {
+        "ENG": { "$ref": "#/definitions/richTextArray" },
+        "CHS": { "$ref": "#/definitions/richTextArray" }
+      },
+      "required": ["ENG", "CHS"]
+    },
+    "tagDefinition": {
+      "type": "object",
+      "description": "标签定义",
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "$ref": "#/definitions/bilingualText" },
+        "icon": { "type": "string" },
+        "color": {
+          "type": "string",
+          "enum": ["green", "blue", "purple", "orange", "red", "yellow", "gray"]
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 50
+        }
+      },
+      "required": ["id", "label", "color"]
+    },
+    "concentrationRange": {
+      "type": "object",
+      "properties": {
+        "min": { "type": ["number", "null"] },
+        "max": { "type": ["number", "null"] },
+        "unit": { "type": "string", "default": "%" },
+        "description": { "$ref": "#/definitions/bilingualText" }
+      }
+    },
+    "ingredientWithModules": {
+      "type": "object",
+      "required": ["inciName", "casNumber", "chemicalName", "modules"],
+      "properties": {
+        "inciName": { "type": "string" },
+        "casNumber": { "type": "string" },
+        "chemicalName": { "$ref": "#/definitions/bilingualText" },
+        "synonyms": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/bilingualText" }
+        },
+        "dynamicTags": {
+          "type": "object",
+          "properties": {
+            "safetyTags": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/tagDefinition" }
+            },
+            "functionTags": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/tagDefinition" }
+            },
+            "complianceTags": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/tagDefinition" }
+            },
+            "customTags": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/tagDefinition" }
+            }
+          }
+        },
+        "modules": {
+          "type": "object",
+          "required": ["module1Dashboard"],
+          "properties": {
+            "module1Dashboard": {
+              "type": "object",
+              "required": ["safetyStatus", "keyParameters"],
+              "properties": {
+                "safetyStatus": {
+                  "type": "object",
+                  "required": ["level", "conclusion"],
+                  "properties": {
+                    "level": {
+                      "type": "string",
+                      "enum": ["safe", "safe_with_restrictions", "unsafe", "insufficient_data"]
+                    },
+                    "conclusion": { "$ref": "#/definitions/bilingualTextBlock" }
+                  }
+                },
+                "keyParameters": {
+                  "type": "object",
+                  "properties": {
+                    "maxSafeConcentration": { "$ref": "#/definitions/concentrationRange" },
+                    "restrictions": { "$ref": "#/definitions/bilingualTextBlock" },
+                    "specialPopulationWarnings": {
+                      "type": "array",
+                      "items": { "$ref": "#/definitions/bilingualText" }
+                    },
+                    "restrictedApplicationAreas": {
+                      "type": "array",
+                      "items": { "$ref": "#/definitions/bilingualText" }
+                    }
+                  }
+                },
+                "concernBlocks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["theme", "title", "content"],
+                    "properties": {
+                      "theme": {
+                        "type": "string",
+                        "enum": ["warning", "precaution", "note"]
+                      },
+                      "title": { "$ref": "#/definitions/bilingualText" },
+                      "content": { "$ref": "#/definitions/bilingualTextBlock" }
+                    }
+                  }
+                }
+              }
+            },
+            "module2Identity": {
+              "type": "object",
+              "required": ["classification", "functionDescription"],
+              "properties": {
+                "classification": { "$ref": "#/definitions/bilingualText" },
+                "functionDescription": { "$ref": "#/definitions/bilingualTextBlock" },
+                "cosmeticUses": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "category": { "$ref": "#/definitions/bilingualText" },
+                      "count": { "type": "integer" },
+                      "details": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "productType": { "$ref": "#/definitions/bilingualText" },
+                            "concentration": { "$ref": "#/definitions/concentrationRange" },
+                            "notes": { "$ref": "#/definitions/bilingualText" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "module3Toxicology": {
+              "type": "object",
+              "properties": {
+                "summary": { "$ref": "#/definitions/bilingualTextBlock" },
+                "endpointData": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["endpoint", "riskLevel", "evaluation"],
+                    "properties": {
+                      "endpoint": { "$ref": "#/definitions/bilingualText" },
+                      "riskLevel": {
+                        "type": "string",
+                        "enum": ["low", "moderate", "high", "insufficient_data"]
+                      },
+                      "evaluation": { "$ref": "#/definitions/bilingualTextBlock" }
+                    }
+                  }
+                }
+              }
+            },
+            "module4ConcentrationData": {
+              "type": "object",
+              "properties": {
+                "concentrationsByProductType": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "productType": { "$ref": "#/definitions/bilingualText" },
+                      "count": { "type": "integer" },
+                      "concentration": { "$ref": "#/definitions/concentrationRange" }
+                    }
+                  }
+                }
+              }
+            },
+            "module5Regulations": {
+              "type": "object",
+              "properties": {
+                "regions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["regionName", "status"],
+                    "properties": {
+                      "regionName": { "$ref": "#/definitions/bilingualText" },
+                      "status": {
+                        "type": "string",
+                        "enum": ["allowed", "restricted", "prohibited", "not_regulated"]
+                      },
+                      "details": { "$ref": "#/definitions/bilingualTextBlock" },
+                      "restrictions": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": { "type": "string" },
+                            "value": { "type": "string" },
+                            "description": { "$ref": "#/definitions/bilingualText" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["reportContext", "ingredients"],
+  "properties": {
+    "reportContext": {
+      "type": "object",
+      "required": ["reportId", "reportTitle"],
+      "properties": {
+        "reportId": { "type": "string" },
+        "reportTitle": { "type": "string" },
+        "documentType": { "type": "string" }
+      }
+    },
+    "ingredients": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ingredientWithModules" },
+      "minItems": 1
+    }
+  }
+}

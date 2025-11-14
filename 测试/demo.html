@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>员工权限管理 - 演示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    
+    <!-- 顶部导航 -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <i class="fas fa-user-shield text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">员工权限管理系统</h1>
+                        <p class="text-sm text-gray-500">Employee Permission Management</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="showHelp()" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                        <i class="fas fa-question-circle mr-2"></i>使用帮助
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-6 py-8">
+        
+        <!-- 功能说明卡片 -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-orange-200">
+            <div class="flex items-start gap-4">
+                <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-info-circle text-orange-600 text-2xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">系统功能介绍</h2>
+                    <p class="text-gray-600 mb-4">
+                        这是一个全新设计的员工权限管理界面，采用左右分栏设计，让您可以清晰地查看和管理员工的审批权限。
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="flex items-center gap-3 bg-green-50 p-4 rounded-lg border border-green-200">
+                            <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                            <div>
+                                <div class="font-semibold text-green-900">左侧：已授权</div>
+                                <div class="text-xs text-green-600">显示已授权的部门</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <i class="fas fa-minus-circle text-blue-600 text-xl"></i>
+                            <div>
+                                <div class="font-semibold text-blue-900">右侧：未授权</div>
+                                <div class="text-xs text-blue-600">显示未授权的部门</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-purple-50 p-4 rounded-lg border border-purple-200">
+                            <i class="fas fa-exchange-alt text-purple-600 text-xl"></i>
+                            <div>
+                                <div class="font-semibold text-purple-900">快速操作</div>
+                                <div class="text-xs text-purple-600">点击卡片即可授权</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 员工列表 -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 p-6">
+                <h2 class="text-2xl font-bold text-white">员工列表</h2>
+                <p class="text-orange-100 mt-1">点击"配置权限"按钮打开权限管理面板</p>
+            </div>
+            
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="employeeList">
+                    <!-- 员工卡片动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 使用说明 -->
+        <div class="mt-8 bg-blue-50 rounded-2xl p-6 border border-blue-200">
+            <h3 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-lightbulb"></i>
+                使用技巧
+            </h3>
+            <ul class="space-y-2 text-blue-800">
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check text-blue-600 mt-1"></i>
+                    <span><strong>点击公司卡片</strong>可以快速在已授权和未授权之间切换</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check text-blue-600 mt-1"></i>
+                    <span><strong>点击部门头部</strong>可以折叠/展开该部门下的所有公司</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check text-blue-600 mt-1"></i>
+                    <span><strong>使用筛选器</strong>可以按业务板块、部门类型或搜索关键词快速定位</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check text-blue-600 mt-1"></i>
+                    <span><strong>批量操作</strong>按钮可以快速授权或取消授权整个部门</span>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- 引入员工权限弹框HTML -->
+    <div id="employeePermissionModal"></div>
+
+    <!-- 引入脚本 -->
+    <script src="employee-permission-modal.js"></script>
+    
+    <script>
+        // 模拟员工数据
+        const employees = [
+            { id: 'EMP001', name: '张三', role: '部门经理', department: '市场部', avatar: '👨‍💼' },
+            { id: 'EMP002', name: '李四', role: '财务主管', department: '财务部', avatar: '👨‍💻' },
+            { id: 'EMP003', name: '王五', role: '技术总监', department: '技术部', avatar: '👩‍💻' },
+            { id: 'EMP004', name: '赵六', role: '人事经理', department: '人力资源部', avatar: '👩‍💼' },
+            { id: 'EMP005', name: '钱七', role: '销售总监', department: '销售部', avatar: '👨‍💼' },
+            { id: 'EMP006', name: '孙八', role: '采购经理', department: '采购部', avatar: '👩‍💼' }
+        ];
+
+        // 渲染员工列表
+        function renderEmployeeList() {
+            const container = document.getElementById('employeeList');
+            container.innerHTML = employees.map(emp => `
+                <div class="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 border-2 border-gray-200 hover:border-orange-400 hover:shadow-xl transition-all duration-300 cursor-pointer group">
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl group-hover:scale-110 transition-transform duration-300">
+                            ${emp.avatar}
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors">
+                                ${emp.name}
+                            </h3>
+                            <p class="text-sm text-gray-600 mt-1">
+                                <i class="fas fa-briefcase mr-1 text-orange-500"></i>${emp.role}
+                            </p>
+                            <p class="text-sm text-gray-500 mt-1">
+                                <i class="fas fa-building mr-1 text-blue-500"></i>${emp.department}
+                            </p>
+                            <button 
+                                onclick="openPermissionModal('${emp.name}', '${emp.role}', '${emp.id}')"
+                                class="mt-4 w-full px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all font-medium shadow-md hover:shadow-lg">
+                                <i class="fas fa-key mr-2"></i>配置权限
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 打开权限管理弹框
+        function openPermissionModal(name, role, id) {
+            EmployeePermissionModal.open(name, role, id);
+        }
+
+        // 显示帮助
+        function showHelp() {
+            alert('权限管理系统使用帮助：\n\n1. 点击员工卡片的"配置权限"按钮\n2. 在弹出的面板中管理该员工的审批权限\n3. 左侧显示已授权的部门，右侧显示未授权的部门\n4. 点击公司卡片可快速切换授权状态\n5. 使用筛选器快速定位需要的部门\n6. 完成配置后点击"保存权限配置"按钮');
+        }
+
+        // 监听权限保存事件
+        document.addEventListener('employeePermissionSaved', function(event) {
+            console.log('权限已保存:', event.detail);
+            // 这里可以发送到服务器保存
+        });
+
+        // 页面加载完成后渲染员工列表
+        document.addEventListener('DOMContentLoaded', function() {
+            renderEmployeeList();
+            
+            // 加载员工权限弹框HTML
+            fetch('employee-permission-modal.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('employeePermissionModal').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('加载权限弹框HTML失败:', error);
+                });
+        });
+    </script>
+</body>
+</html>

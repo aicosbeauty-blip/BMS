@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康评估报告模板</title>
+    <!-- 样式与原文件相同 -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "SimSun", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+        
+        @media print {
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px;
+            margin: -20mm -20mm 20px -20mm;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-subtitle {
+            font-size: 14px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .title-main {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: white;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .qr-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .info-section {
+            margin: 20px 0;
+        }
+        
+        .info-row {
+            display: flex;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .info-label {
+            width: 120px;
+            font-weight: bold;
+        }
+        
+        .info-value {
+            flex: 1;
+        }
+        
+        .section-title {
+            background: #1e3a8a;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px 0;
+            text-align: center;
+        }
+        
+        .subsection-title {
+            background: #f3f4f6;
+            padding: 10px 15px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            border-left: 4px solid #1e3a8a;
+        }
+        
+        .content-box {
+            background: #f9fafb;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .recommendation-box {
+            background: #e8f5e9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+        
+        table th {
+            background: #1e3a8a;
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+        
+        .highlight {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .page-number {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .body-diagram {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .body-diagram-placeholder {
+            width: 200px;
+            height: 400px;
+            margin: 0 auto;
+            background: #f3f4f6;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        /* 模板说明样式 */
+        .template-comment {
+            background: #fffbef;
+            border: 1px dashed #fcd34d;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #b45309;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 第1页 - 封面 -->
+    <!-- 数据来源: patientInfo 对象 -->
+    <div class="page">
+        <div class="header">
+            <div class="logo">INCOSC</div>
+            <div class="logo-subtitle">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            <div class="title-main">会员健康<br>档案</div>
+            <div class="subtitle">慢病康养，肿瘤预防，综合抗衰</div>
+        </div>
+        
+        <div class="qr-code">
+            <div class="qr-placeholder">扫码关注<br>INCOSC公众号</div>
+        </div>
+        
+        <div class="info-section">
+            <div class="info-row">
+                <div class="info-label">姓名：</div>
+                <div class="info-value" data-json-key="patientInfo.name">{{name}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">性别：</div>
+                <div class="info-value" data-json-key="patientInfo.gender">{{gender}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">年龄：</div>
+                <div class="info-value" data-json-key="patientInfo.age">{{age}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">身高：</div>
+                <div class="info-value" data-json-key="patientInfo.height">{{height}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">体重：</div>
+                <div class="info-value" data-json-key="patientInfo.weight">{{weight}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">BMI：</div>
+                <div class="info-value" data-json-key="patientInfo.bmi">{{bmi}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">血压：</div>
+                <div class="info-value" data-json-key="patientInfo.bloodPressure">{{bloodPressure}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">过敏：</div>
+                <div class="info-value" data-json-key="patientInfo.allergy">{{allergy}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">诉求：</div>
+                <div class="info-value" data-json-key="patientInfo.mainConcern">{{mainConcern}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">体检单位</div>
+                <div class="info-value" data-json-key="patientInfo.examUnit">{{examUnit}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">检查日期</div>
+                <div class="info-value" data-json-key="patientInfo.examDate">{{examDate}}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">建档日期：</div>
+                <div class="info-value" data-json-key="patientInfo.reportDate">{{reportDate}}</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            深耕细胞科技<br>守护国民健康
+        </div>
+        <div class="page-number">健康评估报告|客户隐私文件 1</div>
+    </div>
+
+    <!-- 第2页 - 专科检查 -->
+    <!-- 数据来源: specialistExams 数组 -->
+    <div class="page">
+        <div class="section-title">体检结果</div>
+        
+        <!-- 病史情况在 Schema 中未定义，暂时保留为静态 -->
+        <div class="subsection-title">病史情况</div>
+        <div class="content-box">
+            <p><strong>病史：</strong>不详。</p>
+            <p><strong>服药情况：</strong>不详。</p>
+            <p><strong>营养品与保健品：</strong>不详。</p>
+            <p><strong>生活方式：</strong>不详。</p>
+        </div>
+        <div class="recommendation-box">
+            <p><strong>评估与建议：</strong></p>
+            <p>1、推荐首选线下面诊，必要时可以线上面诊。</p>
+        </div>
+        
+
+        <!-- 专科检查动态内容 -->
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `specialistExams` 数组动态生成。将为数组中的每个对象重复 `specialist-exam-item` 模板块。</p>
+        </div>
+
+        <div id="specialist-exams-container" data-json-key="specialistExams">
+            <!-- specialistExams 循环模板开始 -->
+            <div class="specialist-exam-item" data-json-key="specialistExams[]" style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
+                <div class="subsection-title" data-json-key="category">{{category}}</div>
+                <div class="content-box">
+                    <p data-json-key="finding">{{finding}}</p>
+                </div>
+                <div class="recommendation-box">
+                    <p><strong>评估与建议：</strong></p>
+                    <p data-json-key="assessment">{{assessment}}</p>
+                </div>
+            </div>
+            <!-- specialistExams 循环模板结束 -->
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 2</div>
+    </div>
+
+    <!-- 第3页 - 实验室检查 -->
+    <!-- 数据来源: labResults 数组 -->
+    <!-- 原第 3-8 页内容合并于此 -->
+    <div class="page">
+        <div class="section-title">实验室检查结果</div>
+
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `labResults` 数组动态生成。将为数组中的每个对象（代表一个检查类别，如“血常规”）重复 `lab-result-category` 模板块。</p>
+        </div>
+
+        <div id="lab-results-container" data-json-key="labResults">
+            <!-- labResults 循环模板开始 -->
+            <div class="lab-result-category" data-json-key="labResults[]" style="page-break-inside: avoid;">
+                <!-- 类别标题 -->
+                <div class="subsection-title" data-json-key="category">{{category}}</div>
+                
+                <!-- 检查项表格 -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>项目名称</th>
+                            <th>结果</th>
+                            <th>单位</th>
+                            <th>参考值</th>
+                        </tr>
+                    </thead>
+                    <tbody data-json-key="items" class="lab-items-tbody">
+                        <!-- labResults[].items 循环模板开始 -->
+                        <!-- 
+                            说明: 
+                            - 循环此 <tr> 
+                            - 如果 'isAbnormal' 为 true, 给 <td> 添加 'highlight' class
+                        -->
+                        <tr data-json-key="items[]">
+                            <td data-json-key="name">{{name}}</td>
+                            <td data-json-key="value" data-json-flag="isAbnormal" class="">{{value}}</td>
+                            <td data-json-key="unit">{{unit}}</td>
+                            <td data-json-key="referenceRange">{{referenceRange}}</td>
+                        </tr>
+                        <!-- labResults[].items 循环模板结束 -->
+                    </tbody>
+                </table>
+                
+                <!-- 评估与建议 -->
+                <div class="recommendation-box">
+                    <p><strong>评估与建议：</strong></p>
+                    <p data-json-key="assessment">{{assessment}}</p>
+                </div>
+            </div>
+            <!-- labResults 循环模板结束 -->
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 3</div>
+    </div>
+
+    <!-- 第4页 - 影像检查 -->
+    <!-- 数据来源: imagingResults 数组 -->
+    <!-- 原第 9-10 页内容合并于此 -->
+    <div class="page">
+        <div class="section-title">影像检查</div>
+
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `imagingResults` 数组动态生成。将为数组中的每个对象重复 `imaging-result-item` 模板块。</p>
+        </div>
+
+        <div id="imaging-results-container" data-json-key="imagingResults">
+            <!-- imagingResults 循环模板开始 -->
+            <div class="imaging-result-item" data-json-key="imagingResults[]" style="page-break-inside: avoid; margin-bottom: 20px;">
+                <div class="subsection-title" data-json-key="category">{{category}}</div>
+                <div class="content-box">
+                    <div class="template-comment" style="font-size: 11px; padding: 5px; margin-bottom: 10px;">
+                        <p><strong>模板说明：</strong>此处循环 `findings` 数组，为每项生成一个 `<p>` 标签。</p>
+                    </div>
+                    <!-- imagingResults[].findings 循环模板开始 -->
+                    <p data-json-key="findings[]">{{finding}}</p>
+                    <!-- imagingResults[].findings 循环模板结束 -->
+                </div>
+                <div class="recommendation-box">
+                    <p><strong>评估与建议：</strong></p>
+                    <p data-json-key="assessment">{{assessment}}</p>
+                </div>
+            </div>
+            <!-- imagingResults 循环模板结束 -->
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 4</div>
+    </div>
+
+    <!-- 第5页 - 健康专家意见封面 -->
+    <!-- 静态页面 -->
+    <div class="page">
+        <div style="text-align: center; margin-top: 100px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 50px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            
+            <h1 style="font-size: 36px; margin: 80px 0; color: #1e3a8a;">健康专家意见</h1>
+            
+            <div class="body-diagram">
+                <div class="body-diagram-placeholder">人体示意图</div>
+            </div>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 5</div>
+    </div>
+
+    <!-- 第6页 - 健康专家意见详情 -->
+    <!-- 数据来源: expertOpinions 数组 -->
+    <!-- 原第 12-14 页内容合并于此 -->
+    <div class="page">
+        <div class="section-title">健康系统</div>
+
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容将根据 `expertOpinions` 数组动态生成。将为数组中的每个对象重复 `expert-opinion-item` 模板块。</p>
+        </div>
+        
+        <div id="expert-opinions-container" data-json-key="expertOpinions">
+            <!-- expertOpinions 循环模板开始 -->
+            <div class="expert-opinion-item" data-json-key="expertOpinions[]" style="page-break-inside: avoid; margin-bottom: 20px;">
+                <div class="subsection-title" data-json-key="system">{{system}}</div>
+                <div class="content-box">
+                    <p><strong>体检阳性发现：</strong></p>
+                    <div class="template-comment" style="font-size: 11px; padding: 5px; margin-bottom: 10px;">
+                        <p><strong>模板说明：</strong>此处循环 `positiveFindings` 数组，为每项生成一个 `<p>` 标签。</p>
+                    </div>
+                    <!-- expertOpinions[].positiveFindings 循环模板开始 -->
+                    <p data-json-key="positiveFindings[]">{{positiveFinding}}</p>
+                    <!-- expertOpinions[].positiveFindings 循环模板结束 -->
+                </div>
+                <div class="recommendation-box">
+                    <p><strong>医疗组评估及建议：</strong></p>
+                    <div class="template-comment" style="font-size: 11px; padding: 5px; margin-bottom: 10px;">
+                        <p><strong>模板说明：</strong>此处循环 `assessmentAndRecommendations` 数组，为每项生成一个 `<p>` 标签。</p>
+                    </div>
+                    <!-- expertOpinions[].assessmentAndRecommendations 循环模板开始 -->
+                    <p data-json-key="assessmentAndRecommendations[]">{{recommendation}}</p>
+                    <!-- expertOpinions[].assessmentAndRecommendations 循环模板结束 -->
+                </div>
+            </div>
+            <!-- expertOpinions 循环模板结束 -->
+        </div>
+
+        <div class="page-number">健康评估报告|客户隐私文件 6</div>
+    </div>
+
+    <!-- 第7页 - 康养安全意见封面 -->
+    <!-- 静态页面 -->
+    <div class="page">
+        <div style="text-align: center; margin-top: 100px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 50px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            
+            <h1 style="font-size: 36px; margin: 80px 0; color: #1e3a8a;">康养安全意见</h1>
+            
+            <div class="body-diagram">
+                <div class="body-diagram-placeholder">人体示意图</div>
+            </div>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 7</div>
+    </div>
+
+    <!-- 第8页 - 康养安全评估 -->
+    <!-- 静态页面, Schema 中未定义 -->
+    <div class="page">
+        <div class="section-title">康养安全评估</div>
+        
+        <div class="subsection-title">一、适用性评估</div>
+        
+        <div class="content-box">
+            <p><strong>1、您适合应用 NK 细胞。</strong></p>
+            <p><strong>原理：</strong>NK 细胞能提升免疫力，增强体质，改善细胞内环境，缓解慢性炎症，提升抗病毒功能，清除机体内坏死、衰竭、凋亡细胞，有助于防癌抗癌。</p>
+        </div>
+        
+        <div class="content-box">
+            <p><strong>2、您有尿酸、代谢性、心血管风险，适合应用间充质干细胞。</strong></p>
+            <p><strong>原理：</strong>间充质干细胞具有修复损伤细胞的功能，延缓组织、器官、神经功能退化，维持机体活力与年轻态，综合性抗衰。还可以改善机体细胞内微环境，调理内分泌系统，促进细胞新陈代谢，改善亚健康状态。改善胰岛细胞储备功能，延缓或降低糖尿病发生远期并发症风险。</p>
+        </div>
+        
+        <div class="subsection-title">二、安全性评估</div>
+        
+        <div class="content-box">
+            <p><strong>（1）不宜安排细胞应用的情况：</strong>重要器官功能衰竭，脑出血、脑梗死与心肌梗死急性期，急性传染病，急性感染，发热≥38℃，严重出血倾向，严重过敏状态，备孕、孕期和哺乳期，严重精神疾病，持续性癫痫。</p>
+            <p>此外，恶性肿瘤患者不宜应用间充质干细胞，系统性自身免疫病患者，不宜应用 NK 细胞。</p>
+        </div>
+        
+        <div class="content-box">
+            <p><strong>（2）评估结果：</strong>目前提供的体检资料中没有发现应用免疫细胞和间充质干细胞的潜在安全风险。</p>
+        </div>
+        
+        <div class="content-box">
+            <p><strong>（3）特别提示：</strong>本次安全性评估仅根据 2025 年 09 月份的检查资料，不过这次常规检查对少数隐匿性和一些潜在性风险未必能发现且作出精准性预判。</p>
+        </div>
+        
+        <div class="subsection-title">三、补充检查（应用细胞前）</div>
+        
+        <div class="content-box">
+            <p><strong>（1）抽血项目：</strong></p>
+            <p><strong>梅毒抗体、HIV 抗体</strong>（常规传染病筛查项目）【采集免疫细胞时实验室检测】；</p>
+            <p><strong>（2）影像学检查：</strong>双上肢动静脉超声及双下肢动静脉超声（排除外周血管斑块、狭窄风险，提高细胞应用时安全）。</p>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 8</div>
+    </div>
+
+    <!-- 第9页 - 康养计划(1) -->
+    <!-- 数据来源: healthPlan 对象 -->
+    <!-- 原第 17 页内容 -->
+    <div class="page">
+        <div class="section-title">康养计划（1）</div>
+        
+        <div class="subsection-title">一、主要健康问题</div>
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容根据 `healthPlan.mainIssues` 数组生成，为每项生成一个 `content-box`。</p>
+        </div>
+        <div id="main-issues-container" data-json-key="healthPlan.mainIssues">
+            <!-- healthPlan.mainIssues 循环模板开始 -->
+            <div class="content-box" data-json-key="healthPlan.mainIssues[]">
+                <p>{{mainIssue}}</p>
+            </div>
+            <!-- healthPlan.mainIssues 循环模板结束 -->
+        </div>
+        
+        <div class="subsection-title">二、次要健康问题</div>
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容根据 `healthPlan.secondaryIssues` 数组生成，为每项生成一个 `content-box`。</p>
+        </div>
+        <div id="secondary-issues-container" data-json-key="healthPlan.secondaryIssues">
+            <!-- healthPlan.secondaryIssues 循环模板开始 -->
+            <div class="content-box" data-json-key="healthPlan.secondaryIssues[]">
+                <p>{{secondaryIssue}}</p>
+            </div>
+            <!-- healthPlan.secondaryIssues 循环模板结束 -->
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 9</div>
+    </div>
+
+
+    <!-- 第10页 - 康养计划(2) -->
+    <!-- 数据来源: healthPlan 对象 -->
+    <!-- 原第 19-20 页内容 -->
+    <div class="page">
+        <div class="section-title">康养计划（2）</div>
+
+        <div class="subsection-title">一、康养计划</div>
+        
+        <!-- 
+            Schema 中 'planDetails' 定义不完整。
+            此处假设 'planDetails' 是一个对象数组，每个对象包含:
+            planName, cellType, application, expectedEffect 
+        -->
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>康养保健方案表格将根据 `healthPlan.planDetails` 数组动态填充。Schema 中未定义此数组中对象的具体字段，此处为基于原表格的猜测（planName, cellType, application, expectedEffect）。</p>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4" style="text-align: center; font-size: 16px;">康养保健方案</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>细胞类型</th>
+                    <th>应用方案</th>
+                    <th>预期效果</th>
+                </tr>
+            </thead>
+            <tbody id="plan-details-tbody" data-json-key="healthPlan.planDetails">
+                <!-- healthPlan.planDetails 循环模板开始 -->
+                <tr data-json-key="healthPlan.planDetails[]">
+                    <td data-json-key="planName">{{planName}}</td>
+                    <td data-json-key="cellType">{{cellType}}</td>
+                    <td data-json-key="application">{{application}}</td>
+                    <td data-json-key="expectedEffect">{{expectedEffect}}</td>
+                </tr>
+                <!-- healthPlan.planDetails 循环模板结束 -->
+
+                <!-- 示例：显示一条静态数据，用于演示 -->
+                <tr>
+                    <td><i>示例：第一次</i></td>
+                    <td><i>免疫细胞（NK）</i></td>
+                    <td><i>细胞量 50 亿</i></td>
+                    <td><i>改善免疫功能</i></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="subsection-title">二、预防计划</div>
+        
+        <div class="template-comment">
+            <p><strong>模板说明：</strong>下方内容根据 `healthPlan.preventivePlan` 数组生成，为每项生成一个 `<p>` 标签。</p>
+        </div>
+        <div class="content-box" id="preventive-plan-container" data-json-key="healthPlan.preventivePlan">
+            <!-- healthPlan.preventivePlan 循环模板开始 -->
+            <p data-json-key="healthPlan.preventivePlan[]">{{planItem}}</p>
+            <!-- healthPlan.preventivePlan 循环模板结束 -->
+        </div>
+
+        <div class="page-number">健康评估报告|客户隐私文件 10</div>
+    </div>
+
+    <!-- 第11页 - 结束页 -->
+    <!-- 静态页面 -->
+    <div class="page">
+        <div style="text-align: center; margin-top: 150px;">
+            <div class="logo" style="color: #1e3a8a; margin-bottom: 30px; font-size: 60px;">INCOSC</div>
+            <div class="logo-subtitle" style="color: #666; font-size: 16px; margin-bottom: 50px;">国际干细胞联合研究中心<br>International Consortium of Stem Cell Research</div>
+            
+            <div class="qr-code" style="margin: 50px auto;">
+                <div class="qr-placeholder">二维码<br>扫码关注</div>
+            </div>
+            
+            <p style="font-size: 18px; color: #1e3a8a; margin: 20px 0;">扫码关注</p>
+            <p style="font-size: 20px; font-weight: bold; color: #1e3a8a; margin: 20px 0;">INCOSC 公众号</p>
+            
+            <div style="margin-top: 80px; padding: 30px; background: #f3f4f6; border-radius: 10px;">
+                <p style="font-size: 14px; color: #666; line-height: 2;">如果您在阅读本报告时有问题，请及时向您的健康管理专家或<br>医生进行咨询。</p>
+            </div>
+            
+            <div style="margin-top: 50px; font-size: 16px; color: #1e3a8a;">
+                <p>慢病康养，肿瘤预防，综合抗衰</p>
+            </div>
+        </div>
+        
+        <div class="page-number">健康评估报告|客户隐私文件 11</div>
+    </div>
+
+</body>
+</html>

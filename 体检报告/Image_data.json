@@ -1,0 +1,87 @@
+{
+  "original_file_hash": "b1a12970534c9fc1c542f994722e418a49aa43d28c7cfe6961513212830cb3c4",
+  "file_name": "1.pdf",
+  "md5": "d8d7d9f3a70c1a62457eb5a301f1a5c9",
+  "name": "袁英",
+  "phone_number": null,
+  "category": {
+    "C13或C14呼气试验": [
+      {
+        "hash": "7d2f0bab9c77e59ecf46318bfabe1fd70043c3b4cf8d59a31e7d879a93fa981a",
+        "filename": "7d2f0bab9c77e59ecf46318bfabe1fd70043c3b4cf8d59a31e7d879a93fa981a.jpeg",
+        "filedesc": "page002_img001_C13或C14呼气试验.jpeg",
+        "description": "这是一份13C呼气试验HP检验报告，用于检测幽门螺旋杆菌感染情况，报告中包含检测结果、参考值、图表和诊断结论。",
+        "imgcategory": "C13或C14呼气试验"
+      }
+    ],
+    "超声（心脏，血管）": [
+      {
+        "hash": "0093934062815ff78a4d423e6536a24fbc327c1100a16c44d2e23451266044f2",
+        "filename": "0093934062815ff78a4d423e6536a24fbc327c1100a16c44d2e23451266044f2.jpeg",
+        "filedesc": "page009_img001_超声（心脏，血管）.jpeg",
+        "description": "这是一张心脏超声影像图，屏幕左侧菜单中明确显示“心臟”字样，并列出了与心脏结构和功能相关的测量参数，如Dimension, Area, Mitral Valve, RV/LV等。",
+        "imgcategory": "超声（心脏，血管）"
+      },
+      {
+        "hash": "d564f0e93a6e5cae3b040cf54143b4bd6efeba3ee289abff516f1b83b1245059",
+        "filename": "d564f0e93a6e5cae3b040cf54143b4bd6efeba3ee289abff516f1b83b1245059.jpeg",
+        "filedesc": "page010_img001_超声（心脏，血管）.jpeg",
+        "description": "该图片显示了心脏超声检查的实时图像和相关测量参数。左侧菜单明确标有“心脏”字样，并列出了如LA/Ao（左心房/主动脉）、Mitral Valve（二尖瓣）、RV/LV（右心室/左心室）等心脏相关指标。",
+        "imgcategory": "超声（心脏，血管）"
+      },
+      {
+        "hash": "a0c8508de31933e5b29a2ac71ac3b1d4a7d1605dbe96031f043690549cb116f4",
+        "filename": "a0c8508de31933e5b29a2ac71ac3b1d4a7d1605dbe96031f043690549cb116f4.jpeg",
+        "filedesc": "page012_img002_超声（心脏，血管）.jpeg",
+        "description": "图像显示颈动脉的超声实时扫描界面，左上角有GE Healthcare标识，并包含超声参数（如FR, Freq, Gn等）和测量选项，明确显示为血管超声检查。",
+        "imgcategory": "超声（心脏，血管）"
+      }
+    ],
+    "超声（甲状腺，肝胆胰脾，泌尿系统）": [
+      {
+        "hash": "5455f241716bacb0d434c50f77d6ef14d831a71844e063b0decaf9f74e7b6090",
+        "filename": "5455f241716bacb0d434c50f77d6ef14d831a71844e063b0decaf9f74e7b6090.jpeg",
+        "filedesc": "page011_img001_超声（甲状腺，肝胆胰脾，泌尿系统）.jpeg",
+        "description": "图像显示GE医疗设备的甲状腺超声检查界面，屏幕左侧和上方明确标注“甲状腺”，并展示了甲状腺区域的超声图像，包含测量参数。",
+        "imgcategory": "超声（甲状腺，肝胆胰脾，泌尿系统）"
+      },
+      {
+        "hash": "c49bd43cfa16365341be01c1c8de5413aa733c4a861226544d7568829b3a8c7a",
+        "filename": "c49bd43cfa16365341be01c1c8de5413aa733c4a861226544d7568829b3a8c7a.jpeg",
+        "filedesc": "page011_img002_超声（甲状腺，肝胆胰脾，泌尿系统）.jpeg",
+        "description": "该图片显示的是乳腺超声检查图像，界面清晰显示GE Healthcare设备信息、超声参数、乳腺（右上角文字）区域的灰阶图像，并带有病灶的测量标记和尺寸数据。",
+        "imgcategory": "超声（甲状腺，肝胆胰脾，泌尿系统）"
+      },
+      {
+        "hash": "322db0564ba34b10b1ad72533f0b11f11deddfe7515160231a29368e0e2a547e",
+        "filename": "322db0564ba34b10b1ad72533f0b11f11deddfe7515160231a29368e0e2a547e.jpeg",
+        "filedesc": "page012_img001_超声（甲状腺，肝胆胰脾，泌尿系统）.jpeg",
+        "description": "图片显示两个灰度超声图像，具有超声特有的扇形/梯形视野和斑点状结构。图像上方可见'GE Healthcare'品牌，右侧显示'腹部 2'字样及超声参数。这些特征明确指向腹部超声检查。",
+        "imgcategory": "超声（甲状腺，肝胆胰脾，泌尿系统）"
+      },
+      {
+        "hash": "3cb37ae01d093524745bc30c80fc488617c0d76d188ac9497377202ce9c793df",
+        "filename": "3cb37ae01d093524745bc30c80fc488617c0d76d188ac9497377202ce9c793df.jpeg",
+        "filedesc": "page013_img001_超声（甲状腺，肝胆胰脾，泌尿系统）.jpeg",
+        "description": "图片显示了GE Healthcare超声设备的实时扫描界面，包含两个扇形超声图像，显示了盆腔器官（由“常规妇科”字样指示）的内部结构，并伴有超声参数和测量值。",
+        "imgcategory": "超声（甲状腺，肝胆胰脾，泌尿系统）"
+      },
+      {
+        "hash": "1aef3959b34347bda00d34d2f277a5389873d514338774e2d9386a0febf1f553",
+        "filename": "1aef3959b34347bda00d34d2f277a5389873d514338774e2d9386a0febf1f553.jpeg",
+        "filedesc": "page013_img002_超声（甲状腺，肝胆胰脾，泌尿系统）.jpeg",
+        "description": "图像显示GE Healthcare超声设备的屏幕，包含两个B型超声切面图像，图像内容疑似为肾脏，属于腹部泌尿系统超声检查。",
+        "imgcategory": "超声（甲状腺，肝胆胰脾，泌尿系统）"
+      }
+    ],
+    "十二道导联心电图": [
+      {
+        "hash": "83b264e64e2d224a395c6b6805de869f3a37d5f8b8b28f36d27e8174f6948df8",
+        "filename": "83b264e64e2d224a395c6b6805de869f3a37d5f8b8b28f36d27e8174f6948df8.jpeg",
+        "filedesc": "page014_img001_十二道导联心电图.jpeg",
+        "description": "图片显示了典型的十二导联心电图波形，包括肢体导联I、II、III、aVR、aVL、aVF以及胸导联V1-V6，并标注了增益和走速等参数。",
+        "imgcategory": "十二道导联心电图"
+      }
+    ]
+  }
+}

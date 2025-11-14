@@ -1,0 +1,799 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CIR 报告完整结构 Schema (v4.4.3 - Merged Edition)",
+  "version": "4.4.3",
+  "description": "合并版：整合v4.4.2的UsageChart/ComparisonTable修复和v4.4.0的动态标签系统。支持PDF提取和HTML渲染双场景。",
+  "lastUpdated": "2025-11-02",
+  "changelog": {
+    "v4.4.3": [
+      "合并v4.4.0和v4.4.2版本",
+      "继承v4.4.2的UsageChart可选性修复（支持null值）",
+      "继承v4.4.2的ComparisonTable增强注释",
+      "新增v4.4.0的动态标签系统（safetyTags、functionTags、complianceTags、customTags）",
+      "新增v4.4.0的documentType字段（替代statusLabel）",
+      "保留v4.4.2的usageChartData详细注释和数据结构说明",
+      "[MODIFIED] 增加成分字段 (irritation, sensitization 等) 并设为必填 (required)",
+      "[MODIFIED] 将 functions, irritation, sensitization 更新为支持 bilingualText"
+    ],
+    "v4.4.2": [
+      "修正UsageChart：允许null值（type: [object, null]）",
+      "ComparisonTable：确认支持null（HTML会自动生成）",
+      "增强usageChartData注释：添加正确数据结构说明和常见错误示例"
+    ],
+    "v4.4.0": [
+      "新增dynamicTags字段，支持6种标签类型",
+      "在ReportMetadata中添加safetyTags、functionTags、complianceTags数组",
+      "documentType字段替代statusLabel"
+    ],
+    "v4.3.6": [
+      "从必需字段中移除Summary、Abstract、Conclusion",
+      "修复双语显示：concentrationRange.description改为bilingualText"
+    ]
+  },
+  "type": "object",
+  "definitions": {
+    "textSegment": {
+      "type": "object",
+      "description": "文本片段，支持样式标记（合并PDF和HTML场景）",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "文本内容"
+        },
+        "highlight": {
+          "type": "boolean",
+          "default": false,
+          "description": "是否高亮显示"
+        },
+        "style": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "bold",
+            "highlight",
+            "key-finding",
+            "list-item",
+            "warning",
+            "precaution",
+            "info"
+          ],
+          "default": "normal",
+          "description": "样式：normal/bold/highlight/key-finding（通用）, list-item（PDF提取）, warning/precaution/info（HTML渲染）"
+        }
+      },
+      "required": ["text"]
+    },
+    "richTextArray": {
+      "type": "array",
+      "description": "富文本片段数组",
+      "items": {
+        "$ref": "#/definitions/textSegment"
+      }
+    },
+    "bilingualTextBlock": {
+      "type": "object",
+      "description": "支持富文本的双语块",
+      "properties": {
+        "ENG": {
+          "$ref": "#/definitions/richTextArray",
+          "description": "English content (rich text)"
+        },
+        "CHS": {
+          "$ref": "#/definitions/richTextArray",
+          "description": "Chinese content (rich text)"
+        }
+      },
+      "required": ["ENG", "CHS"]
+    },
+    "bilingualText": {
+      "type": "object",
+      "description": "简单双语文本",
+      "properties": {
+        "cn": { "type": "string" },
+        "en": { "type": "string" }
+      },
+      "required": ["cn", "en"]
+    },
+    "tagDefinition": {
+      "type": "object",
+      "description": "标签定义（支持动态生成标签）",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "标签唯一标识符"
+        },
+        "label": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "标签显示文本"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Lucide图标名称（如'shield-check', 'droplet'）"
+        },
+        "color": {
+          "type": "string",
+          "enum": ["green", "blue", "purple", "orange", "red", "yellow", "gray", "pink", "indigo", "teal"],
+          "description": "标签颜色主题"
+        },
+        "tooltip": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "鼠标悬停提示文本（可选）"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 50,
+          "description": "显示优先级（0-100，数字越小越靠前）"
+        }
+      },
+      "required": ["id", "label", "color"]
+    },
+    "safetyTag": {
+      "type": "object",
+      "description": "安全性标签（非刺激性、非致敏性等）",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["non-irritating", "non-sensitizing", "non-phototoxic", "non-mutagenic", "non-carcinogenic"],
+          "description": "安全性类型"
+        },
+        "verified": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否经过验证"
+        },
+        "conditions": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "适用条件（如'在当前使用浓度下'）"
+        }
+      },
+      "required": ["type"]
+    },
+    "functionTag": {
+      "type": "object",
+      "description": "功能标签（保湿、防腐等）",
+      "properties": {
+        "functionType": {
+          "type": "string",
+          "description": "功能类型（如'surfactant', 'preservative', 'moisturizer'）"
+        },
+        "label": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "功能显示名称"
+        },
+        "isPrimary": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否为主要功能"
+        }
+      },
+      "required": ["functionType", "label"]
+    },
+    "complianceTags": {
+      "type": "object",
+      "description": "合规性标签集合",
+      "properties": {
+        "eu": {
+          "type": "object",
+          "properties": {
+            "compliant": {
+              "type": "boolean",
+              "description": "是否符合欧盟法规"
+            },
+            "restrictions": {
+              "$ref": "#/definitions/bilingualText",
+              "description": "欧盟使用限制"
+            }
+          }
+        },
+        "fda": {
+          "type": "object",
+          "properties": {
+            "approved": {
+              "type": "boolean",
+              "description": "是否获FDA批准"
+            },
+            "category": {
+              "type": "string",
+              "description": "FDA分类"
+            }
+          }
+        },
+        "china": {
+          "type": "object",
+          "properties": {
+            "compliant": {
+              "type": "boolean",
+              "description": "是否符合中国法规"
+            },
+            "gbStandard": {
+              "type": "string",
+              "description": "相关国标编号"
+            }
+          }
+        }
+      }
+    },
+    "concernBlock": {
+      "type": "object",
+      "description": "关键关注点块（警告/注意/提示）",
+      "properties": {
+        "theme": {
+          "type": "string",
+          "enum": ["warning", "precaution", "info"],
+          "description": "主题：warning=红色警告, precaution=黄色注意, info=蓝色提示"
+        },
+        "title": {
+          "$ref": "#/definitions/bilingualText"
+        },
+        "content": {
+          "$ref": "#/definitions/bilingualTextBlock"
+        },
+        "displayMode": {
+          "type": "string",
+          "enum": ["compact", "structured"],
+          "default": "compact",
+          "description": "显示模式：compact=紧凑连续文本（适合注意事项），structured=段落分隔（适合详细说明）"
+        }
+      },
+      "required": ["theme", "title", "content"]
+    },
+    "visualIndicator": {
+      "type": "object",
+      "description": "可视化指示器",
+      "properties": {
+        "color": {
+          "type": "string",
+          "enum": ["green", "yellow", "red", "blue", "gray"],
+          "description": "指示器颜色"
+        },
+        "icon": {
+          "type": "string",
+          "description": "图标名称（如Lucide图标）"
+        }
+      }
+    },
+    "concentrationRange": {
+      "type": "object",
+      "description": "浓度范围",
+      "properties": {
+        "min": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "最小浓度"
+        },
+        "max": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "最大浓度"
+        },
+        "unit": {
+          "type": "string",
+          "enum": ["%", "ppm", "ppb", "mg/kg"],
+          "default": "%",
+          "description": "浓度单位"
+        },
+        "description": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "文字描述（双语，如'高达21%'或'0.008% - 11%'）"
+        }
+      }
+    },
+    "safetyStatus": {
+      "type": "object",
+      "description": "安全状态信息",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": [
+            "safe",
+            "safe_with_restrictions",
+            "unsafe",
+            "insufficient_data",
+            "under_review"
+          ],
+          "description": "安全级别（新增under_review）"
+        },
+        "conclusion": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "安全结论文本（支持中英文）"
+        },
+        "conclusionDate": {
+          "type": "string",
+          "format": "date",
+          "description": "结论日期 YYYY-MM-DD"
+        },
+        "reportVersion": {
+          "type": "string",
+          "description": "报告版本（如'2025'）"
+        },
+        "visualIndicator": {
+          "$ref": "#/definitions/visualIndicator",
+          "description": "视觉指示器（颜色+图标）"
+        }
+      },
+      "required": ["level", "conclusion"]
+    },
+    "impurityAlert": {
+      "type": ["object", "null"],
+      "description": "杂质警告信息（来自官方Schema）",
+      "properties": {
+        "severity": {
+          "type": "string",
+          "enum": ["info", "warning", "critical"],
+          "description": "警告严重程度"
+        },
+        "message": {
+          "type": "string",
+          "description": "警告消息"
+        },
+        "affectedElements": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "受影响的元素列表（如['Pb', 'As']）"
+        }
+      },
+      "required": ["severity", "message"]
+    },
+    "maxSafeConcentration": {
+      "type": "object",
+      "description": "最大安全浓度",
+      "properties": {
+        "value": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "最大安全浓度值"
+        },
+        "unit": {
+          "type": "string",
+          "default": "%",
+          "description": "单位"
+        },
+        "productType": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "产品类型（双语，如'冲洗类产品'/'Rinse-off products'）"
+        },
+        "restrictions": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "使用限制条件（双语）"
+        }
+      }
+    },
+    "ingredient": {
+      "type": "object",
+      "description": "单个成分的详细信息",
+      "properties": {
+        "inciName": {
+          "type": "string",
+          "description": "INCI名称"
+        },
+        "casNumber": {
+          "type": ["string", "null"],
+          "pattern": "^\\d{2,7}-\\d{2}-\\d$",
+          "description": "CAS号码 (必填, 允许为null)"
+        },
+        "chemicalName": {
+          "type": ["string", "null"],
+          "description": "化学名称 (必填, 允许为null)"
+        },
+        "commonNames": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "常用名称列表"
+        },
+        "chineseName": {
+          "type": "string",
+          "description": "中文名称"
+        },
+        "relationToOthers": {
+          "type": "string",
+          "description": "与其他成分的关系"
+        },
+        "molecularWeight": {
+          "type": ["number", "string", "null"],
+          "description": "分子量（支持数字或字符串如'>1000'）"
+        },
+        "carbonChain": {
+          "type": ["string", "null"],
+          "description": "碳链长度信息"
+        },
+        "eo_po_Range": {
+          "type": ["string", "null"],
+          "description": "EO/PO范围"
+        },
+        "functions": {
+          "type": "array",
+          "description": "功能列表 (必填, 允许为空数组, 允许 string 或 bilingualText)",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/definitions/bilingualText" }
+            ]
+          }
+        },
+        "safetyStatus": {
+          "$ref": "#/definitions/safetyStatus"
+        },
+        "impurityAlert": {
+          "$ref": "#/definitions/impurityAlert"
+        },
+        "maxConcentration": {
+          "type": ["string", "null"],
+          "description": "[Nouveau] 最大浓度 (例如 '2%'). (必填, 允许为null)"
+        },
+        "leaveOnMaxConcentration": {
+          "type": ["string", "null"],
+          "description": "[Nouveau] 驻留类最大浓度. (必填, 允许为null)"
+        },
+        "rinseOffMaxConcentration": {
+          "type": ["string", "null"],
+          "description": "[Nouveau] 淋洗类最大浓度. (必填, 允许为null)"
+        },
+        "irritation": {
+          "oneOf": [
+            { "$ref": "#/definitions/bilingualText" },
+            { "type": "string" },
+            { "type": "null" }
+          ],
+          "description": "[Nouveau] 刺激性. (必填, 允许为null, 字符串, 或双语对象)"
+        },
+        "sensitization": {
+          "oneOf": [
+            { "$ref": "#/definitions/bilingualText" },
+            { "type": "string" },
+            { "type": "null" }
+          ],
+          "description": "[Nouveau] 致敏性. (必填, 允许为null, 字符串, 或双语对象)"
+        },
+        "restrictions": {
+          "type": ["string", "null"],
+          "description": "[Nouveau] 使用限制. (必填, 允许为null)"
+        }
+      },
+      "required": [
+        "inciName",
+        "casNumber",
+        "chemicalName",
+        "functions",
+        "maxConcentration",
+        "leaveOnMaxConcentration",
+        "rinseOffMaxConcentration",
+        "irritation",
+        "sensitization",
+        "restrictions"
+      ]
+    },
+    "ingredientModule": {
+      "type": "object",
+      "description": "成分的模块化信息",
+      "properties": {
+        "Usage": {
+          "type": ["object", "null"],
+          "properties": {
+            "concentrationRange": {
+              "$ref": "#/definitions/concentrationRange"
+            }
+          }
+        }
+      }
+    },
+    "comparisonItem": {
+      "type": "object",
+      "description": "对比表的一行数据（来自官方Schema）",
+      "properties": {
+        "label": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "行标签（对比项目名称）"
+        },
+        "values": {
+          "type": "array",
+          "description": "各成分对应的值",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/definitions/bilingualText" },
+              {
+                "type": "object",
+                "description": "支持样式和跨列的单元格",
+                "properties": {
+                  "value": { "type": "string" },
+                  "style": { "type": "string", "description": "CSS样式类" },
+                  "colspan": { "type": "integer", "minimum": 1 }
+                }
+              }
+            ]
+          }
+        },
+        "rowStyle": {
+          "type": "string",
+          "description": "整行样式（如'bg-gray-50'）"
+        }
+      }
+    },
+    "usageChartData": {
+      "type": "object",
+      "description": "使用频率图表数据。⚠️ 注意：labels是对象（包含cn和en数组），不是数组！",
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "图表标题（双语对象）"
+        },
+        "datasetLabel": {
+          "$ref": "#/definitions/bilingualText",
+          "description": "数据集标签（双语对象），如：{cn: '配方数量', en: 'Number of Formulations'}"
+        },
+        "labels": {
+          "type": "object",
+          "description": "⚠️ 关键：这是一个对象，包含cn和en两个数组属性，不是数组的数组！",
+          "properties": {
+            "cn": { 
+              "type": "array", 
+              "items": { "type": "string" },
+              "description": "中文标签数组，如：['染发剂', '护肤品', '化妆品']"
+            },
+            "en": { 
+              "type": "array", 
+              "items": { "type": "string" },
+              "description": "英文标签数组，如：['Hair Dyes', 'Skincare', 'Cosmetics']"
+            }
+          },
+          "required": ["cn", "en"],
+          "examples": [
+            {
+              "cn": ["染发剂和色素", "其他类别"],
+              "en": ["Hair Dyes and Colors", "Other Categories"]
+            }
+          ]
+        },
+        "dataValues": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "description": "数据值数组，必须与labels中的数组长度一致，如：[15, 0]"
+        },
+        "chartType": {
+          "type": "string",
+          "enum": ["bar", "line", "pie", "doughnut", "radar"],
+          "default": "bar",
+          "description": "图表类型"
+        },
+        "indexAxis": {
+          "type": "string",
+          "enum": ["x", "y"],
+          "default": "x",
+          "description": "坐标轴方向（y为横向柱状图）"
+        }
+      },
+      "required": ["title", "labels", "dataValues"],
+      "$comment": "常见错误示例：❌ 'labels': [{cn:'...', en:'...'}] (数组) | ✅ 'labels': {cn:[...], en:[...]} (对象)"
+    }
+  },
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "⭐ Schema版本号（必需）",
+      "examples": ["4.4", "4.4.3"]
+    },
+    "FileName": {
+      "type": "string",
+      "description": "关联的PDF文件名"
+    },
+    "Title": {
+      "type": "string",
+      "description": "报告标题"
+    },
+    "PublicationDate": {
+      "type": "string",
+      "format": "date",
+      "description": "发布日期 YYYY-MM-DD"
+    },
+    "ReferenceName": {
+      "type": "string",
+      "description": "报告引用名称"
+    },
+    "ReportMetadata": {
+      "type": "object",
+      "description": "报告元数据（增强版：支持动态标签）",
+      "properties": {
+        "reportId": {
+          "type": "string",
+          "pattern": "^CIR_\\w+$",
+          "description": "报告唯一标识符"
+        },
+        "reportTitle": {
+          "$ref": "#/definitions/bilingualText"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["final", "draft", "tentative", "amended", "reopened"],
+          "description": "报告状态"
+        },
+        "statusLabel": {
+          "$ref": "#/definitions/bilingualText",
+          "deprecated": true,
+          "description": "已弃用，请使用documentType"
+        },
+        "documentType": {
+          "type": "string",
+          "enum": ["final_report", "addendum", "draft", "re-review", "amendment", "supplement"],
+          "description": "文件类型（新增，替代statusLabel）"
+        },
+        "releaseDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "panelMeetingDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "ingredientCount": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "成分数量"
+        },
+        "pdfLink": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "reportType": {
+          "type": "string",
+          "enum": ["single", "group", "series"],
+          "description": "报告类型（series为扩展）"
+        },
+        "version": {
+          "type": "string"
+        },
+        "safetyTags": {
+          "type": "array",
+          "description": "安全性标签数组（非刺激性、非致敏性等）- 来自v4.4.0",
+          "items": {
+            "$ref": "#/definitions/safetyTag"
+          }
+        },
+        "functionTags": {
+          "type": "array",
+          "description": "功能标签数组 - 来自v4.4.0",
+          "items": {
+            "$ref": "#/definitions/functionTag"
+          }
+        },
+        "complianceTags": {
+          "$ref": "#/definitions/complianceTags",
+          "description": "合规性标签 - 来自v4.4.0"
+        },
+        "customTags": {
+          "type": "array",
+          "description": "自定义标签（完全灵活定义）- 来自v4.4.0",
+          "items": {
+            "$ref": "#/definitions/tagDefinition"
+          }
+        }
+      },
+      "required": ["reportId"]
+    },
+    "Summary": {
+      "$ref": "#/definitions/bilingualTextBlock"
+    },
+    "Abstract": {
+      "$ref": "#/definitions/bilingualTextBlock"
+    },
+    "Conclusion": {
+      "$ref": "#/definitions/bilingualTextBlock"
+    },
+    "KeyConcernsAndPrecautions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/concernBlock"
+      }
+    },
+    "QuickNavigation": {
+      "type": ["object", "null"],
+      "properties": {
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "$ref": "#/definitions/bilingualText" },
+              "icon": { "type": "string" }
+            },
+            "required": ["id", "label"]
+          }
+        }
+      }
+    },
+    "Ingredients": {
+      "type": "array",
+      "description": "成分列表（单成分报告至少包含1个，多成分报告包含多个）",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "ingredient": {
+            "$ref": "#/definitions/ingredient"
+          },
+          "reportContext": {
+            "type": "object",
+            "properties": {
+              "reportId": { "type": "string" },
+              "reportTitle": { "type": "string" },
+              "casNumber": { "type": "string" }
+            }
+          },
+          "modules": {
+            "$ref": "#/definitions/ingredientModule"
+          }
+        },
+        "required": ["ingredient"]
+      }
+    },
+    "ComparisonTable": {
+      "type": ["object", "null"],
+      "description": "成分对比表（可选）。为null时，HTML会从Ingredients数组自动生成对比表。注意：自动生成时只显示前5个成分。- 来自v4.4.2",
+      "$comment": "建议：对于简单报告，设为null让HTML自动生成；对于复杂报告，可手动定义精确对比项",
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/bilingualText"
+        },
+        "columnHeaders": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/definitions/bilingualText" }
+            ]
+          }
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/comparisonItem"
+          }
+        }
+      }
+    },
+    "UsageChart": {
+      "oneOf": [
+        { "$ref": "#/definitions/usageChartData" },
+        { "type": "null" }
+      ],
+      "description": "使用频率图表数据（可选）。为null时，HTML会自动隐藏图表section。- 来自v4.4.2",
+      "$comment": "如果报告没有使用频率数据，设为null即可，HTML模板会自动处理"
+    },
+    "UILabels": {
+      "type": ["object", "null"],
+      "description": "UI界面标签（来自官方扁平化设计）",
+      "properties": {
+        "pageTitle": { "$ref": "#/definitions/bilingualText" },
+        "langToggleCN": { "type": "string" },
+        "langToggleEN": { "type": "string" },
+        "buttonDownload": { "$ref": "#/definitions/bilingualText" },
+        "buttonPrint": { "$ref": "#/definitions/bilingualText" },
+        "loading": { "$ref": "#/definitions/bilingualText" },
+        "na": { "$ref": "#/definitions/bilingualText" },
+        "noneReported": { "$ref": "#/definitions/bilingualText" }
+      }
+    },
+    "FooterInfo": {
+      "type": "object",
+      "properties": {
+        "dataSource": { "$ref": "#/definitions/bilingualText" },
+        "version": { "$ref": "#/definitions/bilingualText" }
+      },
+      "required": ["dataSource", "version"]
+    }
+  },
+  "required": [
+    "version",
+    "FileName",
+    "Title",
+    "PublicationDate",
+    "ReferenceName",
+    "ReportMetadata",
+    "KeyConcernsAndPrecautions"
+  ],
+  "additionalProperties": false
+}
+
+

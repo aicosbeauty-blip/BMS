@@ -1,0 +1,3728 @@
+{
+    "data": [
+        {
+            "SERIALCOLUMN": 10,
+            "RLNAME": "1.各部门经理",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5,
+                    "RLID": 10,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "全部客户服务部"
+                },
+                {
+                    "SERIALCOLUMN": 108,
+                    "RLID": 10,
+                    "RLUSER": "DIYINGWENG",
+                    "RUSERNAME": "翁迪颖",
+                    "RDEF08": "",
+                    "RDDESC": "全部品牌市场部"
+                },
+                {
+                    "SERIALCOLUMN": 4801,
+                    "RLID": 10,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": "北京研发部的直接领导-北京研发部、北京技术部"
+                },
+                {
+                    "SERIALCOLUMN": 5761,
+                    "RLID": 10,
+                    "RLUSER": "LIHUANPEI",
+                    "RUSERNAME": "裴丽环",
+                    "RDEF08": "",
+                    "RDDESC": "天津质管"
+                },
+                {
+                    "SERIALCOLUMN": 3441,
+                    "RLID": 10,
+                    "RLUSER": "LIHUAZHU",
+                    "RUSERNAME": "朱丽华",
+                    "RDEF08": "",
+                    "RDDESC": "负责马山行政组"
+                },
+                {
+                    "SERIALCOLUMN": 4603,
+                    "RLID": 10,
+                    "RLUSER": "LIQINGSONG",
+                    "RUSERNAME": "宋丽晴",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅未名和北京博雅干的技术部，研发部，质管部；不含北京研发部，研发部归肖总"
+                },
+                {
+                    "SERIALCOLUMN": 56,
+                    "RLID": 10,
+                    "RLUSER": "LUCHANGMEI",
+                    "RUSERNAME": "卢昌梅",
+                    "RDEF08": "",
+                    "RDDESC": "浙江战区"
+                },
+                {
+                    "SERIALCOLUMN": 4181,
+                    "RLID": 10,
+                    "RLUSER": "NAWANG",
+                    "RUSERNAME": "王娜",
+                    "RDEF08": "",
+                    "RDDESC": "英科博雅基因技术、研发和质检"
+                },
+                {
+                    "SERIALCOLUMN": 4201,
+                    "RLID": 10,
+                    "RLUSER": "QINGXILIU",
+                    "RUSERNAME": "刘庆喜",
+                    "RDEF08": "",
+                    "RDDESC": "天津技术、研发"
+                },
+                {
+                    "SERIALCOLUMN": 40,
+                    "RLID": 10,
+                    "RLUSER": "TEAVONTU",
+                    "RUSERNAME": "屠学文",
+                    "RDEF08": "",
+                    "RDDESC": "全国信息技术部"
+                },
+                {
+                    "SERIALCOLUMN": 4881,
+                    "RLID": 10,
+                    "RLUSER": "WANGCONG",
+                    "RUSERNAME": "王聪",
+                    "RDEF08": "",
+                    "RDDESC": "采购俞离职，7.13更王聪"
+                },
+                {
+                    "SERIALCOLUMN": 4606,
+                    "RLID": 10,
+                    "RLUSER": "WENXIASONG",
+                    "RUSERNAME": "宋文霞",
+                    "RDEF08": "",
+                    "RDDESC": "北京区域未名和干细胞市场部"
+                },
+                {
+                    "SERIALCOLUMN": 4607,
+                    "RLID": 10,
+                    "RLUSER": "XIAOBOLIANG",
+                    "RUSERNAME": "梁晓波",
+                    "RDEF08": "",
+                    "RDDESC": "北京区域财务部"
+                },
+                {
+                    "SERIALCOLUMN": 1742,
+                    "RLID": 10,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "审计部"
+                },
+                {
+                    "SERIALCOLUMN": 5341,
+                    "RLID": 10,
+                    "RLUSER": "XUEMEIYANG",
+                    "RUSERNAME": "杨雪梅",
+                    "RDEF08": "",
+                    "RDDESC": "天津总经办、行政和综合管理部"
+                },
+                {
+                    "SERIALCOLUMN": 1,
+                    "RLID": 10,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": "负责江苏销售部的第一层审批"
+                },
+                {
+                    "SERIALCOLUMN": 583,
+                    "RLID": 10,
+                    "RLUSER": "YUEQIAOGU",
+                    "RUSERNAME": "顾月巧",
+                    "RDEF08": "",
+                    "RDDESC": "全部销售效率部"
+                },
+                {
+                    "SERIALCOLUMN": 4605,
+                    "RLID": 10,
+                    "RLUSER": "ZHIQIANGLI",
+                    "RUSERNAME": "李志强",
+                    "RDEF08": "",
+                    "RDDESC": "北京干细胞板块的第一层技术、质管审批"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 742,
+            "RLNAME": "10.财务审批3",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4581,
+                    "RLID": 742,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 401,
+            "RLNAME": "10.审核人",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 3861,
+                    "RLID": 401,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1242,
+            "RLNAME": "10A.财务审批-销售订单",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6321,
+                    "RLID": 1242,
+                    "RLUSER": "QICHEN",
+                    "RUSERNAME": "陈琪",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1022,
+            "RLNAME": "11.财务审核-销售合同修改",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5724,
+                    "RLID": 1022,
+                    "RLUSER": "MENGWEICAI",
+                    "RUSERNAME": "蔡梦薇",
+                    "RDEF08": "",
+                    "RDDESC": "客户服务部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 20,
+            "RLNAME": "11.分管副总",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6207,
+                    "RLID": 20,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "采购部，财务部（除无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技）"
+                },
+                {
+                    "SERIALCOLUMN": 5702,
+                    "RLID": 20,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": "技术研发中心"
+                },
+                {
+                    "SERIALCOLUMN": 5703,
+                    "RLID": 20,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅干新生儿事业部所有部门"
+                },
+                {
+                    "SERIALCOLUMN": 5725,
+                    "RLID": 20,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "所有成人事业部审批（包括无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技公司）"
+                },
+                {
+                    "SERIALCOLUMN": 59,
+                    "RLID": 20,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": "25.9.10和财务总监确认，去掉李总作为分管副总的审批"
+                },
+                {
+                    "SERIALCOLUMN": 79,
+                    "RLID": 20,
+                    "RLUSER": "MOUWANG",
+                    "RUSERNAME": "王谋",
+                    "RDEF08": "",
+                    "RDDESC": "新的部门不审批"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 842,
+            "RLNAME": "11A.请购分管副总",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6201,
+                    "RLID": 842,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "采购部，财务部"
+                },
+                {
+                    "SERIALCOLUMN": 4902,
+                    "RLID": 842,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": "市场部-不再作为部门分管角色审批"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 942,
+            "RLNAME": "11B.印章分管副总",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5342,
+                    "RLID": 942,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "天津所有公司；所有审计部，采购部，财务部含资金相关的组的审核"
+                },
+                {
+                    "SERIALCOLUMN": 5361,
+                    "RLID": 942,
+                    "RLUSER": "GENGXINGGUO",
+                    "RUSERNAME": "郭耿兴",
+                    "RDEF08": "",
+                    "RDDESC": "审批北京博雅干-人力资源部;北京博雅干-总经办;博雅干细胞-总经办用印申请"
+                },
+                {
+                    "SERIALCOLUMN": 6121,
+                    "RLID": 942,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "所有成人事业部审批"
+                },
+                {
+                    "SERIALCOLUMN": 5282,
+                    "RLID": 942,
+                    "RLUSER": "MOUWANG",
+                    "RUSERNAME": "王谋",
+                    "RDEF08": "",
+                    "RDDESC": "不审核"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 982,
+            "RLNAME": "11C.供应商准入分管副总",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5461,
+                    "RLID": 982,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "天津所有公司；所有审计部，采购部，财务部含资金相关的组的审核"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1182,
+            "RLNAME": "11D.采购分管副总",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6202,
+                    "RLID": 1182,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "采购部+财务部"
+                },
+                {
+                    "SERIALCOLUMN": 6203,
+                    "RLID": 1182,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": "技术研发中心"
+                },
+                {
+                    "SERIALCOLUMN": 6204,
+                    "RLID": 1182,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅干新生儿事业部所有部门"
+                },
+                {
+                    "SERIALCOLUMN": 6205,
+                    "RLID": 1182,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "所有成人事业部审批"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 322,
+            "RLNAME": "12.财务总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4021,
+                    "RLID": 322,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": "财务总监审核-全国"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 766,
+            "RLNAME": "12A.财务总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4619,
+                    "RLID": 766,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": "财务总监审核 - 排除研发，质管，市场，客服的短流程"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 782,
+            "RLNAME": "12B. 财务核算审核",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4961,
+                    "RLID": 782,
+                    "RLUSER": "CHANGCHEN",
+                    "RUSERNAME": "陈畅",
+                    "RDEF08": "",
+                    "RDDESC": "天津英科博雅基因部门"
+                },
+                {
+                    "SERIALCOLUMN": 4621,
+                    "RLID": 782,
+                    "RLUSER": "CHUNJIAOZHOU",
+                    "RUSERNAME": "周春姣",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞所有部门除北京博雅干，博雅生命等"
+                },
+                {
+                    "SERIALCOLUMN": 5943,
+                    "RLID": 782,
+                    "RLUSER": "QICHEN",
+                    "RUSERNAME": "陈琪",
+                    "RDEF08": "",
+                    "RDDESC": "无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技"
+                },
+                {
+                    "SERIALCOLUMN": 4623,
+                    "RLID": 782,
+                    "RLUSER": "XIAOWEIZHANG",
+                    "RUSERNAME": "张笑微",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅干等公司"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1122,
+            "RLNAME": "12C.财务预算审核",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5982,
+                    "RLID": 1122,
+                    "RLUSER": "BIHONGPAN",
+                    "RUSERNAME": "潘碧宏",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞所有部门除北京博雅干，博雅生命等"
+                },
+                {
+                    "SERIALCOLUMN": 5984,
+                    "RLID": 1122,
+                    "RLUSER": "CHUNJIAOZHOU",
+                    "RUSERNAME": "周春姣",
+                    "RDEF08": "",
+                    "RDDESC": "宁波升科"
+                },
+                {
+                    "SERIALCOLUMN": 6329,
+                    "RLID": 1122,
+                    "RLUSER": "QICHEN",
+                    "RUSERNAME": "陈琪",
+                    "RDEF08": "",
+                    "RDDESC": "无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技"
+                },
+                {
+                    "SERIALCOLUMN": 5981,
+                    "RLID": 1122,
+                    "RLUSER": "XIAOWEIZHANG",
+                    "RUSERNAME": "张笑微",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅干等公司"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 30,
+            "RLNAME": "13.财务副总",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 1721,
+                    "RLID": 30,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "郭总作为采购部与财务部的分管副总，这2个部门涉及的单据300元及以上是全审的，非他分管的部门是5万元及以上的会到郭总那)\n不审批成人事业部（瑞福达、无锡英科博雅医疗）"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 764,
+            "RLNAME": "13A.财务副总",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4617,
+                    "RLID": 764,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "除无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 783,
+            "RLNAME": "13B. 财务经理审核",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4625,
+                    "RLID": 783,
+                    "RLUSER": "HUIHUIJIANG",
+                    "RUSERNAME": "姜慧慧",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 4626,
+                    "RLID": 783,
+                    "RLUSER": "XIAOBOLIANG",
+                    "RUSERNAME": "梁晓波",
+                    "RDEF08": "",
+                    "RDDESC": "北京公司"
+                },
+                {
+                    "SERIALCOLUMN": 6328,
+                    "RLID": 783,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技"
+                },
+                {
+                    "SERIALCOLUMN": 4624,
+                    "RLID": 783,
+                    "RLUSER": "YUNXUE",
+                    "RUSERNAME": "薛赟",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1082,
+            "RLNAME": "13C.财务副总-合同会签",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5781,
+                    "RLID": 1082,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "全部部门（除无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技）"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1202,
+            "RLNAME": "13D.财务经理-税务签批",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6282,
+                    "RLID": 1202,
+                    "RLUSER": "HUIHUIJIANG",
+                    "RUSERNAME": "姜慧慧",
+                    "RDEF08": "",
+                    "RDDESC": "非干、天津力牧板块"
+                },
+                {
+                    "SERIALCOLUMN": 6224,
+                    "RLID": 1202,
+                    "RLUSER": "YUNXUE",
+                    "RUSERNAME": "薛赟",
+                    "RDEF08": "",
+                    "RDDESC": "干细胞和生命板块"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1203,
+            "RLNAME": "14.财务副总裁",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6225,
+                    "RLID": 1203,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "除无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技外所有部门"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 40,
+            "RLNAME": "14.董事长",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6391,
+                    "RLID": 40,
+                    "RLUSER": "DANCHEN",
+                    "RUSERNAME": "陈丹",
+                    "RDEF08": "",
+                    "RDDESC": "测试"
+                },
+                {
+                    "SERIALCOLUMN": 121,
+                    "RLID": 40,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": "全部部门"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1222,
+            "RLNAME": "14A.财务资金审批",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6305,
+                    "RLID": 1222,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "全国"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 765,
+            "RLNAME": "14A.董事长",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4618,
+                    "RLID": 765,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1142,
+            "RLNAME": "14B.合同董事长",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6041,
+                    "RLID": 1142,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1162,
+            "RLNAME": "14C.董事长-入离职",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6182,
+                    "RLID": 1162,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": "除无锡英科博雅医疗所有部门"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1163,
+            "RLNAME": "14D-英科博雅医疗冯总",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6183,
+                    "RLID": 1163,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技所有部门"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 321,
+            "RLNAME": "15.审核人3",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 3461,
+                    "RLID": 321,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "除无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技公司外"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 767,
+            "RLNAME": "15A.审核人3",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4620,
+                    "RLID": 767,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 923,
+            "RLNAME": "16.行政审核1",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5225,
+                    "RLID": 923,
+                    "RLUSER": "LIJUNZHAO",
+                    "RUSERNAME": "赵丽君",
+                    "RDEF08": "",
+                    "RDDESC": "北京行政部经办人员"
+                },
+                {
+                    "SERIALCOLUMN": 5223,
+                    "RLID": 923,
+                    "RLUSER": "MIYANG",
+                    "RUSERNAME": "杨咪",
+                    "RDEF08": "",
+                    "RDDESC": "无锡行政部经办人员"
+                },
+                {
+                    "SERIALCOLUMN": 5224,
+                    "RLID": 923,
+                    "RLUSER": "XUEMEIYANG",
+                    "RUSERNAME": "杨雪梅",
+                    "RDEF08": "",
+                    "RDDESC": "天津行政部经办人员"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 622,
+            "RLNAME": "17、总裁1",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 3462,
+                    "RLID": 622,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 924,
+            "RLNAME": "18.行政审核2",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5228,
+                    "RLID": 924,
+                    "RLUSER": "SHUHONGLIU",
+                    "RUSERNAME": "刘书宏",
+                    "RDEF08": "",
+                    "RDDESC": "北京行政部负责人"
+                },
+                {
+                    "SERIALCOLUMN": 5226,
+                    "RLID": 924,
+                    "RLUSER": "SIMINZHOU",
+                    "RUSERNAME": "周思敏",
+                    "RDEF08": "",
+                    "RDDESC": "无锡行政部负责人"
+                },
+                {
+                    "SERIALCOLUMN": 5227,
+                    "RLID": 924,
+                    "RLUSER": "XUEMEIYANG",
+                    "RUSERNAME": "杨雪梅",
+                    "RDEF08": "",
+                    "RDDESC": "天津行政部负责人"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1023,
+            "RLNAME": "1A.客服部经理",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5564,
+                    "RLID": 1023,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "全国客服部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 802,
+            "RLNAME": "1A.全部部门经理",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5501,
+                    "RLID": 802,
+                    "RLUSER": "BINGLIU",
+                    "RUSERNAME": "刘冰",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞-技术研发中心-研发部"
+                },
+                {
+                    "SERIALCOLUMN": 5344,
+                    "RLID": 802,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "天津综合管理部、行政部\n"
+                },
+                {
+                    "SERIALCOLUMN": 4661,
+                    "RLID": 802,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "全国客服部"
+                },
+                {
+                    "SERIALCOLUMN": 4662,
+                    "RLID": 802,
+                    "RLUSER": "DIYINGWENG",
+                    "RUSERNAME": "翁迪颖",
+                    "RDEF08": "",
+                    "RDDESC": "全国品牌市场部包括三个组"
+                },
+                {
+                    "SERIALCOLUMN": 4677,
+                    "RLID": 802,
+                    "RLUSER": "FANGWANG",
+                    "RUSERNAME": "王芳",
+                    "RDEF08": "",
+                    "RDDESC": "成人业务"
+                },
+                {
+                    "SERIALCOLUMN": 4689,
+                    "RLID": 802,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": "技术部、研发部、质管部除天津博雅干"
+                },
+                {
+                    "SERIALCOLUMN": 4688,
+                    "RLID": 802,
+                    "RLUSER": "HANYANLU",
+                    "RUSERNAME": "陆晗燕",
+                    "RDEF08": "",
+                    "RDDESC": "技术研发中心"
+                },
+                {
+                    "SERIALCOLUMN": 4684,
+                    "RLID": 802,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": "北京市场"
+                },
+                {
+                    "SERIALCOLUMN": 4685,
+                    "RLID": 802,
+                    "RLUSER": "JIAPENGGUO",
+                    "RUSERNAME": "郭佳朋",
+                    "RDEF08": "",
+                    "RDDESC": "会员管理中心"
+                },
+                {
+                    "SERIALCOLUMN": 4686,
+                    "RLID": 802,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部（除交付服务部）"
+                },
+                {
+                    "SERIALCOLUMN": 5963,
+                    "RLID": 802,
+                    "RLUSER": "LIHUANPEI",
+                    "RUSERNAME": "裴丽环",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干质管部"
+                },
+                {
+                    "SERIALCOLUMN": 4664,
+                    "RLID": 802,
+                    "RLUSER": "LIHUAZHU",
+                    "RUSERNAME": "朱丽华",
+                    "RDEF08": "",
+                    "RDDESC": "负责马山行政组"
+                },
+                {
+                    "SERIALCOLUMN": 4665,
+                    "RLID": 802,
+                    "RLUSER": "LIQINGSONG",
+                    "RUSERNAME": "宋丽晴",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅未名和北京博雅干的技术部，研发部，质管部，研发中心"
+                },
+                {
+                    "SERIALCOLUMN": 4666,
+                    "RLID": 802,
+                    "RLUSER": "LUCHANGMEI",
+                    "RUSERNAME": "卢昌梅",
+                    "RDEF08": "",
+                    "RDDESC": "负责浙江战区"
+                },
+                {
+                    "SERIALCOLUMN": 4687,
+                    "RLID": 802,
+                    "RLUSER": "NANJI",
+                    "RUSERNAME": "季楠",
+                    "RDEF08": "",
+                    "RDDESC": "总经办"
+                },
+                {
+                    "SERIALCOLUMN": 4667,
+                    "RLID": 802,
+                    "RLUSER": "NAWANG",
+                    "RUSERNAME": "王娜",
+                    "RDEF08": "",
+                    "RDDESC": "英科研发部、技术部"
+                },
+                {
+                    "SERIALCOLUMN": 4678,
+                    "RLID": 802,
+                    "RLUSER": "PINGHU",
+                    "RUSERNAME": "胡萍",
+                    "RDEF08": "",
+                    "RDDESC": "技术研发中心-质管部-QC"
+                },
+                {
+                    "SERIALCOLUMN": 4669,
+                    "RLID": 802,
+                    "RLUSER": "QINGXILIU",
+                    "RUSERNAME": "刘庆喜",
+                    "RDEF08": "",
+                    "RDDESC": "天津研发部、技术部"
+                },
+                {
+                    "SERIALCOLUMN": 4683,
+                    "RLID": 802,
+                    "RLUSER": "QINYING",
+                    "RUSERNAME": "应勤",
+                    "RDEF08": "",
+                    "RDDESC": "HR部门负责人"
+                },
+                {
+                    "SERIALCOLUMN": 4680,
+                    "RLID": 802,
+                    "RLUSER": "SHUHONGLIU",
+                    "RUSERNAME": "刘书宏",
+                    "RDEF08": "",
+                    "RDDESC": "北京地区行政总监"
+                },
+                {
+                    "SERIALCOLUMN": 4781,
+                    "RLID": 802,
+                    "RLUSER": "SHULIYANG",
+                    "RUSERNAME": "杨曙礼",
+                    "RDEF08": "",
+                    "RDDESC": "广东博雅干技术部 、研发部和质管部"
+                },
+                {
+                    "SERIALCOLUMN": 4681,
+                    "RLID": 802,
+                    "RLUSER": "SIMINZHOU",
+                    "RUSERNAME": "周思敏",
+                    "RDEF08": "",
+                    "RDDESC": "负责行政部和综合管理部（排除北京和天津干细胞分）"
+                },
+                {
+                    "SERIALCOLUMN": 4670,
+                    "RLID": 802,
+                    "RLUSER": "TEAVONTU",
+                    "RUSERNAME": "Teavon Tu",
+                    "RDEF08": "",
+                    "RDDESC": "信息技术部"
+                },
+                {
+                    "SERIALCOLUMN": 4668,
+                    "RLID": 802,
+                    "RLUSER": "WANGCONG",
+                    "RUSERNAME": "王聪",
+                    "RDEF08": "",
+                    "RDDESC": "全国采购部（戴琴换俞振宇4.4）"
+                },
+                {
+                    "SERIALCOLUMN": 4679,
+                    "RLID": 802,
+                    "RLUSER": "WEIFENGLU",
+                    "RUSERNAME": "陆伟峰",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞、宁波尚诣-技术研发中心-综合管理部"
+                },
+                {
+                    "SERIALCOLUMN": 4682,
+                    "RLID": 802,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": "全国财务总监"
+                },
+                {
+                    "SERIALCOLUMN": 4671,
+                    "RLID": 802,
+                    "RLUSER": "WENXIASONG",
+                    "RUSERNAME": "宋文霞",
+                    "RDEF08": "",
+                    "RDDESC": "北京区域未名和干细胞市场部"
+                },
+                {
+                    "SERIALCOLUMN": 4672,
+                    "RLID": 802,
+                    "RLUSER": "XIAOBOLIANG",
+                    "RUSERNAME": "梁晓波",
+                    "RDEF08": "",
+                    "RDDESC": "北京区域财务部"
+                },
+                {
+                    "SERIALCOLUMN": 6304,
+                    "RLID": 802,
+                    "RLUSER": "XIAODONGHAN",
+                    "RUSERNAME": "韩晓东",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部-交付服务部"
+                },
+                {
+                    "SERIALCOLUMN": 4673,
+                    "RLID": 802,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "审计部及博雅资金组"
+                },
+                {
+                    "SERIALCOLUMN": 5343,
+                    "RLID": 802,
+                    "RLUSER": "XUEMEIYANG",
+                    "RUSERNAME": "杨雪梅",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 4676,
+                    "RLID": 802,
+                    "RLUSER": "YEFENGZHU",
+                    "RUSERNAME": "朱业峰",
+                    "RDEF08": "",
+                    "RDDESC": "新生儿业务"
+                },
+                {
+                    "SERIALCOLUMN": 4674,
+                    "RLID": 802,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": "负责江苏销售部的第一层审批"
+                },
+                {
+                    "SERIALCOLUMN": 4675,
+                    "RLID": 802,
+                    "RLUSER": "ZHIQIANGLI",
+                    "RUSERNAME": "李志强",
+                    "RDEF08": "",
+                    "RDDESC": "北京干细胞板块的第一层审批"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 962,
+            "RLNAME": "1B.用印全部部门负责人",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5367,
+                    "RLID": 962,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "全国客服部"
+                },
+                {
+                    "SERIALCOLUMN": 5370,
+                    "RLID": 962,
+                    "RLUSER": "DIYINGWENG",
+                    "RUSERNAME": "翁迪颖",
+                    "RDEF08": "",
+                    "RDDESC": "全国品牌市场部包括三个组"
+                },
+                {
+                    "SERIALCOLUMN": 5862,
+                    "RLID": 962,
+                    "RLUSER": "GENGXINGGUO",
+                    "RUSERNAME": "郭耿兴",
+                    "RDEF08": "",
+                    "RDDESC": "法务部"
+                },
+                {
+                    "SERIALCOLUMN": 5365,
+                    "RLID": 962,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": "全部技术、研发、质检部门（除天津博雅干），博雅干细胞-技术研发中心-马山综合管理部"
+                },
+                {
+                    "SERIALCOLUMN": 5371,
+                    "RLID": 962,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": "北区销售负责人"
+                },
+                {
+                    "SERIALCOLUMN": 5372,
+                    "RLID": 962,
+                    "RLUSER": "JIAPENGGUO",
+                    "RUSERNAME": "郭佳朋",
+                    "RDEF08": "",
+                    "RDDESC": "会员管理中心"
+                },
+                {
+                    "SERIALCOLUMN": 5373,
+                    "RLID": 962,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部（除交付服务部）"
+                },
+                {
+                    "SERIALCOLUMN": 5962,
+                    "RLID": 962,
+                    "RLUSER": "LIHUANPEI",
+                    "RUSERNAME": "裴丽环",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干-质管部"
+                },
+                {
+                    "SERIALCOLUMN": 6081,
+                    "RLID": 962,
+                    "RLUSER": "LIHUAZHU",
+                    "RUSERNAME": "朱丽华",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 6351,
+                    "RLID": 962,
+                    "RLUSER": "LUCHANGMEI",
+                    "RUSERNAME": "卢昌梅",
+                    "RDEF08": "",
+                    "RDDESC": "浙江战区"
+                },
+                {
+                    "SERIALCOLUMN": 5374,
+                    "RLID": 962,
+                    "RLUSER": "NANJI",
+                    "RUSERNAME": "季楠",
+                    "RDEF08": "",
+                    "RDDESC": "总经办，除北京博雅干-总经办"
+                },
+                {
+                    "SERIALCOLUMN": 5401,
+                    "RLID": 962,
+                    "RLUSER": "SHUHONGLIU",
+                    "RUSERNAME": "刘书宏",
+                    "RDEF08": "",
+                    "RDDESC": "北京相关公司行政部，北京博雅干-总经办"
+                },
+                {
+                    "SERIALCOLUMN": 5368,
+                    "RLID": 962,
+                    "RLUSER": "SIMINZHOU",
+                    "RUSERNAME": "周思敏",
+                    "RDEF08": "",
+                    "RDDESC": "负责行政组和综合管理部（排除北京和天津干细胞分），博雅干细胞-技术研发中心-马山综合管理部是肖总"
+                },
+                {
+                    "SERIALCOLUMN": 5376,
+                    "RLID": 962,
+                    "RLUSER": "TEAVONTU",
+                    "RUSERNAME": "屠学文",
+                    "RDEF08": "",
+                    "RDDESC": "信息技术部"
+                },
+                {
+                    "SERIALCOLUMN": 5375,
+                    "RLID": 962,
+                    "RLUSER": "WANGCONG",
+                    "RUSERNAME": "王聪",
+                    "RDEF08": "",
+                    "RDDESC": "采购部（戴琴换俞振宇4.4）"
+                },
+                {
+                    "SERIALCOLUMN": 5377,
+                    "RLID": 962,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": "财务部"
+                },
+                {
+                    "SERIALCOLUMN": 6301,
+                    "RLID": 962,
+                    "RLUSER": "XIAODONGHAN",
+                    "RUSERNAME": "韩晓东",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部-交付服务部"
+                },
+                {
+                    "SERIALCOLUMN": 5378,
+                    "RLID": 962,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "审计部及博雅资金组"
+                },
+                {
+                    "SERIALCOLUMN": 5369,
+                    "RLID": 962,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": "南区销售负责人、销售支持部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1102,
+            "RLNAME": "1C.全部部门负责人",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6063,
+                    "RLID": 1102,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干综合管理部、行政部\n"
+                },
+                {
+                    "SERIALCOLUMN": 5843,
+                    "RLID": 1102,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "全国客服部"
+                },
+                {
+                    "SERIALCOLUMN": 5844,
+                    "RLID": 1102,
+                    "RLUSER": "DIYINGWENG",
+                    "RUSERNAME": "翁迪颖",
+                    "RDEF08": "",
+                    "RDDESC": "全国品牌市场部包括三个组"
+                },
+                {
+                    "SERIALCOLUMN": 5861,
+                    "RLID": 1102,
+                    "RLUSER": "GENGXINGGUO",
+                    "RUSERNAME": "郭耿兴",
+                    "RDEF08": "",
+                    "RDDESC": "法务部"
+                },
+                {
+                    "SERIALCOLUMN": 5845,
+                    "RLID": 1102,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": "全部技术、研发、质检部门（除天津博雅干、细胞科技分公司），博雅干细胞-技术研发中心-马山综合管理部"
+                },
+                {
+                    "SERIALCOLUMN": 5846,
+                    "RLID": 1102,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": "北区销售负责人"
+                },
+                {
+                    "SERIALCOLUMN": 5847,
+                    "RLID": 1102,
+                    "RLUSER": "JIAPENGGUO",
+                    "RUSERNAME": "郭佳朋",
+                    "RDEF08": "",
+                    "RDDESC": "会员管理中心"
+                },
+                {
+                    "SERIALCOLUMN": 5848,
+                    "RLID": 1102,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部（除交付服务部）"
+                },
+                {
+                    "SERIALCOLUMN": 5942,
+                    "RLID": 1102,
+                    "RLUSER": "LIHUANPEI",
+                    "RUSERNAME": "裴丽环",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干、细胞科技分公司质检"
+                },
+                {
+                    "SERIALCOLUMN": 6352,
+                    "RLID": 1102,
+                    "RLUSER": "LUCHANGMEI",
+                    "RUSERNAME": "卢昌梅",
+                    "RDEF08": "",
+                    "RDDESC": "浙江战区"
+                },
+                {
+                    "SERIALCOLUMN": 5849,
+                    "RLID": 1102,
+                    "RLUSER": "NANJI",
+                    "RUSERNAME": "季楠",
+                    "RDEF08": "",
+                    "RDDESC": "总经办，除北京博雅干-总经办"
+                },
+                {
+                    "SERIALCOLUMN": 6322,
+                    "RLID": 1102,
+                    "RLUSER": "NINGJUANDU",
+                    "RUSERNAME": "杜宁娟",
+                    "RDEF08": "",
+                    "RDDESC": "test"
+                },
+                {
+                    "SERIALCOLUMN": 6181,
+                    "RLID": 1102,
+                    "RLUSER": "QINYING",
+                    "RUSERNAME": "应勤",
+                    "RDEF08": "",
+                    "RDDESC": "人力组"
+                },
+                {
+                    "SERIALCOLUMN": 5851,
+                    "RLID": 1102,
+                    "RLUSER": "SHUHONGLIU",
+                    "RUSERNAME": "刘书宏",
+                    "RDEF08": "",
+                    "RDDESC": "北京相关公司行政部，北京博雅干-总经办"
+                },
+                {
+                    "SERIALCOLUMN": 5852,
+                    "RLID": 1102,
+                    "RLUSER": "SIMINZHOU",
+                    "RUSERNAME": "周思敏",
+                    "RDEF08": "",
+                    "RDDESC": "负责行政组和综合管理部（排除北京和天津干细胞分），博雅干细胞-技术研发中心-马山综合管理部是肖总"
+                },
+                {
+                    "SERIALCOLUMN": 5853,
+                    "RLID": 1102,
+                    "RLUSER": "TEAVONTU",
+                    "RUSERNAME": "屠学文",
+                    "RDEF08": "",
+                    "RDDESC": "信息技术部"
+                },
+                {
+                    "SERIALCOLUMN": 5850,
+                    "RLID": 1102,
+                    "RLUSER": "WANGCONG",
+                    "RUSERNAME": "王聪",
+                    "RDEF08": "",
+                    "RDDESC": "采购部（戴琴换俞振宇4.4）"
+                },
+                {
+                    "SERIALCOLUMN": 5854,
+                    "RLID": 1102,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": "财务部除资金组"
+                },
+                {
+                    "SERIALCOLUMN": 6302,
+                    "RLID": 1102,
+                    "RLUSER": "XIAODONGHAN",
+                    "RUSERNAME": "韩晓东",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部-支付服务部"
+                },
+                {
+                    "SERIALCOLUMN": 5855,
+                    "RLID": 1102,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "审计部，资金组"
+                },
+                {
+                    "SERIALCOLUMN": 5921,
+                    "RLID": 1102,
+                    "RLUSER": "XUEMEIYANG",
+                    "RUSERNAME": "杨雪梅",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干综合、行政部"
+                },
+                {
+                    "SERIALCOLUMN": 5856,
+                    "RLID": 1102,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": "南区销售负责人、销售支持部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1263,
+            "RLNAME": "1D.全部部门负责人-销售订单",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6343,
+                    "RLID": 1263,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干综合管理部、行政部"
+                },
+                {
+                    "SERIALCOLUMN": 6344,
+                    "RLID": 1263,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "全国客服部"
+                },
+                {
+                    "SERIALCOLUMN": 6345,
+                    "RLID": 1263,
+                    "RLUSER": "GENGXINGGUO",
+                    "RUSERNAME": "郭耿兴",
+                    "RDEF08": "",
+                    "RDDESC": "法务部"
+                },
+                {
+                    "SERIALCOLUMN": 6346,
+                    "RLID": 1263,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": "全部技术、研发、质检部门（除天津博雅干、细胞科技分公司），博雅干细胞-技术研发中心-马山综合管理部"
+                },
+                {
+                    "SERIALCOLUMN": 6347,
+                    "RLID": 1263,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": "北区销售负责人"
+                },
+                {
+                    "SERIALCOLUMN": 6348,
+                    "RLID": 1263,
+                    "RLUSER": "JIAPENGGUO",
+                    "RUSERNAME": "郭佳朋",
+                    "RDEF08": "",
+                    "RDDESC": "会员中心"
+                },
+                {
+                    "SERIALCOLUMN": 6349,
+                    "RLID": 1263,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部（除支付服务部）"
+                },
+                {
+                    "SERIALCOLUMN": 6350,
+                    "RLID": 1263,
+                    "RLUSER": "LIHUANPEI",
+                    "RUSERNAME": "裴丽环",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干、细胞科技分公司质检"
+                },
+                {
+                    "SERIALCOLUMN": 6353,
+                    "RLID": 1263,
+                    "RLUSER": "LUCHANGMEI",
+                    "RUSERNAME": "卢昌梅",
+                    "RDEF08": "",
+                    "RDDESC": "浙江战区"
+                },
+                {
+                    "SERIALCOLUMN": 6356,
+                    "RLID": 1263,
+                    "RLUSER": "QINYING",
+                    "RUSERNAME": "应勤",
+                    "RDEF08": "",
+                    "RDDESC": "人力组"
+                },
+                {
+                    "SERIALCOLUMN": 6357,
+                    "RLID": 1263,
+                    "RLUSER": "SHUHONGLIU",
+                    "RUSERNAME": "刘书宏",
+                    "RDEF08": "",
+                    "RDDESC": "北京相关公司行政部，北京博雅干-总经办"
+                },
+                {
+                    "SERIALCOLUMN": 6358,
+                    "RLID": 1263,
+                    "RLUSER": "SIMINZHOU",
+                    "RUSERNAME": "周思敏",
+                    "RDEF08": "",
+                    "RDDESC": "负责行政组和综合管理部（排除北京和天津干细胞分），博雅干细胞-技术研发中心-马山综合管理部是肖总"
+                },
+                {
+                    "SERIALCOLUMN": 6359,
+                    "RLID": 1263,
+                    "RLUSER": "TEAVONTU",
+                    "RUSERNAME": "屠学文",
+                    "RDEF08": "",
+                    "RDDESC": "IT"
+                },
+                {
+                    "SERIALCOLUMN": 6360,
+                    "RLID": 1263,
+                    "RLUSER": "WANGCONG",
+                    "RUSERNAME": "王聪",
+                    "RDEF08": "",
+                    "RDDESC": "采购部"
+                },
+                {
+                    "SERIALCOLUMN": 6361,
+                    "RLID": 1263,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": "财务部除资金组"
+                },
+                {
+                    "SERIALCOLUMN": 6362,
+                    "RLID": 1263,
+                    "RLUSER": "XIAODONGHAN",
+                    "RUSERNAME": "韩晓东",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部-支付服务部"
+                },
+                {
+                    "SERIALCOLUMN": 6363,
+                    "RLID": 1263,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "审计部，资金组"
+                },
+                {
+                    "SERIALCOLUMN": 6364,
+                    "RLID": 1263,
+                    "RLUSER": "XUEMEIYANG",
+                    "RUSERNAME": "杨雪梅",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干综合、行政部"
+                },
+                {
+                    "SERIALCOLUMN": 6365,
+                    "RLID": 1263,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": "南区销售负责人、销售支持部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1322,
+            "RLNAME": "1E.全部部门负责人-销售订单",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6403,
+                    "RLID": 1322,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干综合管理部、行政部"
+                },
+                {
+                    "SERIALCOLUMN": 6404,
+                    "RLID": 1322,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "客服部"
+                },
+                {
+                    "SERIALCOLUMN": 6405,
+                    "RLID": 1322,
+                    "RLUSER": "DIYINGWENG",
+                    "RUSERNAME": "翁迪颖",
+                    "RDEF08": "",
+                    "RDDESC": "全国品牌市场部包括三个组"
+                },
+                {
+                    "SERIALCOLUMN": 6406,
+                    "RLID": 1322,
+                    "RLUSER": "GENGXINGGUO",
+                    "RUSERNAME": "郭耿兴",
+                    "RDEF08": "",
+                    "RDDESC": "法务"
+                },
+                {
+                    "SERIALCOLUMN": 6407,
+                    "RLID": 1322,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": "全部技术、研发、质检部门（除天津博雅干、细胞科技分公司），博雅干细胞-技术研发中心-马山综合管理部"
+                },
+                {
+                    "SERIALCOLUMN": 6408,
+                    "RLID": 1322,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": "北区销售负责人"
+                },
+                {
+                    "SERIALCOLUMN": 6409,
+                    "RLID": 1322,
+                    "RLUSER": "JIAPENGGUO",
+                    "RUSERNAME": "郭佳朋",
+                    "RDEF08": "",
+                    "RDDESC": "会员中心"
+                },
+                {
+                    "SERIALCOLUMN": 6410,
+                    "RLID": 1322,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部（除交付服务部）"
+                },
+                {
+                    "SERIALCOLUMN": 6411,
+                    "RLID": 1322,
+                    "RLUSER": "LIHUANPEI",
+                    "RUSERNAME": "裴丽环",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干、细胞科技分公司质检"
+                },
+                {
+                    "SERIALCOLUMN": 6412,
+                    "RLID": 1322,
+                    "RLUSER": "LUCHANGMEI",
+                    "RUSERNAME": "卢昌梅",
+                    "RDEF08": "",
+                    "RDDESC": "浙江战区"
+                },
+                {
+                    "SERIALCOLUMN": 6414,
+                    "RLID": 1322,
+                    "RLUSER": "QINYING",
+                    "RUSERNAME": "应勤",
+                    "RDEF08": "",
+                    "RDDESC": "人力组"
+                },
+                {
+                    "SERIALCOLUMN": 6415,
+                    "RLID": 1322,
+                    "RLUSER": "SHUHONGLIU",
+                    "RUSERNAME": "刘书宏",
+                    "RDEF08": "",
+                    "RDDESC": "北京相关公司行政部，北京博雅干-总经办"
+                },
+                {
+                    "SERIALCOLUMN": 6416,
+                    "RLID": 1322,
+                    "RLUSER": "SIMINZHOU",
+                    "RUSERNAME": "周思敏",
+                    "RDEF08": "",
+                    "RDDESC": "负责行政组和综合管理部（排除北京和天津干细胞分），博雅干细胞-技术研发中心-马山综合管理部是肖总"
+                },
+                {
+                    "SERIALCOLUMN": 6417,
+                    "RLID": 1322,
+                    "RLUSER": "TEAVONTU",
+                    "RUSERNAME": "屠学文",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 6418,
+                    "RLID": 1322,
+                    "RLUSER": "WANGCONG",
+                    "RUSERNAME": "王聪",
+                    "RDEF08": "",
+                    "RDDESC": "采购"
+                },
+                {
+                    "SERIALCOLUMN": 6419,
+                    "RLID": 1322,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": "财务部初资金组"
+                },
+                {
+                    "SERIALCOLUMN": 6420,
+                    "RLID": 1322,
+                    "RLUSER": "XIAODONGHAN",
+                    "RUSERNAME": "韩晓东",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部交付服务部"
+                },
+                {
+                    "SERIALCOLUMN": 6421,
+                    "RLID": 1322,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "审计部，资金组"
+                },
+                {
+                    "SERIALCOLUMN": 6422,
+                    "RLID": 1322,
+                    "RLUSER": "XUEMEIYANG",
+                    "RUSERNAME": "杨雪梅",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干综合、行政部"
+                },
+                {
+                    "SERIALCOLUMN": 6423,
+                    "RLID": 1322,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": "南区销售负责人、销售支持部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 341,
+            "RLNAME": "2.库管",
+            "data1": []
+        },
+        {
+            "SERIALCOLUMN": 702,
+            "RLNAME": "20.IT部",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4461,
+                    "RLID": 702,
+                    "RLUSER": "TEAVONTU",
+                    "RUSERNAME": "Teavon Tu",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 722,
+            "RLNAME": "21.IT技术支持",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6062,
+                    "RLID": 722,
+                    "RLUSER": "ITSUPPORT",
+                    "RUSERNAME": "ITSUPPORT",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 743,
+            "RLNAME": "22.采购部核准",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4583,
+                    "RLID": 743,
+                    "RLUSER": "WANGCONG",
+                    "RUSERNAME": "王聪",
+                    "RDEF08": "",
+                    "RDDESC": "全国"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1042,
+            "RLNAME": "23.时光机权限批准",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5641,
+                    "RLID": 1042,
+                    "RLUSER": "JIAPENGGUO",
+                    "RUSERNAME": "郭佳朋",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 745,
+            "RLNAME": "24.审计审核",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4584,
+                    "RLID": 745,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 746,
+            "RLNAME": "25.内控审核",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4585,
+                    "RLID": 746,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 822,
+            "RLNAME": "26.HR总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4761,
+                    "RLID": 822,
+                    "RLUSER": "QINYING",
+                    "RUSERNAME": "应勤",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 747,
+            "RLNAME": "26.财务审批4",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6101,
+                    "RLID": 747,
+                    "RLUSER": "BIHONGPAN",
+                    "RUSERNAME": "潘碧宏",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 862,
+            "RLNAME": "27.印章审批董事长1",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5081,
+                    "RLID": 862,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": "销售效率部（新生儿事业部）、客服部（客户服务部）、业务拓展部（成人事业部）、人力行政部、人力行政部人力组（排除所有北京公司人力资源）、会员管理中心、战略规划部、IT、品牌新媒体部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 882,
+            "RLNAME": "28.财务副总-用章",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5161,
+                    "RLID": 882,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "印章使用财务审批的需要郭总审批(除无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技）"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 902,
+            "RLNAME": "29.印章审批董事长",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5201,
+                    "RLID": 902,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": "外借用印全部部门审批"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 925,
+            "RLNAME": "29A.业务审批董事长",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5229,
+                    "RLID": 925,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": "业务费用5000以上董事长审批"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 101,
+            "RLNAME": "3.部门副总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4582,
+                    "RLID": 101,
+                    "RLUSER": "SHUHONGLIU",
+                    "RUSERNAME": "刘书宏",
+                    "RDEF08": "",
+                    "RDDESC": "北京地区行政总监"
+                },
+                {
+                    "SERIALCOLUMN": 221,
+                    "RLID": 101,
+                    "RLUSER": "SIMINZHOU",
+                    "RUSERNAME": "周思敏",
+                    "RDEF08": "",
+                    "RDDESC": "负责行政部和综合管理部（排除北京和天津干细胞分）"
+                },
+                {
+                    "SERIALCOLUMN": 5723,
+                    "RLID": 101,
+                    "RLUSER": "TIANLISHE",
+                    "RUSERNAME": "佘天立",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞-成人事业部-支持保障部"
+                },
+                {
+                    "SERIALCOLUMN": 4421,
+                    "RLID": 101,
+                    "RLUSER": "YINGYUAN",
+                    "RUSERNAME": "袁颖",
+                    "RDEF08": "",
+                    "RDDESC": "全国人力资源副总监"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1282,
+            "RLNAME": "30.销售总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6381,
+                    "RLID": 1282,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": "北京、天津、河北、浙江"
+                },
+                {
+                    "SERIALCOLUMN": 6402,
+                    "RLID": 1282,
+                    "RLUSER": "LUCHANGMEI",
+                    "RUSERNAME": "卢昌梅",
+                    "RDEF08": "",
+                    "RDDESC": "浙江"
+                },
+                {
+                    "SERIALCOLUMN": 6388,
+                    "RLID": 1282,
+                    "RLUSER": "NINGJUANDU",
+                    "RUSERNAME": "杜宁娟",
+                    "RDEF08": "",
+                    "RDDESC": "测试"
+                },
+                {
+                    "SERIALCOLUMN": 6383,
+                    "RLID": 1282,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": "其他"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1283,
+            "RLNAME": "31.客服部总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6384,
+                    "RLID": 1283,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "全部"
+                },
+                {
+                    "SERIALCOLUMN": 6389,
+                    "RLID": 1283,
+                    "RLUSER": "DANCHEN",
+                    "RUSERNAME": "陈丹",
+                    "RDEF08": "",
+                    "RDDESC": "测试"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1284,
+            "RLNAME": "32.财务审批1",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6390,
+                    "RLID": 1284,
+                    "RLUSER": "NINGJUANDU",
+                    "RUSERNAME": "杜宁娟",
+                    "RDEF08": "",
+                    "RDDESC": "测试"
+                },
+                {
+                    "SERIALCOLUMN": 6385,
+                    "RLID": 1284,
+                    "RLUSER": "XIAOBOLIANG",
+                    "RUSERNAME": "梁晓波",
+                    "RDEF08": "",
+                    "RDDESC": "北京部门"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1285,
+            "RLNAME": "33.财务审批2",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6386,
+                    "RLID": 1285,
+                    "RLUSER": "FENGXIAOWANG",
+                    "RUSERNAME": "王冯晓",
+                    "RDEF08": "",
+                    "RDDESC": "全部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1286,
+            "RLNAME": "34.销售效率部审核",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6387,
+                    "RLID": 1286,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": "全部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1302,
+            "RLNAME": "35. 销售审核",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6401,
+                    "RLID": 1302,
+                    "RLUSER": "LUCHANGMEI",
+                    "RUSERNAME": "卢昌梅",
+                    "RDEF08": "",
+                    "RDDESC": "浙江"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 281,
+            "RLNAME": "4.部门总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4701,
+                    "RLID": 281,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": "英科博雅集团和天津基因 的技术部门由郭总做部门审批"
+                },
+                {
+                    "SERIALCOLUMN": 2825,
+                    "RLID": 281,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": "审批技术、研发、质检部门"
+                },
+                {
+                    "SERIALCOLUMN": 3422,
+                    "RLID": 281,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅干市场部、新生儿事业部，浙江战区"
+                },
+                {
+                    "SERIALCOLUMN": 4141,
+                    "RLID": 281,
+                    "RLUSER": "JIAPENGGUO",
+                    "RUSERNAME": "郭佳朋",
+                    "RDEF08": "",
+                    "RDDESC": "会员管理中心"
+                },
+                {
+                    "SERIALCOLUMN": 2826,
+                    "RLID": 281,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部"
+                },
+                {
+                    "SERIALCOLUMN": 2828,
+                    "RLID": 281,
+                    "RLUSER": "NANJI",
+                    "RUSERNAME": "季楠",
+                    "RDEF08": "",
+                    "RDDESC": "总经办"
+                },
+                {
+                    "SERIALCOLUMN": 2831,
+                    "RLID": 281,
+                    "RLUSER": "QINYING",
+                    "RUSERNAME": "应勤",
+                    "RDEF08": "",
+                    "RDDESC": "人力行政部人力组、行政组（不包括成人事业部行政组）"
+                },
+                {
+                    "SERIALCOLUMN": 5841,
+                    "RLID": 281,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": "全部财务部"
+                },
+                {
+                    "SERIALCOLUMN": 51,
+                    "RLID": 281,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": "新生儿事业部-培训部、销售支持部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1062,
+            "RLNAME": "4A.用印部门总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5762,
+                    "RLID": 1062,
+                    "RLUSER": "QINYING",
+                    "RUSERNAME": "应勤",
+                    "RDEF08": "",
+                    "RDDESC": "全部人力组、行政组、综合管理部、北京博雅干-总经办"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1103,
+            "RLNAME": "4B.合同审批总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5858,
+                    "RLID": 1103,
+                    "RLUSER": "QINYING",
+                    "RUSERNAME": "应勤",
+                    "RDEF08": "",
+                    "RDDESC": "全部人力组、行政组、综合管理部、北京博雅干-总经办"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 261,
+            "RLNAME": "5.集团审核人员1",
+            "data1": []
+        },
+        {
+            "SERIALCOLUMN": 301,
+            "RLNAME": "6.集团审核人员2",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 2836,
+                    "RLID": 301,
+                    "RLUSER": "YUEQIAOGU",
+                    "RUSERNAME": "顾月巧",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 61,
+            "RLNAME": "7.集团审核人员3",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 2832,
+                    "RLID": 61,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 241,
+            "RLNAME": "8.财务预算审核1",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4962,
+                    "RLID": 241,
+                    "RLUSER": "CHANGCHEN",
+                    "RUSERNAME": "陈畅",
+                    "RDEF08": "",
+                    "RDDESC": "天津英科博雅基因"
+                },
+                {
+                    "SERIALCOLUMN": 4741,
+                    "RLID": 241,
+                    "RLUSER": "CHUNJIAOZHOU",
+                    "RUSERNAME": "周春姣",
+                    "RDEF08": "",
+                    "RDDESC": "宁波升科-29.9.17取消（徐宁反馈）"
+                },
+                {
+                    "SERIALCOLUMN": 4922,
+                    "RLID": 241,
+                    "RLUSER": "JUNYANG",
+                    "RUSERNAME": "杨珺",
+                    "RDEF08": "",
+                    "RDDESC": "潘碧宏修改为杨珺"
+                },
+                {
+                    "SERIALCOLUMN": 6323,
+                    "RLID": 241,
+                    "RLUSER": "QICHEN",
+                    "RUSERNAME": "陈琪",
+                    "RDEF08": "",
+                    "RDDESC": "无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 762,
+            "RLNAME": "8A.财务预算审核1",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4614,
+                    "RLID": 762,
+                    "RLUSER": "FENGXIAOWANG",
+                    "RUSERNAME": "王冯晓",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 4921,
+                    "RLID": 762,
+                    "RLUSER": "JUNYANG",
+                    "RUSERNAME": "杨珺",
+                    "RDEF08": "",
+                    "RDDESC": "潘碧宏修改为杨珺"
+                },
+                {
+                    "SERIALCOLUMN": 6324,
+                    "RLID": 762,
+                    "RLUSER": "QICHEN",
+                    "RUSERNAME": "陈琪",
+                    "RDEF08": "",
+                    "RDDESC": "无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技"
+                },
+                {
+                    "SERIALCOLUMN": 4612,
+                    "RLID": 762,
+                    "RLUSER": "XUEFEICHEN",
+                    "RUSERNAME": "陈雪霏",
+                    "RDEF08": "",
+                    "RDDESC": "干细胞板块预算审批，不含北京干，不含技术，研发，质量管理部门"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 922,
+            "RLNAME": "8B.财务预算业务审核",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5222,
+                    "RLID": 922,
+                    "RLUSER": "CHANGCHEN",
+                    "RUSERNAME": "陈畅",
+                    "RDEF08": "",
+                    "RDDESC": "天津财务部预算审核"
+                },
+                {
+                    "SERIALCOLUMN": 5221,
+                    "RLID": 922,
+                    "RLUSER": "JUNYANG",
+                    "RUSERNAME": "杨珺",
+                    "RDEF08": "",
+                    "RDDESC": "无锡&北京财务部预算审核(潘碧宏换杨珺7.4）"
+                },
+                {
+                    "SERIALCOLUMN": 6326,
+                    "RLID": 922,
+                    "RLUSER": "QICHEN",
+                    "RUSERNAME": "陈琪",
+                    "RDEF08": "",
+                    "RDDESC": "无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 81,
+            "RLNAME": "9.财务预算审核2",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4841,
+                    "RLID": 81,
+                    "RLUSER": "HUIHUIJIANG",
+                    "RUSERNAME": "姜慧慧",
+                    "RDEF08": "",
+                    "RDDESC": "英科基因财务审批（王金丽换姜慧慧）"
+                },
+                {
+                    "SERIALCOLUMN": 75,
+                    "RLID": 81,
+                    "RLUSER": "JUANQU",
+                    "RUSERNAME": "瞿娟",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 4611,
+                    "RLID": 81,
+                    "RLUSER": "XIAOBOLIANG",
+                    "RUSERNAME": "梁晓波",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 6325,
+                    "RLID": 81,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 763,
+            "RLNAME": "9A.财务预算审核2",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4615,
+                    "RLID": 763,
+                    "RLUSER": "JUANQU",
+                    "RUSERNAME": "瞿娟",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 4616,
+                    "RLID": 763,
+                    "RLUSER": "XIAOBOLIANG",
+                    "RUSERNAME": "梁晓波",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 6327,
+                    "RLID": 763,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "无锡英科博雅医疗，洋百科，瑞富达，北京博瑞宏，海南五维时空科技"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1063,
+            "RLNAME": "9B.财务预算审核-合同会签",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6021,
+                    "RLID": 1063,
+                    "RLUSER": "HUIHUIJIANG",
+                    "RUSERNAME": "姜慧慧",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5763,
+                    "RLID": 1063,
+                    "RLUSER": "JUANQU",
+                    "RUSERNAME": "瞿娟",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 6022,
+                    "RLID": 1063,
+                    "RLUSER": "QICHEN",
+                    "RUSERNAME": "陈琪",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 1262,
+            "RLNAME": "9C.财务预算审核-销售审核",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 6342,
+                    "RLID": 1262,
+                    "RLUSER": "JUNYANG",
+                    "RUSERNAME": "杨珺",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 443,
+            "RLNAME": "APP销售-分管领导1",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 951,
+                    "RLID": 443,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 583,
+            "RLNAME": "APP销售-分管领导2",
+            "data1": []
+        },
+        {
+            "SERIALCOLUMN": 442,
+            "RLNAME": "APP销售-经理",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 1044,
+                    "RLID": 442,
+                    "RLUSER": "AIMEIFANG",
+                    "RUSERNAME": "方爱梅",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 1043,
+                    "RLID": 442,
+                    "RLUSER": "BORANZHUANG",
+                    "RUSERNAME": "庄博然",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 1802,
+                    "RLID": 442,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 946,
+                    "RLID": 442,
+                    "RLUSER": "LUCHANGMEI",
+                    "RUSERNAME": "卢昌梅",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5441,
+                    "RLID": 442,
+                    "RLUSER": "NINGJUANDU",
+                    "RUSERNAME": "杜宁娟",
+                    "RDEF08": "",
+                    "RDDESC": "test"
+                },
+                {
+                    "SERIALCOLUMN": 5421,
+                    "RLID": 442,
+                    "RLUSER": "SHUJINGLIU",
+                    "RUSERNAME": "刘淑静",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 942,
+                    "RLID": 442,
+                    "RLUSER": "TEAVONTU",
+                    "RUSERNAME": "Teavon Tu",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 1881,
+                    "RLID": 442,
+                    "RLUSER": "WEIWANG",
+                    "RUSERNAME": "王伟",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3281,
+                    "RLID": 442,
+                    "RLUSER": "XIAOXIAOLIU",
+                    "RUSERNAME": "刘肖肖",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 1622,
+                    "RLID": 442,
+                    "RLUSER": "YANMINGCHEN",
+                    "RUSERNAME": "陈严明",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 562,
+            "RLNAME": "APP销售-审批人1",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 2451,
+                    "RLID": 562,
+                    "RLUSER": "YUEQIAOGU",
+                    "RUSERNAME": "顾月巧",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 582,
+            "RLNAME": "APP销售-审批人2",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 2844,
+                    "RLID": 582,
+                    "RLUSER": "MOUWANG",
+                    "RUSERNAME": "王谋",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 462,
+            "RLNAME": "APP销售-总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 1042,
+                    "RLID": 462,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 482,
+            "RLNAME": "APP销售-最终审批人",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 1081,
+                    "RLID": 482,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 1082,
+                    "RLID": 482,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 402,
+            "RLNAME": "HR销售-1.地区经理",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 3321,
+                    "RLID": 402,
+                    "RLUSER": "ADMIN",
+                    "RUSERNAME": "管理员",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5085,
+                    "RLID": 402,
+                    "RLUSER": "DANDANCHEN",
+                    "RUSERNAME": "陈丹丹",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5088,
+                    "RLID": 402,
+                    "RLUSER": "DANDANHAN",
+                    "RUSERNAME": "韩丹丹",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3923,
+                    "RLID": 402,
+                    "RLUSER": "DAWEIDING",
+                    "RUSERNAME": "丁大伟",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5086,
+                    "RLID": 402,
+                    "RLUSER": "FANGDONG",
+                    "RUSERNAME": "董芳",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5581,
+                    "RLID": 402,
+                    "RLUSER": "GUORONGWANG",
+                    "RUSERNAME": "汪国容",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5859,
+                    "RLID": 402,
+                    "RLUSER": "PENGZHANG",
+                    "RUSERNAME": "张鹏",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅干-新生儿事业部-培训部"
+                },
+                {
+                    "SERIALCOLUMN": 5089,
+                    "RLID": 402,
+                    "RLUSER": "QIUPINGHAN",
+                    "RUSERNAME": "韩秋平",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5090,
+                    "RLID": 402,
+                    "RLUSER": "SHUJINGLIU",
+                    "RUSERNAME": "刘淑静",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5091,
+                    "RLID": 402,
+                    "RLUSER": "XIAOXIAOLIU",
+                    "RUSERNAME": "刘肖肖",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5087,
+                    "RLID": 402,
+                    "RLUSER": "XINHUAGUO",
+                    "RUSERNAME": "郭新华",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5093,
+                    "RLID": 402,
+                    "RLUSER": "YANGSONG",
+                    "RUSERNAME": "宋阳",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 2801,
+                    "RLID": 402,
+                    "RLUSER": "YANHONG",
+                    "RUSERNAME": "洪艳",
+                    "RDEF08": "",
+                    "RDDESC": "浙江战区"
+                },
+                {
+                    "SERIALCOLUMN": 5092,
+                    "RLID": 402,
+                    "RLUSER": "YANNAPENG",
+                    "RUSERNAME": "彭艳娜",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 403,
+            "RLNAME": "HR销售-2.大区经理",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5095,
+                    "RLID": 403,
+                    "RLUSER": "AIMEIFANG",
+                    "RUSERNAME": "方爱梅",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5096,
+                    "RLID": 403,
+                    "RLUSER": "BORANZHUANG",
+                    "RUSERNAME": "庄博然",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5860,
+                    "RLID": 403,
+                    "RLUSER": "DANDANHAN",
+                    "RUSERNAME": "韩丹丹",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅干-新生儿事业部-培训部"
+                },
+                {
+                    "SERIALCOLUMN": 2061,
+                    "RLID": 403,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 726,
+                    "RLID": 403,
+                    "RLUSER": "LUCHANGMEI",
+                    "RUSERNAME": "卢昌梅",
+                    "RDEF08": "",
+                    "RDDESC": "浙江战区"
+                },
+                {
+                    "SERIALCOLUMN": 5097,
+                    "RLID": 403,
+                    "RLUSER": "WEIWANG",
+                    "RUSERNAME": "王伟",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 4281,
+                    "RLID": 403,
+                    "RLUSER": "YANMINGCHEN",
+                    "RUSERNAME": "陈严明",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 584,
+            "RLNAME": "HR销售-3.大区总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 3501,
+                    "RLID": 584,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3883,
+                    "RLID": 584,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 404,
+            "RLNAME": "HR销售-4.审核人",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5021,
+                    "RLID": 404,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3064,
+                    "RLID": 404,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 731,
+                    "RLID": 404,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 405,
+            "RLNAME": "HR销售-5.分管领导",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 3925,
+                    "RLID": 405,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 4082,
+                    "RLID": 405,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3062,
+                    "RLID": 405,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 406,
+            "RLNAME": "HR销售-6.HR审批",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5661,
+                    "RLID": 406,
+                    "RLUSER": "CHENYUWANG",
+                    "RUSERNAME": "王晨雨",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5082,
+                    "RLID": 406,
+                    "RLUSER": "CHUNXIUTIAN",
+                    "RUSERNAME": "田春秀",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 422,
+            "RLNAME": "HR职能-1.直接主管",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 3324,
+                    "RLID": 422,
+                    "RLUSER": "ADMIN",
+                    "RUSERNAME": "管理员",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 2142,
+                    "RLID": 422,
+                    "RLUSER": "CONGSHANG",
+                    "RUSERNAME": "尚聪",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞-技术研发中心-成人业务部-医学美容组"
+                },
+                {
+                    "SERIALCOLUMN": 3841,
+                    "RLID": 422,
+                    "RLUSER": "FEIYAN",
+                    "RUSERNAME": "闫飞",
+                    "RDEF08": "",
+                    "RDDESC": "品牌新媒体部-品牌组"
+                },
+                {
+                    "SERIALCOLUMN": 5104,
+                    "RLID": 422,
+                    "RLUSER": "HAIYUEZHANG",
+                    "RUSERNAME": "张海月",
+                    "RDEF08": "",
+                    "RDDESC": "技术研发中心-北京质量管理部"
+                },
+                {
+                    "SERIALCOLUMN": 826,
+                    "RLID": 422,
+                    "RLUSER": "HANYANLU",
+                    "RUSERNAME": "陆晗燕",
+                    "RDEF08": "",
+                    "RDDESC": "技术研发中心-质管部-QA"
+                },
+                {
+                    "SERIALCOLUMN": 5233,
+                    "RLID": 422,
+                    "RLUSER": "HUIHUIJIANG",
+                    "RUSERNAME": "姜慧慧",
+                    "RDEF08": "",
+                    "RDDESC": "无锡财务组-非干"
+                },
+                {
+                    "SERIALCOLUMN": 3961,
+                    "RLID": 422,
+                    "RLUSER": "JIAMINYU",
+                    "RUSERNAME": "于佳敏",
+                    "RDEF08": "",
+                    "RDDESC": "技术研发中心-综合管理部"
+                },
+                {
+                    "SERIALCOLUMN": 5234,
+                    "RLID": 422,
+                    "RLUSER": "JUANQU",
+                    "RUSERNAME": "瞿娟",
+                    "RDEF08": "",
+                    "RDDESC": "无锡财务组-预算分析组"
+                },
+                {
+                    "SERIALCOLUMN": 1442,
+                    "RLID": 422,
+                    "RLUSER": "LETANG",
+                    "RUSERNAME": "汤乐",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞-技术研发中心-成人业务部-细胞组"
+                },
+                {
+                    "SERIALCOLUMN": 3661,
+                    "RLID": 422,
+                    "RLUSER": "LIHUANPEI",
+                    "RUSERNAME": "裴丽环",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 839,
+                    "RLID": 422,
+                    "RLUSER": "LIHUAZHU",
+                    "RUSERNAME": "朱丽华",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部-支持保障部"
+                },
+                {
+                    "SERIALCOLUMN": 5101,
+                    "RLID": 422,
+                    "RLUSER": "LIQINGSONG",
+                    "RUSERNAME": "宋丽晴",
+                    "RDEF08": "",
+                    "RDDESC": "北京技术部"
+                },
+                {
+                    "SERIALCOLUMN": 3542,
+                    "RLID": 422,
+                    "RLUSER": "LONGQUNBU",
+                    "RUSERNAME": "卜龙群",
+                    "RDEF08": "",
+                    "RDDESC": "客户服务部"
+                },
+                {
+                    "SERIALCOLUMN": 6161,
+                    "RLID": 422,
+                    "RLUSER": "MENGWEI",
+                    "RUSERNAME": "韦梦",
+                    "RDEF08": "",
+                    "RDDESC": "细胞业务-品牌市场组"
+                },
+                {
+                    "SERIALCOLUMN": 4161,
+                    "RLID": 422,
+                    "RLUSER": "NANJI",
+                    "RUSERNAME": "季楠",
+                    "RDEF08": "",
+                    "RDDESC": "总经办 "
+                },
+                {
+                    "SERIALCOLUMN": 5541,
+                    "RLID": 422,
+                    "RLUSER": "NINGJUANDU",
+                    "RUSERNAME": "杜宁娟",
+                    "RDEF08": "",
+                    "RDDESC": "test"
+                },
+                {
+                    "SERIALCOLUMN": 835,
+                    "RLID": 422,
+                    "RLUSER": "PEIYUNWANG",
+                    "RUSERNAME": "王沛芸",
+                    "RDEF08": "",
+                    "RDDESC": "深圳博雅感知医疗-人力行政部-人力组"
+                },
+                {
+                    "SERIALCOLUMN": 3021,
+                    "RLID": 422,
+                    "RLUSER": "PINGHU",
+                    "RUSERNAME": "胡萍",
+                    "RDEF08": "",
+                    "RDDESC": "技术研发中心-质管部-QC"
+                },
+                {
+                    "SERIALCOLUMN": 3241,
+                    "RLID": 422,
+                    "RLUSER": "QINGXILIU",
+                    "RUSERNAME": "刘庆喜",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3543,
+                    "RLID": 422,
+                    "RLUSER": "RUYANZHANG",
+                    "RUSERNAME": "张汝艳",
+                    "RDEF08": "",
+                    "RDDESC": "客户服务部"
+                },
+                {
+                    "SERIALCOLUMN": 5100,
+                    "RLID": 422,
+                    "RLUSER": "SHUHONGLIU",
+                    "RUSERNAME": "刘书宏",
+                    "RDEF08": "",
+                    "RDDESC": "北京人力行政部-人力组"
+                },
+                {
+                    "SERIALCOLUMN": 3541,
+                    "RLID": 422,
+                    "RLUSER": "TINGTAI",
+                    "RUSERNAME": "邰婷",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞-客户服务部"
+                },
+                {
+                    "SERIALCOLUMN": 3361,
+                    "RLID": 422,
+                    "RLUSER": "WANGCONG",
+                    "RUSERNAME": "王聪",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞-采购部"
+                },
+                {
+                    "SERIALCOLUMN": 5102,
+                    "RLID": 422,
+                    "RLUSER": "WENXIASONG",
+                    "RUSERNAME": "宋文霞",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅干-新生儿事业部-市场部"
+                },
+                {
+                    "SERIALCOLUMN": 5099,
+                    "RLID": 422,
+                    "RLUSER": "XIAOBOLIANG",
+                    "RUSERNAME": "梁晓波",
+                    "RDEF08": "",
+                    "RDDESC": "北京财务组-核算组"
+                },
+                {
+                    "SERIALCOLUMN": 4241,
+                    "RLID": 422,
+                    "RLUSER": "XIAODONGHAN",
+                    "RUSERNAME": "韩晓东",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部-交付服务部"
+                },
+                {
+                    "SERIALCOLUMN": 5103,
+                    "RLID": 422,
+                    "RLUSER": "XINHUIWU",
+                    "RUSERNAME": "吴新慧",
+                    "RDEF08": "",
+                    "RDDESC": "北京博雅干-新生儿事业部-客服部"
+                },
+                {
+                    "SERIALCOLUMN": 3842,
+                    "RLID": 422,
+                    "RLUSER": "XUEJIANG",
+                    "RUSERNAME": "姜雪",
+                    "RDEF08": "",
+                    "RDDESC": "品牌新媒体部-新媒体组"
+                },
+                {
+                    "SERIALCOLUMN": 4522,
+                    "RLID": 422,
+                    "RLUSER": "XUEMA",
+                    "RUSERNAME": "马雪",
+                    "RDEF08": "",
+                    "RDDESC": "磐吉综合管理"
+                },
+                {
+                    "SERIALCOLUMN": 4521,
+                    "RLID": 422,
+                    "RLUSER": "XUEMEIYANG",
+                    "RUSERNAME": "杨雪梅",
+                    "RDEF08": "",
+                    "RDDESC": "天津博雅干-综合管理部"
+                },
+                {
+                    "SERIALCOLUMN": 4941,
+                    "RLID": 422,
+                    "RLUSER": "YANFEIQIN",
+                    "RUSERNAME": "秦燕菲",
+                    "RDEF08": "",
+                    "RDDESC": "技术研发中心-新生儿业务部"
+                },
+                {
+                    "SERIALCOLUMN": 831,
+                    "RLID": 422,
+                    "RLUSER": "YUEQIAOGU",
+                    "RUSERNAME": "顾月巧",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞-全国销售效率部 "
+                },
+                {
+                    "SERIALCOLUMN": 5235,
+                    "RLID": 422,
+                    "RLUSER": "YUNXUE",
+                    "RUSERNAME": "薛赟",
+                    "RDEF08": "",
+                    "RDDESC": "财务部-核算组"
+                },
+                {
+                    "SERIALCOLUMN": 822,
+                    "RLID": 422,
+                    "RLUSER": "YUTINGCHEN",
+                    "RUSERNAME": "陈玉婷",
+                    "RDEF08": "",
+                    "RDDESC": "广东博雅干-行政部"
+                },
+                {
+                    "SERIALCOLUMN": 5098,
+                    "RLID": 422,
+                    "RLUSER": "ZHIQIANGLI",
+                    "RUSERNAME": "李志强",
+                    "RDEF08": "",
+                    "RDDESC": "北京技术部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 423,
+            "RLNAME": "HR职能-2.部门负责人",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 3782,
+                    "RLID": 423,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3546,
+                    "RLID": 423,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "客户服务部"
+                },
+                {
+                    "SERIALCOLUMN": 4481,
+                    "RLID": 423,
+                    "RLUSER": "DAWEIDING",
+                    "RUSERNAME": "丁大伟",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3081,
+                    "RLID": 423,
+                    "RLUSER": "DIYINGWENG",
+                    "RUSERNAME": "翁迪颖",
+                    "RDEF08": "",
+                    "RDDESC": "品牌市场部"
+                },
+                {
+                    "SERIALCOLUMN": 4001,
+                    "RLID": 423,
+                    "RLUSER": "FANGWANG",
+                    "RUSERNAME": "王芳",
+                    "RDEF08": "",
+                    "RDDESC": "技术研发中心-成人业务部"
+                },
+                {
+                    "SERIALCOLUMN": 845,
+                    "RLID": 423,
+                    "RLUSER": "GENGXINGGUO",
+                    "RUSERNAME": "郭耿兴",
+                    "RDEF08": "",
+                    "RDDESC": "总经办"
+                },
+                {
+                    "SERIALCOLUMN": 1561,
+                    "RLID": 423,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": "技术、研发、质检"
+                },
+                {
+                    "SERIALCOLUMN": 4301,
+                    "RLID": 423,
+                    "RLUSER": "HUIHUIJIANG",
+                    "RUSERNAME": "姜慧慧",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 4041,
+                    "RLID": 423,
+                    "RLUSER": "JIAPENGGUO",
+                    "RUSERNAME": "郭佳朋",
+                    "RDEF08": "",
+                    "RDDESC": "会员管理中心"
+                },
+                {
+                    "SERIALCOLUMN": 843,
+                    "RLID": 423,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部（除支付服务部）"
+                },
+                {
+                    "SERIALCOLUMN": 4302,
+                    "RLID": 423,
+                    "RLUSER": "JUANQU",
+                    "RUSERNAME": "瞿娟",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3544,
+                    "RLID": 423,
+                    "RLUSER": "LINAZHU",
+                    "RUSERNAME": "朱莉娜",
+                    "RDEF08": "",
+                    "RDDESC": "客户服务部"
+                },
+                {
+                    "SERIALCOLUMN": 6281,
+                    "RLID": 423,
+                    "RLUSER": "NINGJUANDU",
+                    "RUSERNAME": "杜宁娟",
+                    "RDEF08": "",
+                    "RDDESC": "test"
+                },
+                {
+                    "SERIALCOLUMN": 5106,
+                    "RLID": 423,
+                    "RLUSER": "RUYANZHANG",
+                    "RUSERNAME": "张汝艳",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 2302,
+                    "RLID": 423,
+                    "RLUSER": "SHULIYANG",
+                    "RUSERNAME": "杨曙礼",
+                    "RDEF08": "",
+                    "RDDESC": "广东技术部"
+                },
+                {
+                    "SERIALCOLUMN": 858,
+                    "RLID": 423,
+                    "RLUSER": "SIMINZHOU",
+                    "RUSERNAME": "周思敏",
+                    "RDEF08": "",
+                    "RDDESC": "人力行政部-行政组"
+                },
+                {
+                    "SERIALCOLUMN": 5442,
+                    "RLID": 423,
+                    "RLUSER": "TEAVONTU",
+                    "RUSERNAME": "屠学文",
+                    "RDEF08": "",
+                    "RDDESC": "信息技术部"
+                },
+                {
+                    "SERIALCOLUMN": 5722,
+                    "RLID": 423,
+                    "RLUSER": "TIANLISHE",
+                    "RUSERNAME": "佘天立",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞-成人事业部-支持保障部 "
+                },
+                {
+                    "SERIALCOLUMN": 2781,
+                    "RLID": 423,
+                    "RLUSER": "WANGCONG",
+                    "RUSERNAME": "王聪",
+                    "RDEF08": "",
+                    "RDDESC": "采购部"
+                },
+                {
+                    "SERIALCOLUMN": 848,
+                    "RLID": 423,
+                    "RLUSER": "WEIFENGLU",
+                    "RUSERNAME": "陆伟峰",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5105,
+                    "RLID": 423,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 6303,
+                    "RLID": 423,
+                    "RLUSER": "XIAODONGHAN",
+                    "RUSERNAME": "韩晓东",
+                    "RDEF08": "",
+                    "RDDESC": "成人事业部-交付服务部"
+                },
+                {
+                    "SERIALCOLUMN": 1965,
+                    "RLID": 423,
+                    "RLUSER": "XINGLU",
+                    "RUSERNAME": "陆星",
+                    "RDEF08": "",
+                    "RDDESC": "审计部，资金组"
+                },
+                {
+                    "SERIALCOLUMN": 860,
+                    "RLID": 423,
+                    "RLUSER": "YEFENGZHU",
+                    "RUSERNAME": "朱业峰",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞-技术研发中心-新生儿业务部"
+                },
+                {
+                    "SERIALCOLUMN": 861,
+                    "RLID": 423,
+                    "RLUSER": "YEZHU",
+                    "RUSERNAME": "朱烨",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 855,
+                    "RLID": 423,
+                    "RLUSER": "YINGYUAN",
+                    "RUSERNAME": "袁颖",
+                    "RDEF08": "",
+                    "RDDESC": "人力资源部，人力组"
+                },
+                {
+                    "SERIALCOLUMN": 4303,
+                    "RLID": 423,
+                    "RLUSER": "YUNXUE",
+                    "RUSERNAME": "薛赟",
+                    "RDEF08": "",
+                    "RDDESC": "财务部-无锡财务组-核算组"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 642,
+            "RLNAME": "HR职能-3.固定审核人",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5481,
+                    "RLID": 642,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "客户服务部"
+                },
+                {
+                    "SERIALCOLUMN": 4162,
+                    "RLID": 642,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": "总经办"
+                },
+                {
+                    "SERIALCOLUMN": 4401,
+                    "RLID": 642,
+                    "RLUSER": "QINYING",
+                    "RUSERNAME": "应勤",
+                    "RDEF08": "",
+                    "RDDESC": "人力行政部"
+                },
+                {
+                    "SERIALCOLUMN": 4304,
+                    "RLID": 642,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": "财务部"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 662,
+            "RLNAME": "HR职能-3.固定审批人2",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4282,
+                    "RLID": 662,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 424,
+            "RLNAME": "HR职能-4.分管领导",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 863,
+                    "RLID": 424,
+                    "RLUSER": "CHUNMINGGUO",
+                    "RUSERNAME": "郭春明",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3545,
+                    "RLID": 424,
+                    "RLUSER": "CHUNYANGAO",
+                    "RUSERNAME": "高春燕",
+                    "RDEF08": "",
+                    "RDDESC": "客户服务部"
+                },
+                {
+                    "SERIALCOLUMN": 867,
+                    "RLID": 424,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 4062,
+                    "RLID": 424,
+                    "RLUSER": "HUIQUNYAN",
+                    "RUSERNAME": "阎会群",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5727,
+                    "RLID": 424,
+                    "RLUSER": "JIFENG",
+                    "RUSERNAME": "冯迹",
+                    "RDEF08": "",
+                    "RDDESC": "博雅干细胞-成人事业部-支持保障部"
+                },
+                {
+                    "SERIALCOLUMN": 864,
+                    "RLID": 424,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5010,
+                    "RLID": 424,
+                    "RLUSER": "TEAVONTU",
+                    "RUSERNAME": "屠学文",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5801,
+                    "RLID": 424,
+                    "RLUSER": "WEIWEIZHOU",
+                    "RUSERNAME": "周薇薇",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 425,
+            "RLNAME": "HR职能-5.HR审批",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 5662,
+                    "RLID": 425,
+                    "RLUSER": "CHENYUWANG",
+                    "RUSERNAME": "王晨雨",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5084,
+                    "RLID": 425,
+                    "RLUSER": "CHUNXIUTIAN",
+                    "RUSERNAME": "田春秀",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 5821,
+                    "RLID": 425,
+                    "RLUSER": "XUYUAN",
+                    "RUSERNAME": "袁旭",
+                    "RDEF08": "",
+                    "RDDESC": "test"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 602,
+            "RLNAME": "报销1",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 3101,
+                    "RLID": 602,
+                    "RLUSER": "KWANG",
+                    "RUSERNAME": "汪凯",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 3103,
+                    "RLID": 602,
+                    "RLUSER": "XUYUAN",
+                    "RUSERNAME": "袁旭",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 603,
+            "RLNAME": "报销2",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 3102,
+                    "RLID": 603,
+                    "RLUSER": "TEAVON.TU",
+                    "RUSERNAME": "CIO-屠学文",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 502,
+            "RLNAME": "法务审核1",
+            "data1": []
+        },
+        {
+            "SERIALCOLUMN": 503,
+            "RLNAME": "法务审核2",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 1382,
+                    "RLID": 503,
+                    "RLUSER": "GENGXINGGUO",
+                    "RUSERNAME": "郭耿兴",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 522,
+            "RLNAME": "会签",
+            "data1": []
+        },
+        {
+            "SERIALCOLUMN": 201,
+            "RLNAME": "特殊付款申请-1.销售总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4122,
+                    "RLID": 201,
+                    "RLUSER": "XUYUAN",
+                    "RUSERNAME": "袁旭",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 221,
+            "RLNAME": "特殊付款申请-2.分管副总",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 140,
+                    "RLID": 221,
+                    "RLUSER": "MOUWANG",
+                    "RUSERNAME": "王谋",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 202,
+            "RLNAME": "特殊付款申请-3.财务总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 4121,
+                    "RLID": 202,
+                    "RLUSER": "ADMIN",
+                    "RUSERNAME": "管理员",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 99,
+                    "RLID": 202,
+                    "RLUSER": "ZHIPINGYUAN",
+                    "RUSERNAME": "袁志平",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 203,
+            "RLNAME": "特殊付款申请-4.总裁",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 39,
+                    "RLID": 203,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 682,
+            "RLNAME": "退款审批-销售代表",
+            "data1": []
+        },
+        {
+            "SERIALCOLUMN": 542,
+            "RLNAME": "销售订单-1.部门总监",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 2121,
+                    "RLID": 542,
+                    "RLUSER": "HAIRONGXIAO",
+                    "RUSERNAME": "肖海蓉",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 6341,
+                    "RLID": 542,
+                    "RLUSER": "KWANG",
+                    "RUSERNAME": "汪凯",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                },
+                {
+                    "SERIALCOLUMN": 6261,
+                    "RLID": 542,
+                    "RLUSER": "NINGJUANDU",
+                    "RUSERNAME": "杜宁娟",
+                    "RDEF08": "",
+                    "RDDESC": "test"
+                }
+            ]
+        },
+        {
+            "SERIALCOLUMN": 543,
+            "RLNAME": "销售订单-2.总裁",
+            "data1": [
+                {
+                    "SERIALCOLUMN": 2122,
+                    "RLID": 543,
+                    "RLUSER": "LISALI",
+                    "RUSERNAME": "李诣书",
+                    "RDEF08": "",
+                    "RDDESC": ""
+                }
+            ]
+        }
+    ],
+    "code": 0,
+    "message": "SUCCESS",
+    "requestId": "dfd89f16-b8c8-11f0-9669-00163e33aba2",
+    "dbname": "ORA_BMS"
+}

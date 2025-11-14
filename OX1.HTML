@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生产和胚胎管理 - WH20967</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 使用一个常见的无衬线字体 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+        /* 确保表格在小屏幕上正确换行或滚动 */
+        th, td {
+            white-space: nowrap;
+            padding-left: 1.5rem; /* px-6 */
+            padding-right: 1.5rem; /* px-6 */
+            padding-top: 1rem; /* py-4 */
+            padding-bottom: 1rem; /* py-4 */
+        }
+        thead th {
+            padding-top: 0.75rem; /* py-3 */
+            padding-bottom: 0.75rem; /* py-3 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <div class="max-w-full mx-auto">
+        
+        <!-- 页面头部 -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6 max-w-7xl mx-auto">
+            <h1 class="text-2xl font-bold text-gray-800">牛号: WH20967</h1>
+            <p class="text-lg text-gray-600 mt-1">生产和胚胎管理数据总览</p>
+        </div>
+
+        <!-- 内容区域 -->
+        <div class="space-y-8">
+            <!-- 体外胚胎生产 (OPU/IVF) -->
+            <div id="ivf-content" class="bg-white shadow-md rounded-lg overflow-hidden">
+                <h2 class="text-xl font-semibold p-6 border-b border-gray-200 max-w-7xl mx-auto">体外胚胎生产 (OPU/IVF) 记录</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">采卵日期和时间</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">供体牛号</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">采集卵泡总数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">COCs总量</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">囊胚数量</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">囊胚率</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">技术员</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">数据员</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">辅助人员</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">本次是否选用</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作时间</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">左侧卵巢大小</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">右侧卵巢大小</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">左侧&lt;3mm卵泡穿刺数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">左侧3-5mm卵泡穿刺数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">左侧5-8mm卵泡穿刺数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">左侧&gt;8mm卵泡穿刺数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">右侧&lt;3mm卵泡穿刺数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">右侧3-5mm卵泡穿刺数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">右侧5-8mm卵泡穿刺数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">右侧&gt;8mm卵泡穿刺数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">采卵时长</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">备注</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">针头型号</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">回收液体</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">采卵压力</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">出血程度</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">环境温度</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">环境湿度</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保定效果</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">麻醉效果</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">超排时间</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">左侧卵泡数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">右侧卵泡数</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">大卵泡比例</th>
+                            </tr>
+                        </thead>
+                        <tbody id="op-ivf-tbody" class="bg-white divide-y divide-gray-200">
+                            <!-- JS 动态插入数据 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 体内胚胎生产 (MOET) -->
+            <div id="vivo-content" class="bg-white shadow-md rounded-lg overflow-hidden">
+                <h2 class="text-xl font-semibold p-6 border-b border-gray-200 max-w-7xl mx-auto">体内胚胎生产 (MOET) 记录</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">牛号</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">生产批号</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">A级桑椹胚数量</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">B级桑椹胚数量</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">A级囊胚数量</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">B级囊胚数量</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">可用胚胎数量</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">退化胚胎数量</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">未受精卵数量</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">左侧卵巢大小</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">右侧卵巢大小</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">左侧黄体数量</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">左侧/右侧黄体数量</th>
+                            </tr>
+                        </thead>
+                        <tbody id="op-vivo-tbody" class="bg-white divide-y divide-gray-200">
+                            <!-- JS 动态插入数据 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 胚胎移植 (ET) -->
+            <div id="et-content" class="bg-white shadow-md rounded-lg overflow-hidden">
+                <h2 class="text-xl font-semibold p-6 border-b border-gray-200 max-w-7xl mx-auto">胚胎移植 (ET) 记录</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">牛号</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">受体牛号</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">胚胎移植日期</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">孕检结果</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">胚胎种类</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">胚胎编号</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">生产批号</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">母牛号</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">公牛号</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">囊胚</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">胚胎品种</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">解冻前胚胎等级</th>
+                                <th class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">解冻后胚胎等级</th>
+                            </tr>
+                        </thead>
+                        <tbody id="op-et-tbody" class="bg-white divide-y divide-gray-200">
+                            <!-- JS 动态插入数据 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 提供的JSON数据
+        const cowData = {
+    "体外": [
+        {
+            "辅助人员": "",
+            "本次是否选用": "",
+            "供体牛号": "WH20967",
+            "数据员": "马迎峻",
+            "操作时间": "2024-07-11 23:03:57",
+            "采卵日期和时间": "2023-09-27 00:00:00",
+            "左侧卵巢大小": "1.5×2",
+            "右侧卵巢大小": "2*2.5",
+            "左侧<3mm卵泡穿刺数": "",
+            "左侧3-5mm卵泡穿刺数": "4",
+            "左侧5-8mm卵泡穿刺数": "",
+            "左侧>8mm卵泡穿刺数": "",
+            "右侧<3mm卵泡穿刺数": "",
+            "右侧3-5mm卵泡穿刺数": "8",
+            "右侧5-8mm卵泡穿刺数": "",
+            "右侧>8mm卵泡穿刺数": "",
+            "采卵时长": "6",
+            "技术员": "MINGLIZHAO,YINGJUNMA,JIAWEICHEN",
+            "备注": "马迎峻",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正",
+            "环境温度": "25",
+            "环境湿度": "0.4",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2023-09-24 07",
+            "左侧卵泡数": 4,
+            "右侧卵泡数": 8,
+            "采集卵泡总数": 12,
+            "大卵泡比例": "",
+            "囊胚数量": 2,
+            "COCs总量": 5,
+            "囊胚率": "40"
+        },
+        {
+            "辅助人员": ",MINGLIZHAO,BOZHOU,QINGCHENGYE",
+            "本次是否选用": "",
+            "供体牛号": "WH20967",
+            "数据员": "赵明礼",
+            "操作时间": "2023-11-08 15:07:25",
+            "采卵日期和时间": "2023-10-26 20:40",
+            "左侧卵巢大小": "2*2.5",
+            "右侧卵巢大小": "2*2.5",
+            "左侧<3mm卵泡穿刺数": "2",
+            "左侧3-5mm卵泡穿刺数": "4",
+            "左侧5-8mm卵泡穿刺数": "4",
+            "左侧>8mm卵泡穿刺数": "2",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "4",
+            "右侧5-8mm卵泡穿刺数": "6",
+            "右侧>8mm卵泡穿刺数": "4",
+            "采卵时长": "6",
+            "技术员": ",SHAOQIANGHAO",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "22",
+            "环境湿度": "40",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2023-10-23 07",
+            "左侧卵泡数": 12,
+            "右侧卵泡数": 14,
+            "采集卵泡总数": 26,
+            "大卵泡比例": "61.54",
+            "囊胚数量": 3,
+            "COCs总量": 6,
+            "囊胚率": "50"
+        },
+        {
+            "辅助人员": "",
+            "本次是否选用": "",
+            "供体牛号": "WH20967",
+            "数据员": "朱永盛",
+            "操作时间": "2023-12-07 14:19:56",
+            "采卵日期和时间": "2023-11-20 14:45",
+            "左侧卵巢大小": "1.5*2",
+            "右侧卵巢大小": "2.5*3",
+            "左侧<3mm卵泡穿刺数": "3",
+            "左侧3-5mm卵泡穿刺数": "5",
+            "左侧5-8mm卵泡穿刺数": "1",
+            "左侧>8mm卵泡穿刺数": "1",
+            "右侧<3mm卵泡穿刺数": "2",
+            "右侧3-5mm卵泡穿刺数": "5",
+            "右侧5-8mm卵泡穿刺数": "2",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "6",
+            "技术员": "MINGLIZHAO,YONGSHENGZHU",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "22",
+            "环境湿度": "35",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2023-11-17 07",
+            "左侧卵泡数": 10,
+            "右侧卵泡数": 9,
+            "采集卵泡总数": 19,
+            "大卵泡比例": "21.05",
+            "囊胚数量": 7,
+            "COCs总量": 9,
+            "囊胚率": "77.78"
+        },
+        {
+            "辅助人员": "",
+            "本次是否选用": "",
+            "供体牛号": "WH20967",
+            "数据员": "张德才",
+            "操作时间": "2024-07-11 23:03:57",
+            "采卵日期和时间": "2023-12-04 00:00:00",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "4",
+            "左侧5-8mm卵泡穿刺数": "8",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "3",
+            "右侧5-8mm卵泡穿刺数": "1",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "8",
+            "技术员": "SHAOQIANGHAO",
+            "备注": "张德才",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "55",
+            "出血程度": "正常",
+            "环境温度": "16",
+            "环境湿度": "2",
+            "保定效果": "好",
+            "麻醉效果": "好",
+            "超排时间": "2023-12-01 07",
+            "左侧卵泡数": 12,
+            "右侧卵泡数": 4,
+            "采集卵泡总数": 16,
+            "大卵泡比例": "56.25",
+            "囊胚数量": 3,
+            "COCs总量": 7,
+            "囊胚率": "42.86"
+        },
+        {
+            "辅助人员": "HAIYANGHAN",
+            "本次是否选用": "",
+            "供体牛号": "WH20967",
+            "数据员": "张德才",
+            "操作时间": "2024-07-11 23:03:57",
+            "采卵日期和时间": "2023-12-18 00:00:00",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "1",
+            "左侧3-5mm卵泡穿刺数": "8",
+            "左侧5-8mm卵泡穿刺数": "6",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "0",
+            "右侧5-8mm卵泡穿刺数": "4",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "7",
+            "技术员": "MINGLIZHAO",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "5",
+            "环境湿度": "55",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2023-12-15 07",
+            "左侧卵泡数": 15,
+            "右侧卵泡数": 4,
+            "采集卵泡总数": 19,
+            "大卵泡比例": "52.63",
+            "囊胚数量": 4,
+            "COCs总量": 6,
+            "囊胚率": "66.67"
+        },
+        {
+            "辅助人员": "HAIYANGHAN,RUININGWANG",
+            "本次是否选用": "",
+            "供体牛号": "WH20967",
+            "数据员": "张德才",
+            "操作时间": "2024-07-11 23:03:57",
+            "采卵日期和时间": "2024-01-04 00:00:00",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "1",
+            "左侧3-5mm卵泡穿刺数": "3",
+            "左侧5-8mm卵泡穿刺数": "3",
+            "左侧>8mm卵泡穿刺数": "1",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "0",
+            "右侧5-8mm卵泡穿刺数": "3",
+            "右侧>8mm卵泡穿刺数": "5",
+            "采卵时长": "8",
+            "技术员": "MINGLIZHAO",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "62",
+            "出血程度": "正常",
+            "环境温度": "16",
+            "环境湿度": "20",
+            "保定效果": "好",
+            "麻醉效果": "好",
+            "超排时间": "2024-01-01 07",
+            "左侧卵泡数": 8,
+            "右侧卵泡数": 8,
+            "采集卵泡总数": 16,
+            "大卵泡比例": "75",
+            "囊胚数量": 4,
+            "COCs总量": 6,
+            "囊胚率": "66.67"
+        },
+        {
+            "辅助人员": "HAIYANGHAN,YONGSHENGZHU",
+            "本次是否选用": "",
+            "供体牛号": "WH20967",
+            "数据员": "朱永盛",
+            "操作时间": "2024-02-05 17:12:04",
+            "采卵日期和时间": "2024-01-18 14:46",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2.5",
+            "左侧<3mm卵泡穿刺数": "2",
+            "左侧3-5mm卵泡穿刺数": "6",
+            "左侧5-8mm卵泡穿刺数": "5",
+            "左侧>8mm卵泡穿刺数": "3",
+            "右侧<3mm卵泡穿刺数": "3",
+            "右侧3-5mm卵泡穿刺数": "5",
+            "右侧5-8mm卵泡穿刺数": "5",
+            "右侧>8mm卵泡穿刺数": "3",
+            "采卵时长": "8",
+            "技术员": "MINGLIZHAO",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "0",
+            "环境湿度": "35",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-01-15 07",
+            "左侧卵泡数": 16,
+            "右侧卵泡数": 16,
+            "采集卵泡总数": 32,
+            "大卵泡比例": "50",
+            "囊胚数量": 1,
+            "COCs总量": 3,
+            "囊胚率": "33.33"
+        },
+        {
+            "辅助人员": "GULEGEI,HAIYANGHAN,LUOSENWANG,RUININGWANG,YONGSHENGZHU",
+            "本次是否选用": "",
+            "供体牛号": "WH20967",
+            "数据员": "毕佳颖",
+            "操作时间": "2024-07-11 23:03:57",
+            "采卵日期和时间": "2024-02-26 13:47:00",
+            "左侧卵巢大小": "2*2.5",
+            "右侧卵巢大小": "2*2.5",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "4",
+            "左侧5-8mm卵泡穿刺数": "4",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "2",
+            "右侧5-8mm卵泡穿刺数": "6",
+            "右侧>8mm卵泡穿刺数": "1",
+            "采卵时长": "5",
+            "技术员": "MINGLIZHAO,SHAOQIANGHAO",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "8",
+            "环境湿度": "55",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-02-23 07",
+            "左侧卵泡数": 8,
+            "右侧卵泡数": 9,
+            "采集卵泡总数": 17,
+            "大卵泡比例": "64.71",
+            "囊胚数量": 1,
+            "COCs总量": 5,
+            "囊胚率": "20"
+        },
+        {
+            "辅助人员": "HAIYANGHAN,SHAOQIANGHAO",
+            "本次是否选用": "",
+            "供体牛号": "WH20967",
+            "数据员": "赵金月",
+            "操作时间": "2024-04-19 11:13:18",
+            "采卵日期和时间": "2024-04-08 13:43",
+            "左侧卵巢大小": "1*1.5",
+            "右侧卵巢大小": "1*1.5",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "0",
+            "左侧5-8mm卵泡穿刺数": "2",
+            "左侧>8mm卵泡穿刺数": "1",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "2",
+            "右侧5-8mm卵泡穿刺数": "1",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "4",
+            "技术员": "DECAIZHANG",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "15",
+            "环境湿度": "60",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-04-05 07",
+            "左侧卵泡数": 3,
+            "右侧卵泡数": 3,
+            "采集卵泡总数": 6,
+            "大卵泡比例": "66.67",
+            "囊胚数量": 2,
+            "COCs总量": 5,
+            "囊胚率": "40"
+        },
+        {
+            "辅助人员": "HAIYANGHAN",
+            "本次是否选用": "",
+            "供体牛号": "WH20967",
+            "数据员": "毕佳颖",
+            "操作时间": "2024-07-11 23:03:57",
+            "采卵日期和时间": "2024-05-06 13:02:00",
+            "左侧卵巢大小": "1.5*2",
+            "右侧卵巢大小": "1.5*1.5",
+            "左侧<3mm卵泡穿刺数": "1",
+            "左侧3-5mm卵泡穿刺数": "4",
+            "左侧5-8mm卵泡穿刺数": "2",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "1",
+            "右侧3-5mm卵泡穿刺数": "3",
+            "右侧5-8mm卵泡穿刺数": "3",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "6",
+            "技术员": "DECAIZHANG",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "25",
+            "环境湿度": "60",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-05-03 07",
+            "左侧卵泡数": 7,
+            "右侧卵泡数": 7,
+            "采集卵泡总数": 14,
+            "大卵泡比例": "35.71",
+            "囊胚数量": 3,
+            "COCs总量": 7,
+            "囊胚率": "42.86"
+        },
+        {
+            "辅助人员": "RUININGWANG,YINGJUNMA",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "张德才",
+            "操作时间": "2024-08-30 09:59:23",
+            "采卵日期和时间": "2024-08-06 17:20:00",
+            "左侧卵巢大小": "1*1",
+            "右侧卵巢大小": "1*1",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "7",
+            "左侧5-8mm卵泡穿刺数": "0",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "4",
+            "右侧5-8mm卵泡穿刺数": "3",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "12",
+            "技术员": "JUNWEN",
+            "备注": "",
+            "针头型号": "27",
+            "回收液体": "",
+            "采卵压力": "57",
+            "出血程度": "正常",
+            "环境温度": "38",
+            "环境湿度": "87",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-08-04 07",
+            "左侧卵泡数": 7,
+            "右侧卵泡数": 7,
+            "采集卵泡总数": 14,
+            "大卵泡比例": "21.43",
+            "囊胚数量": 1,
+            "COCs总量": 7,
+            "囊胚率": "14.29"
+        },
+        {
+            "辅助人员": "HAIYANGHAN",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "毕力格",
+            "操作时间": "2024-11-08 13:03:52",
+            "采卵日期和时间": "2024-10-28 13:26",
+            "左侧卵巢大小": "2*1",
+            "右侧卵巢大小": "1.5*1",
+            "左侧<3mm卵泡穿刺数": "1",
+            "左侧3-5mm卵泡穿刺数": "8",
+            "左侧5-8mm卵泡穿刺数": "1",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "14",
+            "右侧5-8mm卵泡穿刺数": "1",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "7",
+            "技术员": "JUNWEN",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "50",
+            "出血程度": "正常",
+            "环境温度": "22",
+            "环境湿度": "40",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-10-25 08",
+            "左侧卵泡数": 10,
+            "右侧卵泡数": 15,
+            "采集卵泡总数": 25,
+            "大卵泡比例": "8",
+            "囊胚数量": 1,
+            "COCs总量": 9,
+            "囊胚率": "11.11"
+        },
+        {
+            "辅助人员": "HAIYANGHAN",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "文君",
+            "操作时间": "2024-11-26 14:53:05",
+            "采卵日期和时间": "2024-11-11 13:14",
+            "左侧卵巢大小": "1.5*1.5",
+            "右侧卵巢大小": "1*2",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "8",
+            "左侧5-8mm卵泡穿刺数": "2",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "16",
+            "右侧5-8mm卵泡穿刺数": "4",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "6",
+            "技术员": "JUNWEN",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "50",
+            "出血程度": "正常",
+            "环境温度": "21",
+            "环境湿度": "40",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-11-08 08",
+            "左侧卵泡数": 10,
+            "右侧卵泡数": 20,
+            "采集卵泡总数": 30,
+            "大卵泡比例": "20",
+            "囊胚数量": 6,
+            "COCs总量": 16,
+            "囊胚率": "37.5"
+        },
+        {
+            "辅助人员": "HAIYANGHAN,LUOSENWANG",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "文君",
+            "操作时间": "2024-12-09 09:40:26",
+            "采卵日期和时间": "2024-11-25 13:00",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "3",
+            "左侧5-8mm卵泡穿刺数": "6",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "5",
+            "右侧5-8mm卵泡穿刺数": "3",
+            "右侧>8mm卵泡穿刺数": "2",
+            "采卵时长": "7",
+            "技术员": "JUNWEN",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "50",
+            "出血程度": "正常",
+            "环境温度": "12",
+            "环境湿度": "35",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-11-22 08",
+            "左侧卵泡数": 9,
+            "右侧卵泡数": 10,
+            "采集卵泡总数": 19,
+            "大卵泡比例": "57.89",
+            "囊胚数量": 6,
+            "COCs总量": 9,
+            "囊胚率": "66.67"
+        },
+        {
+            "辅助人员": "HAIYANGHAN",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "文君",
+            "操作时间": "2024-12-19 11:17:24",
+            "采卵日期和时间": "2024-12-09 13:00",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "0",
+            "左侧5-8mm卵泡穿刺数": "5",
+            "左侧>8mm卵泡穿刺数": "6",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "0",
+            "右侧5-8mm卵泡穿刺数": "10",
+            "右側>8mm卵泡穿刺数": "0",
+            "采卵时长": "7",
+            "技术员": "JUNWEN",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "16",
+            "环境湿度": "30",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-12-06 08",
+            "左侧卵泡数": 11,
+            "右侧卵泡数": 10,
+            "采集卵泡总数": 21,
+            "大卵泡比例": "100",
+            "囊胚数量": 5,
+            "COCs总量": 7,
+            "囊胚率": "71.43"
+        },
+        {
+            "辅助人员": "HAIYANGHAN",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "文君",
+            "操作时间": "2024-12-31 11:46:48",
+            "采卵日期和时间": "2024-12-18 11:53",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "1",
+            "左侧5-8mm卵泡穿刺数": "5",
+            "左侧>8mm卵泡穿刺数": "2",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "3",
+            "右侧5-8mm卵泡穿刺数": "4",
+            "右侧>8mm卵泡穿刺数": "1",
+            "采卵时长": "7",
+            "技术员": "JUNWEN",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "25",
+            "环境湿度": "10",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-12-15 08",
+            "左侧卵泡数": 8,
+            "右侧卵泡数": 8,
+            "采集卵泡总数": 16,
+            "大卵泡比例": "75",
+            "囊胚数量": 4,
+            "COCs总量": 4,
+            "囊胚率": "100"
+        },
+        {
+            "辅助人员": "JUNWEN",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "文君",
+            "操作时间": "2024-10-24 14:50:54",
+            "采卵日期和时间": "2024.10.14",
+            "左侧卵巢大小": "1.5*1.5",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "9",
+            "左侧5-8mm卵泡穿刺数": "2",
+            "左侧>8mm卵泡穿刺数": "1",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "7",
+            "右侧5-8mm卵泡穿刺数": "3",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "7",
+            "技术员": "SHAOQIANGHAO",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "25",
+            "环境湿度": "50",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-10-11 20",
+            "左侧卵泡数": 12,
+            "右侧卵泡数": 10,
+            "采集卵泡总数": 22,
+            "大卵泡比例": "27.27",
+            "囊胚数量": 10,
+            "COCs总量": 12,
+            "囊胚率": "83.33"
+        },
+        {
+            "辅助人员": "MINGLIZHAO",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "文君",
+            "操作时间": "2025-01-14 16:29:09",
+            "采卵日期和时间": "2025-01-01 01:03",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "1",
+            "左侧5-8mm卵泡穿刺数": "6",
+            "左侧>8mm卵泡穿刺数": "3",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "4",
+            "右侧5-8mm卵泡穿刺数": "7",
+            "右侧>8mm卵泡穿刺数": "4",
+            "采卵时长": "7",
+            "技术员": "JUNWEN",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "6",
+            "环境湿度": "25",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2024-12-29 08",
+            "左侧卵泡数": 10,
+            "右侧卵泡数": 15,
+            "采集卵泡总数": 25,
+            "大卵泡比例": "80",
+            "囊胚数量": 5,
+            "COCs总量": 8,
+            "囊胚率": "62.5"
+        },
+        {
+            "辅助人员": "LUOSENWANG",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "文君",
+            "操作时间": "2025-03-03 15:38:39",
+            "采卵日期和时间": "2025-02-17 13:00",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "13",
+            "左侧5-8mm卵泡穿刺数": "0",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "10",
+            "右侧5-8mm卵泡穿刺数": "0",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "7",
+            "技术员": "JUNWEN",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "5",
+            "环境湿度": "20",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2025-02-14 07",
+            "左侧卵泡数": 13,
+            "右侧卵泡数": 10,
+            "采集卵泡总数": 23,
+            "大卵泡比例": "0",
+            "囊胚数量": 5,
+            "COCs总量": 7,
+            "囊胚率": "71.43"
+        },
+        {
+            "辅助人员": "LUOSENWANG,LIGEBI",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "文君",
+            "操作时间": "2025-03-19 10:03:08",
+            "采卵日期和时间": "2025-03-05 13:00",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "13",
+            "左侧5-8mm卵泡穿刺数": "0",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "10",
+            "右侧5-8mm卵泡穿刺数": "0",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "7",
+            "技术员": "JUNWEN,MINGLIZHAO",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "5",
+            "环境湿度": "20",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2025-03-02 07",
+            "左侧卵泡数": 13,
+            "右侧卵泡数": 10,
+            "采集卵泡总数": 23,
+            "大卵泡比例": "0",
+            "囊胚数量": null,
+            "COCs总量": 7,
+            "囊胚率": ""
+        },
+        {
+            "辅助人员": "DECAIZHANG",
+            "本次是否选用": "Y",
+            "供体牛号": "WH20967",
+            "数据员": "文君",
+            "操作时间": "2025-04-01 09:44:24",
+            "采卵日期和时间": "2025-03-18 13:00",
+            "左侧卵巢大小": "2*2",
+            "右侧卵巢大小": "2*2",
+            "左侧<3mm卵泡穿刺数": "0",
+            "左侧3-5mm卵泡穿刺数": "13",
+            "左侧5-8mm卵泡穿刺数": "0",
+            "左侧>8mm卵泡穿刺数": "0",
+            "右侧<3mm卵泡穿刺数": "0",
+            "右侧3-5mm卵泡穿刺数": "10",
+            "右侧5-8mm卵泡穿刺数": "0",
+            "右侧>8mm卵泡穿刺数": "0",
+            "采卵时长": "7",
+            "技术员": "JUNWEN",
+            "备注": "",
+            "针头型号": "20",
+            "回收液体": "",
+            "采卵压力": "60",
+            "出血程度": "正常",
+            "环境温度": "5",
+            "环境湿度": "20",
+            "保定效果": "正常",
+            "麻醉效果": "正常",
+            "超排时间": "2025-03-15 08",
+            "左侧卵泡数": 13,
+            "右侧卵泡数": 10,
+            "采集卵泡总数": 23,
+            "大卵泡比例": "0",
+            "囊胚数量": 13,
+            "COCs总量": 21,
+            "囊胚率": "61.9"
+        }
+    ],
+    "体内": [
+        {
+            "牛号": "WH20967",
+            "生产批号": "NHMC-WM2402",
+            "A级桑椹胚数量": "3",
+            "B级桑椹胚数量": "0",
+            "A级囊胚数量": "0",
+            "B级囊胚数量": "0",
+            "可用胚胎数量": "3",
+            "退化胚胎数量": "0",
+            "未受精卵数量": "0",
+            "左侧卵巢大小": "1*1",
+            "右侧卵巢大小": "1*1",
+            "左侧黄体数量": "3",
+            "左侧/右侧黄体数量": "3"
+        },
+        {
+            "牛号": "WH20967",
+            "生产批号": "NHMC-WM2403",
+            "A级桑椹胚数量": "0",
+            "B级桑椹胚数量": "1",
+            "A级囊胚数量": "1",
+            "B级囊胚数量": "0",
+            "可用胚胎数量": "2",
+            "退化胚胎数量": "0",
+            "未受精卵数量": "0",
+            "左侧卵巢大小": "1.5*1.5",
+            "右侧卵巢大小": "1.0*1.0",
+            "左侧黄体数量": "4",
+            "左侧/右侧黄体数量": "4"
+        },
+        {
+            "牛号": "WH20967",
+            "生产批号": "NHMC-WM2401",
+            "A级桑椹胚数量": "2",
+            "B级桑椹胚数量": "0",
+            "A级囊胚数量": "0",
+            "B级囊胚数量": "0",
+            "可用胚胎数量": "2",
+            "退化胚胎数量": "0",
+            "未受精卵数量": "0",
+            "左侧卵巢大小": "1*1",
+            "右侧卵巢大小": "0.5*0.5",
+            "左侧黄体数量": "2",
+            "左侧/右侧黄体数量": "1"
+        }
+    ],
+    "胚胎": [
+        {
+            "牛号": "WH20967",
+            "受体牛号": "WH20967",
+            "生产批号": "NHMC-AY2404",
+            "胚胎移植日期": "2024-03-12",
+            "胚胎种类": "体内冻胚",
+            "孕检结果": "空怀",
+            "胚胎编号": "BM1802-W048",
+            "母牛号": "W4540",
+            "公牛号": "GBWFD0010",
+            "囊胚": "CM",
+            "胚胎品种": "和牛胚胎",
+            "解冻前胚胎等级": "B",
+            "解冻后胚胎等级": "B"
+        },
+        {
+            "牛号": "WH20967",
+            "受体牛号": "WH20967",
+            "生产批号": "NHMC-AY2413",
+            "胚胎移植日期": "2024-05-20",
+            "胚胎种类": "体外冻胚",
+            "孕检结果": "空怀",
+            "胚胎编号": "NHMC-WO2406-026",
+            "母牛号": "WH23676",
+            "公牛号": "KJDFC0087",
+            "囊胚": "BL",
+            "胚胎品种": "和牛胚胎",
+            "解冻前胚胎等级": "B",
+            "解冻后胚胎等级": "A级"
+        },
+        {
+            "牛号": "WH20967",
+            "受体牛号": "WH20967",
+            "生产批号": "NHMC-WY2410",
+            "胚胎移植日期": "2024-06-26",
+            "胚胎种类": "体内冻胚",
+            "孕检结果": "怀孕",
+            "胚胎编号": "NHMC-WM2402-163",
+            "母牛号": "6585",
+            "公牛号": "KJDFC0087",
+            "囊胚": "BL",
+            "胚胎品种": "和牛胚胎",
+            "解冻前胚胎等级": "A",
+            "解冻后胚胎等级": "A"
+        },
+        {
+            "牛号": "WH20967",
+            "受体牛号": "WH20967",
+            "生产批号": "NHMC-WY2503",
+            "胚胎移植日期": "2025-02-20",
+            "胚胎种类": "体外冻胚",
+            "孕检结果": "返情",
+            "胚胎编号": "NHMC-WO2409-030",
+            "母牛号": "PK17479",
+            "公牛号": "BDWFM0495",
+            "囊胚": "BL",
+            "胚胎品种": "和牛胚胎",
+            "解冻前胚胎等级": "B",
+            "解冻后胚胎等级": "B"
+        },
+        {
+            "牛号": "WH20967",
+            "受体牛号": "WH20967",
+            "生产批号": "NHMC-WY2506",
+            "胚胎移植日期": "2025-03-14",
+            "胚胎种类": "体外冻胚",
+            "孕检结果": "空怀",
+            "胚胎编号": "NHMC-WO2504-005",
+            "母牛号": "WT4674",
+            "公牛号": "B-LQGX1",
+            "囊胚": "BL",
+            "胚胎品种": "和牛胚胎",
+            "解冻前胚胎等级": "B",
+            "解冻后胚胎等级": "B"
+        }
+    ],
+    "code": 0,
+    "message": "success",
+    "requestId": "e16afa1c-ba31-11f0-8505-00163e33aba2",
+    "dbname": "ORA_BMSLEAP_NEW"
+};
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 辅助函数：安全地获取数据
+            const safeData = (data) => data || 'N/A';
+            const safeNum = (data) => {
+                if (data === null || data === undefined || data === "") return 'N/A';
+                return data;
+            };
+
+            // 1. 加载“体外”数据
+            const ivfTbody = document.getElementById('op-ivf-tbody');
+            let ivfHtml = '';
+            cowData.体外.forEach(item => {
+                ivfHtml += `
+                    <tr class="hover:bg-gray-50 text-sm text-gray-700">
+                        <td>${safeData(item.采卵日期和时间)}</td>
+                        <td>${safeData(item.供体牛号)}</td>
+                        <td>${safeNum(item.采集卵泡总数)}</td>
+                        <td>${safeNum(item.COCs总量)}</td>
+                        <td>${safeNum(item.囊胚数量)}</td>
+                        <td>${safeData(item.囊胚率)}</td>
+                        <td class="text-gray-500">${safeData(item.技术员)}</td>
+                        <td class="text-gray-500">${safeData(item.数据员)}</td>
+                        <td class="text-gray-500">${safeData(item.辅助人员)}</td>
+                        <td>${safeData(item.本次是否选用)}</td>
+                        <td>${safeData(item.操作时间)}</td>
+                        <td>${safeData(item.左侧卵巢大小)}</td>
+                        <td>${safeData(item.右侧卵巢大小)}</td>
+                        <td>${safeData(item['左侧<3mm卵泡穿刺数'])}</td>
+                        <td>${safeData(item['左侧3-5mm卵泡穿刺数'])}</td>
+                        <td>${safeData(item['左侧5-8mm卵泡穿刺数'])}</td>
+                        <td>${safeData(item['左侧>8mm卵泡穿刺数'])}</td>
+                        <td>${safeData(item['右侧<3mm卵泡穿刺数'])}</td>
+                        <td>${safeData(item['右侧3-5mm卵泡穿刺数'])}</td>
+                        <td>${safeData(item['右侧5-8mm卵泡穿刺数'])}</td>
+                        <td>${safeData(item['右侧>8mm卵泡穿刺数'])}</td>
+                        <td>${safeData(item.采卵时长)}</td>
+                        <td class="text-gray-500">${safeData(item.备注)}</td>
+                        <td>${safeData(item.针头型号)}</td>
+                        <td>${safeData(item.回收液体)}</td>
+                        <td>${safeData(item.采卵压力)}</td>
+                        <td>${safeData(item.出血程度)}</td>
+                        <td>${safeData(item.环境温度)}</td>
+                        <td>${safeData(item.环境湿度)}</td>
+                        <td>${safeData(item.保定效果)}</td>
+                        <td>${safeData(item.麻醉效果)}</td>
+                        <td>${safeData(item.超排时间)}</td>
+                        <td>${safeNum(item.左侧卵泡数)}</td>
+                        <td>${safeNum(item.右侧卵泡数)}</td>
+                        <td>${safeData(item.大卵泡比例)}</td>
+                    </tr>
+                `;
+            });
+            ivfTbody.innerHTML = ivfHtml;
+
+            // 2. 加载“体内”数据
+            const vivoTbody = document.getElementById('op-vivo-tbody');
+            let vivoHtml = '';
+            cowData.体内.forEach(item => {
+                vivoHtml += `
+                    <tr class="hover:bg-gray-50 text-sm text-gray-700">
+                        <td>${safeData(item.牛号)}</td>
+                        <td>${safeData(item.生产批号)}</td>
+                        <td>${safeNum(item.A级桑椹胚数量)}</td>
+                        <td>${safeNum(item.B级桑椹胚数量)}</td>
+                        <td>${safeNum(item.A级囊胚数量)}</td>
+                        <td>${safeNum(item.B级囊胚数量)}</td>
+                        <td class="font-medium">${safeNum(item.可用胚胎数量)}</td>
+                        <td>${safeNum(item.退化胚胎数量)}</td>
+                        <td>${safeNum(item.未受精卵数量)}</td>
+                        <td>${safeData(item.左侧卵巢大小)}</td>
+                        <td>${safeData(item.右侧卵巢大小)}</td>
+                        <td>${safeNum(item.左侧黄体数量)}</td>
+                        <td>${safeNum(item['左侧/右侧黄体数量'])}</td>
+                    </tr>
+                `;
+            });
+            vivoTbody.innerHTML = vivoHtml;
+
+            // 3. 加载“胚胎”数据
+            const etTbody = document.getElementById('op-et-tbody');
+            let etHtml = '';
+            cowData.胚胎.forEach(item => {
+                // 根据孕检结果设置不同颜色
+                let pregStatusClass = 'text-gray-700';
+                if (item.孕检结果 === '怀孕') {
+                    pregStatusClass = 'text-green-600 font-semibold';
+                } else if (item.孕检结果 === '空怀' || item.孕检结果 === '返情') {
+                    pregStatusClass = 'text-red-600';
+                }
+
+                etHtml += `
+                    <tr class="hover:bg-gray-50 text-sm text-gray-700">
+                        <td>${safeData(item.牛号)}</td>
+                        <td>${safeData(item.受体牛号)}</td>
+                        <td>${safeData(item.胚胎移植日期)}</td>
+                        <td class="${pregStatusClass}">${safeData(item.孕检结果)}</td>
+                        <td>${safeData(item.胚胎种类)}</td>
+                        <td class="text-gray-500">${safeData(item.胚胎编号)}</td>
+                        <td class="text-gray-500">${safeData(item.生产批号)}</td>
+                        <td class="text-gray-500">${safeData(item.母牛号)}</td>
+                        <td class="text-gray-500">${safeData(item.公牛号)}</td>
+                        <td>${safeData(item.囊胚)}</td>
+                        <td>${safeData(item.胚胎品种)}</td>
+                        <td>${safeData(item.解冻前胚胎等级)}</td>
+                        <td>${safeData(item.解冻后胚胎等级)}</td>
+                    </tr>
+                `;
+            });
+            etTbody.innerHTML = etHtml;
+        });
+    </script>
+
+</body>
+</html>

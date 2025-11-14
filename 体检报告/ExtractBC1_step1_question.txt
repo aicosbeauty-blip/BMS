@@ -1,0 +1,19 @@
+你是一位专业的医疗数据分析专家。请仔细阅读这份体检报告PDF,并将其转换为结构化的JSON格式。
+
+**报告类型:** 健康评估报告 Schema (V3.3 显式类别定义)
+**说明:** 用于定义和验证健康评估报告的数据结构。V3.3: 重构 labResults 以显式定义每个 Category 包含的 TestItem 列表。为Category和TestItem增加了AIJudge和DoctorJudge字段。修正了与HTML不一致的缺失项。
+
+**重要说明:**
+请提取数据，根据附件JsonSchema 填充数据，
+对于不正常的检测项，请提供分析和建议，Json 中需要列出JsonSchema中定义的所有检测大类和检测项，没有提取到值则返回为""。对于异常数据，请提供分析原因和建议，放在AIJudge里面，如果没有值则放""。
+注意：DoctorJudge字段请保持为""。
+
+**!! 关键规则：检验项目名称映射 !!**
+这是最重要的规则：当处理 labResults（实验室检查）时，每个检验项 (items) 的 name 字段 **必须** 使用本 Schema definitions中定义的 **标准名称**，而不是 PDF 原文中的名称。
+
+你的任务是：
+1.  **语义匹配：** 在 PDF 中查找一个值（例如，PDF 上的 "CA242" 或 "LDL胆固醇"）。
+2.  **定位 Schema 定义：** 识别出这个值对应 Schema definitions中的哪一项（例如 item_CA242 或 item_LDL胆固醇）。
+3.  **强制替换名称：** 在输出 JSON 时，name 字段**必须**使用 Schema 定义中的那个标准 name（例如 "CA24-2" 或 "LDL-胆固醇"），然后将 PDF 中的 value填充进去。
+
+**必须严格按照以下JSON Schema返回数据:**

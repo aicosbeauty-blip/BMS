@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIR 成分安全评估系统 - 融合浓度版</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Inter 和 Noto Sans SC 字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入 Lucide 图标库 -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        /* 背景装饰 */
+        .bg-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+        }
+        
+        /* 玻璃态效果 */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* 卡片悬停效果 */
+        .info-card {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        /* 标题装饰线 */
+        .section-title-deco {
+            position: relative;
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .section-title-deco::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 70%;
+            width: 4px;
+            border-radius: 2px;
+        }
+        
+        .section-title-deco-purple::before { background: linear-gradient(180deg, #a855f7, #7c3aed); }
+        .section-title-deco-blue::before { background: linear-gradient(180deg, #3b82f6, #2563eb); }
+        .section-title-deco-green::before { background: linear-gradient(180deg, #22c55e, #16a34a); }
+        .section-title-deco-red::before { background: linear-gradient(180deg, #ef4444, #dc2626); }
+        .section-title-deco-orange::before { background: linear-gradient(180deg, #f97316, #ea580c); }
+        .section-title-deco-indigo::before { background: linear-gradient(180deg, #6366f1, #4f46e5); }
+        
+        /* 标签样式 */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .tag:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        .animate-slide-left {
+            animation: slideInLeft 0.6s ease-out;
+        }
+        .animate-slide-right {
+            animation: slideInRight 0.6s ease-out;
+        }
+        
+        /* 语言切换按钮 */
+        .lang-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #e5e7eb;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .lang-toggle.active {
+            background: #7c3aed;
+        }
+        .lang-toggle-switch {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 12px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .lang-toggle.active .lang-toggle-switch {
+            transform: translateX(30px);
+        }
+        
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #a855f7, #7c3aed);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #9333ea, #6d28d9);
+        }
+        
+        /* 快速跳转按钮 */
+        .quick-link {
+            transition: all 0.2s ease;
+        }
+        .quick-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .quick-link.active {
+            ring: 2px;
+            ring-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+        }
+        
+        /* 雷达图卡片特殊样式 */
+        .radar-card {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border: 2px solid rgba(124, 58, 237, 0.2);
+        }
+        
+        /* 滚动到视图高亮 */
+        .section-highlight {
+            scroll-margin-top: 100px;
+        }
+        
+        /* 浮动导航按钮 */
+        .floating-nav-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            box-shadow: 0 8px 16px rgba(124, 58, 237, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(124, 58, 237, 0.5);
+        }
+        
+        .floating-nav-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* 浮动导航菜单 */
+        .floating-nav-menu {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 999;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            padding: 12px;
+            min-width: 200px;
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .floating-nav-menu.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        
+        .floating-nav-menu a {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .floating-nav-menu a:last-child {
+            margin-bottom: 0;
+        }
+        
+        .floating-nav-menu a:hover {
+            transform: translateX(-4px);
+        }
+        
+        .floating-nav-menu a .flag {
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+        
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            z-index: 998;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* MODIFICATION: Added comparison table styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .comparison-table th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+        
+        .comparison-table th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #f9fafb;
+        }
+        /* END MODIFICATION */
+
+        /* 移动端优化 */
+        @media (max-width: 768px) {
+            .floating-nav-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 56px;
+                height: 56px;
+            }
+            
+            .floating-nav-menu {
+                bottom: 86px;
+                right: 20px;
+                max-width: calc(100vw - 40px);
+            }
+            
+            .back-to-top {
+                bottom: 96px;
+                right: 20px;
+                width: 44px;
+                height: 44px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-pattern">
+
+    <!-- 主容器 -->
+    <div class="min-h-screen p-4 md:p-6 lg:p-8">
+        
+        <!-- 顶部导航栏 -->
+        <nav class="glass-effect rounded-2xl shadow-2xl mb-6 animate-fade-in sticky top-4 z-50">
+            <div class="px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-4">
+                        <div class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-lg">
+                            <i data-lucide="shield-check" class="h-8 w-8 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">CIR 成分安全评估系统</h1>
+                            <p class="text-sm text-gray-600">Cosmetic Ingredient Review - Merged UI Edition</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <!-- 语言切换 -->
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-600 font-medium">中文</span>
+                            <div class="lang-toggle" id="langToggle">
+                                <div class="lang-toggle-switch"></div>
+                            </div>
+                            <span class="text-sm text-gray-600 font-medium">EN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 成分标题卡片 -->
+        <div class="glass-effect rounded-2xl shadow-2xl mb-6 overflow-hidden animate-slide-left">
+            <div class="h-2 bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500"></div>
+            <div class="p-6 md:p-8">
+                <div class="flex flex-wrap justify-between items-start gap-4">
+                    <div class="flex-1 min-w-[300px]">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                                    <span class="cn-content">1-羟乙基-4,5-二氨基吡唑硫酸盐</span>
+                                    <span class="en-content hidden">1-Hydroxyethyl 4,5-Diamino Pyrazole Sulfate</span>
+                                </h2>
+                                <p class="text-lg text-gray-600">
+                                    <span class="cn-content">1-Hydroxyethyl 4,5-Diamino Pyrazole Sulfate</span>
+                                    <span class="en-content hidden">1-羟乙基-4,5-二氨基吡唑硫酸盐</span>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- 标签区 -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tag bg-green-100 text-green-700">
+                                <i data-lucide="check-circle" class="h-4 w-4 mr-1"></i>
+                                <span class="cn-content">CIR 认证安全</span>
+                                <span class="en-content hidden">CIR Certified Safe</span>
+                            </span>
+                            <span class="tag bg-blue-100 text-blue-700">
+                                <i data-lucide="globe" class="h-4 w-4 mr-1"></i>
+                                <span class="cn-content">欧盟允许</span>
+                                <span class="en-content hidden">EU Allowed</span>
+                            </span>
+                            <span class="tag bg-purple-100 text-purple-700">
+                                <i data-lucide="droplet" class="h-4 w-4 mr-1"></i>
+                                <span class="cn-content">氧化型染发剂</span>
+                                <span class="en-content hidden">Oxidative Hair Dye</span>
+                            </span>
+                        </div>
+                        
+                        <!-- 基本信息网格 -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-3 border border-purple-200">
+                                <p class="text-xs text-purple-600 font-semibold mb-1">CAS Number</p>
+                                <p class="text-sm font-bold text-gray-900">155601-30-2</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-3 border border-blue-200">
+                                <p class="text-xs text-blue-600 font-semibold mb-1">
+                                    <span class="cn-content">配方类型</span>
+                                    <span class="en-content hidden">Formula Type</span>
+                                </p>
+                                <p class="text-sm font-bold text-gray-900">
+                                    <span class="cn-content">淋洗型 (染发)</span>
+                                    <span class="en-content hidden">Rinse-off (Dye)</span>
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-3 border border-green-200">
+                                <p class="text-xs text-green-600 font-semibold mb-1">
+                                    <span class="cn-content">法规浓度</span>
+                                    <span class="en-content hidden">Max Reg. Conc.</span>
+                                </p>
+                                <p class="text-sm font-bold text-gray-900">3.0% (EU)</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-3 border border-orange-200">
+                                <p class="text-xs text-orange-600 font-semibold mb-1">
+                                    <span class="cn-content">报告范围</span>
+                                    <span class="en-content hidden">Use Range</span>
+                                </p>
+                                <p class="text-sm font-bold text-gray-900">0.71%-4.8%</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 成分简介 -->
+                        <div class="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                <span class="cn-content"><strong class="text-blue-700">成分简介：</strong>1-羟乙基-4,5-二氨基吡唑硫酸盐是一种氧化型染发成分，作为前体与偶联剂反应在原位形成染料。用于染发剂和染发膏中，浓度范围为0.71%-4.8%。化妆品成分安全专家小组确认其在氧化型染发配方中目前的用途和浓度下是安全的。</span>
+                                <span class="en-content hidden"><strong class="text-blue-700">Introduction:</strong>1-Hydroxyethyl 4,5-Diamino Pyrazole Sulfate is an oxidative hair dye ingredient that acts as a precursor, reacting with couplers to form dyes in situ. Used in hair dyes at concentrations of 0.71%-4.8%. The Cosmetic Ingredient Safety Expert Panel confirmed it is safe for current use and concentration in oxidative hair dye formulations.</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 快速跳转导航 -->
+                    <div class="w-full lg:w-auto lg:min-w-[300px]">
+                        <h3 class="text-sm font-semibold text-gray-600 mb-3 flex items-center">
+                            <i data-lucide="compass" class="w-4 h-4 mr-2"></i>
+                            <span class="cn-content">快速跳转</span>
+                            <span class="en-content hidden">Quick Navigation</span>
+                        </h3>
+                        <div class="grid grid-cols-2 lg:grid-cols-1 gap-2">
+                            <a href="#overview" class="quick-link scroll-link px-4 py-2.5 bg-purple-100 text-purple-700 font-medium rounded-lg text-sm hover:bg-purple-200 transition-all text-left flex items-center">
+                                <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
+                                <span class="cn-content">成分概述</span>
+                                <span class="en-content hidden">Overview</span>
+                            </a>
+                            <a href="#toxicology" class="quick-link scroll-link px-4 py-2.5 bg-red-100 text-red-700 font-medium rounded-lg text-sm hover:bg-red-200 transition-all text-left flex items-center">
+                                <!-- MODIFICATION: Removed the invalid 'class_comment' attribute -->
+                                <i data-lucide="flask" class="w-4 h-4 mr-2"></i>
+                                <!-- END MODIFICATION -->
+                                <span class="cn-content">毒理学数据</span>
+                                <span class="en-content hidden">Toxicology</span>
+                            </a>
+                            <!-- 新增：详细浓度跳转 -->
+                            <a href="#concentration" class="quick-link scroll-link px-4 py-2.5 bg-orange-100 text-orange-700 font-medium rounded-lg text-sm hover:bg-orange-200 transition-all text-left flex items-center">
+                                <i data-lucide="percent" class="w-4 h-4 mr-2"></i>
+                                <span class="cn-content">详细浓度</span>
+                                <span class="en-content hidden">Concentration</span>
+                            </a>
+                            <!-- 结束新增 -->
+                            <!-- MODIFICATION: Replaced individual country links with one "Regulations" link -->
+                            <a href="#regulations" class="quick-link scroll-link px-4 py-2.5 bg-blue-100 text-blue-700 font-medium rounded-lg text-sm hover:bg-blue-200 transition-all text-left flex items-center" class_comment="[MODIFIED] Replaced country links">
+                                <i data-lucide="globe" class="w-4 h-4 mr-2"></i>
+                                <span class="cn-content">国际法规</span>
+                                <span class="en-content hidden">Regulations</span>
+                            </a>
+                            <!-- END MODIFICATION -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主内容区 - 分栏布局 -->
+        <div class="flex flex-col lg:flex-row gap-6">
+            
+            <!-- 左侧：平铺内容区（滚动查看） -->
+            <div class="flex-1 space-y-6 animate-slide-left" style="animation-delay: 0.2s;">
+                
+                <!-- 1. 成分概述 -->
+                <section id="overview" class="info-card glass-effect rounded-2xl shadow-2xl overflow-hidden p-6 md:p-8 section-highlight">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 section-title-deco section-title-deco-purple">
+                        <i data-lucide="info" class="w-6 h-6 mr-2"></i>
+                        <span class="cn-content">成分概述</span>
+                        <span class="en-content hidden">Ingredient Overview</span>
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 主要用途 -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                                <i data-lucide="target" class="w-5 h-5 mr-2 text-purple-600"></i>
+                                <span class="cn-content">主要用途</span>
+                                <span class="en-content hidden">Main Uses</span>
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start space-x-3 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                    <div class="p-2 bg-purple-200 rounded-lg">
+                                        <i data-lucide="droplet" class="h-5 w-5 text-purple-700"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-gray-900">
+                                            <span class="cn-content">氧化型染发剂</span>
+                                            <span class="en-content hidden">Oxidative Hair Dye</span>
+                                        </h5>
+                                        <p class="text-sm text-gray-600">
+                                            <span class="cn-content">作为前体与偶联剂反应生成色素</span>
+                                            <span class="en-content hidden">Acts as precursor with coupler</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <div class="p-2 bg-blue-200 rounded-lg">
+                                        <i data-lucide="palette" class="h-5 w-5 text-blue-700"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-gray-900">
+                                            <span class="cn-content">染发配方成分</span>
+                                            <span class="en-content hidden">Hair Dye Formulation</span>
+                                        </h5>
+                                        <p class="text-sm text-gray-600">
+                                            <span class="cn-content">用于永久性和半永久性染发产品</span>
+                                            <span class="en-content hidden">For permanent & semi-permanent dyes</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 产品分布 -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                                <i data-lucide="pie-chart" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <span class="cn-content">产品分布</span>
+                                <span class="en-content hidden">Product Distribution</span>
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-600">
+                                        <span class="cn-content">染发剂</span>
+                                        <span class="en-content hidden">Hair Dyes</span>
+                                    </span>
+                                    <span class="text-lg font-bold text-purple-600">68%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-600">
+                                        <span class="cn-content">染发膏</span>
+                                        <span class="en-content hidden">Hair Tints</span>
+                                    </span>
+                                    <span class="text-lg font-bold text-blue-600">32%</span>
+                                </div>
+                                <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                                    <p class="text-xs text-indigo-700">
+                                        <span class="cn-content">根据2016年VCRP数据，该成分用于135种配方中，其中133种为氧化性染发剂。</span>
+                                        <span class="en-content hidden">According to 2016 VCRP data, used in 135 formulations, 133 of which are oxidative hair dyes.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CIR 结论 -->
+                    <div class="mt-8 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-2 border-green-200 shadow-lg">
+                        <div class="flex items-start space-x-4">
+                            <div class="p-3 bg-green-200 rounded-xl">
+                                <i data-lucide="check-circle-2" class="h-7 w-7 text-green-700"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                                    <span class="cn-content">CIR 专家小组结论</span>
+                                    <span class="en-content hidden">CIR Expert Panel Conclusion</span>
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    <span class="cn-content">化妆品成分安全专家小组得出结论，1-羟乙基-4,5-二氨基吡唑硫酸盐在氧化型染发配方中目前的用途和浓度下是<strong class="text-green-700">安全的</strong>。专家小组指出预计不会发生N-亚硝化，并期望遵循所需的警示语和斑贴试验说明将识别出可能发生刺激/致敏反应的个体。</span>
+                                    <span class="en-content hidden">The Expert Panel for Cosmetic Ingredient Safety concluded that 1-Hydroxyethyl 4,5-Diamino Pyrazole Sulfate is <strong class="text-green-700">safe</strong> in oxidative hair dye formulations at current use levels and concentrations. The panel noted that N-nitrosation is not expected to occur.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 2. 毒理学数据 -->
+                <section id="toxicology" class="info-card glass-effect rounded-2xl shadow-2xl overflow-hidden p-6 md:p-8 section-highlight">
+                    <!-- MODIFICATION: Replaced h3 with a flex container for title and link -->
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 section-title-deco section-title-deco-red">
+                            <i data-lucide="flask-conical" class="w-6 h-6 mr-2"></i>
+                            <span class="cn-content">毒理学信息</span>
+                            <span class="en-content hidden">Toxicology Information</span>
+                        </h3>
+                        <!-- MODIFICATION: Added "View Details" link -->
+                        <a href="#" class_comment="[MODIFIED] Added link" class="flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                            <span class="cn-content">查看详细信息</span>
+                            <span class="en-content hidden">View Details</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </a>
+                    </div>
+                    <!-- END MODIFICATION -->
+                    
+                    <!-- (毒理学内容保持不变) -->
+                    <!-- NOAEL 总结 和 毒理学总结 -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <!-- NOAEL 总结 -->
+                        <div class="bg-orange-50 rounded-xl p-6 border-l-4 border-orange-500">
+                            <div class="flex justify-between items-baseline mb-4">
+                                <h4 class="text-lg font-bold text-gray-800 flex items-center">
+                                    <i data-lucide="clipboard-list" class="h-5 w-5 mr-2 text-orange-600"></i>
+                                    <span class="cn-content">NOAEL 总结</span>
+                                    <span class="en-content hidden">NOAEL Summary</span>
+                                </h4>
+                                <div class="text-right">
+                                    <span class="text-xs font-semibold text-gray-500 uppercase">
+                                        <span class="cn-content">NOAEL值:</span>
+                                        <span class="en-content hidden">NOAEL:</span>
+                                    </span>
+                                    <!-- MODIFICATION: Removed 'block' class to keep on one line -->
+                                    <span class="text-base font-bold text-orange-600 ml-1" class_comment="[MODIFIED] Removed 'block' and added 'ml-1'">
+                                        <span class="cn-content">未找到</span>
+                                        <span class="en-content hidden">Not Found</span>
+                                    </span>
+                                    <!-- END MODIFICATION -->
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg text-sm text-gray-700 leading-relaxed">
+                                <p class="cn-content">怀孕小鼠发育毒性研究显示，80 mg/kg/天剂量下无母体死亡，但155 mg/kg/天和315 mg/kg/天剂量下出现母体死亡和胎儿体重下降。所有剂量下均未观察到活胎数量或畸形。大鼠短期口服毒性研究显示，饮用水中10%植酸导致所有大鼠死亡，5%浓度组大部分雄性大鼠和一只雌性大鼠死亡。</p>
+                                <p class="en-content hidden">Developmental toxicity studies in pregnant mice showed no maternal deaths at 80 mg/kg/day, but maternal deaths and fetal weight reduction occurred at 155 mg/kg/day and 315 mg/kg/day.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 毒理学总结 -->
+                        <div class="bg-indigo-50 rounded-xl p-6 border-l-4 border-indigo-500">
+                            <h4 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                                <i data-lucide="file-text" class="h-5 w-5 mr-2 text-indigo-600"></i>
+                                <span class="cn-content">毒理学总结</span>
+                                <span class="en-content hidden">Toxicology Summary</span>
+                            </h4>
+                            <div class="bg-white p-4 rounded-lg text-sm text-gray-700 leading-relaxed space-y-2">
+                                <p class="cn-content">植酸在人体和大鼠中均观察到经皮吸收。口服吸收迅速，并广泛分布于肝脏、肾脏、肌肉和皮肤。急性口服LD50值在小鼠中为900-1150 mg/kg。体外遗传毒性试验在某些高浓度下呈阳性，但体内遗传毒性试验呈阴性。人体皮肤致敏性试验结果为阴性。</p>
+                                <p class="en-content hidden">Phytic acid was observed to be dermally absorbed in both humans and rats. Oral absorption is rapid and widely distributed. Acute oral LD50 values are 900-1150 mg/kg in mice.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- (毒理学详细数据保持不变) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class... (内容省略) ...</div>
+                    </div>
+                </section>
+                
+                <!-- 
+                ========================================
+                新增：详细浓度数据 (融合 浓度.html 的UI)
+                ========================================
+                -->
+                <section id="concentration" class="info-card glass-effect rounded-2xl shadow-2xl overflow-hidden p-6 md:p-8 section-highlight">
+                    <!-- MODIFICATION: Replaced h3 with a flex container for title and link -->
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 section-title-deco section-title-deco-orange">
+                            <i data-lucide="percent" class="w-6 h-6 mr-2"></i>
+                            <span class="cn-content">详细浓度数据</span>
+                            <span class="en-content hidden">Detailed Concentration Data</span>
+                        </h3>
+                        <!-- MODIFICATION: Added "View Details" link -->
+                        <a href="#" class_comment="[MODIFIED] Added link" class="flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                            <span class="cn-content">查看详细浓度数据</span>
+                            <span class="en-content hidden">View Detailed Data</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </a>
+                    </div>
+                    <!-- END MODIFICATION -->
+
+                    <!-- 1. 使用部位/用途限制区域 (Application Site Limits) -->
+                    <div class="mb-8">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <i data-lucide="map-pin" class="w-5 h-5 mr-2 text-orange-600"></i>
+                            <span class="cn-content">使用部位/用途限制区域</span>
+                            <span class="en-content hidden">Application Site Limits</span>
+                        </h4>
+                        <!-- 使用玻璃态效果 + grid 布局重构 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            
+                            <!-- 皮肤接触 -->
+                            <div class="p-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl transition-all hover:shadow-lg">
+                                <p class="text-lg font-bold text-gray-900 mb-2">
+                                    <span class="cn-content">皮肤接触 (染发)</span>
+                                    <span class="en-content hidden">Skin Contact (Hair Dye)</span>
+                                    - <span class="text-red-600">4.8%</span>
+                                </p>
+                                <div class="flex flex-wrap items-center gap-3 text-sm mb-1">
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full font-medium">
+                                        <span class="cn-content">范围: 0.71-4.8%</span>
+                                        <span class="en-content hidden">Range: 0.71-4.8%</span>
+                                    </span>
+                                </div>
+                                <p class="text-xs text-gray-500">
+                                    <span class="cn-content">数据来源: VCRP 2016</span>
+                                    <span class="en-content hidden">Source: VCRP 2016</span>
+                                </p>
+                            </div>
+
+                            <!-- 眼部区域 -->
+                            <div class="p-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl transition-all hover:shadow-lg">
+                                <p class="text-lg font-bold text-gray-900 mb-2">
+                                    <span class="cn-content">眼部区域</span>
+                                    <span class="en-content hidden">Eye Area</span>
+                                    - <span class="text-gray-500">
+                                        <span class="cn-content">禁止使用</span>
+                                        <span class="en-content hidden">Not Permitted</span>
+                                    </span>
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <span class="cn-content">法规要求：不得用于染眼睛或眉毛</span>
+                                    <span class="en-content hidden">Regulation: Do not use for eyelashes or eyebrows</span>
+                                </p>
+                            </div>
+
+                            <!-- 意外吸入 -->
+                            <div class="p-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl transition-all hover:shadow-lg">
+                                <p class="text-lg font-bold text-gray-900 mb-2">
+                                    <span class="cn-content">意外吸入 (喷雾/粉末)</span>
+                                    <span class="en-content hidden">Incidental Inhalation</span>
+                                     - <span class="text-gray-500">
+                                        <span class="cn-content">未报告</span>
+                                        <span class="en-content hidden">Not Reported</span>
+                                    </span>
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <span class="cn-content">主要用于非吸入性产品</span>
+                                    <span class="en-content hidden">Primarily used in non-inhalation products</span>
+                                </p>
+                            </div>
+
+                            <!-- 粘膜区域 -->
+                            <div class="p-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl transition-all hover:shadow-lg">
+                                <p class="text-lg font-bold text-gray-900 mb-2">
+                                    <span class="cn-content">粘膜区域</span>
+                                    <span class="en-content hidden">Mucous Membrane</span>
+                                    - <span class="text-gray-500">
+                                        <span class="cn-content">未报告</span>
+                                        <span class="en-content hidden">Not Reported</span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. 产品分类区域 (Product Category Limits) -->
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <i data-lucide="package" class="w-5 h-5 mr-2 text-orange-600"></i>
+                            <span class="cn-content">产品分类区域</span>
+                            <span class="en-content hidden">Product Category Limits</span>
+                        </h4>
+                        <!-- 使用 浓度.html 的三栏卡片布局，但应用玻璃态样式 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            
+                            <!-- Card 1: 氧化型染发剂 -->
+                            <div class="p-6 bg-purple-50/70 backdrop-blur-sm rounded-xl border border-purple-200 shadow-md">
+                                <p class="text-lg font-bold text-purple-700 mb-3">
+                                    <span class="cn-content">氧化型染发剂</span>
+                                    <span class="en-content hidden">Oxidative Dyes</span>
+                                </p>
+                                <div class="text-sm text-gray-800 space-y-4">
+                                    <div class="border-b border-purple-200 pb-3">
+                                        <p class="font-medium text-base mb-1">
+                                            <span class="cn-content">染发剂 (VCRP)</span>
+                                            <span class="en-content hidden">Hair Dyes (VCRP)</span>
+                                        </p>
+                                        <p class="text-xs text-gray-600">
+                                            <span class="cn-content">范围: 0.71-4.8%</span>
+                                            <span class="en-content hidden">Range: 0.71-4.8%</span>
+                                        </p>
+                                        <p>
+                                            <span class="cn-content">浓度:</span>
+                                            <span class="en-content hidden">Conc:</span>
+                                            <span class="font-bold text-red-600">4.8%</span>
+                                        </p>
+                                    </div>
+                                    <div class="border-b border-purple-200 pb-3">
+                                        <p class="font-medium text-base mb-1">
+                                            <span class="cn-content">法规限值 (EU/CN)</span>
+                                            <span class="en-content hidden">Regulatory Limit (EU/CN)</span>
+                                        </p>
+                                        <p class="text-xs text-gray-600">
+                                            <span class="cn-content">施用于头发</span>
+                                            <span class="en-content hidden">As applied to hair</span>
+                                        </p>
+                                        <p>
+                                            <span class="cn-content">浓度:</span>
+                                            <span class="en-content hidden">Conc:</span>
+                                            <span class="font-bold text-purple-700">3.0%</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2: 淋洗型 -->
+                            <div class="p-6 bg-green-50/70 backdrop-blur-sm rounded-xl border border-green-200 shadow-md">
+                                <p class="text-lg font-bold text-green-700 mb-3">
+                                    <span class="cn-content">淋洗型产品 (总)</span>
+                                    <span class="en-content hidden">Rinse-off (Total)</span>
+                                </p>
+                                <div class="text-sm text-gray-800 space-y-4">
+                                    <div class="border-b border-green-200 pb-3">
+                                        <p class="font-medium text-base mb-1">
+                                            <span class="cn-content">淋洗型产品</span>
+                                            <span class="en-content hidden">Rinse-off Products</span>
+                                        </p>
+                                        <p class="text-xs text-gray-600">
+                                            <span class="cn-content">共 135 种配方</span>
+                                            <span class="en-content hidden">135 Formulations Total</span>
+                                        </p>
+                                        <p>
+                                            <span class="cn-content">浓度:</span>
+                                            <span class="en-content hidden">Conc:</span>
+                                            <span class="font-bold text-green-700">0.71-4.8%</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 3: 未报告使用数据 -->
+                            <div class="p-6 bg-gray-100/70 backdrop-blur-sm rounded-xl border border-gray-300 shadow-md">
+                                <p class="text-lg font-bold text-gray-600 mb-3">
+                                    <span class="cn-content">未报告使用数据</span>
+                                    <span class="en-content hidden">Not Reported</span>
+                                </p>
+                                <div class="text-sm text-gray-800 space-y-4">
+                                     <div class="border-b border-gray-300 pb-3">
+                                        <p class="font-medium text-base mb-1">
+                                            <span class="cn-content">驻留型产品</span>
+                                            <span class="en-content hidden">Leave-on Products</span>
+                                        </p>
+                                        <p>
+                                            <span class="cn-content">状态:</span>
+                                            <span class="en-content hidden">Status:</span>
+                                            <span class="font-bold text-gray-500">
+                                                <span class="cn-content">未报告</span>
+                                                <span class="en-content hidden">Not Reported</span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                     <div class="border-b border-gray-300 pb-3">
+                                        <p class="font-medium text-base mb-1">
+                                            <span class="cn-content">婴儿产品</span>
+                                            <span class="en-content hidden">Baby Products</span>
+                                        </p>
+                                        <p>
+                                            <span class="cn-content">状态:</span>
+                                            <span class="en-content hidden">Status:</span>
+                                            <span class="font-bold text-gray-500">
+                                                <span class="cn-content">未报告</span>
+                                                <span class="en-content hidden">Not Reported</span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- 结束新增版块 -->
+                
+                <!-- 
+                ========================================
+                MODIFICATION: Replaced US, EU, CN sections with the comparison table
+                ========================================
+                -->
+                <section id="regulations" class="info-card glass-effect rounded-2xl shadow-2xl p-6 md:p-8 section-highlight" class_comment="[MODIFIED] Replaced all regulation sections with this one">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6 section-title-deco section-title-deco-blue">
+                        <i data-lucide="globe" class="w-6 h-6 mr-3 text-blue-600"></i>
+                        <span class="cn-content">国际法规浓度对比</span>
+                        <span class="en-content hidden">International Regulatory Comparison</span>
+                    </h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="cn-content">地区/国家</span>
+                                        <span class="en-content hidden">Region/Country</span>
+                                    </th>
+                                    <th>
+                                        <span class="cn-content">最高浓度</span>
+                                        <span class="en-content hidden">Max Concentration</span>
+                                    </th>
+                                    <th>
+                                        <span class="cn-content">产品类型</span>
+                                        <span class="en-content hidden">Product Type</span>
+                                    </th>
+                                    <th>
+                                        <span class="cn-content">特殊要求</span>
+                                        <span class="en-content hidden">Special Requirements</span>
+                                    </th>
+                                    <!-- MODIFICATION: Added details column header -->
+                                    <th class_comment="[MODIFIED] Added details column header">
+                                        <span class="cn-content">详情</span>
+                                        <span class="en-content hidden">Details</span>
+                                    </th>
+                                    <!-- END MODIFICATION -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center">
+                                            <span class="text-2xl mr-2">🇪🇺</span>
+                                            <span class="font-semibold">
+                                                <span class="cn-content">欧盟</span>
+                                                <span class="en-content hidden">EU</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td><span class="font-bold text-purple-600">3.0%</span></td>
+                                    <td>
+                                        <span class="cn-content">氧化型染发</span>
+                                        <span class="en-content hidden">Oxidative dye</span>
+                                    </td>
+                                    <td>
+                                        <span class="cn-content">需斑贴试验, 施用于头发</span>
+                                        <span class="en-content hidden">Patch test, As applied to hair</span>
+                                    </td>
+                                    <!-- MODIFICATION: Added details link cell -->
+                                    <td class_comment="[MODIFIED] Added details link cell">
+                                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                                            <span class="cn-content">查看详情</span>
+                                            <span class="en-content hidden">View</span>
+                                            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                                        </a>
+                                    </td>
+                                    <!-- END MODIFICATION -->
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center">
+                                            <span class="text-2xl mr-2">🇺🇸</span>
+                                            <span class="font-semibold">
+                                                <span class="cn-content">美国 (CIR)</span>
+                                                <span class="en-content hidden">USA (CIR)</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td><span class="font-bold text-blue-600">0.71-4.8%</span></td>
+                                    <td>
+                                        <span class="cn-content">氧化型染发</span>
+                                        <span class="en-content hidden">Oxidative dye</span>
+                                    </td>
+                                    <td>
+                                        <span class="cn-content">当前用途安全 (4.8%需稀释)</span>
+                                        <span class="en-content hidden">Safe as used (4.8% diluted)</span>
+                                    </td>
+                                    <!-- MODIFICATION: Added details link cell -->
+                                    <td class_comment="[MODIFIED] Added details link cell">
+                                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                                            <span class="cn-content">查看详情</span>
+                                            <span class="en-content hidden">View</span>
+                                            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                                        </a>
+                                    </td>
+                                    <!-- END MODIFICATION -->
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center">
+                                            <span class="text-2xl mr-2">🇨🇳</span>
+                                            <span class="font-semibold">
+                                                <span class="cn-content">中国</span>
+                                                <span class="en-content hidden">China</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td><span class="font-bold text-red-600">1.5%</span></td>
+                                    <td>
+                                        <span class="cn-content">氧化型染发</span>
+                                        <span class="en-content hidden">Oxidative dye</span>
+                                    </td>
+                                    <td>
+                                        <span class="cn-content">与氧化剂混合后施于头发</span>
+                                        <span class="en-content hidden">Mixed with oxidant, on hair</span>
+                                    </td>
+                                    <!-- MODIFICATION: Added details link cell -->
+                                    <td class_comment="[MODIFIED] Added details link cell">
+                                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                                            <span class="cn-content">查看详情</span>
+                                            <span class="en-content hidden">View</span>
+                                            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                                        </a>
+                                    </td>
+                                    <!-- END MODIFICATION -->
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center">
+                                            <span class="text-2xl mr-2">🇯🇵</span>
+                                            <span class="font-semibold">
+                                                <span class="cn-content">日本</span>
+                                                <span class="en-content hidden">Japan</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td><span class="font-bold text-gray-600">N/A</span></td>
+                                    <td>
+                                        <span class="cn-content">N/A</span>
+                                        <span class="en-content hidden">N/A</span>
+                                    </td>
+                                    <!-- MODIFICATION: Added details link cell -->
+                                    <td class_comment="[MODIFIED] Added details link cell">
+                                        <a href="#" class="flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                                            <span class="cn-content">查看详情</span>
+                                            <span class="en-content hidden">View</span>
+                                            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                                        </a>
+                                    </td>
+                                    <!-- END MODIFICATION -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-sm text-blue-800 flex items-start">
+                            <i data-lucide="info" class="w-5 h-5 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>
+                                <span class="cn-content"><strong>注意：</strong>不同国家和地区对该成分的浓度限制存在差异。出口产品时请务必遵守目标市场的法规要求。中国的限制(1.5%)是混合后施于头发的浓度。</span>
+                                <span class="en-content hidden"><strong>Note:</strong> Concentration limits vary by country/region. Always comply with target market regulations. China's limit (1.5%) refers to the concentration applied to hair after mixing.</span>
+                            </span>
+                        </p>
+                    </div>
+                </section>
+                <!-- END MODIFICATION -->
+                
+            </div>
+            
+            <!-- 
+            ========================================
+            右侧：更新侧边栏 (融合 浓度.html 的UI)
+            ========================================
+            -->
+            <div class="w-full lg:w-[380px] space-y-6 animate-slide-right sticky top-24 self-start" style="animation-delay: 0.3s;">
+                
+                <!-- 新增：浓度速览卡片 (替换旧的) -->
+                <div class="glass-effect rounded-2xl shadow-2xl p-6 bg-gradient-to-br from-purple-50 to-pink-50">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                        <i data-lucide="zap" class="w-5 h-5 mr-2 text-purple-600"></i>
+                        <span class="cn-content">浓度速览</span>
+                        <span class="en-content hidden">Concentration Quick-View</span>
+                    </h3>
+                    
+                    <!-- 融合 浓度.html 的三卡片布局 -->
+                    <div class="grid grid-cols-1 gap-4">
+                        <!-- AbsoluteMax (报告最高) -->
+                        <div class="info-card bg-white p-5 border-t-4 border-red-500 rounded-lg shadow-lg">
+                            <p class="text-sm text-red-600 font-bold uppercase mb-1">
+                                <span class="cn-content">绝对最高浓度 (报告值)</span>
+                                <span class="en-content hidden">Absolute Max (Reported)</span>
+                            </p>
+                            <p class="text-4xl font-extrabold text-red-600">4.8%</p>
+                            <p class="text-xs text-gray-600 mt-2">
+                                <span class="cn-content">来自 VCRP 2016 报告的最高值</span>
+                                <span class="en-content hidden">Highest value from VCRP 2016 report</span>
+                            </p>
+                        </div>
+
+                        <!-- RegulatoryMax (法规限值) -->
+                        <div class="info-card bg-white p-5 border-t-4 border-purple-600 rounded-lg shadow-lg">
+                            <p class="text-sm text-purple-600 font-bold uppercase mb-1">
+                                <span class="cn-content">法规最高限值 (EU/CN)</span>
+                                <span class="en-content hidden">Max Regulatory Limit (EU/CN)</span>
+                            </p>
+                            <p class="text-4xl font-extrabold text-purple-600">3.0%</p>
+                            <p class="text-xs text-gray-600 mt-2">
+                                <span class="cn-content">施用于头发上的最高浓度</span>
+                                <span class="en-content hidden">Max concentration as applied to hair</span>
+                            </p>
+                        </div>
+
+                        <!-- MODIFICATION: Added Rinse-off card -->
+                        <div class="info-card bg-white p-5 border-t-4 border-green-500 rounded-lg shadow-lg" class_comment="[MODIFIED] Added this card">
+                            <p class="text-sm text-green-600 font-bold uppercase mb-1">
+                                <span class="cn-content">淋洗类产品 (报告范围)</span>
+                                <span class="en-content hidden">Rinse-off (Reported Range)</span>
+                            </p>
+                            <p class="text-3xl font-extrabold text-green-600">0.71-4.8%</p>
+                            <p class="text-xs text-gray-600 mt-2">
+                                <span class="cn-content">来自 VCRP 2016 报告</span>
+                                <span class="en-content hidden">From VCRP 2016 Report</span>
+                            </p>
+                        </div>
+                        <!-- END MODIFICATION -->
+
+                        <!-- LeaveOnMax (驻留型) -->
+                        <div class="info-card bg-white p-5 border-t-4 border-gray-400 rounded-lg shadow-lg">
+                            <p class="text-sm text-gray-500 font-bold uppercase mb-1">
+                                <span class="cn-content">驻留型产品</span>
+                                <span class="en-content hidden">Leave-on Products</span>
+                            </p>
+                            <p class="text-4xl font-extrabold text-gray-500">
+                                <span class="cn-content">未报告</span>
+                                <span class="en-content hidden">N/A</span>
+                            </p>
+                            <p class="text-xs text-gray-600 mt-2">
+                                <span class="cn-content">该成分不用于驻留型产品</span>
+                                <span class="en-content hidden">Ingredient not used in leave-on products</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 结束新增卡片 -->
+
+                <!-- 雷达图卡片 (保留) -->
+                <div class="radar-card glass-effect rounded-2xl shadow-2xl p-6 overflow-hidden">
+                    <h3 class="flex items-center space-x-2 text-lg font-bold text-gray-800 mb-4">
+                        <i data-lucide="radar" class="w-5 h-5 text-purple-600"></i>
+                        <span class="cn-content">毒理学概览</span>
+                        <span class="en-content hidden">Toxicology Overview</span>
+                    </h3>
+                    <div class="relative w-full h-[280px]">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-xs text-gray-600 text-center">
+                        <span class="cn-content">数据来源：毒理学分析报告</span>
+                        <span class="en-content hidden">Source: Toxicology Report</span>
+                    </div>
+                </div>
+                
+                <!-- 移除了旧的 "安全使用浓度" 和 "关键信息" 卡片 -->
+                
+            </div>
+        </div>
+        
+        <!-- 底部信息栏 -->
+        <div class="glass-effect rounded-2xl shadow-xl mt-6 p-4 animate-fade-in" style="animation-delay: 0.4s;">
+            <div class="flex flex-wrap justify-between items-center text-sm text-gray-600 gap-4">
+                <div class="flex items-center flex-wrap gap-4">
+                    <span class="flex items-center">
+                        <i data-lucide="database" class="w-4 h-4 mr-1"></i>
+                        <span class="cn-content">数据来源：CIR专家评估 & 各国法规数据库</span>
+                        <span class="en-content hidden">Source: CIR Assessment & Regulatory Databases</span>
+                    </span>
+                    <span>•</span>
+                    <span class="flex items-center">
+                        <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
+                        <span class="cn-content">最后更新：2024年3月</span>
+                        <span class="en-content hidden">Last Updated: March 2024</span>
+                    </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-xs text-gray-500">
+                        <span class="cn-content">版本: Merged UI v1.0</span>
+                        <span class="en-content hidden">Version: Merged UI v1.0</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 浮动导航按钮 -->
+        <div class="floating-nav-btn" id="floatingNavBtn" title="快速导航">
+            <i data-lucide="menu" class="w-6 h-6 text-white"></i>
+        </div>
+        
+        <!-- 浮动导航菜单 -->
+        <div class="floating-nav-menu" id="floatingNavMenu">
+            <a href="#overview" class="nav-menu-link bg-purple-50 hover:bg-purple-100 text-purple-700">
+                <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
+                <span class="cn-content">成分概述</span>
+                <span class="en-content hidden">Overview</span>
+            </a>
+            <a href="#toxicology" class="nav-menu-link bg-red-50 hover:bg-red-100 text-red-700">
+                <i data-lucide="flask" class="w-4 h-4 mr-2"></i>
+                <span class="cn-content">毒理学数据</span>
+                <span class="en-content hidden">Toxicology</span>
+            </a>
+            <!-- 新增：详细浓度跳转 -->
+            <a href="#concentration" class="nav-menu-link bg-orange-50 hover:bg-orange-100 text-orange-700">
+                <i data-lucide="percent" class="w-4 h-4 mr-2"></i>
+                <span class="cn-content">详细浓度</span>
+                <span class="en-content hidden">Concentration</span>
+            </a>
+            <!-- MODIFICATION: Replaced country links with one "Regulations" link -->
+            <a href="#regulations" class="nav-menu-link bg-blue-50 hover:bg-blue-100 text-blue-700" class_comment="[MODIFIED] Replaced country links">
+                <i data-lucide="globe" class="w-4 h-4 mr-2"></i>
+                <span class="cn-content">国际法规</span>
+                <span class="en-content hidden">Regulations</span>
+            </a>
+            <!-- END MODIFICATION -->
+        </div>
+        
+        <!-- 返回顶部按钮 -->
+        <div class="back-to-top" id="backToTop" title="返回顶部">
+            <i data-lucide="arrow-up" class="w-5 h-5 text-gray-700"></i>
+        </div>
+    </div>
+
+    <!-- JavaScript 交互功能 -->
+    <script>
+        // 初始化 Lucide 图标
+        lucide.createIcons();
+
+        // 语言切换功能
+        const langToggle = document.getElementById('langToggle');
+        const cnContents = document.querySelectorAll('.cn-content');
+        const enContents = document.querySelectorAll('.en-content');
+        let isEnglish = false;
+
+        langToggle.addEventListener('click', () => {
+            isEnglish = !isEnglish;
+            langToggle.classList.toggle('active');
+            
+            cnContents.forEach(el => {
+                el.classList.toggle('hidden', isEnglish);
+            });
+            enContents.forEach(el => {
+                el.classList.toggle('hidden', !isEnglish);
+            });
+        });
+
+        // 平滑滚动和高亮显示
+        const scrollLinks = document.querySelectorAll('.scroll-link');
+        const sections = document.querySelectorAll('.section-highlight');
+
+        scrollLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    // 滚动到目标
+                    targetSection.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                    
+                    // 更新活动状态
+                    scrollLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // 滚动监听 - 自动高亮当前章节
+        const observerOptions = {
+            root: null,
+            rootMargin: '-100px 0px -80% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    scrollLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+
+        // 浮动导航功能
+        const floatingNavBtn = document.getElementById('floatingNavBtn');
+        const floatingNavMenu = document.getElementById('floatingNavMenu');
+        const navMenuLinks = document.querySelectorAll('.nav-menu-link');
+        const backToTop = document.getElementById('backToTop');
+        let isMenuOpen = false;
+
+        // 切换浮动菜单
+        floatingNavBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isMenuOpen = !isMenuOpen;
+            floatingNavMenu.classList.toggle('active', isMenuOpen);
+            
+            // 切换图标
+            const icon = floatingNavBtn.querySelector('i');
+            if (isMenuOpen) {
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        });
+
+        // 点击菜单链接后关闭菜单
+        navMenuLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                    
+                    // 关闭菜单
+                    isMenuOpen = false;
+                    floatingNavMenu.classList.remove('active');
+                    const icon = floatingNavBtn.querySelector('i');
+                    icon.setAttribute('data-lucide', 'menu');
+                    lucide.createIcons();
+                }
+            });
+        });
+
+        // 点击页面其他地方关闭菜单
+        document.addEventListener('click', (e) => {
+            if (!floatingNavMenu.contains(e.target) && !floatingNavBtn.contains(e.target)) {
+                if (isMenuOpen) {
+                    isMenuOpen = false;
+                    floatingNavMenu.classList.remove('active');
+                    const icon = floatingNavBtn.querySelector('i');
+                    icon.setAttribute('data-lucide', 'menu');
+                    lucide.createIcons();
+                }
+            }
+        });
+
+        // 返回顶部功能
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 滚动时显示/隐藏返回顶部按钮
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 显示/隐藏返回顶部按钮
+            if (scrollTop > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // 雷达图绘制函数
+        function drawRadarChart() {
+            const ctx = document.getElementById('radarChart')?.getContext('2d');
+            if (!ctx) return;
+
+            const data = {
+                labels: [
+                    '经皮渗透\nDermal', 
+                    '口服毒性\nOral', 
+                    '遗传毒性\nGeno', 
+                    '致癌性\nCarcino', 
+                    '发育毒性\nDevel', 
+                    '刺激性\nIrrit'
+                ],
+                datasets: [{
+                    label: '毒性等级 (1=低, 2=中, 3=高)',
+                    data: [1, 3, 2, 3, 2, 3],
+                    backgroundColor: 'rgba(124, 58, 237, 0.2)',
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: 'rgba(124, 58, 237, 1)',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(124, 58, 237, 1)',
+                    pointHoverRadius: 7
+                }]
+            };
+
+            new Chart(ctx, {
+                type: 'radar',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 3,
+                            ticks: {
+                                stepSize: 1,
+                                backdropColor: 'transparent',
+                                color: '#6b7280',
+                                font: {
+                                    size: 11,
+                                    weight: 'bold'
+                                }
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 11,
+                                    family: 'Inter',
+                                    weight: '600'
+                                },
+                                color: '#374151'
+                            },
+                            grid: {
+                                color: '#e5e7eb',
+                                lineWidth: 2
+                            },
+                            angleLines: {
+                                color: '#d1d5db',
+                                lineWidth: 2
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            titleFont: {
+                                size: 13,
+                                weight: 'bold'
+                            },
+                            bodyFont: {
+                                size: 12
+                            },
+                            callbacks: {
+                                label: function(context) {
+                                    const labels = ['低风险', '中等风险', '高风险'];
+                                    return labels[context.parsed.r - 1] || '';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 页面加载初始化
+        window.addEventListener('load', () => {
+            // 绘制雷达图
+            drawRadarChart();
+            
+            // 页面加载动画
+            const elements = document.querySelectorAll('.animate-fade-in, .animate-slide-left, .animate-slide-right');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
